@@ -25,6 +25,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@sinclair/typebox": "^0.33.15",
+    "ajv": "^8.17.1",
     "commander": "^12.1.0"
   }
 }

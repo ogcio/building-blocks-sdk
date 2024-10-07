@@ -8,4 +8,4 @@ program
   .version("0.0.1")
   .addCommand(updateClientsCommand);
 
-program.parse(process.argv);
+program.parseAsync(process.argv);
