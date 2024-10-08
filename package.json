@@ -4,9 +4,13 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
+  "bin": {
+    "building-blocks-cli": "dist/cli/index.js"
+  },
   "scripts": {
     "dev": "node --import=tsx --watch src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf dist && tsc -p tsconfig.prod.json"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.3",
@@ -19,5 +23,11 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "@sinclair/typebox": "^0.33.15",
+    "commander": "^12.1.0",
+    "openapi-typescript": "^7.4.1",
+    "yaml": "^2.5.1"
+  }
 }
