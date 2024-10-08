@@ -1,10 +1,13 @@
 import fs from "node:fs";
 import { resolve } from "node:path";
-import { type Static, Type } from "@sinclair/typebox";
-import { Value } from "@sinclair/typebox/value";
 import { Command } from "commander";
 import openapiTS, { astToString } from "openapi-typescript";
 import { parse } from "yaml";
+import {
+  type ConfigurationBuildingBlock,
+  OpenAPIFileFormats,
+  readConfigurationFile,
+} from "./clients-configurations/read-configuration-file.js";
 
 /**
  * This command, starting from a json configuration file,
@@ -13,43 +16,10 @@ import { parse } from "yaml";
  * then creates the Typescript schema and stores it in the same folder
  */
 
-enum OpenAPIFileFormats {
-  JSON = "json",
-  YAML = "yaml",
-}
-
-export const ClientsConfigurationSchema = Type.Object({
-  name: Type.String(),
-  openApiDefinitionUrl: Type.String(),
-  openApiDefinitionFormat: Type.Enum(OpenAPIFileFormats),
-});
-
-export type ClientsConfiguration = Static<typeof ClientsConfigurationSchema>;
-
-export const ConfigurationFileSchema = Type.Object({
-  buildingBlocks: Type.Array(ClientsConfigurationSchema),
-});
-export type ConfigurationFile = Static<typeof ConfigurationFileSchema>;
-
 const CLIENTS_ROOT_FOLDER_PATH = "src/clients";
 
 function getAbsolutePathFromOption(...relativeInputPath: string[]): string {
   return resolve(process.cwd(), ...relativeInputPath);
-}
-
-async function readConfigurationFile(
-  configurationFilePath: string,
-): Promise<ConfigurationFile> {
-  const { default: rawConfigurationFile } = await import(
-    configurationFilePath,
-    {
-      assert: {
-        type: "json",
-      },
-    }
-  );
-
-  return Value.Parse(ConfigurationFileSchema, rawConfigurationFile);
 }
 
 async function getOpenApiDefinitionFileContent(
@@ -72,7 +42,7 @@ async function getOpenApiDefinitionFileContent(
 
 async function storeOpenApiDefinitionFile({
   inputBuildingBlock,
-}: { inputBuildingBlock: ClientsConfiguration }): Promise<{
+}: { inputBuildingBlock: ConfigurationBuildingBlock }): Promise<{
   filePath: string;
   fileContent: string;
   buildingBlockFolder: string;
@@ -129,7 +99,7 @@ async function storeSchema({
 
 async function processBuildingBlock({
   inputBuildingBlock,
-}: { inputBuildingBlock: ClientsConfiguration }): Promise<void> {
+}: { inputBuildingBlock: ConfigurationBuildingBlock }): Promise<void> {
   const storedDefinition = await storeOpenApiDefinitionFile({
     inputBuildingBlock,
   });
@@ -146,7 +116,7 @@ async function updateClients({
   const configurationFile = await readConfigurationFile(configurationFilePath);
 
   const promises: Promise<void>[] = [];
-  for (const inputBuilding of configurationFile.buildingBlocks) {
+  for (const inputBuilding of Object.values(configurationFile.buildingBlocks)) {
     promises.push(processBuildingBlock({ inputBuildingBlock: inputBuilding }));
   }
 
