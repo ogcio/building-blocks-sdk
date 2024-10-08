@@ -50,6 +50,17 @@
         "payments:payment_request.public:read",
         "payments:transaction:*"
       ]
+    },
+    {
+      "name": "scheduler-api",
+      "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/life-events/refs/heads/dev/apps/scheduler-api/openapi-definition.yml",
+      "openApiDefinitionFormat": "yaml",
+      "citizenPermissions": ["scheduler:jobs:write"],
+      "publicServantPermissions": [
+        "urn:logto:scope:organizations",
+        "urn:logto:scope:organization_roles",
+        "scheduler:jobs:write"
+      ]
     }
   ]
 }
