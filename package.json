@@ -11,8 +11,13 @@
     "clients:update": "npm run build && node dist/cli/index.js clients:update -c src/cli/clients-configurations/clients-configuration.json"
   },
   "dependencies": {
+    "@sinclair/typebox": "^0.33.15",
     "@logto/node": "^2.5.7",
-    "openapi-fetch": "^0.12.2"
+    "commander": "^12.1.0",
+    "http-errors": "^2.0.0",
+    "openapi-fetch": "^0.12.2",
+    "openapi-typescript": "^7.4.1",
+    "yaml": "^2.5.1"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.3",
@@ -26,12 +31,5 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "@sinclair/typebox": "^0.33.15",
-    "commander": "^12.1.0",
-    "http-errors": "^2.0.0",
-    "openapi-typescript": "^7.4.1",
-    "yaml": "^2.5.1"
-  }
+  "description": ""
 }
