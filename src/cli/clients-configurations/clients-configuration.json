@@ -4,8 +4,21 @@
       "name": "messaging-api",
       "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/life-events/refs/heads/dev/apps/messaging-api/openapi-definition.yml",
       "openApiDefinitionFormat": "yaml",
-      "citizenPermissions": ["messaging:message.self:read"],
-      "publicServantPermissions": ["messaging:message:*"]
+      "citizenPermissions": [
+        "messaging:message.self:read",
+        "messaging:message.self:write",
+        "messaging:citizen.self:read",
+        "messaging:citizen.self:write"
+      ],
+      "publicServantPermissions": [
+        "urn:logto:scope:organizations",
+        "urn:logto:scope:organization_roles",
+        "messaging:message:*",
+        "messaging:provider:*",
+        "messaging:template:*",
+        "messaging:citizen:*",
+        "messaging:event:read"
+      ]
     }
   ]
 }
