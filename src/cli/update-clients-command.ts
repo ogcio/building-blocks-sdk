@@ -6,6 +6,13 @@ import { Command } from "commander";
 import openapiTS, { astToString } from "openapi-typescript";
 import { parse } from "yaml";
 
+/**
+ * This command, starting from a json configuration file,
+ * downloads the open-API definition file,
+ * stores it in a folder with the building block name,
+ * then creates the Typescript schema and stores it in the same folder
+ */
+
 enum OpenAPIFileFormats {
   JSON = "json",
   YAML = "yaml",
