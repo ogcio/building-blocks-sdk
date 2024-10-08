@@ -31,6 +31,25 @@
         "upload:file:*",
         "profile:user:read"
       ]
+    },
+    {
+      "name": "payments-api",
+      "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/life-events/refs/heads/dev/apps/payments-api/openapi-definition.yml",
+      "openApiDefinitionFormat": "yaml",
+      "citizenPermissions": [
+        "payments:transaction.self:read",
+        "payments:payment_request.public:read",
+        "payments:transaction.self:write",
+        "payments:provider.public:read"
+      ],
+      "publicServantPermissions": [
+        "urn:logto:scope:organizations",
+        "urn:logto:scope:organization_roles",
+        "payments:provider:*",
+        "payments:payment_request:*",
+        "payments:payment_request.public:read",
+        "payments:transaction:*"
+      ]
     }
   ]
 }
