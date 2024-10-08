@@ -4,8 +4,84 @@
       "name": "messaging-api",
       "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/life-events/refs/heads/dev/apps/messaging-api/openapi-definition.yml",
       "openApiDefinitionFormat": "yaml",
-      "citizenPermissions": ["messaging:message.self:read"],
-      "publicServantPermissions": ["messaging:message:*"]
+      "citizenPermissions": [
+        "messaging:message.self:read",
+        "messaging:message.self:write",
+        "messaging:citizen.self:read",
+        "messaging:citizen.self:write"
+      ],
+      "publicServantPermissions": [
+        "urn:logto:scope:organizations",
+        "urn:logto:scope:organization_roles",
+        "messaging:message:*",
+        "messaging:provider:*",
+        "messaging:template:*",
+        "messaging:citizen:*",
+        "messaging:event:read"
+      ]
+    },
+    {
+      "name": "upload-api",
+      "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/life-events/refs/heads/dev/apps/upload-api/openapi-definition.yml",
+      "openApiDefinitionFormat": "yaml",
+      "citizenPermissions": ["upload:file.self:write", "upload:file.self:read"],
+      "publicServantPermissions": [
+        "urn:logto:scope:organizations",
+        "urn:logto:scope:organization_roles",
+        "upload:file:*",
+        "profile:user:read"
+      ]
+    },
+    {
+      "name": "payments-api",
+      "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/life-events/refs/heads/dev/apps/payments-api/openapi-definition.yml",
+      "openApiDefinitionFormat": "yaml",
+      "citizenPermissions": [
+        "payments:transaction.self:read",
+        "payments:payment_request.public:read",
+        "payments:transaction.self:write",
+        "payments:provider.public:read"
+      ],
+      "publicServantPermissions": [
+        "urn:logto:scope:organizations",
+        "urn:logto:scope:organization_roles",
+        "payments:provider:*",
+        "payments:payment_request:*",
+        "payments:payment_request.public:read",
+        "payments:transaction:*"
+      ]
+    },
+    {
+      "name": "scheduler-api",
+      "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/life-events/refs/heads/dev/apps/scheduler-api/openapi-definition.yml",
+      "openApiDefinitionFormat": "yaml",
+      "citizenPermissions": ["scheduler:jobs:write"],
+      "publicServantPermissions": [
+        "urn:logto:scope:organizations",
+        "urn:logto:scope:organization_roles",
+        "scheduler:jobs:write"
+      ]
+    },
+    {
+      "name": "profile-api",
+      "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/life-events/refs/heads/dev/apps/profile-api/openapi-definition.yml",
+      "openApiDefinitionFormat": "yaml",
+      "citizenPermissions": [
+        "profile:user.self:read",
+        "profile:user.self:write",
+        "profile:address.self:read",
+        "profile:address.self:write",
+        "profile:entitlement.self:read",
+        "profile:entitlement.self:write",
+        "profile:user:read"
+      ],
+      "publicServantPermissions": [
+        "urn:logto:scope:organizations",
+        "urn:logto:scope:organization_roles",
+        "profile:user:*",
+        "profile:address:*",
+        "profile:entitlement:*"
+      ]
     }
   ]
 }
