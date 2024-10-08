@@ -61,6 +61,27 @@
         "urn:logto:scope:organization_roles",
         "scheduler:jobs:write"
       ]
+    },
+    {
+      "name": "profile-api",
+      "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/life-events/refs/heads/dev/apps/profile-api/openapi-definition.yml",
+      "openApiDefinitionFormat": "yaml",
+      "citizenPermissions": [
+        "profile:user.self:read",
+        "profile:user.self:write",
+        "profile:address.self:read",
+        "profile:address.self:write",
+        "profile:entitlement.self:read",
+        "profile:entitlement.self:write",
+        "profile:user:read"
+      ],
+      "publicServantPermissions": [
+        "urn:logto:scope:organizations",
+        "urn:logto:scope:organization_roles",
+        "profile:user:*",
+        "profile:address:*",
+        "profile:entitlement:*"
+      ]
     }
   ]
 }
