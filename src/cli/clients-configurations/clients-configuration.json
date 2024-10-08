@@ -19,6 +19,18 @@
         "messaging:citizen:*",
         "messaging:event:read"
       ]
+    },
+    {
+      "name": "upload-api",
+      "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/life-events/refs/heads/dev/apps/upload-api/openapi-definition.yml",
+      "openApiDefinitionFormat": "yaml",
+      "citizenPermissions": ["upload:file.self:write", "upload:file.self:read"],
+      "publicServantPermissions": [
+        "urn:logto:scope:organizations",
+        "urn:logto:scope:organization_roles",
+        "upload:file:*",
+        "profile:user:read"
+      ]
     }
   ]
 }
