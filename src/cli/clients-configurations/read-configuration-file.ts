@@ -40,6 +40,11 @@ export async function readConfigurationFile(
 
   const parsedFile = Value.Parse(InputFileSchema, rawConfigurationFile);
 
+  // Why do not directly create an object where the service name
+  // is the key in the configuration file instead of an array?
+  // To avoid having unexpected behaviours on naming
+  // e.g. Adding a "messaging-api" entry could return
+  // "messagingApi" when parsing
   const outputFile: ConfigurationFile = { buildingBlocks: {} };
   for (const parsedBlock of parsedFile.buildingBlocks) {
     outputFile.buildingBlocks[parsedBlock.name] = parsedBlock;
