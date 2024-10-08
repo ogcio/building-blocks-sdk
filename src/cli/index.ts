@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import { Command, program } from "commander";
-import updateClientsCommand from "./updateClientsCommand.js";
+import { program } from "commander";
+import updateClientsCommand from "./update-clients-command.js";
 
 program
   .name("building-blocks-cli")
