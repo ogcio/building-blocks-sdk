@@ -2,7 +2,7 @@
   "buildingBlocks": [
     {
       "name": "messaging-api",
-      "openApiDefinitionUrl": "https://localhost:3002",
+      "openApiDefinitionUrl": "/Users/samuelesalvatico/Nearform/Repositories/life-events/azure_pipelines.yml",
       "openApiDefinitionFormat": "yaml"
     }
   ]
