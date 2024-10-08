@@ -2,7 +2,7 @@
   "buildingBlocks": [
     {
       "name": "messaging-api",
-      "openApiDefinitionUrl": "/Users/samuelesalvatico/Nearform/Repositories/life-events/azure_pipelines.yml",
+      "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/life-events/refs/heads/dev/apps/messaging-api/openapi-definition.yml",
       "openApiDefinitionFormat": "yaml"
     }
   ]

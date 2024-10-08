@@ -3,6 +3,7 @@ import { resolve } from "node:path";
 import { type Static, Type } from "@sinclair/typebox";
 import { Value } from "@sinclair/typebox/value";
 import { Command } from "commander";
+import openapiTS, { astToString } from "openapi-typescript";
 import { parse } from "yaml";
 
 enum OpenAPIFileFormats {
@@ -81,6 +82,22 @@ async function processBuildingBlock({
   if (!fs.existsSync(folderFullPath)) {
     fs.mkdirSync(folderFullPath, { recursive: true });
   }
+
+  const stringifiedOpenApi = JSON.stringify(openApiParsed, null, 2);
+
+  // TODO Add the following logic: backup the old file if exists, so to restore in case of error
+  fs.writeFileSync(
+    getAbsolutePathFromOption(folderFullPath, "open-api-definition.json"),
+    stringifiedOpenApi,
+  );
+
+  const parser = await openapiTS(stringifiedOpenApi);
+  const parsedSchema = astToString(parser);
+
+  fs.writeFileSync(
+    getAbsolutePathFromOption(folderFullPath, "schema.d.ts"),
+    parsedSchema,
+  );
 }
 
 async function processBuildingBlocks({
