@@ -4,9 +4,6 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
-  "bin": {
-    "building-blocks-cli": "dist/cli/index.js"
-  },
   "scripts": {
     "dev": "node --import=tsx --watch src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
