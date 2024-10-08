@@ -63,50 +63,74 @@ async function getOpenApiDefinitionFileContent(
   );
 }
 
-async function processBuildingBlock({
+async function storeOpenApiDefinitionFile({
   inputBuildingBlock,
-}: { inputBuildingBlock: ClientsConfiguration }): Promise<void> {
-  const openApiContent = await getOpenApiDefinitionFileContent(
+}: { inputBuildingBlock: ClientsConfiguration }): Promise<{
+  filePath: string;
+  fileContent: string;
+  buildingBlockFolder: string;
+}> {
+  const downloadedFileContent = await getOpenApiDefinitionFileContent(
     inputBuildingBlock.openApiDefinitionUrl,
   );
   const openApiParsed =
     inputBuildingBlock.openApiDefinitionFormat === OpenAPIFileFormats.JSON
-      ? JSON.parse(openApiContent)
-      : parse(openApiContent);
+      ? JSON.parse(downloadedFileContent)
+      : parse(downloadedFileContent);
 
-  const folderFullPath = getAbsolutePathFromOption(
+  const serviceFolderPath = getAbsolutePathFromOption(
     CLIENTS_ROOT_FOLDER_PATH,
     inputBuildingBlock.name,
   );
 
-  if (!fs.existsSync(folderFullPath)) {
-    fs.mkdirSync(folderFullPath, { recursive: true });
+  if (!fs.existsSync(serviceFolderPath)) {
+    fs.mkdirSync(serviceFolderPath, { recursive: true });
   }
 
   const stringifiedOpenApi = JSON.stringify(openApiParsed, null, 2);
-
+  const storedDefinitionFilePath = getAbsolutePathFromOption(
+    serviceFolderPath,
+    "open-api-definition.json",
+  );
   // TODO Add the following logic: backup the old file if exists, so to restore in case of error
-  fs.writeFileSync(
-    getAbsolutePathFromOption(folderFullPath, "open-api-definition.json"),
-    stringifiedOpenApi,
-  );
+  fs.writeFileSync(storedDefinitionFilePath, stringifiedOpenApi);
 
-  const parser = await openapiTS(stringifiedOpenApi);
-  const parsedSchema = astToString(parser);
-
-  fs.writeFileSync(
-    getAbsolutePathFromOption(folderFullPath, "schema.d.ts"),
-    parsedSchema,
-  );
+  return {
+    fileContent: stringifiedOpenApi,
+    filePath: storedDefinitionFilePath,
+    buildingBlockFolder: serviceFolderPath,
+  };
 }
 
-async function processBuildingBlocks({
-  inputBuildingBlocks,
-}: { inputBuildingBlocks: ClientsConfiguration[] }): Promise<void> {
-  const promises: Promise<void>[] = [];
-  for (const inputBuilding of inputBuildingBlocks) {
-    promises.push(processBuildingBlock({ inputBuildingBlock: inputBuilding }));
-  }
+async function storeSchema({
+  openApiDefinitionContent,
+  buildingBlockFolder,
+}: { openApiDefinitionContent: string; buildingBlockFolder: string }): Promise<{
+  schemaFilePath: string;
+}> {
+  const parser = await openapiTS(openApiDefinitionContent);
+  const parsedSchema = astToString(parser);
+  const schemaFilePath = getAbsolutePathFromOption(
+    buildingBlockFolder,
+    "schema.d.ts",
+  );
+  // TODO Add the following logic: backup the old file if exists, so to restore in case of error
+  fs.writeFileSync(schemaFilePath, parsedSchema);
+
+  return { schemaFilePath };
+}
+
+async function processBuildingBlock({
+  inputBuildingBlock,
+}: { inputBuildingBlock: ClientsConfiguration }): Promise<void> {
+  const storedDefinition = await storeOpenApiDefinitionFile({
+    inputBuildingBlock,
+  });
+
+  await storeSchema({
+    openApiDefinitionContent: storedDefinition.fileContent,
+    buildingBlockFolder: storedDefinition.buildingBlockFolder,
+  });
 }
 
 async function updateClients({
@@ -114,9 +138,12 @@ async function updateClients({
 }: { configurationFilePath: string }): Promise<void> {
   const configurationFile = await readConfigurationFile(configurationFilePath);
 
-  processBuildingBlocks({
-    inputBuildingBlocks: configurationFile.buildingBlocks,
-  });
+  const promises: Promise<void>[] = [];
+  for (const inputBuilding of configurationFile.buildingBlocks) {
+    promises.push(processBuildingBlock({ inputBuildingBlock: inputBuilding }));
+  }
+
+  await Promise.all(promises);
 }
 
 const updateClientsCommand = new Command("clients:update");
