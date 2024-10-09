@@ -89,7 +89,7 @@ async function storeSchema({
   const parsedSchema = astToString(parser);
   const schemaFilePath = getAbsolutePathFromOption(
     buildingBlockFolder,
-    "schema.d.ts",
+    "schema.ts",
   );
   // TODO Add the following logic: backup the old file if exists, so to restore in case of error
   fs.writeFileSync(schemaFilePath, parsedSchema);
