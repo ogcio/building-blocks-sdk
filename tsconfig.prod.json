@@ -1,4 +1,4 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": ["__tests__", "dist", "src/cli"]
+  "exclude": ["__tests__", "dist", "src/cli", "src/client/auth/index.ts"]
 }
