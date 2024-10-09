@@ -114,7 +114,15 @@ async function checkClients({
     );
   }
 
-  await Promise.all(promises);
+  const bbStatuses = await Promise.all(promises);
+  const outdated = bbStatuses.filter((bb) => bb === true);
+  if (outdated.length) {
+    throw new Error(
+      `The following building blocks are outdated: ${outdated.join(", ")}`,
+    );
+  }
+
+  log("All the building blocks are updated!");
 }
 const checkClientsCommand = new Command("clients:check");
 checkClientsCommand
@@ -129,7 +137,6 @@ checkClientsCommand
   .action(async (options: { configurationFilePath: string }) => {
     log("Started!");
     await checkClients(options);
-    log("Ended!");
   });
 
 export default checkClientsCommand;
