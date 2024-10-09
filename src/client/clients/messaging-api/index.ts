@@ -1,4 +1,4 @@
-import { BadRequest, NotFound } from "http-errors";
+import createError from "http-errors";
 import {
   type PaginationParams,
   preparePaginationParams,
@@ -115,13 +115,13 @@ export class Messaging {
     vars: Record<string, string | null | undefined>,
   ) {
     if (language.length === 0) {
-      throw BadRequest("no language provided");
+      throw createError.BadRequest("no language provided");
     }
 
     const message = messages.find((m) => m.language === language);
 
     if (!message) {
-      throw NotFound(`template not found for language ${language}`);
+      throw createError.NotFound(`template not found for language ${language}`);
     }
 
     const illegalValueKeys: string[] = [];
@@ -133,7 +133,7 @@ export class Messaging {
     }
 
     if (illegalValueKeys.length) {
-      throw BadRequest(
+      throw createError.BadRequest(
         `illegal empty variables ${illegalValueKeys.join(", ")}`,
       );
     }
@@ -163,7 +163,7 @@ export class Messaging {
     }
 
     if (illegalVariables.length) {
-      throw BadRequest(
+      throw createError.BadRequest(
         `illegal template variables ${illegalVariables.join(", ")}`,
       );
     }
