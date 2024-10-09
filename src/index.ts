@@ -1,60 +1,117 @@
-import BaseClient from "./client/BaseClient.js";
-import UploadClient from "./client/clients/upload-api/index.js";
-import type { BuildingBlockSDKParams } from "./types/index.js";
+import Messaging from "./client/clients/messaging-api/index.js";
+import Payments from "./client/clients/payments-api/index.js";
+import Profile from "./client/clients/profile-api/index.js";
+import Scheduler from "./client/clients/scheduler-api/index.js";
+import Upload from "./client/clients/upload-api/index.js";
 
-const buildClient = (params: BuildingBlockSDKParams) => {
-  console.log("builder");
+import {
+  type BuildingBlockSDKParams,
+  RESOURCES,
+  type SDK,
+  type SDKClientParams,
+  type TokenFunction,
+} from "./types/index.js";
 
-  for (const [service, config] of Object.entries(params.services)) {
-    console.log({ service }, { config });
+const buildClient = ({
+  params,
+  serviceName,
+  getTokenFn,
+}: {
+  params?: SDKClientParams;
+  serviceName: RESOURCES;
+  getTokenFn?: TokenFunction;
+}) => {
+  switch (serviceName) {
+    case RESOURCES.MESSAGING: {
+      return new Messaging({
+        ...params,
+        serviceName: RESOURCES.MESSAGING,
+        getTokenFn,
+      });
+    }
+    case RESOURCES.PAYMENTS: {
+      return new Payments({
+        ...params,
+        serviceName: RESOURCES.PAYMENTS,
+        getTokenFn,
+      });
+    }
+    case RESOURCES.PROFILE: {
+      return new Profile({
+        ...params,
+        serviceName: RESOURCES.PROFILE,
+        getTokenFn,
+      });
+    }
+    case RESOURCES.SCHEDULER: {
+      return new Scheduler({
+        ...params,
+        serviceName: RESOURCES.SCHEDULER,
+        getTokenFn,
+      });
+    }
+    case RESOURCES.UPLOAD: {
+      return new Upload({
+        ...params,
+        serviceName: RESOURCES.UPLOAD,
+        getTokenFn,
+      });
+    }
+    default: {
+      const _exaustiveCheck: never = serviceName;
+      throw new Error(`Unexpected client required: ${_exaustiveCheck}`);
+    }
   }
-  return null;
-  //   return {
-  //     upload: new UploadClient(),
-  //   };
 };
 
-const BuildingBlockSDK = buildClient({
+const buildSDK = (params: BuildingBlockSDKParams) => {
+  const { services, getTokenFn } = params;
+
+  const sdk: SDK = {
+    messaging: new Messaging({
+      ...services.messaging,
+      serviceName: RESOURCES.MESSAGING,
+      getTokenFn,
+    }),
+    payments: new Payments({
+      ...services.payments,
+      serviceName: RESOURCES.PAYMENTS,
+      getTokenFn,
+    }),
+    profile: new Profile({
+      ...services.payments,
+      serviceName: RESOURCES.PAYMENTS,
+      getTokenFn,
+    }),
+    scheduler: new Scheduler({
+      ...services.scheduler,
+      serviceName: RESOURCES.PROFILE,
+      getTokenFn,
+    }),
+    upload: new Upload({
+      ...services.upload,
+      serviceName: RESOURCES.UPLOAD,
+      getTokenFn,
+    }),
+  };
+
+  return sdk;
+};
+
+const sdk = buildSDK({
   services: {
-    UPLOAD: {
+    upload: {
       baseUrl: "http://localhost:8008",
-      m2m: {
-        getOrganizationTokenParams: {
-          applicationId: "upl1wqp66oisjwcjyder9",
-          applicationSecret: "uploader_local_secret",
-          logtoOidcEndpoint: "http://localhost:3301/oidc",
-          organizationId: "ogcio",
-          scopes: ["upload:file:*"],
-        },
-      },
     },
+  },
+  getTokenFn: async (serviceName: string) => {
+    console.log("authenticating", serviceName);
+    return "token";
   },
 });
 
-// this is the m2m example
-// const sdk = new UploadClient({
-//   baseUrl: "http://localhost:8008",
-//   m2m: {
-//     getOrganizationTokenParams: {
-//       applicationId: "upl1wqp66oisjwcjyder9",
-//       applicationSecret: "uploader_local_secret",
-//       logtoOidcEndpoint: "http://localhost:3301/oidc",
-//       organizationId: "ogcio",
-//       scopes: ["upload:file:*"],
-//     },
-//   },
-// });
-
-// this the external token retrieval example
-// const sdk = new UploadClient({
-//   baseUrl: "http://localhost:8008",
-//   getTokenFn: ((thevar: string) => () => {
-//     return thevar;
-//   })("thisVal"),
-// });
-
-// (async () => {
-//   await sdk.authenticate();
-//   const data = await sdk.getFilesMetadata();
-//   console.log({ data });
-// })();
+(async () => {
+  await sdk.upload.authenticate();
+  const data = await sdk.upload.getFilesMetadata();
+  console.log({ data });
+})();
