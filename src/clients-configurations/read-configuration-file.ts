@@ -26,6 +26,14 @@ type ConfigurationFile = {
   buildingBlocks: { [x: string]: ConfigurationBuildingBlock };
 };
 
+function ensureBuildingBlockNameIsValid(bbName: string) {
+  const regex = /^[a-zA-Z]+$/g;
+  if (!regex.test(bbName))
+    throw new Error(
+      `A building block name can only contain letters, ${bbName} is not valid`,
+    );
+}
+
 export async function readConfigurationFile(
   configurationFilePath: string,
 ): Promise<ConfigurationFile> {
@@ -47,6 +55,7 @@ export async function readConfigurationFile(
   // "messagingApi" when parsing
   const outputFile: ConfigurationFile = { buildingBlocks: {} };
   for (const parsedBlock of parsedFile.buildingBlocks) {
+    ensureBuildingBlockNameIsValid(parsedBlock.name);
     outputFile.buildingBlocks[parsedBlock.name] = parsedBlock;
   }
 
