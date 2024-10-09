@@ -55,13 +55,16 @@ async function storeOpenApiDefinitionFile({
   buildingBlockFolder: string;
   fileBackup: FileBackup;
 }> {
+  log(`${inputBuildingBlock.name} - Downloading Open API definition file`);
   const downloadedFileContent = await getOpenApiDefinitionFileContent(
     inputBuildingBlock.openApiDefinitionUrl,
   );
+  log(`${inputBuildingBlock.name} - Open API definition file downloaded`);
   const openApiParsed =
     inputBuildingBlock.openApiDefinitionFormat === OpenAPIFileFormats.JSON
       ? JSON.parse(downloadedFileContent)
       : parse(downloadedFileContent);
+  log(`${inputBuildingBlock.name} - Open API definition file parsed`);
 
   const serviceFolderPath = getAbsolutePathFromOption(
     CLIENTS_ROOT_FOLDER_PATH,
@@ -82,27 +85,37 @@ async function storeOpenApiDefinitionFile({
     "old-open-api-definition.json",
   );
 
+  log(`${inputBuildingBlock.name} - Storing Open API definition file`);
+  const fileBackup = storeFilesWithBackup({
+    oldPath: oldFilePath,
+    latestVersionContent: stringifiedOpenApi,
+    latestVersionPath: storedDefinitionFilePath,
+  });
+  log(
+    `${inputBuildingBlock.name} - Open API definition file stored!`,
+    fileBackup,
+  );
   return {
     fileContent: stringifiedOpenApi,
     filePath: storedDefinitionFilePath,
     buildingBlockFolder: serviceFolderPath,
-    fileBackup: storeFilesWithBackup({
-      oldPath: oldFilePath,
-      latestVersionContent: stringifiedOpenApi,
-      latestVersionPath: storedDefinitionFilePath,
-    }),
+    fileBackup,
   };
 }
 
 async function storeSchema({
   openApiDefinitionContent,
   buildingBlockFolder,
+  inputBuildingBlock,
 }: {
   openApiDefinitionContent: string;
   buildingBlockFolder: string;
+  inputBuildingBlock: ConfigurationBuildingBlock;
 }): Promise<FileBackup> {
+  log(`${inputBuildingBlock.name} - Creating TS Schema`);
   const parser = await openapiTS(openApiDefinitionContent);
   const parsedSchema = astToString(parser);
+  log(`${inputBuildingBlock.name} - TS Schema created`);
   const schemaFilePath = getAbsolutePathFromOption(
     buildingBlockFolder,
     "schema.ts",
@@ -112,11 +125,15 @@ async function storeSchema({
     "old-schema.ts",
   );
 
-  return storeFilesWithBackup({
+  log(`${inputBuildingBlock.name} - Storing TS Schema`);
+  const fileBackup = storeFilesWithBackup({
     oldPath,
     latestVersionContent: parsedSchema,
     latestVersionPath: schemaFilePath,
   });
+  log(`${inputBuildingBlock.name} - TS Schema stored`);
+
+  return fileBackup;
 }
 
 async function processBuildingBlock({
@@ -127,30 +144,43 @@ async function processBuildingBlock({
     newPath: null,
   };
   let storedDefinition = null;
+  log(`${inputBuildingBlock.name} - Processing`);
   try {
     storedDefinition = await storeOpenApiDefinitionFile({
       inputBuildingBlock,
     });
     schemaFileBackup = await storeSchema({
+      inputBuildingBlock,
       openApiDefinitionContent: storedDefinition.fileContent,
       buildingBlockFolder: storedDefinition.buildingBlockFolder,
     });
 
-    deleteOldFiles(storedDefinition.fileBackup, schemaFileBackup);
+    log(`${inputBuildingBlock.name} - Deleting backup files`);
+    deleteOldFiles(
+      inputBuildingBlock.name,
+      storedDefinition.fileBackup,
+      schemaFileBackup,
+    );
   } catch (e) {
     restoreOldFiles(
+      inputBuildingBlock.name,
       storedDefinition?.fileBackup ?? { newPath: null, oldPath: null },
       schemaFileBackup,
     );
 
+    log(`${inputBuildingBlock.name} - Error While Processing`);
     throw e;
   }
+  log(`${inputBuildingBlock.name} - Processed`);
 }
 
 async function updateClients({
   configurationFilePath,
-}: { configurationFilePath: string }): Promise<void> {
+  dryRun,
+}: { configurationFilePath: string; dryRun?: boolean }): Promise<void> {
+  dryRun = dryRun ?? false;
   const configurationFile = await readConfigurationFile(configurationFilePath);
+  log("Configuration file read");
 
   const promises: Promise<void>[] = [];
   for (const inputBuilding of Object.values(configurationFile.buildingBlocks)) {
@@ -160,7 +190,10 @@ async function updateClients({
   await Promise.all(promises);
 }
 
-function deleteOldFiles(...backedUpFiles: FileBackup[]): void {
+function deleteOldFiles(
+  buildingBlockName: string,
+  ...backedUpFiles: FileBackup[]
+): void {
   for (const backedUp of backedUpFiles) {
     try {
       // if an old version has been backupped
@@ -169,20 +202,17 @@ function deleteOldFiles(...backedUpFiles: FileBackup[]): void {
         fs.unlinkSync(backedUp.oldPath);
       }
     } catch (e) {
-      console.log(`Error deleting ${backedUp.oldPath}`, e);
+      log(`${buildingBlockName} - Error deleting ${backedUp.oldPath}`, e);
     }
   }
 }
 
-function restoreOldFiles(...backedUpFiles: FileBackup[]): void {
+function restoreOldFiles(
+  buildingBlockName: string,
+  ...backedUpFiles: FileBackup[]
+): void {
   for (const backedUp of backedUpFiles) {
     try {
-      // if the new file has been saved
-      // and something went wrong
-      // delete it
-      if (backedUp.newPath) {
-        fs.unlinkSync(backedUp.newPath);
-      }
       if (backedUp.oldPath) {
         // if a backup is available and the
         // new file has been written
@@ -191,9 +221,14 @@ function restoreOldFiles(...backedUpFiles: FileBackup[]): void {
           fs.copyFileSync(backedUp.oldPath, backedUp.newPath);
         }
         fs.unlinkSync(backedUp.oldPath);
+      } else if (backedUp.newPath) {
+        // if the new file has been saved
+        // and something went wrong
+        // delete it
+        fs.unlinkSync(backedUp.newPath);
       }
     } catch (e) {
-      console.log(`Error restoring ${backedUp.newPath}`, e);
+      log(`${buildingBlockName} - Error restoring ${backedUp.newPath}`, e);
     }
   }
 }
@@ -221,6 +256,14 @@ function storeFilesWithBackup({
   return output;
 }
 
+function log(message: string, ...params: unknown[]): void {
+  if (params.length === 0) {
+    console.log(`Update Clients: ${message}`);
+    return;
+  }
+  console.log(`Update Clients: ${message}`, params);
+}
+
 const updateClientsCommand = new Command("clients:update");
 updateClientsCommand
   .description(
@@ -234,8 +277,13 @@ updateClientsCommand
       return getAbsolutePathFromOption(value);
     },
   )
-  .action(async (options: { configurationFilePath: string }) => {
-    await updateClients(options);
-  });
+  .option("--dry-run", "Simulate the command without executing it")
+  .action(
+    async (options: { configurationFilePath: string; dryRun?: boolean }) => {
+      log("Started!");
+      await updateClients(options);
+      log("Ended!");
+    },
+  );
 
 export default updateClientsCommand;
