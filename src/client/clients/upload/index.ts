@@ -1,10 +1,12 @@
 import type { Middleware, createPathBasedClient } from "openapi-fetch";
 import type createClient from "openapi-fetch";
+import { RESOURCES, type SDKClientParams } from "../../../types/index.js";
 import BaseClient from "../../BaseClient.js";
 import type { paths } from "./schema.js";
 
 class Upload extends BaseClient {
   declare client: ReturnType<typeof createClient<paths>>;
+  protected serviceName = RESOURCES.UPLOAD;
 
   async getFilesMetadata() {
     const { error, data } = await this.client.GET("/api/v1/metadata/", {

@@ -1,4 +1,5 @@
 import type createClient from "openapi-fetch";
+import { RESOURCES, type SDKClientParams } from "../../../types/index.js";
 import BaseClient from "../../BaseClient.js";
 import type { paths } from "./schema.js";
 
@@ -17,6 +18,7 @@ const formatQueryResult = async (promise: Promise<any>) => {
 
 class Scheduler extends BaseClient {
   declare client: ReturnType<typeof createClient<paths>>;
+  protected serviceName = RESOURCES.SCHEDULER;
 
   async scheduleTasks(
     tasks: {
