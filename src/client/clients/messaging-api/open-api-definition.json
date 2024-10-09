@@ -18,17 +18,13 @@
   "paths": {
     "/api/v1/messages/": {
       "get": {
-        "tags": [
-          "Messages"
-        ],
+        "tags": ["Messages"],
         "description": "Returns all the messages for the requested organisation or the requested recipient",
         "parameters": [
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "delivered"
-              ]
+              "enum": ["delivered"]
             },
             "in": "query",
             "name": "status",
@@ -37,12 +33,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "true",
-                "false",
-                "0",
-                "1"
-              ]
+              "enum": ["true", "false", "0", "1"]
             },
             "in": "query",
             "name": "isSeen",
@@ -215,12 +206,7 @@
                               }
                             }
                           },
-                          "required": [
-                            "self",
-                            "first",
-                            "last",
-                            "pages"
-                          ]
+                          "required": ["self", "first", "last", "pages"]
                         },
                         "totalCount": {
                           "description": "Number representing the total number of available items",
@@ -229,9 +215,7 @@
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -272,22 +256,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -295,9 +271,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Messages"
-        ],
+        "tags": ["Messages"],
         "description": "Creates a message",
         "requestBody": {
           "content": {
@@ -310,11 +284,7 @@
                     "type": "array",
                     "items": {
                       "type": "string",
-                      "enum": [
-                        "sms",
-                        "email",
-                        "lifeEvent"
-                      ],
+                      "enum": ["sms", "email", "lifeEvent"],
                       "description": "All the available provider types"
                     }
                   },
@@ -324,10 +294,7 @@
                   },
                   "security": {
                     "type": "string",
-                    "enum": [
-                      "confidential",
-                      "public"
-                    ],
+                    "enum": ["confidential", "public"],
                     "description": "Confidentiality level of the message"
                   },
                   "bypassConsent": {
@@ -370,10 +337,7 @@
                       },
                       "language": {
                         "type": "string",
-                        "enum": [
-                          "en",
-                          "ga"
-                        ],
+                        "enum": ["en", "ga"],
                         "description": "Language used to send the message"
                       }
                     },
@@ -423,14 +387,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "id"
-                      ]
+                      "required": ["id"]
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -471,22 +431,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -527,22 +479,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -552,9 +496,7 @@
     },
     "/api/v1/messages/{messageId}": {
       "get": {
-        "tags": [
-          "Messages"
-        ],
+        "tags": ["Messages"],
         "description": "Returns the requested message",
         "parameters": [
           {
@@ -617,10 +559,7 @@
                         },
                         "security": {
                           "type": "string",
-                          "enum": [
-                            "confidential",
-                            "public"
-                          ],
+                          "enum": ["confidential", "public"],
                           "description": "Confidentiality level of the message"
                         },
                         "attachments": {
@@ -711,12 +650,7 @@
                               }
                             }
                           },
-                          "required": [
-                            "self",
-                            "first",
-                            "last",
-                            "pages"
-                          ]
+                          "required": ["self", "first", "last", "pages"]
                         },
                         "totalCount": {
                           "description": "Number representing the total number of available items",
@@ -725,9 +659,7 @@
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -768,22 +700,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -824,22 +748,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -849,20 +765,13 @@
     },
     "/api/v1/providers/": {
       "get": {
-        "tags": [
-          "Providers"
-        ],
+        "tags": ["Providers"],
         "description": "Returns the providers matching the requested query",
         "parameters": [
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "true",
-                "false",
-                "0",
-                "1"
-              ]
+              "enum": ["true", "false", "0", "1"]
             },
             "in": "query",
             "name": "primary",
@@ -872,10 +781,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "sms",
-                "email"
-              ]
+              "enum": ["sms", "email"]
             },
             "in": "query",
             "name": "type",
@@ -933,19 +839,11 @@
                           },
                           "type": {
                             "type": "string",
-                            "enum": [
-                              "sms",
-                              "email"
-                            ],
+                            "enum": ["sms", "email"],
                             "description": "Provider types that can be manipulated"
                           }
                         },
-                        "required": [
-                          "id",
-                          "providerName",
-                          "isPrimary",
-                          "type"
-                        ]
+                        "required": ["id", "providerName", "isPrimary", "type"]
                       }
                     },
                     "metadata": {
@@ -1013,12 +911,7 @@
                               }
                             }
                           },
-                          "required": [
-                            "self",
-                            "first",
-                            "last",
-                            "pages"
-                          ]
+                          "required": ["self", "first", "last", "pages"]
                         },
                         "totalCount": {
                           "description": "Number representing the total number of available items",
@@ -1027,9 +920,7 @@
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -1070,22 +961,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -1126,22 +1009,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -1149,9 +1024,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Providers"
-        ],
+        "tags": ["Providers"],
         "description": "Creates a new provider",
         "requestBody": {
           "content": {
@@ -1172,9 +1045,7 @@
                       },
                       "type": {
                         "type": "string",
-                        "enum": [
-                          "email"
-                        ]
+                        "enum": ["email"]
                       },
                       "smtpHost": {
                         "description": "Address of the SMTP host",
@@ -1235,18 +1106,14 @@
                       },
                       "type": {
                         "type": "string",
-                        "enum": [
-                          "sms"
-                        ]
+                        "enum": ["sms"]
                       },
                       "config": {
                         "type": "object",
                         "properties": {
                           "type": {
                             "type": "string",
-                            "enum": [
-                              "AWS"
-                            ]
+                            "enum": ["AWS"]
                           },
                           "accessKey": {
                             "minLength": 1,
@@ -1269,12 +1136,7 @@
                         ]
                       }
                     },
-                    "required": [
-                      "providerName",
-                      "isPrimary",
-                      "type",
-                      "config"
-                    ]
+                    "required": ["providerName", "isPrimary", "type", "config"]
                   }
                 ]
               }
@@ -1297,14 +1159,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "id"
-                      ]
+                      "required": ["id"]
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -1345,22 +1203,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -1401,22 +1251,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -1426,18 +1268,13 @@
     },
     "/api/v1/providers/{providerId}": {
       "get": {
-        "tags": [
-          "Providers"
-        ],
+        "tags": ["Providers"],
         "description": "Returns the requested provider",
         "parameters": [
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "sms",
-                "email"
-              ]
+              "enum": ["sms", "email"]
             },
             "in": "query",
             "name": "type",
@@ -1483,9 +1320,7 @@
                             },
                             "type": {
                               "type": "string",
-                              "enum": [
-                                "email"
-                              ]
+                              "enum": ["email"]
                             },
                             "smtpHost": {
                               "description": "Address of the SMTP host",
@@ -1551,18 +1386,14 @@
                             },
                             "type": {
                               "type": "string",
-                              "enum": [
-                                "sms"
-                              ]
+                              "enum": ["sms"]
                             },
                             "config": {
                               "type": "object",
                               "properties": {
                                 "type": {
                                   "type": "string",
-                                  "enum": [
-                                    "AWS"
-                                  ]
+                                  "enum": ["AWS"]
                                 },
                                 "accessKey": {
                                   "minLength": 1,
@@ -1660,12 +1491,7 @@
                               }
                             }
                           },
-                          "required": [
-                            "self",
-                            "first",
-                            "last",
-                            "pages"
-                          ]
+                          "required": ["self", "first", "last", "pages"]
                         },
                         "totalCount": {
                           "description": "Number representing the total number of available items",
@@ -1674,9 +1500,7 @@
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -1717,22 +1541,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -1773,22 +1589,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -1796,9 +1604,7 @@
         }
       },
       "put": {
-        "tags": [
-          "Providers"
-        ],
+        "tags": ["Providers"],
         "description": "Updates the requested provider",
         "requestBody": {
           "content": {
@@ -1823,9 +1629,7 @@
                       },
                       "type": {
                         "type": "string",
-                        "enum": [
-                          "email"
-                        ]
+                        "enum": ["email"]
                       },
                       "smtpHost": {
                         "description": "Address of the SMTP host",
@@ -1891,18 +1695,14 @@
                       },
                       "type": {
                         "type": "string",
-                        "enum": [
-                          "sms"
-                        ]
+                        "enum": ["sms"]
                       },
                       "config": {
                         "type": "object",
                         "properties": {
                           "type": {
                             "type": "string",
-                            "enum": [
-                              "AWS"
-                            ]
+                            "enum": ["AWS"]
                           },
                           "accessKey": {
                             "minLength": 1,
@@ -1989,22 +1789,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -2045,22 +1837,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -2068,9 +1852,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Providers"
-        ],
+        "tags": ["Providers"],
         "description": "Deletes the requested provider",
         "parameters": [
           {
@@ -2124,22 +1906,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -2180,22 +1954,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -2205,9 +1971,7 @@
     },
     "/api/v1/templates/": {
       "get": {
-        "tags": [
-          "Templates"
-        ],
+        "tags": ["Templates"],
         "description": "Returns the providers matching the requested query",
         "parameters": [
           {
@@ -2258,10 +2022,7 @@
                               "properties": {
                                 "language": {
                                   "type": "string",
-                                  "enum": [
-                                    "en",
-                                    "ga"
-                                  ],
+                                  "enum": ["en", "ga"],
                                   "description": "Template content language"
                                 },
                                 "templateName": {
@@ -2269,17 +2030,11 @@
                                   "type": "string"
                                 }
                               },
-                              "required": [
-                                "language",
-                                "templateName"
-                              ]
+                              "required": ["language", "templateName"]
                             }
                           }
                         },
-                        "required": [
-                          "id",
-                          "contents"
-                        ]
+                        "required": ["id", "contents"]
                       }
                     },
                     "metadata": {
@@ -2347,12 +2102,7 @@
                               }
                             }
                           },
-                          "required": [
-                            "self",
-                            "first",
-                            "last",
-                            "pages"
-                          ]
+                          "required": ["self", "first", "last", "pages"]
                         },
                         "totalCount": {
                           "description": "Number representing the total number of available items",
@@ -2361,9 +2111,7 @@
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -2404,22 +2152,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -2460,22 +2200,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -2483,9 +2215,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Templates"
-        ],
+        "tags": ["Templates"],
         "description": "Creates a new template",
         "requestBody": {
           "content": {
@@ -2506,10 +2236,7 @@
                         },
                         "language": {
                           "type": "string",
-                          "enum": [
-                            "en",
-                            "ga"
-                          ],
+                          "enum": ["en", "ga"],
                           "description": "Template content language"
                         },
                         "subject": {
@@ -2555,15 +2282,11 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "name"
-                      ]
+                      "required": ["name"]
                     }
                   }
                 },
-                "required": [
-                  "contents"
-                ]
+                "required": ["contents"]
               }
             }
           },
@@ -2586,14 +2309,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "id"
-                      ]
+                      "required": ["id"]
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -2634,22 +2353,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -2690,22 +2401,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -2715,9 +2418,7 @@
     },
     "/api/v1/templates/{templateId}": {
       "get": {
-        "tags": [
-          "Templates"
-        ],
+        "tags": ["Templates"],
         "description": "Returns the requested template",
         "parameters": [
           {
@@ -2753,10 +2454,7 @@
                               },
                               "language": {
                                 "type": "string",
-                                "enum": [
-                                  "en",
-                                  "ga"
-                                ],
+                                "enum": ["en", "ga"],
                                 "description": "Template content language"
                               },
                               "subject": {
@@ -2800,16 +2498,11 @@
                                 "type": "string"
                               }
                             },
-                            "required": [
-                              "fieldName"
-                            ]
+                            "required": ["fieldName"]
                           }
                         }
                       },
-                      "required": [
-                        "contents",
-                        "fields"
-                      ]
+                      "required": ["contents", "fields"]
                     },
                     "metadata": {
                       "type": "object",
@@ -2876,12 +2569,7 @@
                               }
                             }
                           },
-                          "required": [
-                            "self",
-                            "first",
-                            "last",
-                            "pages"
-                          ]
+                          "required": ["self", "first", "last", "pages"]
                         },
                         "totalCount": {
                           "description": "Number representing the total number of available items",
@@ -2890,9 +2578,7 @@
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -2933,22 +2619,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -2989,22 +2667,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -3012,9 +2682,7 @@
         }
       },
       "put": {
-        "tags": [
-          "Templates"
-        ],
+        "tags": ["Templates"],
         "description": "Updates the requested template",
         "requestBody": {
           "content": {
@@ -3039,10 +2707,7 @@
                         },
                         "language": {
                           "type": "string",
-                          "enum": [
-                            "en",
-                            "ga"
-                          ],
+                          "enum": ["en", "ga"],
                           "description": "Template content language"
                         },
                         "subject": {
@@ -3088,16 +2753,11 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "name"
-                      ]
+                      "required": ["name"]
                     }
                   }
                 },
-                "required": [
-                  "id",
-                  "contents"
-                ]
+                "required": ["id", "contents"]
               }
             }
           },
@@ -3154,22 +2814,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -3210,22 +2862,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -3233,9 +2877,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Templates"
-        ],
+        "tags": ["Templates"],
         "description": "Deletes the requested template",
         "parameters": [
           {
@@ -3288,22 +2930,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -3344,22 +2978,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -3369,9 +2995,7 @@
     },
     "/api/v1/organisation-settings/": {
       "get": {
-        "tags": [
-          "Organisation Settings"
-        ],
+        "tags": ["Organisation Settings"],
         "description": "Returns the organisation settings for the logged in user",
         "parameters": [
           {
@@ -3484,20 +3108,13 @@
                             "type": "array",
                             "items": {
                               "type": "string",
-                              "enum": [
-                                "sms",
-                                "email"
-                              ],
+                              "enum": ["sms", "email"],
                               "description": "Provider types that can be manipulated"
                             }
                           },
                           "correlationQuality": {
                             "type": "string",
-                            "enum": [
-                              "full",
-                              "partial",
-                              "not_related"
-                            ],
+                            "enum": ["full", "partial", "not_related"],
                             "description": "If full, it means that the user is already on the Life Events platform, if partial the match has to be reviewed, if not_related the user does not exist"
                           },
                           "userStatus": {
@@ -3737,12 +3354,7 @@
                               }
                             }
                           },
-                          "required": [
-                            "self",
-                            "first",
-                            "last",
-                            "pages"
-                          ]
+                          "required": ["self", "first", "last", "pages"]
                         },
                         "totalCount": {
                           "description": "Number representing the total number of available items",
@@ -3751,9 +3363,7 @@
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -3794,22 +3404,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -3850,22 +3452,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -3906,22 +3500,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -3931,9 +3517,7 @@
     },
     "/api/v1/organisation-settings/{organisationSettingId}": {
       "get": {
-        "tags": [
-          "Organisation Settings"
-        ],
+        "tags": ["Organisation Settings"],
         "description": "Returns the requested organisation setting",
         "parameters": [
           {
@@ -4030,20 +3614,13 @@
                           "type": "array",
                           "items": {
                             "type": "string",
-                            "enum": [
-                              "sms",
-                              "email"
-                            ],
+                            "enum": ["sms", "email"],
                             "description": "Provider types that can be manipulated"
                           }
                         },
                         "correlationQuality": {
                           "type": "string",
-                          "enum": [
-                            "full",
-                            "partial",
-                            "not_related"
-                          ],
+                          "enum": ["full", "partial", "not_related"],
                           "description": "If full, it means that the user is already on the Life Events platform, if partial the match has to be reviewed, if not_related the user does not exist"
                         },
                         "userStatus": {
@@ -4282,12 +3859,7 @@
                               }
                             }
                           },
-                          "required": [
-                            "self",
-                            "first",
-                            "last",
-                            "pages"
-                          ]
+                          "required": ["self", "first", "last", "pages"]
                         },
                         "totalCount": {
                           "description": "Number representing the total number of available items",
@@ -4296,9 +3868,7 @@
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -4339,22 +3909,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -4395,22 +3957,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -4451,22 +4005,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -4474,9 +4020,7 @@
         }
       },
       "patch": {
-        "tags": [
-          "Organisation Settings"
-        ],
+        "tags": ["Organisation Settings"],
         "description": "Updates the requested organisation settings",
         "requestBody": {
           "content": {
@@ -4486,10 +4030,7 @@
                 "properties": {
                   "invitationStatusFeedback": {
                     "type": "string",
-                    "enum": [
-                      "accepted",
-                      "declined"
-                    ],
+                    "enum": ["accepted", "declined"],
                     "default": "accepted",
                     "description": "Current status of the invitation to receive messages from the organisation"
                   },
@@ -4498,18 +4039,12 @@
                     "type": "array",
                     "items": {
                       "type": "string",
-                      "enum": [
-                        "sms",
-                        "email"
-                      ],
+                      "enum": ["sms", "email"],
                       "description": "Provider types that can be manipulated"
                     }
                   }
                 },
-                "required": [
-                  "invitationStatusFeedback",
-                  "preferredTransports"
-                ]
+                "required": ["invitationStatusFeedback", "preferredTransports"]
               }
             }
           },
@@ -4610,20 +4145,13 @@
                           "type": "array",
                           "items": {
                             "type": "string",
-                            "enum": [
-                              "sms",
-                              "email"
-                            ],
+                            "enum": ["sms", "email"],
                             "description": "Provider types that can be manipulated"
                           }
                         },
                         "correlationQuality": {
                           "type": "string",
-                          "enum": [
-                            "full",
-                            "partial",
-                            "not_related"
-                          ],
+                          "enum": ["full", "partial", "not_related"],
                           "description": "If full, it means that the user is already on the Life Events platform, if partial the match has to be reviewed, if not_related the user does not exist"
                         },
                         "userStatus": {
@@ -4862,12 +4390,7 @@
                               }
                             }
                           },
-                          "required": [
-                            "self",
-                            "first",
-                            "last",
-                            "pages"
-                          ]
+                          "required": ["self", "first", "last", "pages"]
                         },
                         "totalCount": {
                           "description": "Number representing the total number of available items",
@@ -4876,9 +4399,7 @@
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -4919,22 +4440,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -4975,22 +4488,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -5031,22 +4536,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -5056,9 +4553,7 @@
     },
     "/api/v1/user-imports/": {
       "get": {
-        "tags": [
-          "User Imports"
-        ],
+        "tags": ["User Imports"],
         "description": "Retrieves the user import batches related to the current organisation",
         "parameters": [
           {
@@ -5106,10 +4601,7 @@
                           },
                           "importChannel": {
                             "type": "string",
-                            "enum": [
-                              "api",
-                              "csv"
-                            ],
+                            "enum": ["api", "csv"],
                             "default": "api",
                             "description": "Channel through which the users have been imported"
                           },
@@ -5209,12 +4701,7 @@
                               }
                             }
                           },
-                          "required": [
-                            "self",
-                            "first",
-                            "last",
-                            "pages"
-                          ]
+                          "required": ["self", "first", "last", "pages"]
                         },
                         "totalCount": {
                           "description": "Number representing the total number of available items",
@@ -5223,9 +4710,7 @@
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -5233,9 +4718,7 @@
         }
       },
       "post": {
-        "tags": [
-          "User Imports"
-        ],
+        "tags": ["User Imports"],
         "description": "Imports a new batch of users. If 'Content-Type' header contains 'multipart/form-data' it accepts a CSV file, otherwise an array of users to import",
         "requestBody": {
           "content": {
@@ -5386,9 +4869,7 @@
                         "tags": {
                           "default": null,
                           "description": "Tags of the user to be imported. The tags can made by multiple levels, splitting each level by a '.' and listing multiple tags using a ';'",
-                          "examples": [
-                            "region.county;role.job"
-                          ],
+                          "examples": ["region.county;role.job"],
                           "anyOf": [
                             {
                               "type": "null"
@@ -5411,9 +4892,7 @@
                           ]
                         }
                       },
-                      "required": [
-                        "importIndex"
-                      ]
+                      "required": ["importIndex"]
                     }
                   },
                   {}
@@ -5567,9 +5046,7 @@
                         "tags": {
                           "default": null,
                           "description": "Tags of the user to be imported. The tags can made by multiple levels, splitting each level by a '.' and listing multiple tags using a ';'",
-                          "examples": [
-                            "region.county;role.job"
-                          ],
+                          "examples": ["region.county;role.job"],
                           "anyOf": [
                             {
                               "type": "null"
@@ -5592,9 +5069,7 @@
                           ]
                         }
                       },
-                      "required": [
-                        "importIndex"
-                      ]
+                      "required": ["importIndex"]
                     }
                   },
                   {}
@@ -5619,14 +5094,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "id"
-                      ]
+                      "required": ["id"]
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -5667,22 +5138,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -5723,22 +5186,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -5748,20 +5203,13 @@
     },
     "/api/v1/user-imports/{importId}": {
       "get": {
-        "tags": [
-          "User Imports"
-        ],
+        "tags": ["User Imports"],
         "description": "Retrieves the requested user import batch",
         "parameters": [
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "true",
-                "false",
-                "0",
-                "1"
-              ],
+              "enum": ["true", "false", "0", "1"],
               "default": "true"
             },
             "in": "query",
@@ -6035,10 +5483,7 @@
                         },
                         "importChannel": {
                           "type": "string",
-                          "enum": [
-                            "api",
-                            "csv"
-                          ],
+                          "enum": ["api", "csv"],
                           "default": "api",
                           "description": "Channel through which the users have been imported"
                         },
@@ -6138,12 +5583,7 @@
                               }
                             }
                           },
-                          "required": [
-                            "self",
-                            "first",
-                            "last",
-                            "pages"
-                          ]
+                          "required": ["self", "first", "last", "pages"]
                         },
                         "totalCount": {
                           "description": "Number representing the total number of available items",
@@ -6152,9 +5592,7 @@
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -6195,22 +5633,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -6251,22 +5681,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -6276,9 +5698,7 @@
     },
     "/api/v1/user-imports/template-download": {
       "get": {
-        "tags": [
-          "User Imports"
-        ],
+        "tags": ["User Imports"],
         "description": "Returns a string containing the template with the csv that will be used to import users",
         "responses": {
           "200": {
@@ -6297,9 +5717,7 @@
     },
     "/api/v1/users/": {
       "get": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "parameters": [
           {
             "schema": {
@@ -6508,20 +5926,13 @@
                             "type": "array",
                             "items": {
                               "type": "string",
-                              "enum": [
-                                "sms",
-                                "email"
-                              ],
+                              "enum": ["sms", "email"],
                               "description": "Provider types that can be manipulated"
                             }
                           },
                           "correlationQuality": {
                             "type": "string",
-                            "enum": [
-                              "full",
-                              "partial",
-                              "not_related"
-                            ],
+                            "enum": ["full", "partial", "not_related"],
                             "description": "If full, it means that the user is already on the Life Events platform, if partial the match has to be reviewed, if not_related the user does not exist"
                           },
                           "userStatus": {
@@ -6766,12 +6177,7 @@
                               }
                             }
                           },
-                          "required": [
-                            "self",
-                            "first",
-                            "last",
-                            "pages"
-                          ]
+                          "required": ["self", "first", "last", "pages"]
                         },
                         "totalCount": {
                           "description": "Number representing the total number of available items",
@@ -6780,9 +6186,7 @@
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -6823,22 +6227,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -6879,22 +6275,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -6904,9 +6292,7 @@
     },
     "/api/v1/users/{userId}": {
       "get": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "description": "Returns the requested user",
         "parameters": [
           {
@@ -7073,20 +6459,13 @@
                           "type": "array",
                           "items": {
                             "type": "string",
-                            "enum": [
-                              "sms",
-                              "email"
-                            ],
+                            "enum": ["sms", "email"],
                             "description": "Provider types that can be manipulated"
                           }
                         },
                         "correlationQuality": {
                           "type": "string",
-                          "enum": [
-                            "full",
-                            "partial",
-                            "not_related"
-                          ],
+                          "enum": ["full", "partial", "not_related"],
                           "description": "If full, it means that the user is already on the Life Events platform, if partial the match has to be reviewed, if not_related the user does not exist"
                         },
                         "userStatus": {
@@ -7330,12 +6709,7 @@
                               }
                             }
                           },
-                          "required": [
-                            "self",
-                            "first",
-                            "last",
-                            "pages"
-                          ]
+                          "required": ["self", "first", "last", "pages"]
                         },
                         "totalCount": {
                           "description": "Number representing the total number of available items",
@@ -7344,9 +6718,7 @@
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -7387,22 +6759,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -7443,22 +6807,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -7468,9 +6824,7 @@
     },
     "/api/v1/message-events/": {
       "get": {
-        "tags": [
-          "Message events"
-        ],
+        "tags": ["Message events"],
         "description": "Returns the message events that match the requested query",
         "parameters": [
           {
@@ -7625,12 +6979,7 @@
                               }
                             }
                           },
-                          "required": [
-                            "self",
-                            "first",
-                            "last",
-                            "pages"
-                          ]
+                          "required": ["self", "first", "last", "pages"]
                         },
                         "totalCount": {
                           "description": "Number representing the total number of available items",
@@ -7639,9 +6988,7 @@
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -7682,22 +7029,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -7738,22 +7077,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -7763,9 +7094,7 @@
     },
     "/api/v1/message-events/{eventId}": {
       "get": {
-        "tags": [
-          "Message events"
-        ],
+        "tags": ["Message events"],
         "description": "Returns the selected event id",
         "parameters": [
           {
@@ -7877,10 +7206,7 @@
                                   },
                                   "security": {
                                     "type": "string",
-                                    "enum": [
-                                      "confidential",
-                                      "public"
-                                    ],
+                                    "enum": ["confidential", "public"],
                                     "description": "Confidentiality level of the message"
                                   },
                                   "bypassConsent": {
@@ -7918,10 +7244,7 @@
                                     "type": "string"
                                   }
                                 },
-                                "required": [
-                                  "messageId",
-                                  "jobId"
-                                ]
+                                "required": ["messageId", "jobId"]
                               },
                               {
                                 "type": "object",
@@ -7931,9 +7254,7 @@
                                     "type": "string"
                                   }
                                 },
-                                "required": [
-                                  "messageId"
-                                ]
+                                "required": ["messageId"]
                               }
                             ]
                           },
@@ -7952,9 +7273,7 @@
                       }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "required": ["data"]
                 }
               }
             }
@@ -7995,22 +7314,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -8051,22 +7362,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -8076,9 +7379,7 @@
     },
     "/api/v1/jobs/{id}": {
       "post": {
-        "tags": [
-          "Jobs"
-        ],
+        "tags": ["Jobs"],
         "description": "Executes the requested job",
         "requestBody": {
           "content": {
@@ -8091,9 +7392,7 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "token"
-                ]
+                "required": ["token"]
               }
             }
           },
@@ -8149,22 +7448,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -8205,22 +7496,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -8230,9 +7513,7 @@
     },
     "/api/v1/message-actions/{messageId}": {
       "put": {
-        "tags": [
-          "Message actions"
-        ],
+        "tags": ["Message actions"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -8247,10 +7528,7 @@
                     "type": "boolean"
                   }
                 },
-                "required": [
-                  "messageId",
-                  "isSeen"
-                ]
+                "required": ["messageId", "isSeen"]
               }
             }
           },
@@ -8306,22 +7584,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
@@ -8362,22 +7632,14 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
+                        "required": ["fieldName", "message"]
                       }
                     },
                     "validationContext": {
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  "required": ["code", "detail", "requestId", "name"]
                 }
               }
             }
