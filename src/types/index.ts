@@ -1,9 +1,9 @@
 import type BaseClient from "../client/BaseClient.js";
-import type Messaging from "../client/clients/messaging-api/index.js";
-import type Payments from "../client/clients/payments-api/index.js";
-import type Profile from "../client/clients/profile-api/index.js";
-import type Scheduler from "../client/clients/scheduler-api/index.js";
-import type Upload from "../client/clients/upload-api/index.js";
+import type Messaging from "../client/clients/messaging/index.js";
+import type Payments from "../client/clients/payments/index.js";
+import type Profile from "../client/clients/profile/index.js";
+import type Scheduler from "../client/clients/scheduler/index.js";
+import type Upload from "../client/clients/upload/index.js";
 
 export enum RESOURCES {
   MESSAGING = "messaging",

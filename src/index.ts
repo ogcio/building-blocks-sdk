@@ -1,8 +1,8 @@
-import Messaging from "./client/clients/messaging-api/index.js";
-import Payments from "./client/clients/payments-api/index.js";
-import Profile from "./client/clients/profile-api/index.js";
-import Scheduler from "./client/clients/scheduler-api/index.js";
-import Upload from "./client/clients/upload-api/index.js";
+import Messaging from "./client/clients/messaging/index.js";
+import Payments from "./client/clients/payments/index.js";
+import Profile from "./client/clients/profile/index.js";
+import Scheduler from "./client/clients/scheduler/index.js";
+import Upload from "./client/clients/upload/index.js";
 
 import type {
   BuildingBlockSDKParams,
