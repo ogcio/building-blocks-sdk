@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import { resolve } from "node:path";
 import { Command } from "commander";
-import openapiTS, { astToString, error } from "openapi-typescript";
+import openapiTS, { astToString } from "openapi-typescript";
 import { parse } from "yaml";
 import {
   type ConfigurationBuildingBlock,
