@@ -1,18 +1,18 @@
 import { UserScope } from "@logto/node";
 import createClient from "openapi-fetch";
 import type {
+  ApiClientParams,
   GetAccessTokenParams,
   GetOrganizationTokenParams,
   TokenResponseBody,
-} from "./types/index.js";
+} from "../types/index.js";
 
 abstract class BaseClient {
   protected token?: string;
   private baseUrl: string;
   protected getTokenFn?: (...args: unknown[]) => string | Promise<string>;
 
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  client: any;
+  protected client: ReturnType<typeof createClient>;
 
   private readonly getOrganizationTokenParams?: GetOrganizationTokenParams;
   private readonly getAccessTokenParams?: GetAccessTokenParams;
@@ -20,16 +20,8 @@ abstract class BaseClient {
   constructor({
     baseUrl,
     m2m,
-    getTokenFn,
-  }: {
-    baseUrl: string;
-    m2m?: {
-      getOrganizationTokenParams?: GetOrganizationTokenParams;
-      getAccessTokenParams?: GetAccessTokenParams;
-    };
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    getTokenFn?: (...args: any[]) => string | Promise<string>;
-  }) {
+    // getTokenFn,
+  }: ApiClientParams) {
     this.baseUrl = baseUrl;
     if (m2m) {
       const { getAccessTokenParams, getOrganizationTokenParams } = m2m;
@@ -41,9 +33,9 @@ abstract class BaseClient {
         this.getAccessTokenParams = getAccessTokenParams;
       }
     }
-    if (getTokenFn) {
-      this.getTokenFn = getTokenFn;
-    }
+    // if (getTokenFn) {
+    //   this.getTokenFn = getTokenFn;
+    // }
     this.token = undefined;
     this.client = createClient({ baseUrl: this.baseUrl });
   }
@@ -127,6 +119,7 @@ abstract class BaseClient {
       token = await this.getTokenFn();
     }
     this.token = token;
+
     return this.token;
   }
 }

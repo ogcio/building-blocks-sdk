@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@sinclair/typebox": "^0.33.15",
-    "@logto/node": "^2.5.7",
     "commander": "^12.1.0",
     "http-errors": "^2.0.0",
     "openapi-fetch": "^0.12.2",
@@ -27,6 +26,12 @@
     "husky": "^9.1.6",
     "tsx": "^4.19.1",
     "typescript": "^5.6.3"
+  },
+  "peerDependencies": {
+    "@logto/node": "^2.5.7"
+  },
+  "peerDependenciesMeta": {
+    "@logto/node": { "optional": true }
   },
   "keywords": [],
   "author": "",
