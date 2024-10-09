@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import { resolve } from "node:path";
 import { Command } from "commander";
-import openapiTS, { astToString } from "openapi-typescript";
+import openapiTS, { astToString, error } from "openapi-typescript";
 import { parse } from "yaml";
 import {
   type ConfigurationBuildingBlock,
@@ -15,6 +15,11 @@ import {
  * stores it in a folder with the building block name,
  * then creates the Typescript schema and stores it in the same folder
  */
+
+type FileBackup = {
+  oldPath: string | null;
+  newPath: string | null;
+};
 
 const CLIENTS_ROOT_FOLDER_PATH = "src/client/clients";
 
@@ -42,7 +47,11 @@ async function getOpenApiDefinitionFileContent(
 
 async function storeOpenApiDefinitionFile({
   inputBuildingBlock,
-}: { inputBuildingBlock: ConfigurationBuildingBlock }): Promise<{
+  openApiDefinitionFileBackup,
+}: {
+  inputBuildingBlock: ConfigurationBuildingBlock;
+  openApiDefinitionFileBackup: FileBackup;
+}): Promise<{
   filePath: string;
   fileContent: string;
   buildingBlockFolder: string;
@@ -69,8 +78,18 @@ async function storeOpenApiDefinitionFile({
     serviceFolderPath,
     "open-api-definition.json",
   );
-  // TODO Add the following logic: backup the old file if exists, so to restore in case of error
+  if (fs.existsSync(storedDefinitionFilePath)) {
+    openApiDefinitionFileBackup.oldPath = getAbsolutePathFromOption(
+      serviceFolderPath,
+      "old-open-api-definition.json",
+    );
+    fs.copyFileSync(
+      storedDefinitionFilePath,
+      openApiDefinitionFileBackup.oldPath,
+    );
+  }
   fs.writeFileSync(storedDefinitionFilePath, stringifiedOpenApi);
+  openApiDefinitionFileBackup.newPath = storedDefinitionFilePath;
 
   return {
     fileContent: stringifiedOpenApi,
@@ -82,7 +101,12 @@ async function storeOpenApiDefinitionFile({
 async function storeSchema({
   openApiDefinitionContent,
   buildingBlockFolder,
-}: { openApiDefinitionContent: string; buildingBlockFolder: string }): Promise<{
+  schemaFileBackup,
+}: {
+  openApiDefinitionContent: string;
+  buildingBlockFolder: string;
+  schemaFileBackup: FileBackup;
+}): Promise<{
   schemaFilePath: string;
 }> {
   const parser = await openapiTS(openApiDefinitionContent);
@@ -91,8 +115,15 @@ async function storeSchema({
     buildingBlockFolder,
     "schema.ts",
   );
-  // TODO Add the following logic: backup the old file if exists, so to restore in case of error
+  if (fs.existsSync(schemaFilePath)) {
+    schemaFileBackup.oldPath = getAbsolutePathFromOption(
+      buildingBlockFolder,
+      "old-schema.ts",
+    );
+    fs.copyFileSync(schemaFilePath, schemaFileBackup.oldPath);
+  }
   fs.writeFileSync(schemaFilePath, parsedSchema);
+  schemaFileBackup.newPath = schemaFilePath;
 
   return { schemaFilePath };
 }
@@ -100,14 +131,31 @@ async function storeSchema({
 async function processBuildingBlock({
   inputBuildingBlock,
 }: { inputBuildingBlock: ConfigurationBuildingBlock }): Promise<void> {
-  const storedDefinition = await storeOpenApiDefinitionFile({
-    inputBuildingBlock,
-  });
+  const openApiDefinitionFileBackup: FileBackup = {
+    oldPath: null,
+    newPath: null,
+  };
+  const schemaFileBackup: FileBackup = {
+    oldPath: null,
+    newPath: null,
+  };
+  try {
+    const storedDefinition = await storeOpenApiDefinitionFile({
+      inputBuildingBlock,
+      openApiDefinitionFileBackup,
+    });
+    await storeSchema({
+      openApiDefinitionContent: storedDefinition.fileContent,
+      buildingBlockFolder: storedDefinition.buildingBlockFolder,
+      schemaFileBackup,
+    });
 
-  await storeSchema({
-    openApiDefinitionContent: storedDefinition.fileContent,
-    buildingBlockFolder: storedDefinition.buildingBlockFolder,
-  });
+    deleteOldFiles(openApiDefinitionFileBackup, schemaFileBackup);
+  } catch (e) {
+    restoreOldFiles(openApiDefinitionFileBackup, schemaFileBackup);
+
+    throw e;
+  }
 }
 
 async function updateClients({
@@ -121,6 +169,36 @@ async function updateClients({
   }
 
   await Promise.all(promises);
+}
+
+function deleteOldFiles(...backedUpFiles: FileBackup[]): void {
+  for (const backedUp of backedUpFiles) {
+    try {
+      if (backedUp.oldPath) {
+        fs.unlinkSync(backedUp.oldPath);
+      }
+    } catch (e) {
+      console.log(`Error deleting ${backedUp.oldPath}`, e);
+    }
+  }
+}
+
+function restoreOldFiles(...backedUpFiles: FileBackup[]): void {
+  for (const backedUp of backedUpFiles) {
+    try {
+      if (backedUp.newPath) {
+        fs.unlinkSync(backedUp.newPath);
+      }
+      if (backedUp.oldPath) {
+        if (backedUp.newPath) {
+          fs.copyFileSync(backedUp.oldPath, backedUp.newPath);
+        }
+        fs.unlinkSync(backedUp.oldPath);
+      }
+    } catch (e) {
+      console.log(`Error restoring ${backedUp.newPath}`, e);
+    }
+  }
 }
 
 const updateClientsCommand = new Command("clients:update");
