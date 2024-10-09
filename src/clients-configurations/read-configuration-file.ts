@@ -27,6 +27,10 @@ type ConfigurationFile = {
 };
 
 function ensureBuildingBlockNameIsValid(bbName: string) {
+  // The building block name must only contain letters
+  // so its name can be used to get it using dot notation
+  // in code. E.g. sdkClient.messaging, where messaging
+  // is the name of the BB
   const regex = /^[a-zA-Z]+$/g;
   if (!regex.test(bbName))
     throw new Error(
