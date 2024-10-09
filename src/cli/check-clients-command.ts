@@ -1,37 +1,41 @@
 import fs from "node:fs";
-import { resolve } from "node:path";
 import { Command } from "commander";
-import openapiTS, { astToString } from "openapi-typescript";
+import { stringify as stableStringify } from "safe-stable-stringify";
 import { parse } from "yaml";
+import {
+  type ConfigurationBuildingBlock,
+  OpenAPIFileFormats,
+  readConfigurationFile,
+} from "../clients-configurations/read-configuration-file.js";
 import {
   CLIENTS_ROOT_FOLDER_PATH,
   OPEN_API_DEFINITION_FILE_NAME,
   getAbsolutePathFromOption,
   getOpenApiDefinitionFileContent,
 } from "./cli-utils.js";
-import {
-  type ConfigurationBuildingBlock,
-  OpenAPIFileFormats,
-  readConfigurationFile,
-} from "./clients-configurations/read-configuration-file.js";
 
 /**
  * This command, starting from a json configuration file,
  * downloads the open-API definition file,
- * stores it in a folder with the building block name,
- * then creates the Typescript schema and stores it in the same folder
+ * parse it and compare it with the already existent one
  */
 
-type FileBackup = {
-  oldPath: string | null;
-  newPath: string | null;
-};
+function stringify(input: unknown): string {
+  stableStringify.configure({ deterministic: true });
 
-async function getLatestDefinitionFile({
+  const stringified = stableStringify(input);
+  if (!stringified) {
+    throw new Error("Invalid item to stringify!");
+  }
+
+  return stringified;
+}
+
+async function getLatestDefinitionFileContent({
   inputBuildingBlock,
 }: {
   inputBuildingBlock: ConfigurationBuildingBlock;
-}): Promise<unknown> {
+}): Promise<string> {
   log(`${inputBuildingBlock.name} - Downloading Open API definition file`);
   const downloadedFileContent = await getOpenApiDefinitionFileContent(
     inputBuildingBlock.openApiDefinitionUrl,
@@ -42,46 +46,7 @@ async function getLatestDefinitionFile({
       ? JSON.parse(downloadedFileContent)
       : parse(downloadedFileContent);
   log(`${inputBuildingBlock.name} - Open API definition file parsed`);
-
-  return openApiParsed;
-}
-
-async function storeSchema({
-  openApiDefinitionContent,
-  buildingBlockFolder,
-  inputBuildingBlock,
-  dryRun,
-}: {
-  openApiDefinitionContent: string;
-  buildingBlockFolder: string;
-  inputBuildingBlock: ConfigurationBuildingBlock;
-  dryRun: boolean;
-}): Promise<FileBackup> {
-  log(`${inputBuildingBlock.name} - Creating TS Schema`);
-  const parser = await openapiTS(openApiDefinitionContent);
-  const parsedSchema = astToString(parser);
-  log(`${inputBuildingBlock.name} - TS Schema created`);
-  const schemaFilePath = getAbsolutePathFromOption(
-    buildingBlockFolder,
-    "schema.ts",
-  );
-  const oldPath = getAbsolutePathFromOption(
-    buildingBlockFolder,
-    "old-schema.ts",
-  );
-
-  log(`${inputBuildingBlock.name} - Storing TS Schema`);
-  let fileBackup: FileBackup = { newPath: null, oldPath: null };
-  if (!dryRun) {
-    fileBackup = storeFilesWithBackup({
-      oldPath,
-      latestVersionContent: parsedSchema,
-      latestVersionPath: schemaFilePath,
-    });
-  }
-  log(`${inputBuildingBlock.name} - TS Schema stored`);
-
-  return fileBackup;
+  return stringify(openApiParsed);
 }
 
 async function isBuildingBlockOutdated({
@@ -89,10 +54,9 @@ async function isBuildingBlockOutdated({
 }: {
   inputBuildingBlock: ConfigurationBuildingBlock;
 }): Promise<boolean> {
-  const storedDefinition = null;
   log(`${inputBuildingBlock.name} - Processing`);
   try {
-    const latestDefinition = await getLatestDefinitionFile({
+    const latestDefinition = await getLatestDefinitionFileContent({
       inputBuildingBlock,
     });
 
@@ -111,11 +75,23 @@ async function isBuildingBlockOutdated({
     ) {
       return true;
     }
+
+    const storedFile = fs.readFileSync(definitionFilePath, {
+      encoding: "utf-8",
+    });
+
+    const stringifiedStored = stringify(JSON.parse(storedFile));
+
+    const isOutdated = stringifiedStored !== latestDefinition;
+    log(
+      `${inputBuildingBlock.name} - Processed. Building Block is ${isOutdated ? "OUTDATED!" : "not outdated"}`,
+    );
+
+    return isOutdated;
   } catch (e) {
     log(`${inputBuildingBlock.name} - Error While Processing`);
     throw e;
   }
-  log(`${inputBuildingBlock.name} - Processed`);
 }
 
 function log(message: string, ...params: unknown[]): void {

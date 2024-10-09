@@ -16,6 +16,7 @@
     "http-errors": "^2.0.0",
     "openapi-fetch": "^0.12.2",
     "openapi-typescript": "^7.4.1",
+    "safe-stable-stringify": "^2.5.0",
     "yaml": "^2.5.1"
   },
   "devDependencies": {
@@ -31,7 +32,9 @@
     "@logto/node": "^2.5.7"
   },
   "peerDependenciesMeta": {
-    "@logto/node": { "optional": true }
+    "@logto/node": {
+      "optional": true
+    }
   },
   "keywords": [],
   "author": "",
