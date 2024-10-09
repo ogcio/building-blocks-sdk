@@ -47,14 +47,13 @@ async function getOpenApiDefinitionFileContent(
 
 async function storeOpenApiDefinitionFile({
   inputBuildingBlock,
-  openApiDefinitionFileBackup,
 }: {
   inputBuildingBlock: ConfigurationBuildingBlock;
-  openApiDefinitionFileBackup: FileBackup;
 }): Promise<{
   filePath: string;
   fileContent: string;
   buildingBlockFolder: string;
+  fileBackup: FileBackup;
 }> {
   const downloadedFileContent = await getOpenApiDefinitionFileContent(
     inputBuildingBlock.openApiDefinitionUrl,
@@ -78,81 +77,71 @@ async function storeOpenApiDefinitionFile({
     serviceFolderPath,
     "open-api-definition.json",
   );
-  if (fs.existsSync(storedDefinitionFilePath)) {
-    openApiDefinitionFileBackup.oldPath = getAbsolutePathFromOption(
-      serviceFolderPath,
-      "old-open-api-definition.json",
-    );
-    fs.copyFileSync(
-      storedDefinitionFilePath,
-      openApiDefinitionFileBackup.oldPath,
-    );
-  }
-  fs.writeFileSync(storedDefinitionFilePath, stringifiedOpenApi);
-  openApiDefinitionFileBackup.newPath = storedDefinitionFilePath;
+  const oldFilePath = getAbsolutePathFromOption(
+    serviceFolderPath,
+    "old-open-api-definition.json",
+  );
 
   return {
     fileContent: stringifiedOpenApi,
     filePath: storedDefinitionFilePath,
     buildingBlockFolder: serviceFolderPath,
+    fileBackup: storeFilesWithBackup({
+      oldPath: oldFilePath,
+      latestVersionContent: stringifiedOpenApi,
+      latestVersionPath: storedDefinitionFilePath,
+    }),
   };
 }
 
 async function storeSchema({
   openApiDefinitionContent,
   buildingBlockFolder,
-  schemaFileBackup,
 }: {
   openApiDefinitionContent: string;
   buildingBlockFolder: string;
-  schemaFileBackup: FileBackup;
-}): Promise<{
-  schemaFilePath: string;
-}> {
+}): Promise<FileBackup> {
   const parser = await openapiTS(openApiDefinitionContent);
   const parsedSchema = astToString(parser);
   const schemaFilePath = getAbsolutePathFromOption(
     buildingBlockFolder,
     "schema.ts",
   );
-  if (fs.existsSync(schemaFilePath)) {
-    schemaFileBackup.oldPath = getAbsolutePathFromOption(
-      buildingBlockFolder,
-      "old-schema.ts",
-    );
-    fs.copyFileSync(schemaFilePath, schemaFileBackup.oldPath);
-  }
-  fs.writeFileSync(schemaFilePath, parsedSchema);
-  schemaFileBackup.newPath = schemaFilePath;
+  const oldPath = getAbsolutePathFromOption(
+    buildingBlockFolder,
+    "old-schema.ts",
+  );
 
-  return { schemaFilePath };
+  return storeFilesWithBackup({
+    oldPath,
+    latestVersionContent: parsedSchema,
+    latestVersionPath: schemaFilePath,
+  });
 }
 
 async function processBuildingBlock({
   inputBuildingBlock,
 }: { inputBuildingBlock: ConfigurationBuildingBlock }): Promise<void> {
-  const openApiDefinitionFileBackup: FileBackup = {
+  let schemaFileBackup: FileBackup = {
     oldPath: null,
     newPath: null,
   };
-  const schemaFileBackup: FileBackup = {
-    oldPath: null,
-    newPath: null,
-  };
+  let storedDefinition = null;
   try {
-    const storedDefinition = await storeOpenApiDefinitionFile({
+    storedDefinition = await storeOpenApiDefinitionFile({
       inputBuildingBlock,
-      openApiDefinitionFileBackup,
     });
-    await storeSchema({
+    schemaFileBackup = await storeSchema({
       openApiDefinitionContent: storedDefinition.fileContent,
       buildingBlockFolder: storedDefinition.buildingBlockFolder,
-      schemaFileBackup,
     });
 
-    deleteOldFiles(openApiDefinitionFileBackup, schemaFileBackup);
+    deleteOldFiles(storedDefinition.fileBackup, schemaFileBackup);
   } catch (e) {
-    restoreOldFiles(openApiDefinitionFileBackup, schemaFileBackup);
+    restoreOldFiles(
+      storedDefinition?.fileBackup ?? { newPath: null, oldPath: null },
+      schemaFileBackup,
+    );
 
     throw e;
   }
@@ -174,6 +163,8 @@ async function updateClients({
 function deleteOldFiles(...backedUpFiles: FileBackup[]): void {
   for (const backedUp of backedUpFiles) {
     try {
+      // if an old version has been backupped
+      // but all went fine, delete it
       if (backedUp.oldPath) {
         fs.unlinkSync(backedUp.oldPath);
       }
@@ -186,10 +177,16 @@ function deleteOldFiles(...backedUpFiles: FileBackup[]): void {
 function restoreOldFiles(...backedUpFiles: FileBackup[]): void {
   for (const backedUp of backedUpFiles) {
     try {
+      // if the new file has been saved
+      // and something went wrong
+      // delete it
       if (backedUp.newPath) {
         fs.unlinkSync(backedUp.newPath);
       }
       if (backedUp.oldPath) {
+        // if a backup is available and the
+        // new file has been written
+        // revert it
         if (backedUp.newPath) {
           fs.copyFileSync(backedUp.oldPath, backedUp.newPath);
         }
@@ -199,6 +196,29 @@ function restoreOldFiles(...backedUpFiles: FileBackup[]): void {
       console.log(`Error restoring ${backedUp.newPath}`, e);
     }
   }
+}
+
+function storeFilesWithBackup({
+  oldPath,
+  latestVersionPath,
+  latestVersionContent,
+}: {
+  oldPath: string;
+  latestVersionPath: string;
+  latestVersionContent: string;
+}): FileBackup {
+  const output: FileBackup = { newPath: null, oldPath: null };
+  // if the file already exists
+  // backup it
+  if (fs.existsSync(latestVersionPath)) {
+    output.oldPath = oldPath;
+    fs.copyFileSync(latestVersionPath, oldPath);
+  }
+  // write the new file
+  fs.writeFileSync(latestVersionPath, latestVersionContent);
+  output.newPath = latestVersionPath;
+
+  return output;
 }
 
 const updateClientsCommand = new Command("clients:update");
