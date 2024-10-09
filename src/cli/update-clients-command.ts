@@ -16,7 +16,7 @@ import {
  * then creates the Typescript schema and stores it in the same folder
  */
 
-const CLIENTS_ROOT_FOLDER_PATH = "src/clients";
+const CLIENTS_ROOT_FOLDER_PATH = "src/client/clients";
 
 function getAbsolutePathFromOption(...relativeInputPath: string[]): string {
   return resolve(process.cwd(), ...relativeInputPath);
