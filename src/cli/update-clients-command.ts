@@ -47,8 +47,10 @@ async function getOpenApiDefinitionFileContent(
 
 async function storeOpenApiDefinitionFile({
   inputBuildingBlock,
+  dryRun,
 }: {
   inputBuildingBlock: ConfigurationBuildingBlock;
+  dryRun: boolean;
 }): Promise<{
   filePath: string;
   fileContent: string;
@@ -71,7 +73,7 @@ async function storeOpenApiDefinitionFile({
     inputBuildingBlock.name,
   );
 
-  if (!fs.existsSync(serviceFolderPath)) {
+  if (!fs.existsSync(serviceFolderPath) && !dryRun) {
     fs.mkdirSync(serviceFolderPath, { recursive: true });
   }
 
@@ -86,15 +88,19 @@ async function storeOpenApiDefinitionFile({
   );
 
   log(`${inputBuildingBlock.name} - Storing Open API definition file`);
-  const fileBackup = storeFilesWithBackup({
-    oldPath: oldFilePath,
-    latestVersionContent: stringifiedOpenApi,
-    latestVersionPath: storedDefinitionFilePath,
-  });
+  let fileBackup: FileBackup = { newPath: null, oldPath: null };
+  if (!dryRun) {
+    fileBackup = storeFilesWithBackup({
+      oldPath: oldFilePath,
+      latestVersionContent: stringifiedOpenApi,
+      latestVersionPath: storedDefinitionFilePath,
+    });
+  }
   log(
     `${inputBuildingBlock.name} - Open API definition file stored!`,
     fileBackup,
   );
+
   return {
     fileContent: stringifiedOpenApi,
     filePath: storedDefinitionFilePath,
@@ -107,10 +113,12 @@ async function storeSchema({
   openApiDefinitionContent,
   buildingBlockFolder,
   inputBuildingBlock,
+  dryRun,
 }: {
   openApiDefinitionContent: string;
   buildingBlockFolder: string;
   inputBuildingBlock: ConfigurationBuildingBlock;
+  dryRun: boolean;
 }): Promise<FileBackup> {
   log(`${inputBuildingBlock.name} - Creating TS Schema`);
   const parser = await openapiTS(openApiDefinitionContent);
@@ -126,11 +134,14 @@ async function storeSchema({
   );
 
   log(`${inputBuildingBlock.name} - Storing TS Schema`);
-  const fileBackup = storeFilesWithBackup({
-    oldPath,
-    latestVersionContent: parsedSchema,
-    latestVersionPath: schemaFilePath,
-  });
+  let fileBackup: FileBackup = { newPath: null, oldPath: null };
+  if (!dryRun) {
+    fileBackup = storeFilesWithBackup({
+      oldPath,
+      latestVersionContent: parsedSchema,
+      latestVersionPath: schemaFilePath,
+    });
+  }
   log(`${inputBuildingBlock.name} - TS Schema stored`);
 
   return fileBackup;
@@ -138,7 +149,11 @@ async function storeSchema({
 
 async function processBuildingBlock({
   inputBuildingBlock,
-}: { inputBuildingBlock: ConfigurationBuildingBlock }): Promise<void> {
+  dryRun,
+}: {
+  inputBuildingBlock: ConfigurationBuildingBlock;
+  dryRun: boolean;
+}): Promise<void> {
   let schemaFileBackup: FileBackup = {
     oldPath: null,
     newPath: null,
@@ -148,27 +163,35 @@ async function processBuildingBlock({
   try {
     storedDefinition = await storeOpenApiDefinitionFile({
       inputBuildingBlock,
+      dryRun,
     });
     schemaFileBackup = await storeSchema({
       inputBuildingBlock,
       openApiDefinitionContent: storedDefinition.fileContent,
       buildingBlockFolder: storedDefinition.buildingBlockFolder,
+      dryRun,
     });
 
     log(`${inputBuildingBlock.name} - Deleting backup files`);
-    deleteOldFiles(
-      inputBuildingBlock.name,
-      storedDefinition.fileBackup,
-      schemaFileBackup,
-    );
+    if (!dryRun) {
+      deleteOldFiles(
+        inputBuildingBlock.name,
+        storedDefinition.fileBackup,
+        schemaFileBackup,
+      );
+    }
   } catch (e) {
-    restoreOldFiles(
-      inputBuildingBlock.name,
-      storedDefinition?.fileBackup ?? { newPath: null, oldPath: null },
-      schemaFileBackup,
+    log(
+      `${inputBuildingBlock.name} - Error While Processing, restoring backups`,
     );
+    if (!dryRun) {
+      restoreOldFiles(
+        inputBuildingBlock.name,
+        storedDefinition?.fileBackup ?? { newPath: null, oldPath: null },
+        schemaFileBackup,
+      );
+    }
 
-    log(`${inputBuildingBlock.name} - Error While Processing`);
     throw e;
   }
   log(`${inputBuildingBlock.name} - Processed`);
@@ -184,7 +207,9 @@ async function updateClients({
 
   const promises: Promise<void>[] = [];
   for (const inputBuilding of Object.values(configurationFile.buildingBlocks)) {
-    promises.push(processBuildingBlock({ inputBuildingBlock: inputBuilding }));
+    promises.push(
+      processBuildingBlock({ inputBuildingBlock: inputBuilding, dryRun }),
+    );
   }
 
   await Promise.all(promises);
@@ -281,6 +306,11 @@ updateClientsCommand
   .action(
     async (options: { configurationFilePath: string; dryRun?: boolean }) => {
       log("Started!");
+      if (options.dryRun) {
+        log(
+          "Alert. I am running dry! Changes will be logged only, not applied!",
+        );
+      }
       await updateClients(options);
       log("Ended!");
     },
