@@ -7,7 +7,7 @@ import {
   type ConfigurationBuildingBlock,
   OpenAPIFileFormats,
   readConfigurationFile,
-} from "./clients-configurations/read-configuration-file.js";
+} from "../clients-configurations/read-configuration-file.js";
 
 /**
  * This command, starting from a json configuration file,
