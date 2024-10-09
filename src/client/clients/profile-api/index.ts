@@ -1,4 +1,5 @@
 import type createClient from "openapi-fetch";
+import { RESOURCES, type SDKClientParams } from "../../../types/index.js";
 import BaseClient from "../../BaseClient.js";
 import type { paths } from "./schema.js";
 
@@ -14,6 +15,7 @@ const formatQueryResult = async (promise: Promise<any>) => {
 
 class Profile extends BaseClient {
   declare client: ReturnType<typeof createClient<paths>>;
+  protected serviceName = RESOURCES.MESSAGING;
 
   async getAddresses() {
     return formatQueryResult(this.client.GET("/api/v1/addresses/"));
