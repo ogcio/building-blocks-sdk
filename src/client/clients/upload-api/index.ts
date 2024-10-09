@@ -1,6 +1,7 @@
 import type { Middleware, createPathBasedClient } from "openapi-fetch";
 import type createClient from "openapi-fetch";
 import BaseClient from "../../BaseClient.js";
+import type { paths } from "./schema.js";
 // import type { paths } from "./schema.js";
 
 class UploadClient extends BaseClient {
