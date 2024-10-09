@@ -1,8 +1,12 @@
 import fs from "node:fs";
-import { resolve } from "node:path";
 import { Command } from "commander";
 import openapiTS, { astToString } from "openapi-typescript";
 import { parse } from "yaml";
+import {
+  type ConfigurationBuildingBlock,
+  OpenAPIFileFormats,
+  readConfigurationFile,
+} from "../clients-configurations/read-configuration-file.js";
 import {
   CLIENTS_ROOT_FOLDER_PATH,
   OLD_OPEN_API_DEFINITION_FILE_NAME,
@@ -12,11 +16,6 @@ import {
   getAbsolutePathFromOption,
   getOpenApiDefinitionFileContent,
 } from "./cli-utils.js";
-import {
-  type ConfigurationBuildingBlock,
-  OpenAPIFileFormats,
-  readConfigurationFile,
-} from "../clients-configurations/read-configuration-file.js";
 
 /**
  * This command, starting from a json configuration file,

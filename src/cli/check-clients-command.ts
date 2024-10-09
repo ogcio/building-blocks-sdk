@@ -53,7 +53,7 @@ async function isBuildingBlockOutdated({
   inputBuildingBlock,
 }: {
   inputBuildingBlock: ConfigurationBuildingBlock;
-}): Promise<boolean> {
+}): Promise<{ name: string; isOutdated: boolean }> {
   log(`${inputBuildingBlock.name} - Processing`);
   try {
     const latestDefinition = await getLatestDefinitionFileContent({
@@ -73,7 +73,7 @@ async function isBuildingBlockOutdated({
       !fs.existsSync(serviceFolderPath) ||
       !fs.existsSync(definitionFilePath)
     ) {
-      return true;
+      return { name: inputBuildingBlock.name, isOutdated: true };
     }
 
     const storedFile = fs.readFileSync(definitionFilePath, {
@@ -87,7 +87,7 @@ async function isBuildingBlockOutdated({
       `${inputBuildingBlock.name} - Processed. Building Block is ${isOutdated ? "OUTDATED!" : "not outdated"}`,
     );
 
-    return isOutdated;
+    return { name: inputBuildingBlock.name, isOutdated };
   } catch (e) {
     log(`${inputBuildingBlock.name} - Error While Processing`);
     throw e;
@@ -107,7 +107,7 @@ async function checkClients({
   const configurationFile = await readConfigurationFile(configurationFilePath);
   log("Configuration file read");
 
-  const promises: Promise<boolean>[] = [];
+  const promises: Promise<{ name: string; isOutdated: boolean }>[] = [];
   for (const inputBuilding of Object.values(configurationFile.buildingBlocks)) {
     promises.push(
       isBuildingBlockOutdated({ inputBuildingBlock: inputBuilding }),
@@ -115,7 +115,9 @@ async function checkClients({
   }
 
   const bbStatuses = await Promise.all(promises);
-  const outdated = bbStatuses.filter((bb) => bb === true);
+  const outdated = bbStatuses
+    .filter((bb) => bb.isOutdated === true)
+    .map((bb) => bb.name);
   if (outdated.length) {
     throw new Error(
       `The following building blocks are outdated: ${outdated.join(", ")}`,
