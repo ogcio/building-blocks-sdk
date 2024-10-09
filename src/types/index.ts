@@ -1,9 +1,16 @@
+import type BaseClient from "../client/BaseClient.js";
+import type Messaging from "../client/clients/messaging-api/index.js";
+import type Payments from "../client/clients/payments-api/index.js";
+import type Profile from "../client/clients/profile-api/index.js";
+import type Scheduler from "../client/clients/scheduler-api/index.js";
+import type Upload from "../client/clients/upload-api/index.js";
+
 export enum RESOURCES {
-  MESSAGING = "MESSAGING",
-  PAYMENTS = "PAYMENTS",
-  PROFILE = "PROFILE",
-  SCHEDULER = "SCHEDULER",
-  UPLOAD = "UPLOAD",
+  MESSAGING = "messaging",
+  PAYMENTS = "payments",
+  PROFILE = "profile",
+  SCHEDULER = "scheduler",
+  UPLOAD = "upload",
 }
 
 interface GetTokenBaseParams {
@@ -13,19 +20,36 @@ interface GetTokenBaseParams {
   scopes: string[];
 }
 
-export type ApiClientParams = {
-  baseUrl: string;
+export type TokenFunction = (
+  serviceName: RESOURCES,
+) => Promise<string> | string;
+
+export type SDKClientParams = {
+  baseUrl?: string;
   m2m?: {
     getOrganizationTokenParams?: GetOrganizationTokenParams;
     getAccessTokenParams?: GetAccessTokenParams;
   };
 };
 
+export type ApiClientParams = SDKClientParams & {
+  serviceName: RESOURCES;
+  getTokenFn?: TokenFunction;
+};
+
+export type SDK = {
+  [RESOURCES.MESSAGING]: Messaging;
+  [RESOURCES.PAYMENTS]: Payments;
+  [RESOURCES.PROFILE]: Profile;
+  [RESOURCES.SCHEDULER]: Scheduler;
+  [RESOURCES.UPLOAD]: Upload;
+};
+
 export type BuildingBlockSDKParams = {
   services: {
-    [key in RESOURCES]?: ApiClientParams;
+    [key in RESOURCES]?: SDKClientParams;
   };
-  //   getTokenFn?: (serviceName: string) => string | Promise<string>;
+  getTokenFn?: TokenFunction;
 };
 
 export interface TokenResponseBody {

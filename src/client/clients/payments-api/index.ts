@@ -1,3 +1,5 @@
+import type createClient from "openapi-fetch";
+import BaseClient from "../../BaseClient.js";
 import type { paths } from "./schema.js";
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -11,13 +13,8 @@ const formatQueryResult = async (promise: Promise<any>) => {
   }
 };
 
-export class Payments {
-  // biome-ignore lint/suspicious/noExplicitAny: waiting for @edge33 PR
-  private client: any;
-  constructor() {
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    this.client = {} as any;
-  }
+class Payments extends BaseClient {
+  declare client: ReturnType<typeof createClient<paths>>;
 
   /**
    * PROVIDERS
@@ -305,3 +302,5 @@ export class Payments {
     return formatQueryResult(this.client.GET("/api/v1/auditLogs/event-types"));
   }
 }
+
+export default Payments;

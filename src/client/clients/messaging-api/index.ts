@@ -1,4 +1,6 @@
-import { BadRequest, NotFound } from "http-errors";
+import createError from "http-errors";
+import type createClient from "openapi-fetch";
+import BaseClient from "../../BaseClient.js";
 import {
   type PaginationParams,
   preparePaginationParams,
@@ -6,13 +8,8 @@ import {
 } from "../../utils/client-utils.js";
 import type { paths } from "./schema.js";
 
-export class Messaging {
-  // biome-ignore lint/suspicious/noExplicitAny: waiting for @edge33 PR
-  private client: any;
-  constructor() {
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    this.client = {} as any;
-  }
+class Messaging extends BaseClient {
+  declare client: ReturnType<typeof createClient<paths>>;
 
   async getMessagesForUser(
     userId: string,
@@ -115,13 +112,13 @@ export class Messaging {
     vars: Record<string, string | null | undefined>,
   ) {
     if (language.length === 0) {
-      throw BadRequest("no language provided");
+      throw createError.BadRequest("no language provided");
     }
 
     const message = messages.find((m) => m.language === language);
 
     if (!message) {
-      throw NotFound(`template not found for language ${language}`);
+      throw createError.NotFound(`template not found for language ${language}`);
     }
 
     const illegalValueKeys: string[] = [];
@@ -133,7 +130,7 @@ export class Messaging {
     }
 
     if (illegalValueKeys.length) {
-      throw BadRequest(
+      throw createError.BadRequest(
         `illegal empty variables ${illegalValueKeys.join(", ")}`,
       );
     }
@@ -163,7 +160,7 @@ export class Messaging {
     }
 
     if (illegalVariables.length) {
-      throw BadRequest(
+      throw createError.BadRequest(
         `illegal template variables ${illegalVariables.join(", ")}`,
       );
     }
@@ -609,3 +606,5 @@ export class Messaging {
     };
   }
 }
+
+export default Messaging;
