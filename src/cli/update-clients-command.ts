@@ -4,6 +4,15 @@ import { Command } from "commander";
 import openapiTS, { astToString } from "openapi-typescript";
 import { parse } from "yaml";
 import {
+  CLIENTS_ROOT_FOLDER_PATH,
+  OLD_OPEN_API_DEFINITION_FILE_NAME,
+  OLD_SCHEMA_FILE_NAME,
+  OPEN_API_DEFINITION_FILE_NAME,
+  SCHEMA_FILE_NAME,
+  getAbsolutePathFromOption,
+  getOpenApiDefinitionFileContent,
+} from "./cli-utils.js";
+import {
   type ConfigurationBuildingBlock,
   OpenAPIFileFormats,
   readConfigurationFile,
@@ -21,28 +30,12 @@ type FileBackup = {
   newPath: string | null;
 };
 
-const CLIENTS_ROOT_FOLDER_PATH = "src/client/clients";
-
-function getAbsolutePathFromOption(...relativeInputPath: string[]): string {
-  return resolve(process.cwd(), ...relativeInputPath);
-}
-
-async function getOpenApiDefinitionFileContent(
-  filePath: string,
-): Promise<string> {
-  if (fs.existsSync(filePath)) {
-    return fs.readFileSync(filePath, "utf-8");
+function log(message: string, ...params: unknown[]): void {
+  if (params.length === 0) {
+    console.log(`Update Clients: ${message}`);
+    return;
   }
-
-  try {
-    const url = new URL(filePath);
-    const response = await fetch(url);
-    return response.text();
-  } catch {}
-
-  throw new Error(
-    "The configuration-file-path is not a valid file path nor url",
-  );
+  console.log(`Update Clients: ${message}`, params);
 }
 
 async function storeOpenApiDefinitionFile({
@@ -80,11 +73,11 @@ async function storeOpenApiDefinitionFile({
   const stringifiedOpenApi = JSON.stringify(openApiParsed, null, 2);
   const storedDefinitionFilePath = getAbsolutePathFromOption(
     serviceFolderPath,
-    "open-api-definition.json",
+    OPEN_API_DEFINITION_FILE_NAME,
   );
   const oldFilePath = getAbsolutePathFromOption(
     serviceFolderPath,
-    "old-open-api-definition.json",
+    OLD_OPEN_API_DEFINITION_FILE_NAME,
   );
 
   log(`${inputBuildingBlock.name} - Storing Open API definition file`);
@@ -126,11 +119,11 @@ async function storeSchema({
   log(`${inputBuildingBlock.name} - TS Schema created`);
   const schemaFilePath = getAbsolutePathFromOption(
     buildingBlockFolder,
-    "schema.ts",
+    SCHEMA_FILE_NAME,
   );
   const oldPath = getAbsolutePathFromOption(
     buildingBlockFolder,
-    "old-schema.ts",
+    OLD_SCHEMA_FILE_NAME,
   );
 
   log(`${inputBuildingBlock.name} - Storing TS Schema`);
@@ -145,6 +138,72 @@ async function storeSchema({
   log(`${inputBuildingBlock.name} - TS Schema stored`);
 
   return fileBackup;
+}
+
+function deleteOldFiles(
+  buildingBlockName: string,
+  ...backedUpFiles: FileBackup[]
+): void {
+  for (const backedUp of backedUpFiles) {
+    try {
+      // if an old version has been backupped
+      // but all went fine, delete it
+      if (backedUp.oldPath) {
+        fs.unlinkSync(backedUp.oldPath);
+      }
+    } catch (e) {
+      log(`${buildingBlockName} - Error deleting ${backedUp.oldPath}`, e);
+    }
+  }
+}
+
+function restoreOldFiles(
+  buildingBlockName: string,
+  ...backedUpFiles: FileBackup[]
+): void {
+  for (const backedUp of backedUpFiles) {
+    try {
+      if (backedUp.oldPath) {
+        // if a backup is available and the
+        // new file has been written
+        // revert it
+        if (backedUp.newPath) {
+          fs.copyFileSync(backedUp.oldPath, backedUp.newPath);
+        }
+        fs.unlinkSync(backedUp.oldPath);
+      } else if (backedUp.newPath) {
+        // if the new file has been saved
+        // and something went wrong
+        // delete it
+        fs.unlinkSync(backedUp.newPath);
+      }
+    } catch (e) {
+      log(`${buildingBlockName} - Error restoring ${backedUp.newPath}`, e);
+    }
+  }
+}
+
+function storeFilesWithBackup({
+  oldPath,
+  latestVersionPath,
+  latestVersionContent,
+}: {
+  oldPath: string;
+  latestVersionPath: string;
+  latestVersionContent: string;
+}): FileBackup {
+  const output: FileBackup = { newPath: null, oldPath: null };
+  // if the file already exists
+  // backup it
+  if (fs.existsSync(latestVersionPath)) {
+    output.oldPath = oldPath;
+    fs.copyFileSync(latestVersionPath, oldPath);
+  }
+  // write the new file
+  fs.writeFileSync(latestVersionPath, latestVersionContent);
+  output.newPath = latestVersionPath;
+
+  return output;
 }
 
 async function processBuildingBlock({
@@ -215,80 +274,6 @@ async function updateClients({
   await Promise.all(promises);
 }
 
-function deleteOldFiles(
-  buildingBlockName: string,
-  ...backedUpFiles: FileBackup[]
-): void {
-  for (const backedUp of backedUpFiles) {
-    try {
-      // if an old version has been backupped
-      // but all went fine, delete it
-      if (backedUp.oldPath) {
-        fs.unlinkSync(backedUp.oldPath);
-      }
-    } catch (e) {
-      log(`${buildingBlockName} - Error deleting ${backedUp.oldPath}`, e);
-    }
-  }
-}
-
-function restoreOldFiles(
-  buildingBlockName: string,
-  ...backedUpFiles: FileBackup[]
-): void {
-  for (const backedUp of backedUpFiles) {
-    try {
-      if (backedUp.oldPath) {
-        // if a backup is available and the
-        // new file has been written
-        // revert it
-        if (backedUp.newPath) {
-          fs.copyFileSync(backedUp.oldPath, backedUp.newPath);
-        }
-        fs.unlinkSync(backedUp.oldPath);
-      } else if (backedUp.newPath) {
-        // if the new file has been saved
-        // and something went wrong
-        // delete it
-        fs.unlinkSync(backedUp.newPath);
-      }
-    } catch (e) {
-      log(`${buildingBlockName} - Error restoring ${backedUp.newPath}`, e);
-    }
-  }
-}
-
-function storeFilesWithBackup({
-  oldPath,
-  latestVersionPath,
-  latestVersionContent,
-}: {
-  oldPath: string;
-  latestVersionPath: string;
-  latestVersionContent: string;
-}): FileBackup {
-  const output: FileBackup = { newPath: null, oldPath: null };
-  // if the file already exists
-  // backup it
-  if (fs.existsSync(latestVersionPath)) {
-    output.oldPath = oldPath;
-    fs.copyFileSync(latestVersionPath, oldPath);
-  }
-  // write the new file
-  fs.writeFileSync(latestVersionPath, latestVersionContent);
-  output.newPath = latestVersionPath;
-
-  return output;
-}
-
-function log(message: string, ...params: unknown[]): void {
-  if (params.length === 0) {
-    console.log(`Update Clients: ${message}`);
-    return;
-  }
-  console.log(`Update Clients: ${message}`, params);
-}
-
 const updateClientsCommand = new Command("clients:update");
 updateClientsCommand
   .description(
@@ -297,10 +282,7 @@ updateClientsCommand
   .requiredOption(
     "-c, --configuration-file-path <configuration-path>",
     "Path of the configuration file to parse",
-    (value: string) => {
-      // Coerce the string into an array of numbers
-      return getAbsolutePathFromOption(value);
-    },
+    (value: string) => getAbsolutePathFromOption(value),
   )
   .option("--dry-run", "Simulate the command without executing it")
   .action(
