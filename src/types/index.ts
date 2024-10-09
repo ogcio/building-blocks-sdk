@@ -33,11 +33,10 @@ export type SDKClientParams = {
 };
 
 export type ApiClientParams = SDKClientParams & {
-  serviceName: RESOURCES;
   getTokenFn?: TokenFunction;
 };
 
-export type SDK = {
+export type BuildingBlocksSDK = {
   [RESOURCES.MESSAGING]: Messaging;
   [RESOURCES.PAYMENTS]: Payments;
   [RESOURCES.PROFILE]: Profile;

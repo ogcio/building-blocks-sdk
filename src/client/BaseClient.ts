@@ -9,18 +9,24 @@ import type {
 import { getAccessToken, getOrganizationToken } from "./auth/index.js";
 
 abstract class BaseClient {
+  private baseUrl?: string;
+  private initialized;
+
   protected token?: string;
-  private baseUrl: string;
   protected getTokenFn?: TokenFunction;
-  private serviceName: RESOURCES;
+  protected serviceName: RESOURCES | undefined;
 
   protected client: ReturnType<typeof createClient>;
 
   private readonly getOrganizationTokenParams?: GetOrganizationTokenParams;
   private readonly getAccessTokenParams?: GetAccessTokenParams;
 
-  constructor({ baseUrl, m2m, getTokenFn, serviceName }: ApiClientParams) {
-    this.baseUrl = baseUrl;
+  constructor({ baseUrl, m2m, getTokenFn }: ApiClientParams) {
+    this.initialized = false;
+    if (baseUrl) {
+      this.baseUrl = baseUrl;
+      this.initialized = true;
+    }
     if (m2m) {
       const { getAccessTokenParams, getOrganizationTokenParams } = m2m;
       if (getOrganizationTokenParams) {
@@ -31,7 +37,6 @@ abstract class BaseClient {
         this.getAccessTokenParams = getAccessTokenParams;
       }
     }
-    this.serviceName = serviceName;
     if (getTokenFn) {
       this.getTokenFn = getTokenFn;
     }
@@ -46,11 +51,15 @@ abstract class BaseClient {
     } else if (this.getAccessTokenParams) {
       token = await getAccessToken(this.getAccessTokenParams);
     } else if (this.getTokenFn) {
-      token = await this.getTokenFn(this.serviceName);
+      token = await this.getTokenFn(this.serviceName as RESOURCES);
     }
     this.token = token;
 
     return this.token;
+  }
+
+  public isInitialized() {
+    return this.initialized;
   }
 }
 
