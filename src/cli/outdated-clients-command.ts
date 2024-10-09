@@ -96,10 +96,10 @@ async function isBuildingBlockOutdated({
 
 function log(message: string, ...params: unknown[]): void {
   if (params.length === 0) {
-    console.log(`Check Clients: ${message}`);
+    console.log(`Outdated Clients: ${message}`);
     return;
   }
-  console.log(`Check Clients: ${message}`, params);
+  console.log(`Outdated Clients: ${message}`, params);
 }
 async function checkClients({
   configurationFilePath,
@@ -126,8 +126,8 @@ async function checkClients({
 
   log("All the building blocks are updated!");
 }
-const checkClientsCommand = new Command("clients:check");
-checkClientsCommand
+const outdatedClientsCommand = new Command("clients:outdated");
+outdatedClientsCommand
   .description(
     "Parse a configuration file to check if the clients need to be updated",
   )
@@ -141,4 +141,4 @@ checkClientsCommand
     await checkClients(options);
   });
 
-export default checkClientsCommand;
+export default outdatedClientsCommand;

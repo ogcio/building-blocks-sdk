@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { program } from "commander";
-import checkClientsCommand from "./check-clients-command.js";
+import outdatedClientsCommand from "./outdated-clients-command.js";
 import updateClientsCommand from "./update-clients-command.js";
 
 program
@@ -8,6 +8,6 @@ program
   .description("CLI with tools for managing the building blocks SDK")
   .version("0.0.1")
   .addCommand(updateClientsCommand)
-  .addCommand(checkClientsCommand);
+  .addCommand(outdatedClientsCommand);
 
 program.parseAsync(process.argv);
