@@ -1,7 +1,7 @@
 {
   "buildingBlocks": [
     {
-      "name": "messaging-api",
+      "name": "messaging",
       "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/life-events/refs/heads/dev/apps/messaging-api/openapi-definition.yml",
       "openApiDefinitionFormat": "yaml",
       "citizenPermissions": [
@@ -21,7 +21,7 @@
       ]
     },
     {
-      "name": "upload-api",
+      "name": "upload",
       "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/life-events/refs/heads/dev/apps/upload-api/openapi-definition.yml",
       "openApiDefinitionFormat": "yaml",
       "citizenPermissions": ["upload:file.self:write", "upload:file.self:read"],
@@ -33,7 +33,7 @@
       ]
     },
     {
-      "name": "payments-api",
+      "name": "payments",
       "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/life-events/refs/heads/dev/apps/payments-api/openapi-definition.yml",
       "openApiDefinitionFormat": "yaml",
       "citizenPermissions": [
@@ -52,7 +52,7 @@
       ]
     },
     {
-      "name": "scheduler-api",
+      "name": "scheduler",
       "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/life-events/refs/heads/dev/apps/scheduler-api/openapi-definition.yml",
       "openApiDefinitionFormat": "yaml",
       "citizenPermissions": ["scheduler:jobs:write"],
@@ -63,7 +63,7 @@
       ]
     },
     {
-      "name": "profile-api",
+      "name": "profile",
       "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/life-events/refs/heads/dev/apps/profile-api/openapi-definition.yml",
       "openApiDefinitionFormat": "yaml",
       "citizenPermissions": [
