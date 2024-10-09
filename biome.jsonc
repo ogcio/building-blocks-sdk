@@ -25,6 +25,9 @@
         "noUnusedVariables": {
           "level": "error"
         }
+      },
+      "style": {
+        "useTemplate": { "level": "warn", "fix": "safe" }
       }
     }
   },

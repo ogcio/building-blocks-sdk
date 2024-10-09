@@ -2,11 +2,8 @@ import type { Middleware, createPathBasedClient } from "openapi-fetch";
 import type createClient from "openapi-fetch";
 import BaseClient from "../../BaseClient.js";
 import type { paths } from "./schema.js";
-// import type { paths } from "./schema.js";
 
-class UploadClient extends BaseClient {
-  public async listFiles() {}
-
+class Upload extends BaseClient {
   declare client: ReturnType<typeof createClient<paths>>;
 
   async getFilesMetadata() {
@@ -34,4 +31,4 @@ class UploadClient extends BaseClient {
   }
 }
 
-export default UploadClient;
+export default Upload;
