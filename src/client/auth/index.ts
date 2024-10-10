@@ -65,6 +65,11 @@ export const getOrganizationToken = async (
 };
 
 const importUserScopes = async () => {
-  const { UserScope } = await import("@logto/node");
-  return { UserScope };
+  try {
+    const { UserScope } = await import("@logto/node");
+
+    return { UserScope };
+  } catch {
+    throw new Error("@logto/node package is not installed!");
+  }
 };

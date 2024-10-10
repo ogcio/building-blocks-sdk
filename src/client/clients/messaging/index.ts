@@ -410,9 +410,13 @@ class Messaging extends BaseClient {
         body: {
           file: toImport.file,
         },
-        bodySerializer: (body: { file: File }) => {
+        bodySerializer: (body: unknown) => {
+          const parsed = body as { file?: File } | undefined;
+          if (!parsed || !parsed.file) {
+            throw createError.BadRequest("File is missing!");
+          }
           const formData = new FormData();
-          formData.set("file", body.file);
+          formData.set("file", parsed.file);
           return formData;
         },
       });
@@ -518,7 +522,9 @@ class Messaging extends BaseClient {
 
   async getMessageEvents(params: { search?: string } & PaginationParams) {
     const { data, error } = await this.client.GET("/api/v1/message-events/", {
-      params: { query: { ...params, ...preparePaginationParams(params) } },
+      params: {
+        query: { search: params.search, ...preparePaginationParams(params) },
+      },
     });
 
     return { data: data?.data, error, metadata: data?.metadata };
