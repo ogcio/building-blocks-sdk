@@ -1,52 +1,60 @@
-import type BaseClient from "../client/BaseClient.js";
 import type Messaging from "../client/clients/messaging/index.js";
 import type Payments from "../client/clients/payments/index.js";
 import type Profile from "../client/clients/profile/index.js";
 import type Scheduler from "../client/clients/scheduler/index.js";
 import type Upload from "../client/clients/upload/index.js";
 
-export enum RESOURCES {
-  MESSAGING = "messaging",
-  PAYMENTS = "payments",
-  PROFILE = "profile",
-  SCHEDULER = "scheduler",
-  UPLOAD = "upload",
-}
+export const MESSAGING = "messaging" as const;
+export const PAYMENTS = "payments" as const;
+export const PROFILE = "profile" as const;
+export const SCHEDULER = "scheduler" as const;
+export const UPLOAD = "upload" as const;
 
-interface GetTokenBaseParams {
-  logtoOidcEndpoint: string;
-  applicationId: string;
-  applicationSecret: string;
-  scopes: string[];
-}
+export type SERVICE_NAME =
+  | typeof MESSAGING
+  | typeof PAYMENTS
+  | typeof PROFILE
+  | typeof SCHEDULER
+  | typeof UPLOAD;
 
 export type TokenFunction = (
-  serviceName: RESOURCES,
+  serviceName: SERVICE_NAME,
 ) => Promise<string> | string;
+
+export type M2MParams = {
+  getOrganizationTokenParams?: GetOrganizationTokenParams;
+  getAccessTokenParams?: GetAccessTokenParams;
+};
+
+export type M2MTokenFnConfig = {
+  services: {
+    [key in SERVICE_NAME]?: M2MParams;
+  };
+};
 
 export type SDKClientParams = {
   baseUrl?: string;
-  m2m?: {
-    getOrganizationTokenParams?: GetOrganizationTokenParams;
-    getAccessTokenParams?: GetAccessTokenParams;
-  };
 };
 
 export type ApiClientParams = SDKClientParams & {
   getTokenFn?: TokenFunction;
 };
 
+type ServiceClients = {
+  messaging: Messaging;
+  payments: Payments;
+  profile: Profile;
+  scheduler: Scheduler;
+  upload: Upload;
+};
+
 export type BuildingBlocksSDK = {
-  [RESOURCES.MESSAGING]: Messaging;
-  [RESOURCES.PAYMENTS]: Payments;
-  [RESOURCES.PROFILE]: Profile;
-  [RESOURCES.SCHEDULER]: Scheduler;
-  [RESOURCES.UPLOAD]: Upload;
+  [key in keyof ServiceClients]: ServiceClients[key];
 };
 
 export type BuildingBlockSDKParams = {
   services: {
-    [key in RESOURCES]?: SDKClientParams;
+    [key in keyof ServiceClients]?: SDKClientParams;
   };
   getTokenFn?: TokenFunction;
 };
@@ -56,6 +64,13 @@ export interface TokenResponseBody {
   expires_in: number;
   token_type: string;
   scope: string;
+}
+
+interface GetTokenBaseParams {
+  logtoOidcEndpoint: string;
+  applicationId: string;
+  applicationSecret: string;
+  scopes?: string[];
 }
 
 export interface GetAccessTokenParams extends GetTokenBaseParams {

@@ -1,12 +1,9 @@
 import createClient from "openapi-fetch";
 import type {
   ApiClientParams,
-  GetAccessTokenParams,
-  GetOrganizationTokenParams,
-  RESOURCES,
+  SERVICE_NAME,
   TokenFunction,
 } from "../types/index.js";
-import { getAccessToken, getOrganizationToken } from "./auth/index.js";
 
 abstract class BaseClient {
   private baseUrl?: string;
@@ -14,46 +11,30 @@ abstract class BaseClient {
 
   protected token?: string;
   protected getTokenFn?: TokenFunction;
-  protected serviceName: RESOURCES | undefined;
+  protected serviceName: SERVICE_NAME | undefined;
 
   protected client: ReturnType<typeof createClient>;
 
-  private readonly getOrganizationTokenParams?: GetOrganizationTokenParams;
-  private readonly getAccessTokenParams?: GetAccessTokenParams;
-
-  constructor({ baseUrl, m2m, getTokenFn }: ApiClientParams) {
+  constructor({ baseUrl, getTokenFn }: ApiClientParams) {
     this.initialized = false;
     if (baseUrl) {
       this.baseUrl = baseUrl;
       this.initialized = true;
     }
-    if (m2m) {
-      const { getAccessTokenParams, getOrganizationTokenParams } = m2m;
-      if (getOrganizationTokenParams) {
-        this.getOrganizationTokenParams = getOrganizationTokenParams;
-      }
 
-      if (getAccessTokenParams) {
-        this.getAccessTokenParams = getAccessTokenParams;
-      }
-    }
     if (getTokenFn) {
       this.getTokenFn = getTokenFn;
     }
+
     this.token = undefined;
     this.client = createClient({ baseUrl: this.baseUrl });
   }
 
   protected async getToken() {
-    let token = "";
-    if (this.getOrganizationTokenParams) {
-      token = await getOrganizationToken(this.getOrganizationTokenParams);
-    } else if (this.getAccessTokenParams) {
-      token = await getAccessToken(this.getAccessTokenParams);
-    } else if (this.getTokenFn) {
-      token = await this.getTokenFn(this.serviceName as RESOURCES);
+    if (this.getTokenFn) {
+      const token = await this.getTokenFn(this.serviceName as SERVICE_NAME);
+      this.token = token;
     }
-    this.token = token;
 
     return this.token;
   }
