@@ -1,7 +1,7 @@
 import createClient from "openapi-fetch";
 import type {
   ApiClientParams,
-  RESOURCES,
+  SERVICE_NAME,
   TokenFunction,
 } from "../types/index.js";
 
@@ -10,8 +10,8 @@ abstract class BaseClient {
   private initialized;
 
   protected token?: string;
-  protected getTokenFn: TokenFunction;
-  protected serviceName: RESOURCES | undefined;
+  protected getTokenFn?: TokenFunction;
+  protected serviceName: SERVICE_NAME | undefined;
 
   protected client: ReturnType<typeof createClient>;
 
@@ -22,14 +22,19 @@ abstract class BaseClient {
       this.initialized = true;
     }
 
-    this.getTokenFn = getTokenFn;
+    if (getTokenFn) {
+      this.getTokenFn = getTokenFn;
+    }
+
     this.token = undefined;
     this.client = createClient({ baseUrl: this.baseUrl });
   }
 
   protected async getToken() {
-    const token = await this.getTokenFn(this.serviceName as RESOURCES);
-    this.token = token;
+    if (this.getTokenFn) {
+      const token = await this.getTokenFn(this.serviceName as SERVICE_NAME);
+      this.token = token;
+    }
 
     return this.token;
   }

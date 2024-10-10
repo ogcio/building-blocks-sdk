@@ -7,13 +7,13 @@ import {
   OpenAPIFileFormats,
   readConfigurationFile,
 } from "../clients-configurations/read-configuration-file.js";
+import getAbsolutePathFromOption from "../utils/get-absolute-path-from-option.js";
 import {
   CLIENTS_ROOT_FOLDER_PATH,
   OLD_OPEN_API_DEFINITION_FILE_NAME,
   OLD_SCHEMA_FILE_NAME,
   OPEN_API_DEFINITION_FILE_NAME,
   SCHEMA_FILE_NAME,
-  getAbsolutePathFromOption,
   getOpenApiDefinitionFileContent,
 } from "./cli-utils.js";
 

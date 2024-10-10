@@ -1,5 +1,5 @@
 import type createClient from "openapi-fetch";
-import { RESOURCES } from "../../../types/index.js";
+import { PAYMENTS } from "../../../types/index.js";
 import BaseClient from "../../BaseClient.js";
 import type { paths } from "./schema.js";
 
@@ -16,7 +16,7 @@ const formatQueryResult = async (promise: Promise<any>) => {
 
 class Payments extends BaseClient {
   declare client: ReturnType<typeof createClient<paths>>;
-  protected serviceName = RESOURCES.PAYMENTS;
+  protected serviceName = PAYMENTS;
 
   /**
    * PROVIDERS
