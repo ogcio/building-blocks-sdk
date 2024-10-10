@@ -1,10 +1,13 @@
 import type {
   GetAccessTokenParams,
   GetOrganizationTokenParams,
+  M2MTokenFnConfig,
+  RESOURCES,
+  TokenFunction,
   TokenResponseBody,
 } from "../../types/index.js";
 
-export const fetchToken = async (params: {
+const fetchToken = async (params: {
   logtoOidcEndpoint: string;
   applicationId: string;
   applicationSecret: string;
@@ -37,7 +40,7 @@ export const fetchToken = async (params: {
   return response.json() as Promise<TokenResponseBody>;
 };
 
-export const getAccessToken = async (params: GetAccessTokenParams) => {
+const getAccessToken = async (params: GetAccessTokenParams) => {
   const tokenResponse = await fetchToken({
     ...params,
     specificBodyFields: { resource: params.resource },
@@ -45,10 +48,10 @@ export const getAccessToken = async (params: GetAccessTokenParams) => {
   return tokenResponse.access_token;
 };
 
-export const getOrganizationToken = async (
-  params: GetOrganizationTokenParams,
-) => {
-  const { UserScope } = await importUserScopes();
+const getOrganizationToken = async (params: GetOrganizationTokenParams) => {
+  const logtoUserScopes = await importUserScopes();
+
+  const { UserScope } = logtoUserScopes;
 
   const tokenResponse = await fetchToken({
     ...params,
@@ -73,3 +76,27 @@ const importUserScopes = async () => {
     throw new Error("@logto/node package is not installed!");
   }
 };
+
+const getM2MTokenFn = (m2mTokenConfig: M2MTokenFnConfig): TokenFunction => {
+  const { services } = m2mTokenConfig;
+
+  const tokenFn = async (serviceName: RESOURCES) => {
+    const serviceParams = services[serviceName];
+
+    if (serviceParams) {
+      const { getAccessTokenParams, getOrganizationTokenParams } =
+        serviceParams;
+      if (getAccessTokenParams) {
+        return await getAccessToken(getAccessTokenParams);
+      }
+      if (getOrganizationTokenParams) {
+        return await getOrganizationToken(getOrganizationTokenParams);
+      }
+    }
+
+    throw new Error(`Missing m2m config for ${serviceName}`);
+  };
+  return tokenFn;
+};
+
+export default getM2MTokenFn;

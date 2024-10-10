@@ -1,4 +1,3 @@
-import type BaseClient from "../client/BaseClient.js";
 import type Messaging from "../client/clients/messaging/index.js";
 import type Payments from "../client/clients/payments/index.js";
 import type Profile from "../client/clients/profile/index.js";
@@ -13,27 +12,27 @@ export enum RESOURCES {
   UPLOAD = "upload",
 }
 
-interface GetTokenBaseParams {
-  logtoOidcEndpoint: string;
-  applicationId: string;
-  applicationSecret: string;
-  scopes: string[];
-}
-
 export type TokenFunction = (
   serviceName: RESOURCES,
 ) => Promise<string> | string;
 
-export type SDKClientParams = {
-  baseUrl?: string;
-  m2m?: {
-    getOrganizationTokenParams?: GetOrganizationTokenParams;
-    getAccessTokenParams?: GetAccessTokenParams;
+export type M2MParams = {
+  getOrganizationTokenParams?: GetOrganizationTokenParams;
+  getAccessTokenParams?: GetAccessTokenParams;
+};
+
+export type M2MTokenFnConfig = {
+  services: {
+    [key in RESOURCES]?: M2MParams;
   };
 };
 
+export type SDKClientParams = {
+  baseUrl?: string;
+};
+
 export type ApiClientParams = SDKClientParams & {
-  getTokenFn?: TokenFunction;
+  getTokenFn: TokenFunction;
 };
 
 export type BuildingBlocksSDK = {
@@ -56,6 +55,13 @@ export interface TokenResponseBody {
   expires_in: number;
   token_type: string;
   scope: string;
+}
+
+interface GetTokenBaseParams {
+  logtoOidcEndpoint: string;
+  applicationId: string;
+  applicationSecret: string;
+  scopes: string[];
 }
 
 export interface GetAccessTokenParams extends GetTokenBaseParams {
