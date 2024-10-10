@@ -1,6 +1,6 @@
 import createError from "http-errors";
 import type createClient from "openapi-fetch";
-import BaseClient from "../../BaseClient.js";
+import BaseClient from "../../base-client.js";
 import {
   type PaginationParams,
   preparePaginationParams,

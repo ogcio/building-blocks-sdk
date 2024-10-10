@@ -1,6 +1,6 @@
 import type createClient from "openapi-fetch";
 import { PROFILE } from "../../../types/index.js";
-import BaseClient from "../../BaseClient.js";
+import BaseClient from "../../base-client.js";
 import type { paths } from "./schema.js";
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
