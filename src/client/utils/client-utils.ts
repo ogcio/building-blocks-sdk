@@ -1,5 +1,12 @@
 import type { FetchResponse } from "openapi-fetch";
-import createClient from "openapi-fetch";
+
+type ResponseJsonValue =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: ResponseJsonValue }
+  | ResponseJsonValue[];
 
 export interface PaginationParams {
   offset?: string | number;
@@ -27,14 +34,33 @@ export function preparePaginationParams(paginationParams?: PaginationParams): {
   return output;
 }
 
-export async function formatQueryResult<T, O>(
-  promise: Promise<FetchResponse<T, O, "application/json">>,
-) {
-  try {
-    const result = await promise;
-
-    return { data: result.data, error: result.error };
-  } catch (error) {
-    return { data: undefined, error };
+export function formatResponse<T, O>(
+  response: FetchResponse<T, O, "application/json">,
+): {
+  data?: ResponseJsonValue;
+  metadata?: ResponseJsonValue;
+  error?: ResponseJsonValue;
+} {
+  if (response.data) {
+    const dataEntries = Object.entries(response.data);
+    // by docs the body should contain a "data"
+    // properties with the response values
+    const containsData = dataEntries.find((x) => x[0] === "data");
+    const containsMetadata = dataEntries.find((x) => x[0] === "metadata");
+    const output: { data?: ResponseJsonValue; metadata?: ResponseJsonValue } =
+      {};
+    if (containsMetadata) {
+      output.metadata = containsMetadata[1] as ResponseJsonValue;
+    }
+    output.data = containsData
+      ? (containsData[1] as ResponseJsonValue)
+      : response.data;
+    return output;
   }
+
+  return { error: response.error };
+}
+
+export function formatError(reason: unknown): { error?: ResponseJsonValue } {
+  return { error: reason as ResponseJsonValue };
 }

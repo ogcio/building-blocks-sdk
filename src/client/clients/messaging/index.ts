@@ -3,12 +3,13 @@ import type createClient from "openapi-fetch";
 import BaseClient from "../../base-client.js";
 import {
   type PaginationParams,
+  formatQueryResult,
   preparePaginationParams,
   toStringOrUndefined,
 } from "../../utils/client-utils.js";
 import type { paths } from "./schema.js";
 
-class Messaging extends BaseClient {
+class Messaging extends BaseClient<paths> {
   declare client: ReturnType<typeof createClient<paths>>;
 
   async getMessagesForUser(
@@ -24,19 +25,19 @@ class Messaging extends BaseClient {
         : filter.isSeen
           ? "true"
           : "false";
-    const { error, data } = await this.client.GET("/api/v1/messages/", {
-      params: {
-        query: {
-          ...preparePaginationParams(filter),
-          recipientUserId: userId,
-          status: "delivered",
-          isSeen,
-          search: filter?.search,
+    return this.client
+      .GET("/api/v1/messages/", {
+        params: {
+          query: {
+            ...preparePaginationParams(filter),
+            recipientUserId: userId,
+            status: "delivered",
+            isSeen,
+            search: filter?.search,
+          },
         },
-      },
-    });
-
-    return { error, data: data?.data };
+      })
+      .then((response) => formatQueryResult(response));
   }
 
   async getMessagesForOrganisation(
