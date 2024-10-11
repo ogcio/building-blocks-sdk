@@ -5,6 +5,7 @@ import Scheduler from "./client/clients/scheduler/index.js";
 import Upload from "./client/clients/upload/index.js";
 
 export type { BuildingBlocksSDK } from "./types/index.js";
+export { default as getM2MTokenFn } from "./client/auth/index.js";
 
 import type {
   BuildingBlockSDKParams,
