@@ -7,7 +7,7 @@ import type {
   TokenFunction,
   TokenResponseBody,
 } from "../../types/index.js";
-import getAbsolutePathFromOption from "../../utils/get-absolute-path-from-option.js";
+import getAbsolutePath from "../../utils/get-absolute-path.js";
 
 const fetchToken = async (params: {
   logtoOidcEndpoint: string;
@@ -96,7 +96,7 @@ const getM2MTokenFn = async (
   const { services } = m2mTokenConfig;
 
   const configFile = await readConfigurationFile(
-    getAbsolutePathFromOption(
+    getAbsolutePath(
       "src",
       "clients-configurations",
       "clients-configuration.json",

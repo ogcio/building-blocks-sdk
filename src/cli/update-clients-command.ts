@@ -7,7 +7,7 @@ import {
   OpenAPIFileFormats,
   readConfigurationFile,
 } from "../clients-configurations/read-configuration-file.js";
-import getAbsolutePathFromOption from "../utils/get-absolute-path-from-option.js";
+import getAbsolutePath from "../utils/get-absolute-path.js";
 import {
   CLIENTS_ROOT_FOLDER_PATH,
   OLD_OPEN_API_DEFINITION_FILE_NAME,
@@ -60,7 +60,7 @@ async function storeOpenApiDefinitionFile({
       : parse(downloadedFileContent);
   log(`${inputBuildingBlock.name} - Open API definition file parsed`);
 
-  const serviceFolderPath = getAbsolutePathFromOption(
+  const serviceFolderPath = getAbsolutePath(
     CLIENTS_ROOT_FOLDER_PATH,
     inputBuildingBlock.name,
   );
@@ -70,11 +70,11 @@ async function storeOpenApiDefinitionFile({
   }
 
   const stringifiedOpenApi = JSON.stringify(openApiParsed, null, 2);
-  const storedDefinitionFilePath = getAbsolutePathFromOption(
+  const storedDefinitionFilePath = getAbsolutePath(
     serviceFolderPath,
     OPEN_API_DEFINITION_FILE_NAME,
   );
-  const oldFilePath = getAbsolutePathFromOption(
+  const oldFilePath = getAbsolutePath(
     serviceFolderPath,
     OLD_OPEN_API_DEFINITION_FILE_NAME,
   );
@@ -116,14 +116,8 @@ async function storeSchema({
   const parser = await openapiTS(openApiDefinitionContent);
   const parsedSchema = astToString(parser);
   log(`${inputBuildingBlock.name} - TS Schema created`);
-  const schemaFilePath = getAbsolutePathFromOption(
-    buildingBlockFolder,
-    SCHEMA_FILE_NAME,
-  );
-  const oldPath = getAbsolutePathFromOption(
-    buildingBlockFolder,
-    OLD_SCHEMA_FILE_NAME,
-  );
+  const schemaFilePath = getAbsolutePath(buildingBlockFolder, SCHEMA_FILE_NAME);
+  const oldPath = getAbsolutePath(buildingBlockFolder, OLD_SCHEMA_FILE_NAME);
 
   log(`${inputBuildingBlock.name} - Storing TS Schema`);
   let fileBackup: FileBackup = { newPath: null, oldPath: null };
@@ -281,7 +275,7 @@ updateClientsCommand
   .requiredOption(
     "-c, --configuration-file-path <configuration-path>",
     "Path of the configuration file to parse",
-    (value: string) => getAbsolutePathFromOption(value),
+    (value: string) => getAbsolutePath(value),
   )
   .option("--dry-run", "Simulate the command without executing it")
   .action(

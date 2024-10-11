@@ -1,20 +1,9 @@
 import type createClient from "openapi-fetch";
 import { PAYMENTS } from "../../../types/index.js";
-import BaseClient from "../../BaseClient.js";
+import BaseClient from "../../base-client.js";
 import type { paths } from "./schema.js";
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-const formatQueryResult = async (promise: Promise<any>) => {
-  try {
-    const result = await promise;
-
-    return { data: result.data, error: result.error };
-  } catch (error) {
-    return { data: undefined, error };
-  }
-};
-
-class Payments extends BaseClient {
+class Payments extends BaseClient<paths> {
   declare client: ReturnType<typeof createClient<paths>>;
   protected serviceName = PAYMENTS;
 
@@ -22,47 +11,59 @@ class Payments extends BaseClient {
    * PROVIDERS
    */
   async getProviders() {
-    return formatQueryResult(this.client.GET("/api/v1/providers/"));
+    return this.client.GET("/api/v1/providers/").then(
+      (response) => this.formatResponse(response),
+      (reason) => this.formatError(reason),
+    );
   }
 
   async getProviderById(
     providerId: paths["/api/v1/providers/{providerId}"]["get"]["parameters"]["path"]["providerId"],
   ) {
-    return formatQueryResult(
-      this.client.GET("/api/v1/providers/{providerId}", {
+    return this.client
+      .GET("/api/v1/providers/{providerId}", {
         params: {
           path: {
             providerId,
           },
         },
-      }),
-    );
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async createProvider(
     data: paths["/api/v1/providers/"]["post"]["requestBody"]["content"]["application/json"],
   ) {
-    return formatQueryResult(
-      this.client.POST("/api/v1/providers/", {
+    return this.client
+      .POST("/api/v1/providers/", {
         body: data,
-      }),
-    );
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async updateProvider(
     providerId: paths["/api/v1/providers/{providerId}"]["put"]["parameters"]["path"]["providerId"],
     data: paths["/api/v1/providers/{providerId}"]["put"]["requestBody"]["content"]["application/json"],
   ) {
-    return formatQueryResult(
-      this.client.PUT("/api/v1/providers/{providerId}", {
+    return this.client
+      .PUT("/api/v1/providers/{providerId}", {
         params: {
           path: {
             providerId,
           },
         },
         body: data,
-      }),
-    );
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   /**
@@ -72,91 +73,112 @@ class Payments extends BaseClient {
   async getPaymentRequests(
     query: paths["/api/v1/requests/"]["get"]["parameters"]["query"],
   ) {
-    return formatQueryResult(
-      this.client.GET("/api/v1/requests/", {
+    return this.client
+      .GET("/api/v1/requests/", {
         params: {
           query,
         },
-      }),
-    );
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async getPaymentRequest(
     requestId: paths["/api/v1/requests/{requestId}"]["get"]["parameters"]["path"]["requestId"],
   ) {
-    return formatQueryResult(
-      this.client.GET("/api/v1/requests/{requestId}", {
+    return this.client
+      .GET("/api/v1/requests/{requestId}", {
         params: {
           path: {
             requestId,
           },
         },
-      }),
-    );
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async getPaymentRequestTransactions(
     requestId: paths["/api/v1/requests/{requestId}/transactions"]["get"]["parameters"]["path"]["requestId"],
     query: paths["/api/v1/requests/{requestId}/transactions"]["get"]["parameters"]["query"],
   ) {
-    return formatQueryResult(
-      this.client.GET("/api/v1/requests/{requestId}/transactions", {
+    return this.client
+      .GET("/api/v1/requests/{requestId}/transactions", {
         params: {
           path: {
             requestId,
           },
           query,
         },
-      }),
-    );
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async createPaymentRequest(
     data: paths["/api/v1/requests/"]["post"]["requestBody"]["content"]["application/json"],
   ) {
-    return formatQueryResult(
-      this.client.POST("/api/v1/requests/", {
+    return this.client
+      .POST("/api/v1/requests/", {
         body: data,
-      }),
-    );
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async getPaymentRequestPublicInfo(
     requestId: paths["/api/v1/requests/{requestId}/public-info"]["get"]["parameters"]["path"]["requestId"],
   ) {
-    return formatQueryResult(
-      this.client.GET("/api/v1/requests/{requestId}/public-info", {
+    return this.client
+      .GET("/api/v1/requests/{requestId}/public-info", {
         params: {
           path: {
             requestId,
           },
         },
-      }),
-    );
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async updatePaymentRequest(
     data: paths["/api/v1/requests/"]["put"]["requestBody"]["content"]["application/json"],
   ) {
-    return formatQueryResult(
-      this.client.PUT("/api/v1/requests/", {
+    return this.client
+      .PUT("/api/v1/requests/", {
         body: data,
-      }),
-    );
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async deletePaymentRequest(
     requestId: paths["/api/v1/requests/{requestId}"]["delete"]["parameters"]["path"]["requestId"],
   ) {
-    return formatQueryResult(
-      this.client.DELETE("/api/v1/requests/{requestId}", {
+    return this.client
+      .DELETE("/api/v1/requests/{requestId}", {
         params: {
           path: {
             requestId,
           },
         },
-      }),
-    );
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   /**
@@ -166,69 +188,85 @@ class Payments extends BaseClient {
   async getTransactions(
     query: paths["/api/v1/transactions/"]["get"]["parameters"]["query"],
   ) {
-    return formatQueryResult(
-      this.client.GET("/api/v1/transactions/", {
+    return this.client
+      .GET("/api/v1/transactions/", {
         params: {
           query,
         },
-      }),
-    );
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async getTransactionDetails(transactionId: string) {
-    return formatQueryResult(
-      this.client.GET("/api/v1/transactions/{transactionId}", {
+    return this.client
+      .GET("/api/v1/transactions/{transactionId}", {
         params: {
           path: {
             transactionId,
           },
         },
-      }),
-    );
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async updateTransaction(
     transactionId: paths["/api/v1/transactions/{transactionId}"]["patch"]["parameters"]["path"]["transactionId"],
     data: paths["/api/v1/transactions/{transactionId}"]["patch"]["requestBody"]["content"]["application/json"],
   ) {
-    return formatQueryResult(
-      this.client.PATCH("/api/v1/transactions/{transactionId}", {
+    return this.client
+      .PATCH("/api/v1/transactions/{transactionId}", {
         params: {
           path: {
             transactionId,
           },
         },
         body: data,
-      }),
-    );
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async createTransaction(
     data: paths["/api/v1/transactions/"]["post"]["requestBody"]["content"]["application/json"],
   ) {
-    return formatQueryResult(
-      this.client.POST("/api/v1/transactions/", {
+    return this.client
+      .POST("/api/v1/transactions/", {
         body: data,
-      }),
-    );
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async generatePaymentIntentId() {
-    return formatQueryResult(
-      this.client.GET("/api/v1/transactions/generatePaymentIntentId"),
+    return this.client.GET("/api/v1/transactions/generatePaymentIntentId").then(
+      (response) => this.formatResponse(response),
+      (reason) => this.formatError(reason),
     );
   }
 
   async getRealexPaymentObject(
     query: paths["/api/v1/realex/paymentObject"]["get"]["parameters"]["query"],
   ) {
-    return formatQueryResult(
-      this.client.GET("/api/v1/realex/paymentObject", {
+    return this.client
+      .GET("/api/v1/realex/paymentObject", {
         params: {
           query,
         },
-      }),
-    );
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
   /**
    * Citizen
@@ -237,25 +275,31 @@ class Payments extends BaseClient {
   async getCitizenTransactions(
     query: paths["/api/v1/citizen/transactions"]["get"]["parameters"]["query"],
   ) {
-    return formatQueryResult(
-      this.client.GET("/api/v1/citizen/transactions", {
+    return this.client
+      .GET("/api/v1/citizen/transactions", {
         params: {
           query,
         },
-      }),
-    );
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async getCitizenTransactionDetails(transactionId: string) {
-    return formatQueryResult(
-      this.client.GET("/api/v1/citizen/transactions/{transactionId}", {
+    return this.client
+      .GET("/api/v1/citizen/transactions/{transactionId}", {
         params: {
           path: {
             transactionId,
           },
         },
-      }),
-    );
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   /**
@@ -263,11 +307,17 @@ class Payments extends BaseClient {
    */
 
   async testCitizenAuth() {
-    return formatQueryResult(this.client.GET("/api/v1/test/citizen", {}));
+    return this.client.GET("/api/v1/test/citizen").then(
+      (response) => this.formatResponse(response),
+      (reason) => this.formatError(reason),
+    );
   }
 
   async testPublicServantAuth() {
-    return formatQueryResult(this.client.GET("/api/v1/test/pub-ser", {}));
+    return this.client.GET("/api/v1/test/pub-ser").then(
+      (response) => this.formatResponse(response),
+      (reason) => this.formatError(reason),
+    );
   }
 
   /**
@@ -277,31 +327,40 @@ class Payments extends BaseClient {
   async getAuditLogEvents(
     query: paths["/api/v1/auditLogs/"]["get"]["parameters"]["query"],
   ) {
-    return formatQueryResult(
-      this.client.GET("/api/v1/auditLogs/", {
+    return this.client
+      .GET("/api/v1/auditLogs/", {
         params: {
           query,
         },
-      }),
-    );
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async getAuditLogDetails(
     auditLogId: paths["/api/v1/auditLogs/{auditLogId}"]["get"]["parameters"]["path"]["auditLogId"],
   ) {
-    return formatQueryResult(
-      this.client.GET("/api/v1/auditLogs/{auditLogId}", {
+    return this.client
+      .GET("/api/v1/auditLogs/{auditLogId}", {
         params: {
           path: {
             auditLogId,
           },
         },
-      }),
-    );
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async getAuditLogEventTypes() {
-    return formatQueryResult(this.client.GET("/api/v1/auditLogs/event-types"));
+    return this.client.GET("/api/v1/auditLogs/event-types").then(
+      (response) => this.formatResponse(response),
+      (reason) => this.formatError(reason),
+    );
   }
 }
 

@@ -7,7 +7,7 @@ import {
   OpenAPIFileFormats,
   readConfigurationFile,
 } from "../clients-configurations/read-configuration-file.js";
-import getAbsolutePathFromOption from "../utils/get-absolute-path-from-option.js";
+import getAbsolutePath from "../utils/get-absolute-path.js";
 import {
   CLIENTS_ROOT_FOLDER_PATH,
   OPEN_API_DEFINITION_FILE_NAME,
@@ -59,11 +59,11 @@ async function isBuildingBlockOutdated({
       inputBuildingBlock,
     });
 
-    const serviceFolderPath = getAbsolutePathFromOption(
+    const serviceFolderPath = getAbsolutePath(
       CLIENTS_ROOT_FOLDER_PATH,
       inputBuildingBlock.name,
     );
-    const definitionFilePath = getAbsolutePathFromOption(
+    const definitionFilePath = getAbsolutePath(
       serviceFolderPath,
       OPEN_API_DEFINITION_FILE_NAME,
     );
@@ -133,7 +133,7 @@ outdatedClientsCommand
   .requiredOption(
     "-c, --configuration-file-path <configuration-path>",
     "Path of the configuration file to parse",
-    (value: string) => getAbsolutePathFromOption(value),
+    (value: string) => getAbsolutePath(value),
   )
   .action(async (options: { configurationFilePath: string }) => {
     log("Started!");

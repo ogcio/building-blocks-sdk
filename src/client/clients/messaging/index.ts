@@ -1,6 +1,6 @@
 import createError from "http-errors";
 import type createClient from "openapi-fetch";
-import BaseClient from "../../BaseClient.js";
+import BaseClient from "../../base-client.js";
 import {
   type PaginationParams,
   preparePaginationParams,
@@ -8,7 +8,7 @@ import {
 } from "../../utils/client-utils.js";
 import type { paths } from "./schema.js";
 
-class Messaging extends BaseClient {
+class Messaging extends BaseClient<paths> {
   declare client: ReturnType<typeof createClient<paths>>;
 
   async getMessagesForUser(
@@ -24,86 +24,99 @@ class Messaging extends BaseClient {
         : filter.isSeen
           ? "true"
           : "false";
-    const { error, data } = await this.client.GET("/api/v1/messages/", {
-      params: {
-        query: {
-          ...preparePaginationParams(filter),
-          recipientUserId: userId,
-          status: "delivered",
-          isSeen,
-          search: filter?.search,
+    return this.client
+      .GET("/api/v1/messages/", {
+        params: {
+          query: {
+            ...preparePaginationParams(filter),
+            recipientUserId: userId,
+            status: "delivered",
+            isSeen,
+            search: filter?.search,
+          },
         },
-      },
-    });
-
-    return { error, data: data?.data };
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async getMessagesForOrganisation(
     organisationId: string,
     filter?: PaginationParams,
   ) {
-    const { error, data } = await this.client.GET("/api/v1/messages/", {
-      params: {
-        query: {
-          ...preparePaginationParams(filter),
-          organisationId,
+    return this.client
+      .GET("/api/v1/messages/", {
+        params: {
+          query: {
+            ...preparePaginationParams(filter),
+            organisationId,
+          },
         },
-      },
-    });
-
-    return { error, data: data?.data };
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async getMessage(
     messageId: paths["/api/v1/messages/{messageId}"]["get"]["parameters"]["path"]["messageId"],
   ) {
-    const { data, error } = await this.client.GET(
-      "/api/v1/messages/{messageId}",
-      {
+    return this.client
+      .GET("/api/v1/messages/{messageId}", {
         params: { path: { messageId } },
-      },
-    );
-
-    return { error, data: data?.data };
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async send(
     body: paths["/api/v1/messages/"]["post"]["requestBody"]["content"]["application/json"],
   ) {
-    const { error, data } = await this.client.POST("/api/v1/messages/", {
-      body,
-    });
-
-    return { error, data: data?.data };
+    return this.client
+      .POST("/api/v1/messages/", {
+        body,
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async getTemplates(filter?: PaginationParams) {
-    const { error, data } = await this.client.GET("/api/v1/templates/", {
-      params: {
-        query: {
-          ...preparePaginationParams(filter),
+    return this.client
+      .GET("/api/v1/templates/", {
+        params: {
+          query: {
+            ...preparePaginationParams(filter),
+          },
         },
-      },
-    });
-
-    return { error, data: data?.data };
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async getTemplate(
     templateId: paths["/api/v1/templates/{templateId}"]["get"]["parameters"]["path"]["templateId"],
   ) {
-    const { data, error } = await this.client.GET(
-      "/api/v1/templates/{templateId}",
-      {
+    return this.client
+      .GET("/api/v1/templates/{templateId}", {
         params: {
           path: {
             templateId,
           },
         },
-      },
-    );
-    return { data: data?.data, error };
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async buildMessage(
@@ -178,30 +191,38 @@ class Messaging extends BaseClient {
   async createTemplate(
     body: paths["/api/v1/templates/"]["post"]["requestBody"]["content"]["application/json"],
   ) {
-    return this.client.POST("/api/v1/templates/", { body });
+    return this.client.POST("/api/v1/templates/", { body }).then(
+      (response) => this.formatResponse(response),
+      (reason) => this.formatError(reason),
+    );
   }
 
   async updateTemplate(
     templateId: paths["/api/v1/templates/{templateId}"]["put"]["parameters"]["path"]["templateId"],
     body: paths["/api/v1/templates/{templateId}"]["put"]["requestBody"]["content"]["application/json"],
   ) {
-    const { error } = await this.client.PUT("/api/v1/templates/{templateId}", {
-      params: { path: { templateId } },
-      body,
-    });
-    return { error };
+    return this.client
+      .PUT("/api/v1/templates/{templateId}", {
+        params: { path: { templateId } },
+        body,
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async deleteTemplate(
     templateId: paths["/api/v1/templates/{templateId}"]["delete"]["parameters"]["path"]["templateId"],
   ) {
-    const { error } = await this.client.DELETE(
-      "/api/v1/templates/{templateId}",
-      {
+    return this.client
+      .DELETE("/api/v1/templates/{templateId}", {
         params: { path: { templateId } },
-      },
-    );
-    return { error };
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async getEmailProviders(
@@ -261,14 +282,17 @@ class Messaging extends BaseClient {
     fromAddress: string;
     ssl: boolean;
   }) {
-    const { data, error } = await this.client.POST("/api/v1/providers/", {
-      body: {
-        type: "email",
-        ...provider,
-      },
-    });
-
-    return { error, data: data?.data };
+    return this.client
+      .POST("/api/v1/providers/", {
+        body: {
+          type: "email",
+          ...provider,
+        },
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async updateEmailProvider(provider: {
@@ -283,25 +307,29 @@ class Messaging extends BaseClient {
     fromAddress: string;
     ssl: boolean;
   }) {
-    const { error } = await this.client.PUT("/api/v1/providers/{providerId}", {
-      params: { path: { providerId: provider.id } },
-      body: {
-        type: "email",
-        ...provider,
-      },
-    });
-    return { error };
+    return this.client
+      .PUT("/api/v1/providers/{providerId}", {
+        params: { path: { providerId: provider.id } },
+        body: {
+          type: "email",
+          ...provider,
+        },
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async deleteEmailProvider(providerId: string) {
-    const { error } = await this.client.DELETE(
-      "/api/v1/providers/{providerId}",
-      {
+    return this.client
+      .DELETE("/api/v1/providers/{providerId}", {
         params: { path: { providerId } },
-      },
-    );
-
-    return { error };
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async getSmsProviders(
@@ -364,14 +392,18 @@ class Messaging extends BaseClient {
       region: string;
     };
   }) {
-    const { error } = await this.client.PUT("/api/v1/providers/{providerId}", {
-      params: { path: { providerId: provider.id } },
-      body: {
-        type: "sms",
-        ...provider,
-      },
-    });
-    return { error };
+    return this.client
+      .PUT("/api/v1/providers/{providerId}", {
+        params: { path: { providerId: provider.id } },
+        body: {
+          type: "sms",
+          ...provider,
+        },
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async createSmsProvider(provider: {
@@ -385,23 +417,28 @@ class Messaging extends BaseClient {
       region: string;
     };
   }) {
-    const { error, data } = await this.client.POST("/api/v1/providers/", {
-      body: {
-        type: "sms",
-        ...provider,
-      },
-    });
-
-    return { error, data: data?.data };
+    return this.client
+      .POST("/api/v1/providers/", {
+        body: {
+          type: "sms",
+          ...provider,
+        },
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async deleteSmsProvider(providerId: string) {
-    const { error } = await this.client.DELETE(
-      "/api/v1/providers/{providerId}",
-      { params: { path: { providerId } } },
-    );
-
-    return { error };
+    return this.client
+      .DELETE("/api/v1/providers/{providerId}", {
+        params: { path: { providerId } },
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async importUsers(toImport: { file?: File; records?: object[] }) {
@@ -423,34 +460,43 @@ class Messaging extends BaseClient {
       return { data: data?.data, error };
     }
 
-    const { data, error } = await this.client.POST("/api/v1/user-imports/", {
-      body: toImport.records,
-    });
-    return { data: data?.data, error };
+    return this.client
+      .POST("/api/v1/user-imports/", {
+        body: toImport.records,
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async downloadUsersCsvTemplate() {
-    const { data } = await this.client.GET(
-      "/api/v1/user-imports/template-download",
-      {
+    return this.client
+      .GET("/api/v1/user-imports/template-download", {
         parseAs: "blob",
-      },
-    );
-    return data;
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async getUsersImports(
     pagination: { limit: number; offset: number } = { limit: 100, offset: 0 },
   ) {
-    const { error, data } = await this.client.GET("/api/v1/user-imports/", {
-      params: {
-        query: {
-          limit: toStringOrUndefined(pagination?.limit),
-          offset: toStringOrUndefined(pagination?.offset),
+    return this.client
+      .GET("/api/v1/user-imports/", {
+        params: {
+          query: {
+            limit: toStringOrUndefined(pagination?.limit),
+            offset: toStringOrUndefined(pagination?.offset),
+          },
         },
-      },
-    });
-    return { error, data: data?.data };
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async getUsersImport(importId: string, includeUsersData?: boolean) {
@@ -460,118 +506,136 @@ class Messaging extends BaseClient {
         : includeUsersData
           ? "true"
           : "false";
-    const { error, data } = await this.client.GET(
-      "/api/v1/user-imports/{importId}",
-      {
+    return this.client
+      .GET("/api/v1/user-imports/{importId}", {
         params: {
           path: { importId },
           query: {
             includeImportedData,
           },
         },
-      },
-    );
-    return { error, data: data?.data };
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async getUsersForImport(importId: string, activeOnly: boolean) {
-    const { error, data } = await this.client.GET("/api/v1/users/", {
-      params: { query: { importId, activeOnly: String(activeOnly) } },
-    });
-    return { error, data: data?.data };
+    return this.client
+      .GET("/api/v1/users/", {
+        params: { query: { importId, activeOnly: String(activeOnly) } },
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async getOrganisationsSettings(filter?: PaginationParams) {
-    const { error, data } = await this.client.GET(
-      "/api/v1/organisation-settings/",
-      {
+    return this.client
+      .GET("/api/v1/organisation-settings/", {
         params: {
           query: {
             ...preparePaginationParams(filter),
           },
         },
-      },
-    );
-    return { error, data: data?.data };
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async getOrganisationSettings(organisationSettingId: string) {
-    const { error, data } = await this.client.GET(
-      "/api/v1/organisation-settings/{organisationSettingId}",
-      {
+    return this.client
+      .GET("/api/v1/organisation-settings/{organisationSettingId}", {
         params: { path: { organisationSettingId } },
-      },
-    );
-    return { error, data: data?.data };
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async updateOrganisationSettings(
     organisationSettingId: string,
     body: paths["/api/v1/organisation-settings/{organisationSettingId}"]["patch"]["requestBody"]["content"]["application/json"],
   ) {
-    const { error, data } = await this.client.PATCH(
-      "/api/v1/organisation-settings/{organisationSettingId}",
-      {
+    return this.client
+      .PATCH("/api/v1/organisation-settings/{organisationSettingId}", {
         body,
         params: { path: { organisationSettingId } },
-      },
-    );
-
-    return { error, data: data?.data };
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async getMessageEvents(params: { search?: string } & PaginationParams) {
-    const { data, error } = await this.client.GET("/api/v1/message-events/", {
-      params: {
-        query: { search: params.search, ...preparePaginationParams(params) },
-      },
-    });
-
-    return { data: data?.data, error, metadata: data?.metadata };
+    return this.client
+      .GET("/api/v1/message-events/", {
+        params: {
+          query: { search: params.search, ...preparePaginationParams(params) },
+        },
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async getMessageEvent(eventId: string) {
-    const { error, data } = await this.client.GET(
-      "/api/v1/message-events/{eventId}",
-      { params: { path: { eventId } } },
-    );
-
-    return { data: data?.data, error };
+    return this.client
+      .GET("/api/v1/message-events/{eventId}", {
+        params: { path: { eventId } },
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async getUsers(
     query?: paths["/api/v1/users/"]["get"]["parameters"]["query"],
   ) {
-    const { error, data } = await this.client.GET("/api/v1/users/", {
-      params: {
-        query: { ...query, ...preparePaginationParams(query) },
-      },
-    });
-    return { error, data: data?.data, metadata: data?.metadata };
+    return this.client
+      .GET("/api/v1/users/", {
+        params: {
+          query: { ...query, ...preparePaginationParams(query) },
+        },
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async getUser(
     userId: paths["/api/v1/users/{userId}"]["get"]["parameters"]["path"]["userId"],
     activeOnly: boolean,
   ) {
-    const { error, data } = await this.client.GET("/api/v1/users/{userId}", {
-      params: {
-        path: {
-          userId,
+    return this.client
+      .GET("/api/v1/users/{userId}", {
+        params: {
+          path: {
+            userId,
+          },
+          query: {
+            activeOnly: toStringOrUndefined(activeOnly),
+          },
         },
-        query: {
-          activeOnly: toStringOrUndefined(activeOnly),
-        },
-      },
-    });
-
-    return { error, data: data?.data, metadata: data?.metadata };
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async seeMessage(messageId: string) {
-    const { error } = await this.client.PUT(
-      "/api/v1/message-actions/{messageId}",
-      {
+    return this.client
+      .PUT("/api/v1/message-actions/{messageId}", {
         params: {
           path: {
             messageId,
@@ -581,16 +645,16 @@ class Messaging extends BaseClient {
           messageId,
           isSeen: true,
         },
-      },
-    );
-
-    return { error };
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   async unseeMessage(messageId: string) {
-    const { error } = await this.client.PUT(
-      "/api/v1/message-actions/{messageId}",
-      {
+    return this.client
+      .PUT("/api/v1/message-actions/{messageId}", {
         params: {
           path: {
             messageId,
@@ -600,10 +664,11 @@ class Messaging extends BaseClient {
           messageId,
           isSeen: false,
         },
-      },
-    );
-
-    return { error };
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
   }
 
   newInterpolator(interpolations: Record<string, string>) {

@@ -1,10 +1,15 @@
-import type { FetchResponse } from "openapi-fetch";
-import createClient from "openapi-fetch";
-
 export interface PaginationParams {
   offset?: string | number;
   limit?: string | number;
 }
+
+export type ResponseJsonValue =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: ResponseJsonValue }
+  | ResponseJsonValue[];
 
 export function toStringOrUndefined(variable: number | boolean | undefined) {
   return variable === undefined ? undefined : String(variable);
@@ -25,16 +30,4 @@ export function preparePaginationParams(paginationParams?: PaginationParams): {
   }
 
   return output;
-}
-
-export async function formatQueryResult<T, O>(
-  promise: Promise<FetchResponse<T, O, "application/json">>,
-) {
-  try {
-    const result = await promise;
-
-    return { data: result.data, error: result.error };
-  } catch (error) {
-    return { data: undefined, error };
-  }
 }
