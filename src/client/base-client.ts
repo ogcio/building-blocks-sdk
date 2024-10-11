@@ -7,7 +7,7 @@ import type {
   SERVICE_NAME,
   TokenFunction,
 } from "../types/index.js";
-import type { ResponseJsonValue } from "./utils/client-utils.js";
+import type { DataResponseValue } from "./utils/client-utils.js";
 
 abstract class BaseClient<T extends {}> {
   private baseUrl?: string;
@@ -61,15 +61,14 @@ abstract class BaseClient<T extends {}> {
     return this.initialized;
   }
 
-  protected formatResponse<T, O>(
-    response: FetchResponse<T, O, "application/json">,
-  ): {
-    data?: ResponseJsonValue;
-    metadata?: ResponseJsonValue;
-    error?: ResponseJsonValue;
-  } {
+  protected formatResponse<G, O>(
+    response: FetchResponse<G, O, "application/json">,
+  ): DataResponseValue<G, O> {
     let outputData = undefined;
     let outputMetadata = undefined;
+    if (!response) {
+      return {} as DataResponseValue<G, O>;
+    }
     if (response.data) {
       const dataEntries = Object.entries(response.data);
       // by docs the body should contain a "data"
@@ -78,22 +77,20 @@ abstract class BaseClient<T extends {}> {
       const containsMetadata = dataEntries.find((x) => x[0] === "metadata");
 
       if (containsMetadata) {
-        outputMetadata = containsMetadata[1] as ResponseJsonValue;
+        outputMetadata = containsMetadata[1];
       }
-      outputData = containsData
-        ? (containsData[1] as ResponseJsonValue)
-        : response.data;
+      outputData = containsData ? containsData[1] : response.data;
     }
 
     return {
       data: outputData,
       metadata: outputMetadata,
       error: response.error,
-    };
+    } as unknown as DataResponseValue<G, O>;
   }
 
-  protected formatError(reason: unknown): { error?: ResponseJsonValue } {
-    return { error: reason as ResponseJsonValue };
+  protected formatError<G, O>(reason: unknown): DataResponseValue<G, O> {
+    return { error: reason } as unknown as DataResponseValue<G, O>;
   }
 }
 

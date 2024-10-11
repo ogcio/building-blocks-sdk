@@ -1,15 +1,28 @@
+import type { ParseAsResponse } from "openapi-fetch";
+import type {
+  ErrorResponse,
+  FilterKeys,
+  GetValueWithDefault,
+  OkStatus,
+  ResponseContent,
+  ResponseObjectMap,
+} from "openapi-typescript-helpers";
+
 export interface PaginationParams {
   offset?: string | number;
   limit?: string | number;
 }
 
-export type ResponseJsonValue =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: ResponseJsonValue }
-  | ResponseJsonValue[];
+export type DataResponseValue<T, O> = ParseAsResponse<
+  GetValueWithDefault<
+    ResponseContent<FilterKeys<ResponseObjectMap<T>, OkStatus>>,
+    "application/json",
+    Record<string, never>
+  >,
+  O
+> & {
+  error: ErrorResponse<ResponseObjectMap<T>, "application/json"> | undefined;
+};
 
 export function toStringOrUndefined(variable: number | boolean | undefined) {
   return variable === undefined ? undefined : String(variable);
