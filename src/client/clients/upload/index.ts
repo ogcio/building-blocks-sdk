@@ -2,21 +2,26 @@ import type { Middleware, createPathBasedClient } from "openapi-fetch";
 import type createClient from "openapi-fetch";
 import { UPLOAD } from "../../../types/index.js";
 import BaseClient from "../../base-client.js";
+import { formatError, formatResponse } from "../../utils/client-utils.js";
 import type { paths } from "./schema.js";
 
-class Upload extends BaseClient {
+class Upload extends BaseClient<paths> {
   declare client: ReturnType<typeof createClient<paths>>;
   protected serviceName = UPLOAD;
 
-  async getFilesMetadata() {
-    const { error, data } = await this.client.GET("/api/v1/metadata/", {
-      params: {
-        query: {
-          organizationId: "ogcio",
+  async getFilesMetadata(organizationId?: string) {
+    return this.client
+      .GET("/api/v1/metadata/", {
+        params: {
+          query: {
+            organizationId: organizationId ?? "ogcio",
+          },
         },
-      },
-    });
-    return { error, data: data?.data };
+      })
+      .then(
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
+      );
   }
 
   async authenticate() {
