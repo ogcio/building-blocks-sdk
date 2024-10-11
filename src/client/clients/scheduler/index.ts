@@ -1,7 +1,6 @@
 import type createClient from "openapi-fetch";
 import { SCHEDULER } from "../../../types/index.js";
 import BaseClient from "../../base-client.js";
-import { formatError, formatResponse } from "../../utils/client-utils.js";
 import type { paths } from "./schema.js";
 
 class Scheduler extends BaseClient<paths> {
@@ -20,8 +19,8 @@ class Scheduler extends BaseClient<paths> {
         body: tasks,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
       );
   }
 }

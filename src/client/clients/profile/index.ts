@@ -1,7 +1,6 @@
 import type createClient from "openapi-fetch";
 import { PROFILE } from "../../../types/index.js";
 import BaseClient from "../../base-client.js";
-import { formatError, formatResponse } from "../../utils/client-utils.js";
 import type { paths } from "./schema.js";
 
 class Profile extends BaseClient<paths> {
@@ -10,8 +9,8 @@ class Profile extends BaseClient<paths> {
 
   async getAddresses() {
     return this.client.GET("/api/v1/addresses/").then(
-      (response) => formatResponse(response),
-      (reason) => formatError(reason),
+      (response) => this.formatResponse(response),
+      (reason) => this.formatError(reason),
     );
   }
 
@@ -21,8 +20,8 @@ class Profile extends BaseClient<paths> {
         params: { path: { addressId } },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
       );
   }
 
@@ -34,8 +33,8 @@ class Profile extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
       );
   }
 
@@ -54,8 +53,8 @@ class Profile extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
       );
   }
 
@@ -69,8 +68,8 @@ class Profile extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
       );
   }
 
@@ -80,15 +79,15 @@ class Profile extends BaseClient<paths> {
         params: { path: { addressId } },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
       );
   }
 
   async getEntitlements() {
     return this.client.GET("/api/v1/entitlements/").then(
-      (response) => formatResponse(response),
-      (reason) => formatError(reason),
+      (response) => this.formatResponse(response),
+      (reason) => this.formatError(reason),
     );
   }
 
@@ -98,8 +97,8 @@ class Profile extends BaseClient<paths> {
         params: { path: { userId } },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
       );
   }
 
@@ -111,8 +110,8 @@ class Profile extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
       );
   }
 
@@ -126,8 +125,8 @@ class Profile extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
       );
   }
 
@@ -146,8 +145,8 @@ class Profile extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
       );
   }
 
@@ -161,8 +160,8 @@ class Profile extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
       );
   }
 
@@ -174,8 +173,8 @@ class Profile extends BaseClient<paths> {
         body: { ids },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
       );
   }
 }

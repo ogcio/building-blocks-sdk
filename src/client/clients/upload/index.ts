@@ -2,7 +2,6 @@ import type { Middleware, createPathBasedClient } from "openapi-fetch";
 import type createClient from "openapi-fetch";
 import { UPLOAD } from "../../../types/index.js";
 import BaseClient from "../../base-client.js";
-import { formatError, formatResponse } from "../../utils/client-utils.js";
 import type { paths } from "./schema.js";
 
 class Upload extends BaseClient<paths> {
@@ -19,8 +18,8 @@ class Upload extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
       );
   }
 

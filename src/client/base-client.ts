@@ -1,9 +1,10 @@
-import createClient, {} from "openapi-fetch";
+import createClient, { type FetchResponse } from "openapi-fetch";
 import type {
   ApiClientParams,
   SERVICE_NAME,
   TokenFunction,
 } from "../types/index.js";
+import type { ResponseJsonValue } from "./utils/client-utils.js";
 
 abstract class BaseClient<T extends {}> {
   private baseUrl?: string;
@@ -41,6 +42,37 @@ abstract class BaseClient<T extends {}> {
 
   public isInitialized() {
     return this.initialized;
+  }
+
+  protected formatResponse<T, O>(
+    response: FetchResponse<T, O, "application/json">,
+  ): {
+    data?: ResponseJsonValue;
+    metadata?: ResponseJsonValue;
+    error?: ResponseJsonValue;
+  } {
+    if (response.data) {
+      const dataEntries = Object.entries(response.data);
+      // by docs the body should contain a "data"
+      // properties with the response values
+      const containsData = dataEntries.find((x) => x[0] === "data");
+      const containsMetadata = dataEntries.find((x) => x[0] === "metadata");
+      const output: { data?: ResponseJsonValue; metadata?: ResponseJsonValue } =
+        {};
+      if (containsMetadata) {
+        output.metadata = containsMetadata[1] as ResponseJsonValue;
+      }
+      output.data = containsData
+        ? (containsData[1] as ResponseJsonValue)
+        : response.data;
+      return output;
+    }
+
+    return { error: response.error };
+  }
+
+  protected formatError(reason: unknown): { error?: ResponseJsonValue } {
+    return { error: reason as ResponseJsonValue };
   }
 }
 
