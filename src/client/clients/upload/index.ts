@@ -72,7 +72,7 @@ class Upload extends BaseClient<paths> {
   }
 
   getSharedFilesForUser(userId: string) {
-    this.client
+    return this.client
       .GET("/api/v1/metadata/", {
         params: { query: { userId } },
       })
