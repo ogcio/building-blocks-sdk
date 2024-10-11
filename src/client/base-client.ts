@@ -1,11 +1,11 @@
-import createClient from "openapi-fetch";
+import createClient, {} from "openapi-fetch";
 import type {
   ApiClientParams,
   SERVICE_NAME,
   TokenFunction,
 } from "../types/index.js";
 
-abstract class BaseClient {
+abstract class BaseClient<T extends {}> {
   private baseUrl?: string;
   private initialized;
 
@@ -13,7 +13,7 @@ abstract class BaseClient {
   protected getTokenFn?: TokenFunction;
   protected serviceName: SERVICE_NAME | undefined;
 
-  protected client: ReturnType<typeof createClient>;
+  protected client: ReturnType<typeof createClient<T>>;
 
   constructor({ baseUrl, getTokenFn }: ApiClientParams) {
     this.initialized = false;
@@ -27,7 +27,7 @@ abstract class BaseClient {
     }
 
     this.token = undefined;
-    this.client = createClient({ baseUrl: this.baseUrl });
+    this.client = createClient<T>({ baseUrl: this.baseUrl });
   }
 
   protected async getToken() {
