@@ -1,4 +1,4 @@
-import { readConfigurationFile } from "../../clients-configurations/read-configuration-file.js";
+import configFile from "../../clients-configurations/clients-configuration.json";
 import type {
   GetAccessTokenParams,
   GetOrganizationTokenParams,
@@ -7,7 +7,6 @@ import type {
   TokenFunction,
   TokenResponseBody,
 } from "../../types/index.js";
-import getAbsolutePath from "../../utils/get-absolute-path.js";
 
 const fetchToken = async (params: {
   logtoOidcEndpoint: string;
@@ -90,23 +89,21 @@ const importUserScopes = async () => {
   }
 };
 
-const getM2MTokenFn = async (
-  m2mTokenConfig: M2MTokenFnConfig,
-): Promise<TokenFunction> => {
+const getM2MTokenFn = (m2mTokenConfig: M2MTokenFnConfig): TokenFunction => {
   const { services } = m2mTokenConfig;
-
-  const configFile = await readConfigurationFile(
-    getAbsolutePath(
-      "src",
-      "clients-configurations",
-      "clients-configuration.json",
-    ),
-  );
 
   const tokenFn = (serviceName: SERVICE_NAME) => {
     const serviceParams = services[serviceName];
 
-    const scopes = configFile.buildingBlocks[serviceName];
+    // const scopes = configFile.buildingBlocks[serviceName];
+
+    const serviceConfig = configFile.buildingBlocks.find(
+      ({ name }) => name === serviceName,
+    );
+
+    if (!serviceConfig) {
+      throw new Error(`Missing client config for ${serviceName}`);
+    }
 
     if (!serviceParams) {
       throw new Error(`Missing m2m config for ${serviceName}`);
@@ -114,12 +111,15 @@ const getM2MTokenFn = async (
 
     const { getAccessTokenParams, getOrganizationTokenParams } = serviceParams;
     if (getAccessTokenParams) {
-      return getAccessToken(getAccessTokenParams, scopes.citizenPermissions);
+      return getAccessToken(
+        getAccessTokenParams,
+        serviceConfig.citizenPermissions,
+      );
     }
     if (getOrganizationTokenParams) {
       return getOrganizationToken(
         getOrganizationTokenParams,
-        scopes.publicServantPermissions,
+        serviceConfig.publicServantPermissions,
       );
     }
 
