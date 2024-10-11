@@ -1,4 +1,4 @@
-import type { Middleware, createPathBasedClient } from "openapi-fetch";
+import type { Middleware } from "openapi-fetch";
 import type createClient from "openapi-fetch";
 import { UPLOAD } from "../../../types/index.js";
 import BaseClient from "../../base-client.js";
