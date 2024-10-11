@@ -1,4 +1,7 @@
-import createClient, { type FetchResponse } from "openapi-fetch";
+import createClient, {
+  type Middleware,
+  type FetchResponse,
+} from "openapi-fetch";
 import type {
   ApiClientParams,
   SERVICE_NAME,
@@ -29,6 +32,20 @@ abstract class BaseClient<T extends {}> {
 
     this.token = undefined;
     this.client = createClient<T>({ baseUrl: this.baseUrl });
+    const authMiddleware: Middleware = {
+      onRequest: async ({ request }) => {
+        if (!this.token && this.getTokenFn) {
+          this.token = await this.getTokenFn(this.serviceName as SERVICE_NAME);
+        }
+
+        if (this.token) {
+          request.headers.set("Authorization", `Bearer ${this.token}`);
+        }
+        return request;
+      },
+    };
+
+    this.client.use(authMiddleware);
   }
 
   protected async getToken() {

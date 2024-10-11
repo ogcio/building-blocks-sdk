@@ -1,4 +1,3 @@
-import type { Middleware } from "openapi-fetch";
 import type createClient from "openapi-fetch";
 import { UPLOAD } from "../../../types/index.js";
 import BaseClient from "../../base-client.js";
@@ -23,7 +22,7 @@ class Upload extends BaseClient<paths> {
       );
   }
 
-  async shareFile(fileId: string, userId: string) {
+  shareFile(fileId: string, userId: string) {
     return this.client
       .POST("/api/v1/permissions/", {
         body: { fileId, userId },
@@ -34,7 +33,7 @@ class Upload extends BaseClient<paths> {
       );
   }
 
-  async removeFileSharing(fileId: string, userId: string) {
+  removeFileSharing(fileId: string, userId: string) {
     return this.client
       .DELETE("/api/v1/permissions/", {
         body: { fileId, userId },
@@ -83,7 +82,7 @@ class Upload extends BaseClient<paths> {
       );
   }
 
-  async getFileMetadata(id: string) {
+  getFileMetadata(id: string) {
     this.client
       .GET("/api/v1/metadata/{id}", {
         params: { path: { id } },
@@ -94,7 +93,7 @@ class Upload extends BaseClient<paths> {
       );
   }
 
-  async scheduleFileDeletion(id: string) {
+  scheduleFileDeletion(id: string) {
     return this.client
       .DELETE("/api/v1/metadata/", {
         body: { fileId: id },
@@ -124,19 +123,6 @@ class Upload extends BaseClient<paths> {
     });
 
     return { error };
-  }
-
-  async authenticate() {
-    const token = await this.getToken();
-    this.token = token;
-    const authMiddleware: Middleware = {
-      async onRequest({ request }) {
-        request.headers.set("Authorization", `Bearer ${token}`);
-        return request;
-      },
-    };
-
-    this.client.use(authMiddleware);
   }
 }
 
