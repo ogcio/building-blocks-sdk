@@ -7,7 +7,12 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "ignore": []
+    "ignore": [
+      "dist",
+      "node_modules",
+      "src/client/clients/**/*.json",
+      "src/client/clients/**/schema.ts"
+    ]
   },
   "formatter": {
     "enabled": true,
