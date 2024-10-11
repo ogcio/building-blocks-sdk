@@ -51,24 +51,28 @@ abstract class BaseClient<T extends {}> {
     metadata?: ResponseJsonValue;
     error?: ResponseJsonValue;
   } {
+    let outputData = undefined;
+    let outputMetadata = undefined;
     if (response.data) {
       const dataEntries = Object.entries(response.data);
       // by docs the body should contain a "data"
       // properties with the response values
       const containsData = dataEntries.find((x) => x[0] === "data");
       const containsMetadata = dataEntries.find((x) => x[0] === "metadata");
-      const output: { data?: ResponseJsonValue; metadata?: ResponseJsonValue } =
-        {};
+
       if (containsMetadata) {
-        output.metadata = containsMetadata[1] as ResponseJsonValue;
+        outputMetadata = containsMetadata[1] as ResponseJsonValue;
       }
-      output.data = containsData
+      outputData = containsData
         ? (containsData[1] as ResponseJsonValue)
         : response.data;
-      return output;
     }
 
-    return { error: response.error };
+    return {
+      data: outputData,
+      metadata: outputMetadata,
+      error: response.error,
+    };
   }
 
   protected formatError(reason: unknown): { error?: ResponseJsonValue } {
