@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf dist && tsc -p tsconfig.prod.json && cp src/clients-configurations/clients-configuration.json dist/clients-configurations/clients-configuration.json",
+    "build": "rm -rf dist && tsc -p tsconfig.prod.json",
     "clients:update": "node --import=tsx src/cli/index.ts clients:update -c src/clients-configurations/clients-configuration.json",
     "clients:outdated": "node --import=tsx src/cli/index.ts clients:outdated -c src/clients-configurations/clients-configuration.json"
   },

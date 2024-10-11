@@ -96,7 +96,11 @@ const getM2MTokenFn = async (
   const { services } = m2mTokenConfig;
 
   const configFile = await readConfigurationFile(
-    getAbsolutePath("clients-configurations", "clients-configuration.json"),
+    getAbsolutePath(
+      "src",
+      "clients-configurations",
+      "clients-configuration.json",
+    ),
   );
 
   const tokenFn = (serviceName: SERVICE_NAME) => {
