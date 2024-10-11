@@ -83,7 +83,7 @@ class Upload extends BaseClient<paths> {
   }
 
   getFileMetadata(id: string) {
-    this.client
+    return this.client
       .GET("/api/v1/metadata/{id}", {
         params: { path: { id } },
       })
