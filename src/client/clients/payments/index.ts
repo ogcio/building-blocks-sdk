@@ -303,24 +303,6 @@ class Payments extends BaseClient<paths> {
   }
 
   /**
-   * TESTS - To remove once Logto has been fully integrated
-   */
-
-  async testCitizenAuth() {
-    return this.client.GET("/api/v1/test/citizen").then(
-      (response) => this.formatResponse(response),
-      (reason) => this.formatError(reason),
-    );
-  }
-
-  async testPublicServantAuth() {
-    return this.client.GET("/api/v1/test/pub-ser").then(
-      (response) => this.formatResponse(response),
-      (reason) => this.formatError(reason),
-    );
-  }
-
-  /**
    * AUDIT LOGS
    */
 
