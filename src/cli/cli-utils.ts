@@ -20,6 +20,6 @@ export async function getOpenApiDefinitionFileContent(
   } catch {}
 
   throw new Error(
-    "The configuration-file-path is not a valid file path nor url",
+    `The configuration-file-path is not a valid file path nor url, or it is not reachable: ${filePath}`,
   );
 }
