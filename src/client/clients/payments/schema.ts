@@ -55,28 +55,63 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            id: string;
-                            name: string;
-                            type: "banktransfer" | "openbanking" | "stripe" | "realex" | "worldpay";
                             data: {
-                                iban: string;
-                                accountHolderName: string;
-                            } | {
-                                iban: string;
-                                accountHolderName: string;
-                            } | {
-                                livePublishableKey: string;
-                                liveSecretKey: string;
-                                webhookSigningKey?: string;
-                            } | {
-                                merchantCode: string;
-                                installationId: string;
-                            } | {
-                                merchantId: string;
-                                sharedSecret: string;
+                                id: string;
+                                name: string;
+                                type: "banktransfer" | "openbanking" | "stripe" | "realex" | "worldpay";
+                                data: {
+                                    iban: string;
+                                    accountHolderName: string;
+                                } | {
+                                    iban: string;
+                                    accountHolderName: string;
+                                } | {
+                                    livePublishableKey: string;
+                                    liveSecretKey: string;
+                                    webhookSigningKey?: string;
+                                } | {
+                                    merchantCode: string;
+                                    installationId: string;
+                                } | {
+                                    merchantId: string;
+                                    sharedSecret: string;
+                                };
+                                status: "connected" | "disconnected";
+                            }[];
+                            metadata?: {
+                                /** @description Object containing the links to the related endpoints */
+                                links?: {
+                                    self: {
+                                        /** @description URL pointing to the request itself */
+                                        href?: string;
+                                    };
+                                    next?: {
+                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                        href?: string;
+                                    };
+                                    prev?: {
+                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                        href?: string;
+                                    };
+                                    first: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
+                                        href?: string;
+                                    };
+                                    last: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
+                                        href?: string;
+                                    };
+                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                    pages: {
+                                        [key: string]: {
+                                            href?: string;
+                                        };
+                                    };
+                                };
+                                /** @description Number representing the total number of available items */
+                                totalCount?: number;
                             };
-                            status: "connected" | "disconnected";
-                        }[];
+                        };
                     };
                 };
                 /** @description Default Response */
@@ -124,7 +159,42 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            id: string;
+                            data: {
+                                id: string;
+                            };
+                            metadata?: {
+                                /** @description Object containing the links to the related endpoints */
+                                links?: {
+                                    self: {
+                                        /** @description URL pointing to the request itself */
+                                        href?: string;
+                                    };
+                                    next?: {
+                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                        href?: string;
+                                    };
+                                    prev?: {
+                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                        href?: string;
+                                    };
+                                    first: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
+                                        href?: string;
+                                    };
+                                    last: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
+                                        href?: string;
+                                    };
+                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                    pages: {
+                                        [key: string]: {
+                                            href?: string;
+                                        };
+                                    };
+                                };
+                                /** @description Number representing the total number of available items */
+                                totalCount?: number;
+                            };
                         };
                     };
                 };
@@ -209,27 +279,62 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            id: string;
-                            name: string;
-                            type: "banktransfer" | "openbanking" | "stripe" | "realex" | "worldpay";
                             data: {
-                                iban: string;
-                                accountHolderName: string;
-                            } | {
-                                iban: string;
-                                accountHolderName: string;
-                            } | {
-                                livePublishableKey: string;
-                                liveSecretKey: string;
-                                webhookSigningKey?: string;
-                            } | {
-                                merchantCode: string;
-                                installationId: string;
-                            } | {
-                                merchantId: string;
-                                sharedSecret: string;
+                                id: string;
+                                name: string;
+                                type: "banktransfer" | "openbanking" | "stripe" | "realex" | "worldpay";
+                                data: {
+                                    iban: string;
+                                    accountHolderName: string;
+                                } | {
+                                    iban: string;
+                                    accountHolderName: string;
+                                } | {
+                                    livePublishableKey: string;
+                                    liveSecretKey: string;
+                                    webhookSigningKey?: string;
+                                } | {
+                                    merchantCode: string;
+                                    installationId: string;
+                                } | {
+                                    merchantId: string;
+                                    sharedSecret: string;
+                                };
+                                status: "connected" | "disconnected";
                             };
-                            status: "connected" | "disconnected";
+                            metadata?: {
+                                /** @description Object containing the links to the related endpoints */
+                                links?: {
+                                    self: {
+                                        /** @description URL pointing to the request itself */
+                                        href?: string;
+                                    };
+                                    next?: {
+                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                        href?: string;
+                                    };
+                                    prev?: {
+                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                        href?: string;
+                                    };
+                                    first: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
+                                        href?: string;
+                                    };
+                                    last: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
+                                        href?: string;
+                                    };
+                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                    pages: {
+                                        [key: string]: {
+                                            href?: string;
+                                        };
+                                    };
+                                };
+                                /** @description Number representing the total number of available items */
+                                totalCount?: number;
+                            };
                         };
                     };
                 };
@@ -296,7 +401,42 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            ok: boolean;
+                            data: {
+                                ok: boolean;
+                            };
+                            metadata?: {
+                                /** @description Object containing the links to the related endpoints */
+                                links?: {
+                                    self: {
+                                        /** @description URL pointing to the request itself */
+                                        href?: string;
+                                    };
+                                    next?: {
+                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                        href?: string;
+                                    };
+                                    prev?: {
+                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                        href?: string;
+                                    };
+                                    first: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
+                                        href?: string;
+                                    };
+                                    last: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
+                                        href?: string;
+                                    };
+                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                    pages: {
+                                        [key: string]: {
+                                            href?: string;
+                                        };
+                                    };
+                                };
+                                /** @description Number representing the total number of available items */
+                                totalCount?: number;
+                            };
                         };
                     };
                 };
@@ -417,28 +557,36 @@ export interface paths {
                                 status: "active" | "inactive" | "draft";
                             }[];
                             metadata?: {
+                                /** @description Object containing the links to the related endpoints */
                                 links?: {
                                     self: {
+                                        /** @description URL pointing to the request itself */
                                         href?: string;
                                     };
                                     next?: {
+                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
                                         href?: string;
                                     };
                                     prev?: {
+                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
                                         href?: string;
                                     };
                                     first: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
                                         href?: string;
                                     };
                                     last: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
                                         href?: string;
                                     };
+                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
                                     pages: {
                                         [key: string]: {
                                             href?: string;
                                         };
                                     };
                                 };
+                                /** @description Number representing the total number of available items */
                                 totalCount?: number;
                             };
                         };
@@ -456,19 +604,54 @@ export interface paths {
             requestBody: {
                 content: {
                     "application/json": {
-                        title: string;
-                        description: string | null;
-                        reference: string | null;
-                        amount: number | null;
-                        redirectUrl: string | null;
-                        allowAmountOverride: boolean;
-                        allowCustomAmount: boolean;
-                        providers: string[];
-                        status: "active" | "inactive" | "draft";
-                        paymentRequestId: string;
-                        providersUpdate: {
-                            toDisable: string[];
-                            toCreate: string[];
+                        data: {
+                            title: string;
+                            description: string | null;
+                            reference: string | null;
+                            amount: number | null;
+                            redirectUrl: string | null;
+                            allowAmountOverride: boolean;
+                            allowCustomAmount: boolean;
+                            providers: string[];
+                            status: "active" | "inactive" | "draft";
+                            paymentRequestId: string;
+                            providersUpdate: {
+                                toDisable: string[];
+                                toCreate: string[];
+                            };
+                        };
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
                         };
                     };
                 };
@@ -517,7 +700,42 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            id: string;
+                            data: {
+                                id: string;
+                            };
+                            metadata?: {
+                                /** @description Object containing the links to the related endpoints */
+                                links?: {
+                                    self: {
+                                        /** @description URL pointing to the request itself */
+                                        href?: string;
+                                    };
+                                    next?: {
+                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                        href?: string;
+                                    };
+                                    prev?: {
+                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                        href?: string;
+                                    };
+                                    first: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
+                                        href?: string;
+                                    };
+                                    last: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
+                                        href?: string;
+                                    };
+                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                    pages: {
+                                        [key: string]: {
+                                            href?: string;
+                                        };
+                                    };
+                                };
+                                /** @description Number representing the total number of available items */
+                                totalCount?: number;
+                            };
                         };
                     };
                 };
@@ -554,40 +772,75 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            paymentRequestId: string;
-                            title: string;
-                            description?: string;
-                            amount?: number;
-                            reference?: string;
-                            providers: {
-                                userId: string;
-                                id: string;
-                                name: string;
-                                type: "banktransfer" | "openbanking" | "stripe" | "realex" | "worldpay";
-                                status: "connected" | "disconnected";
-                                data: {
-                                    iban: string;
-                                    accountHolderName: string;
-                                } | {
-                                    iban: string;
-                                    accountHolderName: string;
-                                } | {
-                                    livePublishableKey: string;
-                                    liveSecretKey: string;
-                                    webhookSigningKey?: string;
-                                } | {
-                                    merchantCode: string;
-                                    installationId: string;
-                                } | {
-                                    merchantId: string;
-                                    sharedSecret: string;
+                            data: {
+                                paymentRequestId: string;
+                                title: string;
+                                description?: string;
+                                amount?: number;
+                                reference?: string;
+                                providers: {
+                                    userId: string;
+                                    id: string;
+                                    name: string;
+                                    type: "banktransfer" | "openbanking" | "stripe" | "realex" | "worldpay";
+                                    status: "connected" | "disconnected";
+                                    data: {
+                                        iban: string;
+                                        accountHolderName: string;
+                                    } | {
+                                        iban: string;
+                                        accountHolderName: string;
+                                    } | {
+                                        livePublishableKey: string;
+                                        liveSecretKey: string;
+                                        webhookSigningKey?: string;
+                                    } | {
+                                        merchantCode: string;
+                                        installationId: string;
+                                    } | {
+                                        merchantId: string;
+                                        sharedSecret: string;
+                                    };
+                                    createdAt: string;
+                                }[];
+                                status: "active" | "inactive" | "draft";
+                                redirectUrl?: string;
+                                allowAmountOverride: boolean;
+                                allowCustomAmount: boolean;
+                            };
+                            metadata?: {
+                                /** @description Object containing the links to the related endpoints */
+                                links?: {
+                                    self: {
+                                        /** @description URL pointing to the request itself */
+                                        href?: string;
+                                    };
+                                    next?: {
+                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                        href?: string;
+                                    };
+                                    prev?: {
+                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                        href?: string;
+                                    };
+                                    first: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
+                                        href?: string;
+                                    };
+                                    last: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
+                                        href?: string;
+                                    };
+                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                    pages: {
+                                        [key: string]: {
+                                            href?: string;
+                                        };
+                                    };
                                 };
-                                createdAt: string;
-                            }[];
-                            status: "active" | "inactive" | "draft";
-                            redirectUrl?: string;
-                            allowAmountOverride: boolean;
-                            allowCustomAmount: boolean;
+                                /** @description Number representing the total number of available items */
+                                totalCount?: number;
+                            };
                         };
                     };
                 };
@@ -695,7 +948,7 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            data?: {
+                            data: {
                                 paymentRequestId: string;
                                 title: string;
                                 description: string;
@@ -730,6 +983,39 @@ export interface paths {
                                 redirectUrl: string;
                                 allowAmountOverride: boolean;
                                 allowCustomAmount: boolean;
+                            };
+                            metadata?: {
+                                /** @description Object containing the links to the related endpoints */
+                                links?: {
+                                    self: {
+                                        /** @description URL pointing to the request itself */
+                                        href?: string;
+                                    };
+                                    next?: {
+                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                        href?: string;
+                                    };
+                                    prev?: {
+                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                        href?: string;
+                                    };
+                                    first: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
+                                        href?: string;
+                                    };
+                                    last: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
+                                        href?: string;
+                                    };
+                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                    pages: {
+                                        [key: string]: {
+                                            href?: string;
+                                        };
+                                    };
+                                };
+                                /** @description Number representing the total number of available items */
+                                totalCount?: number;
                             };
                         };
                     };
@@ -798,28 +1084,36 @@ export interface paths {
                                 title: string;
                             }[];
                             metadata?: {
+                                /** @description Object containing the links to the related endpoints */
                                 links?: {
                                     self: {
+                                        /** @description URL pointing to the request itself */
                                         href?: string;
                                     };
                                     next?: {
+                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
                                         href?: string;
                                     };
                                     prev?: {
+                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
                                         href?: string;
                                     };
                                     first: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
                                         href?: string;
                                     };
                                     last: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
                                         href?: string;
                                     };
+                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
                                     pages: {
                                         [key: string]: {
                                             href?: string;
                                         };
                                     };
                                 };
+                                /** @description Number representing the total number of available items */
                                 totalCount?: number;
                             };
                         };
@@ -879,28 +1173,36 @@ export interface paths {
                                 paymentRequestId: string;
                             };
                             metadata?: {
+                                /** @description Object containing the links to the related endpoints */
                                 links?: {
                                     self: {
+                                        /** @description URL pointing to the request itself */
                                         href?: string;
                                     };
                                     next?: {
+                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
                                         href?: string;
                                     };
                                     prev?: {
+                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
                                         href?: string;
                                     };
                                     first: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
                                         href?: string;
                                     };
                                     last: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
                                         href?: string;
                                     };
+                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
                                     pages: {
                                         [key: string]: {
                                             href?: string;
                                         };
                                     };
                                 };
+                                /** @description Number representing the total number of available items */
                                 totalCount?: number;
                             };
                         };
@@ -1020,28 +1322,36 @@ export interface paths {
                                 paymentRequestId: string;
                             }[];
                             metadata?: {
+                                /** @description Object containing the links to the related endpoints */
                                 links?: {
                                     self: {
+                                        /** @description URL pointing to the request itself */
                                         href?: string;
                                     };
                                     next?: {
+                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
                                         href?: string;
                                     };
                                     prev?: {
+                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
                                         href?: string;
                                     };
                                     first: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
                                         href?: string;
                                     };
                                     last: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
                                         href?: string;
                                     };
+                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
                                     pages: {
                                         [key: string]: {
                                             href?: string;
                                         };
                                     };
                                 };
+                                /** @description Number representing the total number of available items */
                                 totalCount?: number;
                             };
                         };
@@ -1132,28 +1442,36 @@ export interface paths {
                                 id: string;
                             };
                             metadata?: {
+                                /** @description Object containing the links to the related endpoints */
                                 links?: {
                                     self: {
+                                        /** @description URL pointing to the request itself */
                                         href?: string;
                                     };
                                     next?: {
+                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
                                         href?: string;
                                     };
                                     prev?: {
+                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
                                         href?: string;
                                     };
                                     first: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
                                         href?: string;
                                     };
                                     last: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
                                         href?: string;
                                     };
+                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
                                     pages: {
                                         [key: string]: {
                                             href?: string;
                                         };
                                     };
                                 };
+                                /** @description Number representing the total number of available items */
                                 totalCount?: number;
                             };
                         };
@@ -1226,28 +1544,36 @@ export interface paths {
                                 intentId: string;
                             };
                             metadata?: {
+                                /** @description Object containing the links to the related endpoints */
                                 links?: {
                                     self: {
+                                        /** @description URL pointing to the request itself */
                                         href?: string;
                                     };
                                     next?: {
+                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
                                         href?: string;
                                     };
                                     prev?: {
+                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
                                         href?: string;
                                     };
                                     first: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
                                         href?: string;
                                     };
                                     last: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
                                         href?: string;
                                     };
+                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
                                     pages: {
                                         [key: string]: {
                                             href?: string;
                                         };
                                     };
                                 };
+                                /** @description Number representing the total number of available items */
                                 totalCount?: number;
                             };
                         };
@@ -1314,28 +1640,36 @@ export interface paths {
                                 amount: number;
                             }[];
                             metadata?: {
+                                /** @description Object containing the links to the related endpoints */
                                 links?: {
                                     self: {
+                                        /** @description URL pointing to the request itself */
                                         href?: string;
                                     };
                                     next?: {
+                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
                                         href?: string;
                                     };
                                     prev?: {
+                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
                                         href?: string;
                                     };
                                     first: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
                                         href?: string;
                                     };
                                     last: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
                                         href?: string;
                                     };
+                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
                                     pages: {
                                         [key: string]: {
                                             href?: string;
                                         };
                                     };
                                 };
+                                /** @description Number representing the total number of available items */
                                 totalCount?: number;
                             };
                         };
@@ -1443,28 +1777,36 @@ export interface paths {
                                 paymentRequestId: string;
                             };
                             metadata?: {
+                                /** @description Object containing the links to the related endpoints */
                                 links?: {
                                     self: {
+                                        /** @description URL pointing to the request itself */
                                         href?: string;
                                     };
                                     next?: {
+                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
                                         href?: string;
                                     };
                                     prev?: {
+                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
                                         href?: string;
                                     };
                                     first: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
                                         href?: string;
                                     };
                                     last: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
                                         href?: string;
                                     };
+                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
                                     pages: {
                                         [key: string]: {
                                             href?: string;
                                         };
                                     };
                                 };
+                                /** @description Number representing the total number of available items */
                                 totalCount?: number;
                             };
                         };
@@ -1523,14 +1865,49 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            ACCOUNT: string;
-                            AMOUNT: string;
-                            CURRENCY: string;
-                            MERCHANT_ID: string;
-                            ORDER_ID: string;
-                            TIMESTAMP: string;
-                            URL: string;
-                            SHA256HASH: string;
+                            data: {
+                                ACCOUNT: string;
+                                AMOUNT: string;
+                                CURRENCY: string;
+                                MERCHANT_ID: string;
+                                ORDER_ID: string;
+                                TIMESTAMP: string;
+                                URL: string;
+                                SHA256HASH: string;
+                            };
+                            metadata?: {
+                                /** @description Object containing the links to the related endpoints */
+                                links?: {
+                                    self: {
+                                        /** @description URL pointing to the request itself */
+                                        href?: string;
+                                    };
+                                    next?: {
+                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                        href?: string;
+                                    };
+                                    prev?: {
+                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                        href?: string;
+                                    };
+                                    first: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
+                                        href?: string;
+                                    };
+                                    last: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
+                                        href?: string;
+                                    };
+                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                    pages: {
+                                        [key: string]: {
+                                            href?: string;
+                                        };
+                                    };
+                                };
+                                /** @description Number representing the total number of available items */
+                                totalCount?: number;
+                            };
                         };
                     };
                 };
@@ -1741,28 +2118,36 @@ export interface paths {
                                 resourceId?: string;
                             }[];
                             metadata?: {
+                                /** @description Object containing the links to the related endpoints */
                                 links?: {
                                     self: {
+                                        /** @description URL pointing to the request itself */
                                         href?: string;
                                     };
                                     next?: {
+                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
                                         href?: string;
                                     };
                                     prev?: {
+                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
                                         href?: string;
                                     };
                                     first: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
                                         href?: string;
                                     };
                                     last: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
                                         href?: string;
                                     };
+                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
                                     pages: {
                                         [key: string]: {
                                             href?: string;
                                         };
                                     };
                                 };
+                                /** @description Number representing the total number of available items */
                                 totalCount?: number;
                             };
                         };
@@ -1837,28 +2222,36 @@ export interface paths {
                                 [key: string]: string;
                             };
                             metadata?: {
+                                /** @description Object containing the links to the related endpoints */
                                 links?: {
                                     self: {
+                                        /** @description URL pointing to the request itself */
                                         href?: string;
                                     };
                                     next?: {
+                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
                                         href?: string;
                                     };
                                     prev?: {
+                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
                                         href?: string;
                                     };
                                     first: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
                                         href?: string;
                                     };
                                     last: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
                                         href?: string;
                                     };
+                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
                                     pages: {
                                         [key: string]: {
                                             href?: string;
                                         };
                                     };
                                 };
+                                /** @description Number representing the total number of available items */
                                 totalCount?: number;
                             };
                         };
@@ -1943,28 +2336,36 @@ export interface paths {
                                 };
                             };
                             metadata?: {
+                                /** @description Object containing the links to the related endpoints */
                                 links?: {
                                     self: {
+                                        /** @description URL pointing to the request itself */
                                         href?: string;
                                     };
                                     next?: {
+                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
                                         href?: string;
                                     };
                                     prev?: {
+                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
                                         href?: string;
                                     };
                                     first: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
                                         href?: string;
                                     };
                                     last: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
                                         href?: string;
                                     };
+                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
                                     pages: {
                                         [key: string]: {
                                             href?: string;
                                         };
                                     };
                                 };
+                                /** @description Number representing the total number of available items */
                                 totalCount?: number;
                             };
                         };
