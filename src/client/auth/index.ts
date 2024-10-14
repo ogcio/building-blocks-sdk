@@ -68,9 +68,9 @@ const getOrganizationToken = async (
   const tokenResponse = await fetchToken({
     ...params,
     scopes: [
-      ...scopesToUse,
       UserScope.OrganizationRoles,
       UserScope.Organizations,
+      ...scopesToUse,
     ],
     specificBodyFields: {
       organization_id: params.organizationId,
