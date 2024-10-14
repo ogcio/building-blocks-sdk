@@ -695,40 +695,42 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            paymentRequestId: string;
-                            title: string;
-                            description: string;
-                            amount: number;
-                            reference: string;
-                            providers: {
-                                userId: string;
-                                id: string;
-                                name: string;
-                                type: "banktransfer" | "openbanking" | "stripe" | "realex" | "worldpay";
-                                status: "connected" | "disconnected";
-                                data: {
-                                    iban: string;
-                                    accountHolderName: string;
-                                } | {
-                                    iban: string;
-                                    accountHolderName: string;
-                                } | {
-                                    livePublishableKey: string;
-                                    liveSecretKey: string;
-                                    webhookSigningKey?: string;
-                                } | {
-                                    merchantCode: string;
-                                    installationId: string;
-                                } | {
-                                    merchantId: string;
-                                    sharedSecret: string;
-                                };
-                                createdAt: string;
-                            }[];
-                            status: "active" | "inactive" | "draft";
-                            redirectUrl: string;
-                            allowAmountOverride: boolean;
-                            allowCustomAmount: boolean;
+                            data?: {
+                                paymentRequestId: string;
+                                title: string;
+                                description: string;
+                                amount: number;
+                                reference: string;
+                                providers: {
+                                    userId: string;
+                                    id: string;
+                                    name: string;
+                                    type: "banktransfer" | "openbanking" | "stripe" | "realex" | "worldpay";
+                                    status: "connected" | "disconnected";
+                                    data: {
+                                        iban: string;
+                                        accountHolderName: string;
+                                    } | {
+                                        iban: string;
+                                        accountHolderName: string;
+                                    } | {
+                                        livePublishableKey: string;
+                                        liveSecretKey: string;
+                                        webhookSigningKey?: string;
+                                    } | {
+                                        merchantCode: string;
+                                        installationId: string;
+                                    } | {
+                                        merchantId: string;
+                                        sharedSecret: string;
+                                    };
+                                    createdAt: string;
+                                }[];
+                                status: "active" | "inactive" | "draft";
+                                redirectUrl: string;
+                                allowAmountOverride: boolean;
+                                allowCustomAmount: boolean;
+                            };
                         };
                     };
                 };

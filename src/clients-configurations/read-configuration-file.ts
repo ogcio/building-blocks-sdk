@@ -12,6 +12,7 @@ const ConfigurationBuildingBlockSchema = Type.Object({
   openApiDefinitionFormat: Type.Enum(OpenAPIFileFormats),
   citizenPermissions: Type.Array(Type.String(), { default: [] }),
   publicServantPermissions: Type.Array(Type.String(), { default: [] }),
+  updateDefinitions: Type.Boolean({ default: true }),
 });
 
 export type ConfigurationBuildingBlock = Static<
