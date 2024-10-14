@@ -18,7 +18,8 @@
         "messaging:template:*",
         "messaging:citizen:*",
         "messaging:event:read"
-      ]
+      ],
+      "updateDefinitions": true
     },
     {
       "name": "upload",
@@ -30,7 +31,8 @@
         "urn:logto:scope:organization_roles",
         "upload:file:*",
         "profile:user:read"
-      ]
+      ],
+      "updateDefinitions": true
     },
     {
       "name": "payments",
@@ -49,7 +51,8 @@
         "payments:payment_request:*",
         "payments:payment_request.public:read",
         "payments:transaction:*"
-      ]
+      ],
+      "updateDefinitions": true
     },
     {
       "name": "scheduler",
@@ -60,7 +63,8 @@
         "urn:logto:scope:organizations",
         "urn:logto:scope:organization_roles",
         "scheduler:jobs:write"
-      ]
+      ],
+      "updateDefinitions": true
     },
     {
       "name": "profile",
@@ -81,7 +85,8 @@
         "profile:user:*",
         "profile:address:*",
         "profile:entitlement:*"
-      ]
+      ],
+      "updateDefinitions": true
     }
   ]
 }

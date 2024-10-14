@@ -11,6 +11,7 @@ import getAbsolutePath from "../utils/get-absolute-path.js";
 import {
   CLIENTS_ROOT_FOLDER_PATH,
   OPEN_API_DEFINITION_FILE_NAME,
+  getOpenApiDefinitionFileContent,
 } from "./cli-utils.js";
 
 /**
@@ -53,6 +54,10 @@ async function isBuildingBlockOutdated({
 }: {
   inputBuildingBlock: ConfigurationBuildingBlock;
 }): Promise<{ name: string; isOutdated: boolean }> {
+  if (inputBuildingBlock.updateDefinitions === false) {
+    log(`${inputBuildingBlock.name} - Update definition is disabled, ignoring`);
+    return { name: inputBuildingBlock.name, isOutdated: false };
+  }
   log(`${inputBuildingBlock.name} - Processing`);
   try {
     const latestDefinition = await getLatestDefinitionFileContent({

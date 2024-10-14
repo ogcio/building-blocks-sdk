@@ -1,8 +1,7 @@
 import type { ParseAsResponse } from "openapi-fetch";
 import type {
-  ErrorResponse,
+  ErrorStatus,
   FilterKeys,
-  GetValueWithDefault,
   OkStatus,
   ResponseContent,
   ResponseObjectMap,
@@ -14,14 +13,19 @@ export interface PaginationParams {
 }
 
 export type DataResponseValue<T, O> = ParseAsResponse<
-  GetValueWithDefault<
+  FilterKeys<
     ResponseContent<FilterKeys<ResponseObjectMap<T>, OkStatus>>,
-    "application/json",
-    Record<string, never>
+    "application/json"
   >,
   O
 > & {
-  error: ErrorResponse<ResponseObjectMap<T>, "application/json"> | undefined;
+  error: ParseAsResponse<
+    FilterKeys<
+      ResponseContent<FilterKeys<ResponseObjectMap<T>, ErrorStatus>>,
+      "application/json"
+    >,
+    O
+  >;
 };
 
 export function toStringOrUndefined(variable: number | boolean | undefined) {
