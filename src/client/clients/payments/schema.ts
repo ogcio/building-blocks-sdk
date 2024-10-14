@@ -739,6 +739,38 @@ export interface paths {
                         };
                     };
                 };
+                /** @description Default Response */
+                "4XX": {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            code: string;
+                            detail: string;
+                            requestId: string;
+                            name: string;
+                            validation?: unknown;
+                            validationContext?: string;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                "5XX": {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            code: string;
+                            detail: string;
+                            requestId: string;
+                            name: string;
+                            validation?: unknown;
+                            validationContext?: string;
+                        };
+                    };
+                };
             };
         };
         delete?: never;
