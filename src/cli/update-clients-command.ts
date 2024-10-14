@@ -211,6 +211,10 @@ async function processBuildingBlock({
     newPath: null,
   };
   let storedDefinition = null;
+  if (inputBuildingBlock.updateDefinitions === false) {
+    log(`${inputBuildingBlock.name} - Update definition is disabled, ignoring`);
+    return;
+  }
   log(`${inputBuildingBlock.name} - Processing`);
   try {
     storedDefinition = await storeOpenApiDefinitionFile({
