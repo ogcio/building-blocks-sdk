@@ -11,8 +11,6 @@
         "messaging:citizen.self:write"
       ],
       "publicServantPermissions": [
-        "urn:logto:scope:organizations",
-        "urn:logto:scope:organization_roles",
         "messaging:message:*",
         "messaging:provider:*",
         "messaging:template:*",
@@ -26,12 +24,7 @@
       "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/life-events/refs/heads/dev/apps/upload-api/openapi-definition.yml",
       "openApiDefinitionFormat": "yaml",
       "citizenPermissions": ["upload:file.self:write", "upload:file.self:read"],
-      "publicServantPermissions": [
-        "urn:logto:scope:organizations",
-        "urn:logto:scope:organization_roles",
-        "upload:file:*",
-        "profile:user:read"
-      ],
+      "publicServantPermissions": ["upload:file:*", "profile:user:read"],
       "updateDefinitions": true
     },
     {
@@ -45,8 +38,6 @@
         "payments:provider.public:read"
       ],
       "publicServantPermissions": [
-        "urn:logto:scope:organizations",
-        "urn:logto:scope:organization_roles",
         "payments:provider:*",
         "payments:payment_request:*",
         "payments:payment_request.public:read",
@@ -59,11 +50,7 @@
       "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/life-events/refs/heads/dev/apps/scheduler-api/openapi-definition.yml",
       "openApiDefinitionFormat": "yaml",
       "citizenPermissions": ["scheduler:jobs:write"],
-      "publicServantPermissions": [
-        "urn:logto:scope:organizations",
-        "urn:logto:scope:organization_roles",
-        "scheduler:jobs:write"
-      ],
+      "publicServantPermissions": ["scheduler:jobs:write"],
       "updateDefinitions": true
     },
     {
@@ -80,8 +67,6 @@
         "profile:user:read"
       ],
       "publicServantPermissions": [
-        "urn:logto:scope:organizations",
-        "urn:logto:scope:organization_roles",
         "profile:user:*",
         "profile:address:*",
         "profile:entitlement:*"
