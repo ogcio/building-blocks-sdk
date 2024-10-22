@@ -1,1 +1,3 @@
 # npm run build
+npm run check:formatting
+npm run check:linting
