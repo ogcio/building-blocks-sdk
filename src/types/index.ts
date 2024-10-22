@@ -36,25 +36,27 @@ export type SDKClientParams = {
   baseUrl?: string;
 };
 
-export type ApiClientParams = SDKClientParams & {
+export type BaseApiClientParams = SDKClientParams & {
   getTokenFn?: TokenFunction;
 };
 
 type ServiceClients = {
-  messaging: Messaging;
-  payments: Payments;
-  profile: Profile;
-  scheduler: Scheduler;
-  upload: Upload;
+  messaging: typeof Messaging;
+  payments: typeof Payments;
+  profile: typeof Profile;
+  scheduler: typeof Scheduler;
+  upload: typeof Upload;
 };
 
 export type BuildingBlocksSDK = {
-  [key in keyof ServiceClients]: ServiceClients[key];
+  [key in keyof ServiceClients]: InstanceType<ServiceClients[key]>;
 };
 
 export type BuildingBlockSDKParams = {
   services: {
-    [key in keyof ServiceClients]?: SDKClientParams;
+    [key in keyof ServiceClients]?: ConstructorParameters<
+      ServiceClients[key]
+    >[0];
   };
   getTokenFn?: TokenFunction;
 };
