@@ -396,6 +396,20 @@ export interface paths {
             requestBody?: never;
             responses: {
                 /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                fileId: string;
+                                userId: string;
+                            }[];
+                        };
+                    };
+                };
+                /** @description Default Response */
                 "4XX": {
                     headers: {
                         [name: string]: unknown;
