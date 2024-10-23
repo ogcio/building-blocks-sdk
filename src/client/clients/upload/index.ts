@@ -7,12 +7,19 @@ class Upload extends BaseClient<paths> {
   declare client: ReturnType<typeof createClient<paths>>;
   protected serviceName = UPLOAD;
 
-  getFilesMetadata(organizationId: string) {
+  getFilesMetadata({
+    organizationId,
+    userId,
+  }: {
+    organizationId?: string;
+    userId?: string;
+  }) {
     return this.client
       .GET("/api/v1/metadata/", {
         params: {
           query: {
             organizationId,
+            userId,
           },
         },
       })
