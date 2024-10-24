@@ -10,7 +10,7 @@ import {
 import type { paths } from "./schema.js";
 
 class Messaging extends BaseClient<paths> {
-  declare client: ReturnType<typeof createClient<paths>>;
+  protected declare client: ReturnType<typeof createClient<paths>>;
   protected serviceName = MESSAGING;
 
   async getMessagesForUser(
