@@ -10,6 +10,14 @@ The Building Blocks SDK is the `TypeScript` client for integrating with the vari
 - Modular Design: Allows integration of different components (building blocks) to extend functionality as needed.
 - Enables both authenticated and non-authenticated usage
 
+## Registry
+
+This package has dependencies published to the GitHub Package Registry. To use it and install the dependencies, you need to set the `GITHUB_REGISTRY_TOKEN` environment variable in your bash/zsh/fish profile:
+
+```bash
+export GITHUB_REGISTRY_TOKEN=XXXXXXXX
+```
+
 ### Usage
 
 Install the package via:
