@@ -128,8 +128,6 @@ This project is built with the latest Node LTS, clone this repository and instal
 npm install
 ```
 
-The code is formatted and linted with [biome](https://biomejs.dev/).
-
 The clients schemas are auto generated using open `openapi-typescript`.
 
 you can update the json configuration clients for each client under: `src/clients-configuration/clients-configuration.json`,
@@ -140,3 +138,21 @@ npm run clients:update
 ```
 
 to update the schemas. At this point you are ready to modify clients files and use the newly generated schemas
+
+### Formatting and linting
+
+The code is formatted and linted with [biome](https://biomejs.dev/). If you use `VS Code` you can install the `biome` extension to get suggestions and auto-fix on save ( Ref: https://biomejs.dev/guides/editors/first-party-extensions/)
+
+To check the formatting and linting errors run:
+
+```bash
+npm run check:formatting
+npm run check:linting
+```
+
+To fix the formatting and linting errors run:
+
+```bash
+npm run fix:formatting
+npm run fix:linting
+```
