@@ -13,7 +13,7 @@ import type {
 } from "./types/index.js";
 
 const getBuildingBlockSDK = (
-  params: BuildingBlockSDKParams
+  params: BuildingBlockSDKParams,
 ): BuildingBlocksSDK => {
   const { services, getTokenFn } = params;
   return {
