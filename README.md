@@ -156,3 +156,58 @@ To fix the formatting and linting errors run:
 npm run fix:formatting
 npm run fix:linting
 ```
+
+### Testing
+
+The project uses `vitest` for testing. To run the tests:
+
+```bash
+npm test
+```
+
+## Feature Flags
+
+*Pre-requisites*: For local development, make sure you have the Feature Flags services running.
+You can find the service in the `feature-flags` directory. Once you have the service running, 
+refer to [Client Tokens](https://docs.getunleash.io/reference/api-tokens-and-client-keys#client-tokens)
+for instructions on how to generate a token.
+
+To use the Feature Flags service you will need:
+
+- `baseUrl` A valid `Feature Flags` service URL
+- `token` A valid `Feature Flags` service token
+
+### Usage
+
+Initialize the SDK with the `featureFlags` service:
+
+```typescript
+const sdk = getBuildingBlockSDK({
+  services: {
+    featureFlags: {
+      baseUrl: "http://localhost:4242",
+      token
+    },
+  },
+  getTokenFn: () => token,
+});
+```
+
+Use the `featureFlags` service to check if a feature is enabled (without any context):
+
+```typescript
+const isEnabled = await sdk.featureFlags.isFlagEnabled("feature-name");
+```
+
+Use the `featureFlags` service to check if a feature is enabled with context:
+
+```typescript
+const isEnabled = await sdk.featureFlags.isFlagEnabled("feature-name", {
+  userId: "userId",
+  sessionId: "sessionId",
+});
+```
+
+*Note*: The `isFlagEnabled` is asynchronous because if the client is not connected yet,
+it will wait for the connection to be established before checking the flag.
+Once the client is connected, the flag will be checked synchronously.

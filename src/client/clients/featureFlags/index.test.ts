@@ -26,11 +26,11 @@ vi.mock("unleash-client", () => ({
 describe("FeatureFlags", () => {
   const baseUrl = "http://fakehost";
   const getTokenFn = vi.fn();
-  const adminToken = "test-token";
+  const token = "test-token";
   let featureFlags: FeatureFlags;
 
   beforeEach(() => {
-    featureFlags = new FeatureFlags({ baseUrl, getTokenFn, adminToken });
+    featureFlags = new FeatureFlags({ baseUrl, getTokenFn, token });
   });
 
   it("should initialize unleash client with correct parameters", () => {
@@ -40,22 +40,22 @@ describe("FeatureFlags", () => {
       url: `${baseUrl}/api`,
       refreshInterval: 1000,
       customHeaders: {
-        Authorization: adminToken,
+        Authorization: token,
       },
       storageProvider: new InMemStorageProvider(),
     });
     expect(InMemStorageProvider).toHaveBeenCalled();
   });
 
-  it("should return false if flag is not enabled", () => {
+  it("should return false if flag is not enabled", async () => {
     isEnabled = false;
-    const result = featureFlags.isFlagEnabled("test-flag");
+    const result = await featureFlags.isFlagEnabled("test-flag");
     expect(result).toBe(isEnabled);
   });
 
-  it("should return true if flag is enabled", () => {
+  it("should return true if flag is enabled", async () => {
     isEnabled = true;
-    const result = featureFlags.isFlagEnabled("test-flag");
+    const result = await featureFlags.isFlagEnabled("test-flag");
     expect(result).toBe(isEnabled);
   });
 

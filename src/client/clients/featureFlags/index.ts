@@ -12,7 +12,7 @@ import type { components, paths } from "./schema.js";
 import { waitForConnection } from "./utils.js";
 
 type FeatureFlagsExtraParams = {
-  adminToken: string;
+  token: string;
 };
 
 type FeatureFlagsParams = BaseApiClientParams & FeatureFlagsExtraParams;
@@ -24,14 +24,14 @@ class FeatureFlags extends BaseClient<paths> {
   private unleashClient: Unleash | null = null;
   public isConnected = false;
 
-  constructor({ baseUrl, getTokenFn, adminToken }: FeatureFlagsParams) {
+  constructor({ baseUrl, getTokenFn, token }: FeatureFlagsParams) {
     super({ baseUrl, getTokenFn });
     this.unleashClient = initialize({
       appName: this.serviceName,
       url: `${baseUrl}/api`,
       refreshInterval: 1000,
       customHeaders: {
-        Authorization: adminToken,
+        Authorization: token,
       },
       storageProvider: new InMemStorageProvider(),
     });
@@ -41,11 +41,11 @@ class FeatureFlags extends BaseClient<paths> {
     });
   }
 
-  async waitForConnection(everyMs = 10) {
-    return waitForConnection(this, everyMs);
-  }
-
-  isFlagEnabled(name: string, context?: Context) {
+  // Note: you will be actually waiting when calling this method
+  // only the first time when the client is not connected yet.
+  // Subsequent calls will return immediately the cached value.
+  async isFlagEnabled(name: string, context?: Context) {
+    await this.waitForConnection(); // this is a no-op if already connected
     return (
       (this.isConnected &&
         this.unleashClient?.isEnabled(name, context, () => false)) ??
@@ -74,6 +74,10 @@ class FeatureFlags extends BaseClient<paths> {
         },
         (reason) => this.formatError(reason),
       );
+  }
+
+  private async waitForConnection(everyMs = 10) {
+    return waitForConnection(this, everyMs);
   }
 }
 
