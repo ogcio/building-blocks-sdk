@@ -29,28 +29,6 @@ class Upload extends BaseClient<paths> {
       );
   }
 
-  shareFile(fileId: string, userId: string) {
-    return this.client
-      .POST("/api/v1/permissions/", {
-        body: { fileId, userId },
-      })
-      .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
-      );
-  }
-
-  removeFileSharing(fileId: string, userId: string) {
-    return this.client
-      .DELETE("/api/v1/permissions/", {
-        body: { fileId, userId },
-      })
-      .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
-      );
-  }
-
   async getFile(id: string) {
     try {
       const {
@@ -104,6 +82,43 @@ class Upload extends BaseClient<paths> {
     return this.client
       .DELETE("/api/v1/metadata/", {
         body: { fileId: id },
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
+  }
+
+  getFileSharings(id: string) {
+    return this.client
+      .GET("/api/v1/permissions/", {
+        params: {
+          query: {
+            fileId: id,
+          },
+        },
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
+  }
+
+  shareFile(fileId: string, userId: string) {
+    return this.client
+      .POST("/api/v1/permissions/", {
+        body: { fileId, userId },
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
+  }
+
+  removeFileSharing(fileId: string, userId: string) {
+    return this.client
+      .DELETE("/api/v1/permissions/", {
+        body: { fileId, userId },
       })
       .then(
         (response) => this.formatResponse(response),
