@@ -1,4 +1,4 @@
-import type FeatureFlags from "~/client/clients/featureFlags/index.js";
+import type FeatureFlags from "../client/clients/featureFlags/index.js";
 import type Messaging from "../client/clients/messaging/index.js";
 import type Payments from "../client/clients/payments/index.js";
 import type Profile from "../client/clients/profile/index.js";
