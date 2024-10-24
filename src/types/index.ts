@@ -21,7 +21,7 @@ export type SERVICE_NAME =
   | typeof FEATURE_FLAGS;
 
 export type TokenFunction = (
-  serviceName: SERVICE_NAME,
+  serviceName: SERVICE_NAME
 ) => Promise<string> | string;
 
 export type M2MParams = {
