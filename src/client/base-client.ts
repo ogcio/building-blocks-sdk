@@ -48,6 +48,10 @@ abstract class BaseClient<T extends {}> {
     this.client.use(authMiddleware);
   }
 
+  public deleteToken() {
+    this.token = undefined;
+  }
+
   protected async getToken() {
     if (this.getTokenFn) {
       const token = await this.getTokenFn(this.serviceName as SERVICE_NAME);

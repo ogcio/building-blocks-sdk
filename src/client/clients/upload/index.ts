@@ -4,7 +4,7 @@ import BaseClient from "../../base-client.js";
 import type { paths } from "./schema.js";
 
 class Upload extends BaseClient<paths> {
-  declare client: ReturnType<typeof createClient<paths>>;
+  protected declare client: ReturnType<typeof createClient<paths>>;
   protected serviceName = UPLOAD;
 
   getFilesMetadata({
