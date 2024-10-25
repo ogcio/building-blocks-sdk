@@ -187,7 +187,6 @@ const sdk = getBuildingBlockSDK({
   services: {
     featureFlags: {
       baseUrl,
-      token
     },
   },
   getTokenFn: () => token,
