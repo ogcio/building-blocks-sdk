@@ -169,7 +169,7 @@ npm test
 
 ### Pre-requisites
 For local development, you should have the Feature Flags service running.
-Refer to the [Feature Flags]() repository for instructions on how to run the service.
+Refer to the [Feature Flags](https://github.com/ogcio/unleash) repository for instructions on how to run the service.
 
 ### Usage
 
