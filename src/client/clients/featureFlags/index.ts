@@ -18,7 +18,7 @@ type FeatureFlagsExtraParams = {
 type FeatureFlagsParams = BaseApiClientParams & FeatureFlagsExtraParams;
 
 class FeatureFlags extends BaseClient<paths> {
-  protected declare client: ReturnType<typeof createClient<paths>>;
+  declare client: ReturnType<typeof createClient<paths>>;
   protected serviceName = FEATURE_FLAGS;
 
   private unleashClient: Unleash | null = null;
