@@ -25,12 +25,11 @@ vi.mock("unleash-client", () => ({
 
 describe("FeatureFlags", () => {
   const baseUrl = "http://fakehost";
-  const getTokenFn = vi.fn();
-  const token = "test-token";
+  const getTokenFn = () => "test-token";
   let featureFlags: FeatureFlags;
 
   beforeEach(() => {
-    featureFlags = new FeatureFlags({ baseUrl, getTokenFn, token });
+    featureFlags = new FeatureFlags({ baseUrl, getTokenFn });
   });
 
   it("should initialize unleash client with correct parameters", () => {
@@ -40,7 +39,7 @@ describe("FeatureFlags", () => {
       url: `${baseUrl}/api`,
       refreshInterval: 1000,
       customHeaders: {
-        Authorization: token,
+        Authorization: "test-token",
       },
       storageProvider: new InMemStorageProvider(),
     });
