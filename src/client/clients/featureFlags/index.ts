@@ -41,11 +41,13 @@ class FeatureFlags extends BaseClient<paths> {
     });
   }
 
-  // Note: you will be actually waiting when calling this method
-  // only the first time when the client is not connected yet.
-  // Subsequent calls will return immediately the cached value.
   async isFlagEnabled(name: string, context?: Context) {
-    await this.waitForConnection(); // this is a no-op if already connected
+    try {
+      // note that there is no waiting if the client is already connected
+      await this.waitForConnection();
+    } catch {
+      return false;
+    }
     return (
       (this.isConnected &&
         this.unleashClient?.isEnabled(name, context, () => false)) ??
@@ -82,4 +84,7 @@ class FeatureFlags extends BaseClient<paths> {
 }
 
 export default FeatureFlags;
-export type { FeatureFlagsExtraParams };
+export type {
+  FeatureFlagsExtraParams,
+  Context as FeatureFlagsEvaluationContext,
+};

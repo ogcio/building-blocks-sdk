@@ -29,4 +29,25 @@ describe("waitForConnection", () => {
 
     consoleLogSpy.mockRestore();
   });
+
+  it("should throw an error if connection times out", async () => {
+    const mockFeatureFlags = {
+      isConnected: false,
+    } as FeatureFlags;
+
+    const consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+
+    const startTime = Date.now();
+    await expect(waitForConnection(mockFeatureFlags, 10, 30)).rejects.toThrow(
+      `[${FEATURE_FLAGS}] Connection timed out after 30ms`,
+    );
+    const elapsedTime = Date.now() - startTime;
+
+    expect(elapsedTime).toBeGreaterThanOrEqual(30);
+    expect(consoleLogSpy).toHaveBeenCalledWith(
+      `[${FEATURE_FLAGS}] Connecting...`,
+    );
+
+    consoleLogSpy.mockRestore();
+  });
 });
