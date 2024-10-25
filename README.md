@@ -169,43 +169,13 @@ npm test
 
 ### Pre-requisites
 For local development, you should have the Feature Flags service running.
-You can find the service in the `services/feature-flags` directory.
-
-- Copy `.env.example` to `.env` and update the environment variables as needed.
-- The service will start a Postgres database at the `PG_PORT` specified in the `.env` file or the default port `5432`.
-Change the port in the `.env` file if you want to use a different port.
-- Once the service is running, you can access it at `http://localhost:4242`.
-
-**Local Authentication**
-
-To start the service with local autentication, you can use the following command:
-
-```bash
-npm run services:feature-flags:start:local
-```
-
-Then login with the default user `admin` and password `unleash4all`.
-
-**Logto Authentication**
-
-To start the service with Logto autentication, you can use the following command:
-
-```bash
-npm run services:feature-flags:start:logto
-```
-
-Then login with any `MyGovID` account.
-*Note*: You will not have administator rights in the Unleash UI.
-
-In order to use Logto authentication, you will need:
-- The `Logto` service running. Change the `LOGTO_ENDPOINT` in the `.env` file if you want to use a different port for the service.
-- To create an Express application in the `Logto` service. Copy the `App ID` and the `App secret` and use them in the `.env` file.
+Refer to the [Feature Flags]() repository for instructions on how to run the service.
 
 ### Usage
 
 To use the Feature Flags service you will need:
 
-- `baseUrl` A valid `Feature Flags` service URL
+- `baseUrl` A valid `Feature Flags` service URL. Use `http://localhost:4242` for local development.
 - `token` A valid `Feature Flags` service token. Refer to [Client Tokens](https://docs.getunleash.io/reference/api-tokens-and-client-keys#client-tokens)
 for instructions on how to generate a token.
 
@@ -215,7 +185,7 @@ Initialize the SDK with the `featureFlags` service:
 const sdk = getBuildingBlockSDK({
   services: {
     featureFlags: {
-      baseUrl: "http://localhost:4242",
+      baseUrl,
       token
     },
   },
