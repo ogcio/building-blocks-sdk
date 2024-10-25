@@ -1,13 +1,10 @@
-require("dotenv").config();
-const unleash = require("unleash-server");
-
-unleash.start({
+module.exports = {
   db: {
     user: "unleash",
     password: "unleash",
     host: "localhost",
-    port: 5432,
-    database: "db",
+    port: Number(process.env.PG_PORT || 5432),
+    database: "unleash",
     ssl: false,
   },
   server: {
@@ -15,4 +12,4 @@ unleash.start({
     baseUriPath: "",
   },
   logLevel: "info",
-});
+};

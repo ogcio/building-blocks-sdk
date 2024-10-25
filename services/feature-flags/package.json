@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index"
+    "start:auth:oidc": "node server-with-oidc-auth",
+    "start:auth:local": "node server-with-local-auth"
   },
   "author": "",
   "license": "ISC",

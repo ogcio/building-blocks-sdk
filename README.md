@@ -167,8 +167,9 @@ npm test
 
 ## Feature Flags
 
-*Pre-requisites*: For local development, make sure you have the Feature Flags services running.
-You can find the service in the `feature-flags` directory. Once you have the service running, 
+### Pre-requisites
+For local development, you should have the Feature Flags service running.
+You can find the service in the `services/feature-flags` directory. Once you have the service running, 
 refer to [Client Tokens](https://docs.getunleash.io/reference/api-tokens-and-client-keys#client-tokens)
 for instructions on how to generate a token.
 
