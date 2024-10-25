@@ -14,8 +14,8 @@
     "check:linting": "biome lint",
     "fix:linting": "biome lint --write",
     "prepare": "husky || true",
-    "services:feature-flags:start:oidc": "cd ./services/feature-flags && npm run start:auth:oidc",
-    "services:feature-flags:start:local": "cd ./services/feature-flags && npm run start:auth:local"
+    "services:feature-flags:start:logto": "cd ./services/feature-flags && docker-compose up -d && npm run start:auth:logto",
+    "services:feature-flags:start:local": "cd ./services/feature-flags && docker-compose up -d && npm run start:auth:local"
   },
   "dependencies": {
     "@sinclair/typebox": "^0.33.15",

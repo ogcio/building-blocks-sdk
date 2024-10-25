@@ -5,7 +5,7 @@
  *
  *  - APP_ID
  *  - APP_SECRET
- *  - ENDPOINT
+ *  - LOGTO_ENDPOINT
  */
 
 const OpenIDConnectStrategy = require("passport-openidconnect");
@@ -15,7 +15,7 @@ const { AuthenticationRequired } = require("unleash-server");
 
 const appId = process.env.APP_ID;
 const appSecret = process.env.APP_SECRET;
-const endpoint = process.env.ENDPOINT;
+const endpoint = process.env.LOGTO_ENDPOINT;
 const contextPath = process.env.CONTEXT_PATH || "";
 
 function enableOidcOauth(app, config, services) {

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:auth:oidc": "node server-with-oidc-auth",
+    "start:auth:logto": "node server-with-oidc-auth",
     "start:auth:local": "node server-with-local-auth"
   },
   "author": "",
