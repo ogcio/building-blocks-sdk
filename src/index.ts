@@ -1,6 +1,4 @@
-import FeatureFlags, {
-  type FeatureFlagsExtraParams,
-} from "./client/clients/featureFlags/index.js";
+import FeatureFlags, {} from "./client/clients/featureFlags/index.js";
 import Messaging from "./client/clients/messaging/index.js";
 import Payments from "./client/clients/payments/index.js";
 import Profile from "./client/clients/profile/index.js";
@@ -18,7 +16,7 @@ import type {
 const getBuildingBlockSDK = (
   params: BuildingBlockSDKParams,
 ): BuildingBlocksSDK => {
-  const { services, getTokenFn, ...restOfParams } = params;
+  const { services, getTokenFn } = params;
   return {
     messaging: new Messaging({
       ...services.messaging,
@@ -43,7 +41,6 @@ const getBuildingBlockSDK = (
     featureFlags: new FeatureFlags({
       ...services.featureFlags,
       getTokenFn,
-      ...(restOfParams as FeatureFlagsExtraParams),
     }),
   };
 };

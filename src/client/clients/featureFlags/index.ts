@@ -11,12 +11,6 @@ import BaseClient from "../../base-client.js";
 import type { components, paths } from "./schema.js";
 import { waitForConnection } from "./utils.js";
 
-type FeatureFlagsExtraParams = {
-  token: string;
-};
-
-type FeatureFlagsParams = BaseApiClientParams & FeatureFlagsExtraParams;
-
 class FeatureFlags extends BaseClient<paths> {
   declare client: ReturnType<typeof createClient<paths>>;
   protected serviceName = FEATURE_FLAGS;
@@ -24,8 +18,9 @@ class FeatureFlags extends BaseClient<paths> {
   private unleashClient: Unleash | null = null;
   public isConnected = false;
 
-  constructor({ baseUrl, getTokenFn, token }: FeatureFlagsParams) {
+  constructor({ baseUrl, getTokenFn }: BaseApiClientParams) {
     super({ baseUrl, getTokenFn });
+    const token = getTokenFn ? (getTokenFn(FEATURE_FLAGS) as string) : "";
     this.unleashClient = initialize({
       appName: this.serviceName,
       url: `${baseUrl}/api`,
@@ -84,7 +79,4 @@ class FeatureFlags extends BaseClient<paths> {
 }
 
 export default FeatureFlags;
-export type {
-  FeatureFlagsExtraParams,
-  Context as FeatureFlagsEvaluationContext,
-};
+export type { Context as FeatureFlagsEvaluationContext };
