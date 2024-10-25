@@ -169,7 +169,8 @@ npm test
 
 ### Pre-requisites
 For local development, you should have the Feature Flags service running.
-Refer to the [Feature Flags](https://github.com/ogcio/unleash) repository for instructions on how to run the service.
+Refer to the [unleash](https://github.com/ogcio/unleash) repository for instructions on how to run the service.
+You can also find examples on how to run Unleash with different auth strategies in the [unleash-examples](https://github.com/ogcio/unleash-examples/tree/feat/oidc-auth) repository.
 
 ### Usage
 
