@@ -39,11 +39,7 @@ class FeatureFlags extends BaseClient<paths> {
 
   async isFlagEnabled(name: string, context?: Context) {
     await this.waitForConnection();
-    return (
-      (this.isConnected &&
-        this.unleashClient?.isEnabled(name, context, () => false)) ??
-      false
-    );
+    return this.unleashClient?.isEnabled(name, context, () => false) ?? false;
   }
 
   async getFeatureFlags(projectId = DEFAULT_PROJECT_ID) {
