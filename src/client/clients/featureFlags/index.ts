@@ -38,12 +38,7 @@ class FeatureFlags extends BaseClient<paths> {
   }
 
   async isFlagEnabled(name: string, context?: Context) {
-    try {
-      // note that there is no waiting if the client is already connected
-      await this.waitForConnection();
-    } catch {
-      return false;
-    }
+    await this.waitForConnection();
     return (
       (this.isConnected &&
         this.unleashClient?.isEnabled(name, context, () => false)) ??
