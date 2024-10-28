@@ -4,22 +4,9 @@ import FeatureFlags from "./index.js";
 
 let isEnabled = true;
 
-await t.mockImport<typeof import("./index.js").default>("./index.js", {
-  "unleash-client": {
-    initialize: () => ({
-      on: (event: string, cb: () => void) => {
-        if (event === "synchronized") {
-          cb();
-        }
-        if (event === "error") {
-          cb();
-        }
-        return true;
-      },
-      isEnabled: () => isEnabled,
-    }),
-    InMemStorageProvider: td.func(),
-  },
+await td.replaceEsm("unleash-client", {
+  initialize: td.func(),
+  InMemStorageProvider: td.func(),
 });
 
 let fetchResponse = {};
