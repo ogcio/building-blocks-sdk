@@ -1,6 +1,6 @@
 {
   "name": "@ogcio/building-blocks-sdk",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
@@ -16,6 +16,7 @@
     "prepare": "husky || true"
   },
   "dependencies": {
+    "@ogcio/analytics-sdk": "0.0.1-beta.1",
     "@sinclair/typebox": "^0.33.15",
     "commander": "^12.1.0",
     "http-errors": "^2.0.0",
