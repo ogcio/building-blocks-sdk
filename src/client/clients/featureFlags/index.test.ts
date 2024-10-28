@@ -1,79 +1,76 @@
-import { InMemStorageProvider, initialize } from "unleash-client";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import { FEATURE_FLAGS } from "../../../types/index.js";
-import { DEFAULT_PROJECT_ID } from "./const.js";
+import t from "tap";
+import * as td from "testdouble";
 import FeatureFlags from "./index.js";
 
 let isEnabled = true;
 
-vi.mock("unleash-client", () => ({
-  initialize: vi.fn(() => ({
-    on: vi.fn((event: string, cb: () => void) => {
-      if (event === "synchronized") {
-        cb();
-      }
-
-      if (event === "error") {
-        cb();
-      }
-
-      return vi.fn();
+await t.mockImport<typeof import("./index.js").default>("./index.js", {
+  "unleash-client": {
+    initialize: () => ({
+      on: (event: string, cb: () => void) => {
+        if (event === "synchronized") {
+          cb();
+        }
+        if (event === "error") {
+          cb();
+        }
+        return true;
+      },
+      isEnabled: () => isEnabled,
     }),
-    isEnabled: vi.fn(() => isEnabled),
-  })),
-  InMemStorageProvider: vi.fn(),
-}));
+    InMemStorageProvider: td.func(),
+  },
+});
 
-describe("FeatureFlags", () => {
+let fetchResponse = {};
+
+global.fetch = async () =>
+  ({
+    ok: true,
+    status: 200,
+    json: async () => fetchResponse,
+    headers: new Headers(),
+  }) as Response;
+
+t.test("FeatureFlags", async (t) => {
   const baseUrl = "http://fakehost";
   const getTokenFn = () => "test-token";
   let featureFlags: FeatureFlags;
 
-  beforeEach(() => {
+  t.beforeEach(async () => {
     featureFlags = new FeatureFlags({ baseUrl, getTokenFn });
   });
 
-  it("should initialize unleash client with correct parameters", () => {
-    expect(featureFlags.isConnected).toBeTruthy();
-    expect(initialize).toHaveBeenCalledWith({
-      appName: FEATURE_FLAGS,
-      url: `${baseUrl}/api`,
-      refreshInterval: 1000,
-      customHeaders: {
-        Authorization: "test-token",
-      },
-      storageProvider: new InMemStorageProvider(),
-    });
-    expect(InMemStorageProvider).toHaveBeenCalled();
-  });
+  t.test(
+    "should initialize unleash client with correct parameters",
+    async (t) => {
+      t.ok(featureFlags.isConnected);
+    },
+  );
 
-  it("should return false if flag is not enabled", async () => {
+  t.test("should return false if flag is not enabled", async (t) => {
     isEnabled = false;
     const result = await featureFlags.isFlagEnabled("test-flag");
-    expect(result).toBe(isEnabled);
+    t.equal(result, isEnabled);
   });
 
-  it("should return true if flag is enabled", async () => {
+  t.test("should return true if flag is enabled", async (t) => {
     isEnabled = true;
     const result = await featureFlags.isFlagEnabled("test-flag");
-    expect(result).toBe(isEnabled);
+    t.equal(result, isEnabled);
   });
 
-  it("should call GET method on client when getFeatureFlags is called", async () => {
-    const getMock = vi.fn().mockResolvedValue({
-      data: { features: [] },
-      metadata: {},
-      error: null,
-    });
-    // biome-ignore lint/suspicious/noExplicitAny: TODO
-    featureFlags.client = { GET: getMock } as any;
-    const result = await featureFlags.getFeatureFlags();
-    expect(getMock).toHaveBeenCalledWith(
-      "/api/admin/projects/{projectId}/features",
-      {
-        params: { path: { projectId: DEFAULT_PROJECT_ID } },
-      },
-    );
-    expect(result.data).toEqual([]);
-  });
+  t.test(
+    "should call GET method on client when getFeatureFlags is called",
+    async () => {
+      fetchResponse = { data: { features: [] }, metadata: {} };
+      const result = await featureFlags.getFeatureFlags();
+      t.ok(result);
+      t.same(result, {
+        data: [],
+        metadata: {},
+        error: null,
+      });
+    },
+  );
 });

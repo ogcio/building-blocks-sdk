@@ -1,9 +1,10 @@
+import t from "tap";
 import { FEATURE_FLAGS } from "../../../types/index.js";
 import type FeatureFlags from "./index.js";
 import { waitForConnection } from "./utils.js";
 
-describe("waitForConnection", () => {
-  it("should resolve when featureFlags is connected", async () => {
+t.test("waitForConnection", async (t) => {
+  t.test("should resolve when featureFlags is connected", async (t) => {
     const mockFeatureFlags = {
       isConnected: false,
     } as FeatureFlags;
@@ -13,41 +14,38 @@ describe("waitForConnection", () => {
       mockFeatureFlags.isConnected = true;
     }, 50);
 
-    const consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+    const consoles = t.capture(console, "log");
 
     const startTime = Date.now();
     await waitForConnection(mockFeatureFlags, 10);
     const elapsedTime = Date.now() - startTime;
 
-    expect(elapsedTime).toBeGreaterThanOrEqual(50);
-    expect(consoleLogSpy).toHaveBeenCalledWith(
-      `[${FEATURE_FLAGS}] Connecting...`,
-    );
-    expect(consoleLogSpy).toHaveBeenCalledWith(
-      expect.stringMatching(/Connected in \d+ms/),
-    );
+    t.ok(elapsedTime >= 50);
+    t.match(consoles(), [
+      { args: [`[${FEATURE_FLAGS}] Connecting...`] },
+      { args: [/Connected in \d+ms/] },
+    ]);
 
-    consoleLogSpy.mockRestore();
+    t.end();
   });
 
-  it("should throw an error if connection times out", async () => {
+  t.test("should throw an error if connection times out", async (t) => {
     const mockFeatureFlags = {
       isConnected: false,
     } as FeatureFlags;
 
-    const consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+    const consoleLogSpy = t.capture(console, "log");
 
     const startTime = Date.now();
-    await expect(waitForConnection(mockFeatureFlags, 10, 30)).rejects.toThrow(
+    await t.rejects(
+      waitForConnection(mockFeatureFlags, 10, 30),
       `[${FEATURE_FLAGS}] Connection timed out after 30ms`,
     );
     const elapsedTime = Date.now() - startTime;
 
-    expect(elapsedTime).toBeGreaterThanOrEqual(30);
-    expect(consoleLogSpy).toHaveBeenCalledWith(
-      `[${FEATURE_FLAGS}] Connecting...`,
-    );
+    t.ok(elapsedTime >= 30);
+    t.match(consoleLogSpy(), [{ args: [`[${FEATURE_FLAGS}] Connecting...`] }]);
 
-    consoleLogSpy.mockRestore();
+    t.end();
   });
 });
