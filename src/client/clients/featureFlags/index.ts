@@ -8,6 +8,7 @@ import {
 import type { BaseApiClientParams } from "../../../types/index.js";
 import { FEATURE_FLAGS } from "../../../types/index.js";
 import BaseClient from "../../base-client.js";
+import { DEFAULT_PROJECT_ID } from "./const.js";
 import type { components, paths } from "./schema.js";
 import { waitForConnection } from "./utils.js";
 
@@ -50,12 +51,12 @@ class FeatureFlags extends BaseClient<paths> {
     );
   }
 
-  async getFeatureFlags() {
+  async getFeatureFlags(projectId = DEFAULT_PROJECT_ID) {
     return await this.client
       .GET("/api/admin/projects/{projectId}/features", {
         params: {
           path: {
-            projectId: "default",
+            projectId,
           },
         },
       })

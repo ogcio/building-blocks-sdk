@@ -1,6 +1,7 @@
 import { InMemStorageProvider, initialize } from "unleash-client";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { FEATURE_FLAGS } from "../../../types/index.js";
+import { DEFAULT_PROJECT_ID } from "./const.js";
 import FeatureFlags from "./index.js";
 
 let isEnabled = true;
@@ -70,7 +71,7 @@ describe("FeatureFlags", () => {
     expect(getMock).toHaveBeenCalledWith(
       "/api/admin/projects/{projectId}/features",
       {
-        params: { path: { projectId: "default" } },
+        params: { path: { projectId: DEFAULT_PROJECT_ID } },
       },
     );
     expect(result.data).toEqual([]);
