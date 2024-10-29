@@ -20,9 +20,9 @@
     "@sinclair/typebox": "^0.33.15",
     "commander": "^12.1.0",
     "http-errors": "^2.0.0",
-    "openapi-fetch": "^0.12.2",
+    "openapi-fetch": "^0.13.0",
     "openapi-typescript": "^7.4.1",
-    "openapi-typescript-helpers": "^0.0.13",
+    "openapi-typescript-helpers": "^0.0.15",
     "safe-stable-stringify": "^2.5.0",
     "yaml": "^2.5.1"
   },
