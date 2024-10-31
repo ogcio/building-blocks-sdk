@@ -361,6 +361,19 @@ class Payments extends BaseClient<paths> {
         (reason) => this.formatError(reason),
       );
   }
+
+  async decodeToken(
+    data: paths["/api/v1/requests/decode"]["post"]["requestBody"]["content"]["application/json"],
+  ) {
+    return this.client
+      .POST("/api/v1/requests/decode", {
+        body: data,
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
+  }
 }
 
 export default Payments;
