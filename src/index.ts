@@ -1,4 +1,4 @@
-import FeatureFlags, {} from "./client/clients/featureFlags/index.js";
+import FeatureFlags from "./client/clients/featureFlags/index.js";
 import Messaging from "./client/clients/messaging/index.js";
 import Payments from "./client/clients/payments/index.js";
 import Profile from "./client/clients/profile/index.js";
