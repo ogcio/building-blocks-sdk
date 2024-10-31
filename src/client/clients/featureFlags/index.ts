@@ -22,19 +22,25 @@ class FeatureFlags extends BaseClient<paths> {
   }
 
   async isFlagEnabled(name: string, context?: Context) {
-    const { InMemStorageProvider, startUnleash } = await import(
-      "unleash-client"
-    );
-    const client = await startUnleash({
-      appName: this.serviceName,
-      url: `${this.unleashConnectionOptions.url}/api`,
-      refreshInterval: 1000,
-      customHeaders: {
-        Authorization: this.unleashConnectionOptions.token,
-      },
-      storageProvider: new InMemStorageProvider(),
-    });
-    return client.isEnabled(name, context, () => false);
+    try {
+      const { InMemStorageProvider, startUnleash } = await import(
+        "unleash-client"
+      );
+      const client = await startUnleash({
+        appName: this.serviceName,
+        url: `${this.unleashConnectionOptions.url}/api`,
+        refreshInterval: 1000,
+        customHeaders: {
+          Authorization: this.unleashConnectionOptions.token,
+        },
+        storageProvider: new InMemStorageProvider(),
+      });
+      return client.isEnabled(name, context, () => false);
+    } catch {
+      throw new Error(
+        "unleash-client is not installed or not configured correctly",
+      );
+    }
   }
 
   async getFeatureFlags(projectId = DEFAULT_PROJECT_ID) {
