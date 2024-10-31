@@ -9,6 +9,24 @@
     "schemas": {}
   },
   "paths": {
+    "/.well-known/jwks.json": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/token": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
     "/health": {
       "get": {
         "responses": {
@@ -3040,6 +3058,216 @@
         }
       }
     },
+    "/api/v1/requests/decode": {
+      "post": {
+        "tags": [
+          "PaymentRequests"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "token"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "amount": {
+                          "type": "number"
+                        },
+                        "runId": {
+                          "type": "string"
+                        },
+                        "journeyId": {
+                          "type": "string"
+                        },
+                        "redirectUrl": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "runId",
+                        "journeyId",
+                        "redirectUrl"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "description": "Object containing the links to the related endpoints",
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the request itself",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "description": "It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2'",
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "description": "Number representing the total number of available items",
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/requests/{requestId}/transactions": {
       "get": {
         "tags": [
@@ -3241,6 +3469,74 @@
                 }
               }
             }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
           }
         }
       }
@@ -3335,13 +3631,22 @@
                         "userId": {
                           "type": "string"
                         },
-                        "userData": {
+                        "metadata": {
                           "type": "object",
                           "properties": {
                             "name": {
                               "type": "string"
                             },
                             "email": {
+                              "type": "string"
+                            },
+                            "runId": {
+                              "type": "string"
+                            },
+                            "journeyId": {
+                              "type": "string"
+                            },
+                            "journeyTitle": {
                               "type": "string"
                             }
                           },
@@ -3372,7 +3677,7 @@
                         "updatedAt",
                         "title",
                         "userId",
-                        "userData",
+                        "metadata",
                         "description",
                         "providerName",
                         "providerType",
@@ -3719,13 +4024,22 @@
                           "userId": {
                             "type": "string"
                           },
-                          "userData": {
+                          "metadata": {
                             "type": "object",
                             "properties": {
                               "name": {
                                 "type": "string"
                               },
                               "email": {
+                                "type": "string"
+                              },
+                              "runId": {
+                                "type": "string"
+                              },
+                              "journeyId": {
+                                "type": "string"
+                              },
+                              "journeyTitle": {
                                 "type": "string"
                               }
                             },
@@ -3756,7 +4070,7 @@
                           "updatedAt",
                           "title",
                           "userId",
-                          "userData",
+                          "metadata",
                           "description",
                           "providerName",
                           "providerType",
@@ -3981,13 +4295,22 @@
                   "paymentProviderId": {
                     "type": "string"
                   },
-                  "userData": {
+                  "metadata": {
                     "type": "object",
                     "properties": {
                       "name": {
                         "type": "string"
                       },
                       "email": {
+                        "type": "string"
+                      },
+                      "runId": {
+                        "type": "string"
+                      },
+                      "journeyId": {
+                        "type": "string"
+                      },
+                      "journeyTitle": {
                         "type": "string"
                       }
                     },
@@ -4003,7 +4326,7 @@
                   "integrationReference",
                   "amount",
                   "paymentProviderId",
-                  "userData"
+                  "metadata"
                 ]
               }
             }
@@ -4186,6 +4509,146 @@
         }
       }
     },
+    "/api/v1/transactions/schema": {
+      "get": {
+        "tags": [
+          "Transactions"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "properties": {
+                      "type": "object",
+                      "properties": {
+                        "userId": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "transactionId": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "paymentRequestId": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "paymentRequestTitle": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "amount": {
+                          "type": "object",
+                          "properties": {
+                            "minimum": {
+                              "type": "integer"
+                            },
+                            "maximum": {
+                              "type": "integer"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "extReferenceCode": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "paymentMethod": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "paymentProviderName": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "status": {
+                          "type": "object",
+                          "properties": {
+                            "anyOf": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "const": {
+                                    "type": "string"
+                                  },
+                                  "type": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "createdAt": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "updatedAt": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "required": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/transactions/generatePaymentIntentId": {
       "get": {
         "tags": [
@@ -4297,6 +4760,424 @@
             }
           },
           "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/transactions/data/{transactionId}": {
+      "get": {
+        "tags": [
+          "Transactions"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "transactionId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "userId": {
+                          "type": "string"
+                        },
+                        "transactionId": {
+                          "type": "string"
+                        },
+                        "paymentRequestId": {
+                          "type": "string"
+                        },
+                        "paymentRequestTitle": {
+                          "type": "string"
+                        },
+                        "amount": {
+                          "minimum": 1,
+                          "maximum": 1000000,
+                          "type": "number"
+                        },
+                        "extReferenceCode": {
+                          "type": "string"
+                        },
+                        "paymentMethod": {
+                          "type": "string"
+                        },
+                        "paymentProviderName": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "initiated"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "pending"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "succeeded"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "cancelled"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "failed"
+                              ]
+                            }
+                          ]
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "userId",
+                        "transactionId",
+                        "paymentRequestId",
+                        "paymentRequestTitle",
+                        "amount",
+                        "extReferenceCode",
+                        "paymentMethod",
+                        "paymentProviderName",
+                        "status",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "description": "Object containing the links to the related endpoints",
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the request itself",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "description": "It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2'",
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "description": "Number representing the total number of available items",
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/transactions/{transactionId}/token": {
+      "get": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "transactionId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "token"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "description": "Object containing the links to the related endpoints",
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the request itself",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "description": "It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2'",
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "description": "Number representing the total number of available items",
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
             "description": "Default Response",
             "content": {
               "application/json": {
@@ -4718,13 +5599,22 @@
                         "userId": {
                           "type": "string"
                         },
-                        "userData": {
+                        "metadata": {
                           "type": "object",
                           "properties": {
                             "name": {
                               "type": "string"
                             },
                             "email": {
+                              "type": "string"
+                            },
+                            "runId": {
+                              "type": "string"
+                            },
+                            "journeyId": {
+                              "type": "string"
+                            },
+                            "journeyTitle": {
                               "type": "string"
                             }
                           },
@@ -4755,7 +5645,7 @@
                         "updatedAt",
                         "title",
                         "userId",
-                        "userData",
+                        "metadata",
                         "description",
                         "providerName",
                         "providerType",
@@ -4924,126 +5814,40 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "ACCOUNT": {
-                          "type": "string"
-                        },
-                        "AMOUNT": {
-                          "type": "string"
-                        },
-                        "CURRENCY": {
-                          "type": "string"
-                        },
-                        "MERCHANT_ID": {
-                          "type": "string"
-                        },
-                        "ORDER_ID": {
-                          "type": "string"
-                        },
-                        "TIMESTAMP": {
-                          "type": "string"
-                        },
-                        "URL": {
-                          "type": "string"
-                        },
-                        "SHA256HASH": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "ACCOUNT",
-                        "AMOUNT",
-                        "CURRENCY",
-                        "MERCHANT_ID",
-                        "ORDER_ID",
-                        "TIMESTAMP",
-                        "URL",
-                        "SHA256HASH"
-                      ]
+                    "ACCOUNT": {
+                      "type": "string"
                     },
-                    "metadata": {
-                      "type": "object",
-                      "properties": {
-                        "links": {
-                          "description": "Object containing the links to the related endpoints",
-                          "type": "object",
-                          "properties": {
-                            "self": {
-                              "type": "object",
-                              "properties": {
-                                "href": {
-                                  "description": "URL pointing to the request itself",
-                                  "type": "string"
-                                }
-                              }
-                            },
-                            "next": {
-                              "type": "object",
-                              "properties": {
-                                "href": {
-                                  "description": "URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted",
-                                  "type": "string"
-                                }
-                              }
-                            },
-                            "prev": {
-                              "type": "object",
-                              "properties": {
-                                "href": {
-                                  "description": "URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted",
-                                  "type": "string"
-                                }
-                              }
-                            },
-                            "first": {
-                              "type": "object",
-                              "properties": {
-                                "href": {
-                                  "description": "URL pointing to the first page of results in a paginated response",
-                                  "type": "string"
-                                }
-                              }
-                            },
-                            "last": {
-                              "type": "object",
-                              "properties": {
-                                "href": {
-                                  "description": "URL pointing to the first page of results in a paginated response",
-                                  "type": "string"
-                                }
-                              }
-                            },
-                            "pages": {
-                              "description": "It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2'",
-                              "type": "object",
-                              "additionalProperties": {
-                                "type": "object",
-                                "properties": {
-                                  "href": {
-                                    "type": "string"
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          "required": [
-                            "self",
-                            "first",
-                            "last",
-                            "pages"
-                          ]
-                        },
-                        "totalCount": {
-                          "description": "Number representing the total number of available items",
-                          "type": "number"
-                        }
-                      }
+                    "AMOUNT": {
+                      "type": "string"
+                    },
+                    "CURRENCY": {
+                      "type": "string"
+                    },
+                    "MERCHANT_ID": {
+                      "type": "string"
+                    },
+                    "ORDER_ID": {
+                      "type": "string"
+                    },
+                    "TIMESTAMP": {
+                      "type": "string"
+                    },
+                    "URL": {
+                      "type": "string"
+                    },
+                    "SHA256HASH": {
+                      "type": "string"
                     }
                   },
                   "required": [
-                    "data"
+                    "ACCOUNT",
+                    "AMOUNT",
+                    "CURRENCY",
+                    "MERCHANT_ID",
+                    "ORDER_ID",
+                    "TIMESTAMP",
+                    "URL",
+                    "SHA256HASH"
                   ]
                 }
               }

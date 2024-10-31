@@ -65,7 +65,8 @@ abstract class BaseClient<T extends {}> {
     return this.initialized;
   }
 
-  protected formatResponse<G, O>(
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  protected formatResponse<G extends Record<string | number, any>, O>(
     response: FetchResponse<G, O, "application/json">,
   ): DataResponseValue<G, O> {
     let outputData = undefined;

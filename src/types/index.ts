@@ -1,3 +1,4 @@
+import type { Analytics } from "@ogcio/analytics-sdk";
 import type FeatureFlags from "../client/clients/featureFlags/index.js";
 import type Messaging from "../client/clients/messaging/index.js";
 import type Payments from "../client/clients/payments/index.js";
@@ -5,6 +6,7 @@ import type Profile from "../client/clients/profile/index.js";
 import type Scheduler from "../client/clients/scheduler/index.js";
 import type Upload from "../client/clients/upload/index.js";
 
+export const ANALYTICS = "analytics" as const;
 export const MESSAGING = "messaging" as const;
 export const PAYMENTS = "payments" as const;
 export const PROFILE = "profile" as const;
@@ -13,6 +15,7 @@ export const UPLOAD = "upload" as const;
 export const FEATURE_FLAGS = "featureFlags" as const;
 
 export type SERVICE_NAME =
+  | typeof ANALYTICS
   | typeof MESSAGING
   | typeof PAYMENTS
   | typeof PROFILE
@@ -44,6 +47,7 @@ export type BaseApiClientParams = SDKClientParams & {
 };
 
 type ServiceClients = {
+  analytics: typeof Analytics;
   messaging: typeof Messaging;
   payments: typeof Payments;
   profile: typeof Profile;

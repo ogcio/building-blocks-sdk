@@ -47,6 +47,8 @@ Access to building-blocks api is granted through access token in the `Authorizat
 Users can pass the `getTokenFn` function to the SDK. The SDK client will call this function when it needs an access token. The SDK will provide the service name of the service for which it is requesting the token:
 
 ```typescript
+import getBuildingBlockSDK from "@ogcio/building-blocks-sdk";
+
 const sdk = getBuildingBlockSDK({
   services: {
     upload: {
@@ -74,6 +76,8 @@ npm i @logto/node
 and use the `getM2MTokenFn` utility function. This function accepts the M2M configuration parameters for each of the building-blocks api and returns a `getTokenFn` compliant function that will handle Logto m2m retrieval for you:
 
 ```typescript
+import getBuildingBlockSDK, { getM2MTokenFn } from "@ogcio/building-blocks-sdk";
+
 const sdk = getBuildingBlockSDK({
   services: {
     upload: {
@@ -98,6 +102,8 @@ const sdk = getBuildingBlockSDK({
 Using the m2m utility function like this will cause the SDK to request all the scopes available for the building-block, scopes can be overridden when passed as parameter:
 
 ```typescript
+import getBuildingBlockSDK, { getM2MTokenFn } from "@ogcio/building-blocks-sdk";
+
 const sdk = getBuildingBlockSDK({
   services: {
     upload: {
