@@ -1,4 +1,5 @@
 import type { Analytics } from "@ogcio/analytics-sdk";
+import type FeatureFlags from "../client/clients/featureFlags/index.js";
 import type Messaging from "../client/clients/messaging/index.js";
 import type Payments from "../client/clients/payments/index.js";
 import type Profile from "../client/clients/profile/index.js";
@@ -11,6 +12,7 @@ export const PAYMENTS = "payments" as const;
 export const PROFILE = "profile" as const;
 export const SCHEDULER = "scheduler" as const;
 export const UPLOAD = "upload" as const;
+export const FEATURE_FLAGS = "featureFlags" as const;
 
 export type SERVICE_NAME =
   | typeof ANALYTICS
@@ -18,7 +20,8 @@ export type SERVICE_NAME =
   | typeof PAYMENTS
   | typeof PROFILE
   | typeof SCHEDULER
-  | typeof UPLOAD;
+  | typeof UPLOAD
+  | typeof FEATURE_FLAGS;
 
 export type TokenFunction = (
   serviceName: SERVICE_NAME,
@@ -50,6 +53,7 @@ type ServiceClients = {
   profile: typeof Profile;
   scheduler: typeof Scheduler;
   upload: typeof Upload;
+  featureFlags: typeof FeatureFlags;
 };
 
 export type BuildingBlocksSDK = {

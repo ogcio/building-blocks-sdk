@@ -80,6 +80,14 @@
         "profile:entitlement:*"
       ],
       "updateDefinitions": true
+    },
+    {
+      "name": "featureFlags",
+      "openApiDefinitionUrl": "https://app.unleash-hosted.com/demo/docs/openapi.json",
+      "openApiDefinitionFormat": "json",
+      "citizenPermissions": [],
+      "publicServantPermissions": [],
+      "updateDefinitions": true
     }
   ]
 }

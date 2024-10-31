@@ -1,4 +1,5 @@
 import { Analytics } from "@ogcio/analytics-sdk";
+import FeatureFlags from "./client/clients/featureFlags/index.js";
 
 import Messaging from "./client/clients/messaging/index.js";
 import Payments from "./client/clients/payments/index.js";
@@ -41,6 +42,10 @@ const getBuildingBlockSDK = (
     }),
     upload: new Upload({
       ...services.upload,
+      getTokenFn,
+    }),
+    featureFlags: new FeatureFlags({
+      ...services.featureFlags,
       getTokenFn,
     }),
   };

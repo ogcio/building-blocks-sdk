@@ -1,11 +1,15 @@
 {
   "name": "@ogcio/building-blocks-sdk",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "TAP_RCFILE=tap.yml tap --reporter junit --reporter-file results.xml",
+    "test:local": "TAP_RCFILE=tap.yml tap",
+    "test:e2e": "cd ./e2e && bru run --env local",
+    "test:smoke:e2e": "echo \"Error: no test specified\" && exit 0",
+    "test:regression:e2e": "cd ./e2e && mkdir -p test-results && bru run --env dev --output ./test-results/results.xml --format junit",
     "build": "rm -rf dist && tsc -p tsconfig.prod.json",
     "clients:update": "node --import=tsx src/cli/index.ts clients:update -c src/clients-configurations/clients-configuration.json",
     "clients:outdated": "node --import=tsx src/cli/index.ts clients:outdated -c src/clients-configurations/clients-configuration.json",
@@ -32,14 +36,21 @@
     "@types/http-errors": "^2.0.4",
     "commitlint": "^19.5.0",
     "husky": "^9.1.6",
+    "tap": "^21.0.1",
+    "testdouble": "^3.20.2",
+    "vitest": "^2.1.3",
     "tsx": "^4.19.2",
     "typescript": "^5.6.3"
   },
   "peerDependencies": {
-    "@logto/node": "2.5.5"
+    "@logto/node": "2.5.5",
+    "unleash-client": "^6.1.1"
   },
   "peerDependenciesMeta": {
     "@logto/node": {
+      "optional": true
+    },
+    "unleash-client": {
       "optional": true
     }
   },
