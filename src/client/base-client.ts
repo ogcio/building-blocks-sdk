@@ -3,7 +3,7 @@ import createClient, {
   type FetchResponse,
 } from "openapi-fetch";
 import type {
-  ApiClientParams,
+  BaseApiClientParams,
   SERVICE_NAME,
   TokenFunction,
 } from "../types/index.js";
@@ -19,7 +19,7 @@ abstract class BaseClient<T extends {}> {
 
   protected client: ReturnType<typeof createClient<T>>;
 
-  constructor({ baseUrl, getTokenFn }: ApiClientParams) {
+  constructor({ baseUrl, getTokenFn }: BaseApiClientParams) {
     this.initialized = false;
     if (baseUrl) {
       this.baseUrl = baseUrl;
@@ -46,6 +46,10 @@ abstract class BaseClient<T extends {}> {
     };
 
     this.client.use(authMiddleware);
+  }
+
+  public deleteToken() {
+    this.token = undefined;
   }
 
   protected async getToken() {

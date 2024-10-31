@@ -89,7 +89,9 @@ const importUserScopes = async () => {
   }
 };
 
-const getM2MTokenFn = (m2mTokenConfig: M2MTokenFnConfig): TokenFunction => {
+export const getM2MTokenFn = (
+  m2mTokenConfig: M2MTokenFnConfig,
+): TokenFunction => {
   const { services } = m2mTokenConfig;
 
   const tokenFn = (serviceName: SERVICE_NAME) => {
@@ -127,5 +129,3 @@ const getM2MTokenFn = (m2mTokenConfig: M2MTokenFnConfig): TokenFunction => {
   };
   return tokenFn;
 };
-
-export default getM2MTokenFn;

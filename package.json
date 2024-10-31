@@ -8,9 +8,15 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -rf dist && tsc -p tsconfig.prod.json",
     "clients:update": "node --import=tsx src/cli/index.ts clients:update -c src/clients-configurations/clients-configuration.json",
-    "clients:outdated": "node --import=tsx src/cli/index.ts clients:outdated -c src/clients-configurations/clients-configuration.json"
+    "clients:outdated": "node --import=tsx src/cli/index.ts clients:outdated -c src/clients-configurations/clients-configuration.json",
+    "check:formatting": "biome format",
+    "fix:formatting": "biome format --write",
+    "check:linting": "biome lint",
+    "fix:linting": "biome lint --write",
+    "prepare": "husky || true"
   },
   "dependencies": {
+    "@ogcio/analytics-sdk": "0.0.1-beta.1",
     "@sinclair/typebox": "^0.33.15",
     "commander": "^12.1.0",
     "http-errors": "^2.0.0",

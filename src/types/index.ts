@@ -1,9 +1,11 @@
+import type { Analytics } from "@ogcio/analytics-sdk";
 import type Messaging from "../client/clients/messaging/index.js";
 import type Payments from "../client/clients/payments/index.js";
 import type Profile from "../client/clients/profile/index.js";
 import type Scheduler from "../client/clients/scheduler/index.js";
 import type Upload from "../client/clients/upload/index.js";
 
+export const ANALYTICS = "analytics" as const;
 export const MESSAGING = "messaging" as const;
 export const PAYMENTS = "payments" as const;
 export const PROFILE = "profile" as const;
@@ -11,6 +13,7 @@ export const SCHEDULER = "scheduler" as const;
 export const UPLOAD = "upload" as const;
 
 export type SERVICE_NAME =
+  | typeof ANALYTICS
   | typeof MESSAGING
   | typeof PAYMENTS
   | typeof PROFILE
@@ -36,25 +39,28 @@ export type SDKClientParams = {
   baseUrl?: string;
 };
 
-export type ApiClientParams = SDKClientParams & {
+export type BaseApiClientParams = SDKClientParams & {
   getTokenFn?: TokenFunction;
 };
 
 type ServiceClients = {
-  messaging: Messaging;
-  payments: Payments;
-  profile: Profile;
-  scheduler: Scheduler;
-  upload: Upload;
+  analytics: typeof Analytics;
+  messaging: typeof Messaging;
+  payments: typeof Payments;
+  profile: typeof Profile;
+  scheduler: typeof Scheduler;
+  upload: typeof Upload;
 };
 
 export type BuildingBlocksSDK = {
-  [key in keyof ServiceClients]: ServiceClients[key];
+  [key in keyof ServiceClients]: InstanceType<ServiceClients[key]>;
 };
 
 export type BuildingBlockSDKParams = {
   services: {
-    [key in keyof ServiceClients]?: SDKClientParams;
+    [key in keyof ServiceClients]?: ConstructorParameters<
+      ServiceClients[key]
+    >[0];
   };
   getTokenFn?: TokenFunction;
 };
