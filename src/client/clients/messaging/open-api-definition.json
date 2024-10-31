@@ -6274,27 +6274,6 @@
         }
       }
     },
-    "/api/v1/user-imports/template-download": {
-      "get": {
-        "tags": [
-          "User Imports"
-        ],
-        "description": "Returns a string containing the template with the csv that will be used to import users",
-        "responses": {
-          "200": {
-            "description": "The header and one example line for the CSV template that must be used to import users",
-            "content": {
-              "text/csv": {
-                "schema": {
-                  "description": "The header and one example line for the CSV template that must be used to import users",
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/v1/users/": {
       "get": {
         "tags": [
