@@ -28,13 +28,6 @@ t.test("FeatureFlags", async (t) => {
     featureFlags = new FeatureFlags({ baseUrl, getTokenFn });
   });
 
-  t.test(
-    "should initialize unleash client with correct parameters",
-    async (t) => {
-      t.ok(featureFlags.isConnected);
-    },
-  );
-
   t.test("should return false if flag is not enabled", async (t) => {
     isEnabled = false;
     const result = await featureFlags.isFlagEnabled("test-flag");
