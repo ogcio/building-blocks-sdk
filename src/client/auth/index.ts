@@ -1,4 +1,6 @@
-import configFile from "../../clients-configurations/clients-configuration.json";
+import configFile from "../../clients-configurations/clients-configuration.json" with {
+  type: "json",
+};
 import type {
   GetAccessTokenParams,
   GetOrganizationTokenParams,
