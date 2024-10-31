@@ -16,11 +16,11 @@
     "prepare": "husky || true"
   },
   "dependencies": {
-    "@ogcio/analytics-sdk": "0.0.1-beta.1",
+    "@ogcio/analytics-sdk": "0.0.1-beta.2",
     "@sinclair/typebox": "^0.33.15",
     "commander": "^12.1.0",
     "http-errors": "^2.0.0",
-    "openapi-fetch": "^0.12.5",
+    "openapi-fetch": "^0.13.0",
     "openapi-typescript": "^7.4.2",
     "openapi-typescript-helpers": "^0.0.15",
     "safe-stable-stringify": "^2.5.0",
