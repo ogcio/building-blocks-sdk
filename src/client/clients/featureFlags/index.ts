@@ -1,45 +1,48 @@
 import type createClient from "openapi-fetch";
-import {
-  type Context,
-  InMemStorageProvider,
-  type Unleash,
-  initialize,
-} from "unleash-client";
 import type { BaseApiClientParams } from "../../../types/index.js";
 import { FEATURE_FLAGS } from "../../../types/index.js";
 import BaseClient from "../../base-client.js";
 import { DEFAULT_PROJECT_ID } from "./const.js";
 import type { components, paths } from "./schema.js";
-import { waitForConnection } from "./utils.js";
 
 class FeatureFlags extends BaseClient<paths> {
   declare client: ReturnType<typeof createClient<paths>>;
   protected serviceName = FEATURE_FLAGS;
 
-  private unleashClient: Unleash | null = null;
-  public isConnected = false;
+  private unleashConnectionOptions: {
+    url: string | undefined;
+    token: string;
+  };
 
   constructor({ baseUrl, getTokenFn }: BaseApiClientParams) {
     super({ baseUrl, getTokenFn });
     const token = getTokenFn ? (getTokenFn(FEATURE_FLAGS) as string) : "";
-    this.unleashClient = initialize({
-      appName: this.serviceName,
-      url: `${baseUrl}/api`,
-      refreshInterval: 1000,
-      customHeaders: {
-        Authorization: token,
-      },
-      storageProvider: new InMemStorageProvider(),
-    });
-    this.unleashClient.on("error", console.error);
-    this.unleashClient.on("synchronized", () => {
-      this.isConnected = true;
-    });
+    this.unleashConnectionOptions = { url: baseUrl, token };
   }
 
-  async isFlagEnabled(name: string, context?: Context) {
-    await this.waitForConnection();
-    return this.unleashClient?.isEnabled(name, context, () => false) ?? false;
+  // biome-ignore lint/suspicious/noExplicitAny: We cannot import the types from the unleash-client package
+  async isFlagEnabled(name: string, context?: any) {
+    try {
+      const { InMemStorageProvider, startUnleash } = await import(
+        "unleash-client"
+      );
+      type Context = import("unleash-client").Context;
+
+      const client = await startUnleash({
+        appName: this.serviceName,
+        url: `${this.unleashConnectionOptions.url}/api`,
+        refreshInterval: 1000,
+        customHeaders: {
+          Authorization: this.unleashConnectionOptions.token,
+        },
+        storageProvider: new InMemStorageProvider(),
+      });
+      return client.isEnabled(name, context satisfies Context, () => false);
+    } catch {
+      throw new Error(
+        "unleash-client is not installed or not configured correctly",
+      );
+    }
   }
 
   async getFeatureFlags(projectId = DEFAULT_PROJECT_ID) {
@@ -64,11 +67,6 @@ class FeatureFlags extends BaseClient<paths> {
         (reason) => this.formatError(reason),
       );
   }
-
-  private async waitForConnection(everyMs = 10) {
-    return waitForConnection(this, everyMs);
-  }
 }
 
 export default FeatureFlags;
-export type { Context as FeatureFlagsEvaluationContext };
