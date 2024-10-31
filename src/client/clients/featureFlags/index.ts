@@ -1,5 +1,4 @@
 import type createClient from "openapi-fetch";
-import type { Context } from "unleash-client";
 import type { BaseApiClientParams } from "../../../types/index.js";
 import { FEATURE_FLAGS } from "../../../types/index.js";
 import BaseClient from "../../base-client.js";
@@ -68,4 +67,3 @@ class FeatureFlags extends BaseClient<paths> {
 }
 
 export default FeatureFlags;
-export type { Context as FeatureFlagsEvaluationContext };
