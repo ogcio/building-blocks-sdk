@@ -4,6 +4,7 @@ import { FEATURE_FLAGS } from "../../../types/index.js";
 import BaseClient from "../../base-client.js";
 import { DEFAULT_PROJECT_ID } from "./const.js";
 import type { components, paths } from "./schema.js";
+
 class FeatureFlags extends BaseClient<paths> {
   declare client: ReturnType<typeof createClient<paths>>;
   protected serviceName = FEATURE_FLAGS;
