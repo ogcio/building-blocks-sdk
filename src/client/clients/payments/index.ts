@@ -344,6 +344,23 @@ class Payments extends BaseClient<paths> {
       (reason) => this.formatError(reason),
     );
   }
+
+  async getRedirectToken(
+    transactionId: paths["/api/v1/transactions/{transactionId}/token"]["get"]["parameters"]["path"]["transactionId"],
+  ) {
+    return this.client
+      .GET("/api/v1/transactions/{transactionId}/token", {
+        params: {
+          path: {
+            transactionId,
+          },
+        },
+      })
+      .then(
+        (response) => this.formatResponse(response),
+        (reason) => this.formatError(reason),
+      );
+  }
 }
 
 export default Payments;
