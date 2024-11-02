@@ -7,7 +7,7 @@ import {
   OpenAPIFileFormats,
   readConfigurationFile,
 } from "../clients-configurations/read-configuration-file.js";
-import getAbsolutePath from "../utils/get-absolute-path.js";
+import { getAbsolutePath } from "../utils/get-absolute-path.js";
 import {
   CLIENTS_ROOT_FOLDER_PATH,
   OPEN_API_DEFINITION_FILE_NAME,
@@ -130,7 +130,7 @@ async function checkClients({
 
   log("All the building blocks are updated!");
 }
-const outdatedClientsCommand = new Command("clients:outdated");
+export const outdatedClientsCommand = new Command("clients:outdated");
 outdatedClientsCommand
   .description(
     "Parse a configuration file to check if the clients need to be updated",
@@ -144,5 +144,3 @@ outdatedClientsCommand
     log("Started!");
     await checkClients(options);
   });
-
-export default outdatedClientsCommand;

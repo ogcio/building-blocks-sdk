@@ -1,9 +1,9 @@
 import type createClient from "openapi-fetch";
 import { UPLOAD } from "../../../types/index.js";
-import BaseClient from "../../base-client.js";
+import { BaseClient } from "../../base-client.js";
 import type { paths } from "./schema.js";
 
-class Upload extends BaseClient<paths> {
+export class Upload extends BaseClient<paths> {
   protected declare client: ReturnType<typeof createClient<paths>>;
   protected serviceName = UPLOAD;
 
@@ -147,5 +147,3 @@ class Upload extends BaseClient<paths> {
     return { error };
   }
 }
-
-export default Upload;

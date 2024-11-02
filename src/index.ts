@@ -1,21 +1,20 @@
 import { Analytics } from "@ogcio/analytics-sdk";
-import FeatureFlags from "./client/clients/featureFlags/index.js";
+import { FeatureFlags } from "./client/clients/featureFlags/index.js";
 
-import Messaging from "./client/clients/messaging/index.js";
-import Payments from "./client/clients/payments/index.js";
-import Profile from "./client/clients/profile/index.js";
-import Scheduler from "./client/clients/scheduler/index.js";
-import Upload from "./client/clients/upload/index.js";
+import { Messaging } from "./client/clients/messaging/index.js";
+import { Payments } from "./client/clients/payments/index.js";
+import { Profile } from "./client/clients/profile/index.js";
+import { Scheduler } from "./client/clients/scheduler/index.js";
+import { Upload } from "./client/clients/upload/index.js";
 export type { BuildingBlocksSDK } from "./types/index.js";
 export { getM2MTokenFn } from "./client/auth/index.js";
 
 import type {
   BuildingBlockSDKParams,
   BuildingBlocksSDK,
-  TokenFunction,
 } from "./types/index.js";
 
-const getBuildingBlockSDK = (
+export const getBuildingBlockSDK = (
   params: BuildingBlockSDKParams,
 ): BuildingBlocksSDK => {
   const { services, getTokenFn } = params;
@@ -50,5 +49,3 @@ const getBuildingBlockSDK = (
     }),
   };
 };
-
-export default getBuildingBlockSDK;
