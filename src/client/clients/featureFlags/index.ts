@@ -20,29 +20,28 @@ export class FeatureFlags extends BaseClient<paths> {
     this.unleashConnectionOptions = { url: baseUrl, token };
   }
 
-  // biome-ignore lint/suspicious/noExplicitAny: We cannot import the types from the unleash-client package
-  async isFlagEnabled(name: string, context?: any) {
+  async importUnleashClient() {
     try {
-      const { InMemStorageProvider, startUnleash } = await import(
-        "unleash-client"
-      );
-      type Context = import("unleash-client").Context;
-
-      const client = await startUnleash({
-        appName: this.serviceName,
-        url: `${this.unleashConnectionOptions.url}/api`,
-        refreshInterval: 1000,
-        customHeaders: {
-          Authorization: this.unleashConnectionOptions.token,
-        },
-        storageProvider: new InMemStorageProvider(),
-      });
-      return client.isEnabled(name, context satisfies Context, () => false);
+      return await import("unleash-client");
     } catch {
       throw new Error(
         "unleash-client is not installed or not configured correctly",
       );
     }
+  }
+  // biome-ignore lint/suspicious/noExplicitAny: We cannot import the types from the unleash-client package
+  async isFlagEnabled(name: string, context?: any) {
+    const unleashClient = await this.importUnleashClient();
+    const client = await unleashClient.startUnleash({
+      appName: this.serviceName,
+      url: `${this.unleashConnectionOptions.url}/api`,
+      refreshInterval: 1000,
+      customHeaders: {
+        Authorization: this.unleashConnectionOptions.token,
+      },
+      storageProvider: new unleashClient.InMemStorageProvider(),
+    });
+    return client.isEnabled(name, context, () => false);
   }
 
   async getFeatureFlags(projectId = DEFAULT_PROJECT_ID) {
