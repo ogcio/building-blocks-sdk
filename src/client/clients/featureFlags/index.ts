@@ -19,9 +19,13 @@ export class FeatureFlags extends BaseClient<paths> {
     this.unleashConnectionOptions = { url: baseUrl };
   }
 
-  private async importUnleashClient() {
+  private async getUnleashItems() {
     try {
-      return await import("unleash-client");
+      const { startUnleash, InMemStorageProvider } = await import(
+        "unleash-client"
+      );
+
+      return { startUnleash, InMemStorageProvider };
     } catch {
       throw new Error(
         "unleash-client is not installed or not configured correctly",
@@ -40,15 +44,15 @@ export class FeatureFlags extends BaseClient<paths> {
   // biome-ignore lint/suspicious/noExplicitAny: We cannot import the types from the unleash-client package
   async isFlagEnabled(name: string, context?: any) {
     await this.initializeConnection();
-    const unleashClient = await this.importUnleashClient();
-    const client = await unleashClient.startUnleash({
+    const unleashItems = await this.getUnleashItems();
+    const client = await unleashItems.startUnleash({
       appName: this.serviceName,
       url: `${this.unleashConnectionOptions.url}/api`,
       refreshInterval: 1000,
       customHeaders: {
         Authorization: this.unleashConnectionOptions.token ?? "",
       },
-      storageProvider: new unleashClient.InMemStorageProvider(),
+      storageProvider: new unleashItems.InMemStorageProvider(),
     });
     return client.isEnabled(name, context, () => false);
   }
