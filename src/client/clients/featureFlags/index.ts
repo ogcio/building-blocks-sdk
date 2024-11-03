@@ -11,16 +11,15 @@ export class FeatureFlags extends BaseClient<paths> {
 
   private unleashConnectionOptions: {
     url: string | undefined;
-    token: string;
+    token?: string;
   };
 
   constructor({ baseUrl, getTokenFn }: BaseApiClientParams) {
     super({ baseUrl, getTokenFn });
-    const token = getTokenFn ? (getTokenFn(FEATURE_FLAGS) as string) : "";
-    this.unleashConnectionOptions = { url: baseUrl, token };
+    this.unleashConnectionOptions = { url: baseUrl };
   }
 
-  async importUnleashClient() {
+  private async importUnleashClient() {
     try {
       return await import("unleash-client");
     } catch {
@@ -29,15 +28,25 @@ export class FeatureFlags extends BaseClient<paths> {
       );
     }
   }
+
+  private async initializeConnection() {
+    if (this.getTokenFn && !this.unleashConnectionOptions.token) {
+      this.unleashConnectionOptions.token = await this.getTokenFn(
+        this.serviceName,
+      );
+    }
+  }
+
   // biome-ignore lint/suspicious/noExplicitAny: We cannot import the types from the unleash-client package
   async isFlagEnabled(name: string, context?: any) {
+    await this.initializeConnection();
     const unleashClient = await this.importUnleashClient();
     const client = await unleashClient.startUnleash({
       appName: this.serviceName,
       url: `${this.unleashConnectionOptions.url}/api`,
       refreshInterval: 1000,
       customHeaders: {
-        Authorization: this.unleashConnectionOptions.token,
+        Authorization: this.unleashConnectionOptions.token ?? "",
       },
       storageProvider: new unleashClient.InMemStorageProvider(),
     });
