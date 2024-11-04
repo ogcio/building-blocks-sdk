@@ -1,9 +1,9 @@
 import type createClient from "openapi-fetch";
 import { SCHEDULER } from "../../../types/index.js";
-import BaseClient from "../../base-client.js";
+import { BaseClient } from "../../base-client.js";
 import type { paths } from "./schema.js";
 
-class Scheduler extends BaseClient<paths> {
+export class Scheduler extends BaseClient<paths> {
   protected declare client: ReturnType<typeof createClient<paths>>;
   protected serviceName = SCHEDULER;
 
@@ -24,5 +24,3 @@ class Scheduler extends BaseClient<paths> {
       );
   }
 }
-
-export default Scheduler;

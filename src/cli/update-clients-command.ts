@@ -7,7 +7,7 @@ import {
   OpenAPIFileFormats,
   readConfigurationFile,
 } from "../clients-configurations/read-configuration-file.js";
-import getAbsolutePath from "../utils/get-absolute-path.js";
+import { getAbsolutePath } from "../utils/get-absolute-path.js";
 import {
   CLIENTS_ROOT_FOLDER_PATH,
   OLD_OPEN_API_DEFINITION_FILE_NAME,
@@ -271,7 +271,7 @@ async function updateClients({
   await Promise.all(promises);
 }
 
-const updateClientsCommand = new Command("clients:update");
+export const updateClientsCommand = new Command("clients:update");
 updateClientsCommand
   .description(
     "Parse a configuration file to update the info related to the clients",
@@ -294,5 +294,3 @@ updateClientsCommand
       log("Ended!");
     },
   );
-
-export default updateClientsCommand;

@@ -1,7 +1,7 @@
 import createError from "http-errors";
 import type createClient from "openapi-fetch";
 import { MESSAGING } from "../../../types/index.js";
-import BaseClient from "../../base-client.js";
+import { BaseClient } from "../../base-client.js";
 import {
   type PaginationParams,
   preparePaginationParams,
@@ -9,7 +9,7 @@ import {
 } from "../../utils/client-utils.js";
 import type { paths } from "./schema.js";
 
-class Messaging extends BaseClient<paths> {
+export class Messaging extends BaseClient<paths> {
   protected declare client: ReturnType<typeof createClient<paths>>;
   protected serviceName = MESSAGING;
 
@@ -679,5 +679,3 @@ class Messaging extends BaseClient<paths> {
     };
   }
 }
-
-export default Messaging;

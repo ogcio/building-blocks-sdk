@@ -1,6 +1,6 @@
 import t from "tap";
 import * as td from "testdouble";
-import FeatureFlags from "./index.js";
+import { FeatureFlags } from "./index.js";
 
 let isEnabled = true;
 

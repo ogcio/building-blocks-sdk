@@ -9,7 +9,7 @@ import type {
 } from "../types/index.js";
 import type { DataResponseValue } from "./utils/client-utils.js";
 
-abstract class BaseClient<T extends {}> {
+export abstract class BaseClient<T extends {}> {
   private baseUrl?: string;
   private initialized;
 
@@ -98,5 +98,3 @@ abstract class BaseClient<T extends {}> {
     return { error: reason } as unknown as DataResponseValue<G, O>;
   }
 }
-
-export default BaseClient;

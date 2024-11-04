@@ -1,10 +1,10 @@
 import type { Analytics } from "@ogcio/analytics-sdk";
-import type FeatureFlags from "../client/clients/featureFlags/index.js";
-import type Messaging from "../client/clients/messaging/index.js";
-import type Payments from "../client/clients/payments/index.js";
-import type Profile from "../client/clients/profile/index.js";
-import type Scheduler from "../client/clients/scheduler/index.js";
-import type Upload from "../client/clients/upload/index.js";
+import type { FeatureFlags } from "../client/clients/featureFlags/index.js";
+import type { Messaging } from "../client/clients/messaging/index.js";
+import type { Payments } from "../client/clients/payments/index.js";
+import type { Profile } from "../client/clients/profile/index.js";
+import type { Scheduler } from "../client/clients/scheduler/index.js";
+import type { Upload } from "../client/clients/upload/index.js";
 
 export const ANALYTICS = "analytics" as const;
 export const MESSAGING = "messaging" as const;

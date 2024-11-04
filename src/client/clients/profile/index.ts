@@ -1,9 +1,9 @@
 import type createClient from "openapi-fetch";
 import { PROFILE } from "../../../types/index.js";
-import BaseClient from "../../base-client.js";
+import { BaseClient } from "../../base-client.js";
 import type { paths } from "./schema.js";
 
-class Profile extends BaseClient<paths> {
+export class Profile extends BaseClient<paths> {
   protected declare client: ReturnType<typeof createClient<paths>>;
   protected serviceName = PROFILE;
 
@@ -178,5 +178,3 @@ class Profile extends BaseClient<paths> {
       );
   }
 }
-
-export default Profile;

@@ -1,9 +1,9 @@
 import type createClient from "openapi-fetch";
 import { PAYMENTS } from "../../../types/index.js";
-import BaseClient from "../../base-client.js";
+import { BaseClient } from "../../base-client.js";
 import type { paths } from "./schema.js";
 
-class Payments extends BaseClient<paths> {
+export class Payments extends BaseClient<paths> {
   protected declare client: ReturnType<typeof createClient<paths>>;
   protected serviceName = PAYMENTS;
 
@@ -375,5 +375,3 @@ class Payments extends BaseClient<paths> {
       );
   }
 }
-
-export default Payments;

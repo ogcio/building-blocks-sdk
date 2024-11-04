@@ -1,48 +1,60 @@
 import type createClient from "openapi-fetch";
 import type { BaseApiClientParams } from "../../../types/index.js";
 import { FEATURE_FLAGS } from "../../../types/index.js";
-import BaseClient from "../../base-client.js";
+import { BaseClient } from "../../base-client.js";
 import { DEFAULT_PROJECT_ID } from "./const.js";
 import type { components, paths } from "./schema.js";
 
-class FeatureFlags extends BaseClient<paths> {
+export class FeatureFlags extends BaseClient<paths> {
   declare client: ReturnType<typeof createClient<paths>>;
   protected serviceName = FEATURE_FLAGS;
 
   private unleashConnectionOptions: {
     url: string | undefined;
-    token: string;
+    token?: string;
   };
 
   constructor({ baseUrl, getTokenFn }: BaseApiClientParams) {
     super({ baseUrl, getTokenFn });
-    const token = getTokenFn ? (getTokenFn(FEATURE_FLAGS) as string) : "";
-    this.unleashConnectionOptions = { url: baseUrl, token };
+    this.unleashConnectionOptions = { url: baseUrl };
   }
 
-  // biome-ignore lint/suspicious/noExplicitAny: We cannot import the types from the unleash-client package
-  async isFlagEnabled(name: string, context?: any) {
+  private async getUnleashItems() {
     try {
-      const { InMemStorageProvider, startUnleash } = await import(
+      const { startUnleash, InMemStorageProvider } = await import(
         "unleash-client"
       );
-      type Context = import("unleash-client").Context;
 
-      const client = await startUnleash({
-        appName: this.serviceName,
-        url: `${this.unleashConnectionOptions.url}/api`,
-        refreshInterval: 1000,
-        customHeaders: {
-          Authorization: this.unleashConnectionOptions.token,
-        },
-        storageProvider: new InMemStorageProvider(),
-      });
-      return client.isEnabled(name, context satisfies Context, () => false);
+      return { startUnleash, InMemStorageProvider };
     } catch {
       throw new Error(
         "unleash-client is not installed or not configured correctly",
       );
     }
+  }
+
+  private async initializeConnection() {
+    if (this.getTokenFn && !this.unleashConnectionOptions.token) {
+      this.unleashConnectionOptions.token = await this.getTokenFn(
+        this.serviceName,
+      );
+    }
+  }
+
+  // biome-ignore lint/suspicious/noExplicitAny: We cannot import the types from the unleash-client package
+  async isFlagEnabled(name: string, context?: any) {
+    await this.initializeConnection();
+    const unleashItems = await this.getUnleashItems();
+    const client = await unleashItems.startUnleash({
+      appName: this.serviceName,
+      url: `${this.unleashConnectionOptions.url}/api`,
+      refreshInterval: 1000,
+      customHeaders: {
+        Authorization: this.unleashConnectionOptions.token ?? "",
+      },
+      storageProvider: new unleashItems.InMemStorageProvider(),
+    });
+    return client.isEnabled(name, context, () => false);
   }
 
   async getFeatureFlags(projectId = DEFAULT_PROJECT_ID) {
@@ -68,5 +80,3 @@ class FeatureFlags extends BaseClient<paths> {
       );
   }
 }
-
-export default FeatureFlags;
