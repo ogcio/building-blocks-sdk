@@ -2,6 +2,7 @@ import type createClient from "openapi-fetch";
 import type { BaseApiClientParams } from "../../../types/index.js";
 import { FEATURE_FLAGS } from "../../../types/index.js";
 import { BaseClient } from "../../base-client.js";
+import { formatError, formatResponse } from "../../utils/client-utils.js";
 import { DEFAULT_PROJECT_ID } from "./const.js";
 import type { components, paths } from "./schema.js";
 
@@ -69,14 +70,14 @@ export class FeatureFlags extends BaseClient<paths> {
       .then(
         (response) => {
           // @ts-expect-error: TODO: fix me
-          const { data, metadata, error } = this.formatResponse(response);
+          const { data, metadata, error } = formatResponse(response);
           return {
             data: data?.features as components["schemas"]["projectFeatureSchema"][],
             metadata,
             error,
           };
         },
-        (reason) => this.formatError(reason),
+        (reason) => formatError(reason),
       );
   }
 }

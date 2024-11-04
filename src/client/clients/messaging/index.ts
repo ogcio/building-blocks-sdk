@@ -4,6 +4,8 @@ import { MESSAGING } from "../../../types/index.js";
 import { BaseClient } from "../../base-client.js";
 import {
   type PaginationParams,
+  formatError,
+  formatResponse,
   preparePaginationParams,
   toStringOrUndefined,
 } from "../../utils/client-utils.js";
@@ -39,8 +41,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -58,8 +60,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -71,8 +73,8 @@ export class Messaging extends BaseClient<paths> {
         params: { path: { messageId } },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -84,8 +86,8 @@ export class Messaging extends BaseClient<paths> {
         body,
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -99,8 +101,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -116,8 +118,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -194,8 +196,8 @@ export class Messaging extends BaseClient<paths> {
     body: paths["/api/v1/templates/"]["post"]["requestBody"]["content"]["application/json"],
   ) {
     return this.client.POST("/api/v1/templates/", { body }).then(
-      (response) => this.formatResponse(response),
-      (reason) => this.formatError(reason),
+      (response) => formatResponse(response),
+      (reason) => formatError(reason),
     );
   }
 
@@ -209,8 +211,8 @@ export class Messaging extends BaseClient<paths> {
         body,
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -222,8 +224,8 @@ export class Messaging extends BaseClient<paths> {
         params: { path: { templateId } },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -292,8 +294,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -318,8 +320,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -329,8 +331,8 @@ export class Messaging extends BaseClient<paths> {
         params: { path: { providerId } },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -403,8 +405,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -427,8 +429,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -438,8 +440,8 @@ export class Messaging extends BaseClient<paths> {
         params: { path: { providerId } },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -467,8 +469,8 @@ export class Messaging extends BaseClient<paths> {
         body: toImport.records,
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -478,8 +480,8 @@ export class Messaging extends BaseClient<paths> {
         parseAs: "blob",
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -496,8 +498,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -518,8 +520,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -529,8 +531,8 @@ export class Messaging extends BaseClient<paths> {
         params: { query: { importId, activeOnly: String(activeOnly) } },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -544,8 +546,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -555,8 +557,8 @@ export class Messaging extends BaseClient<paths> {
         params: { path: { organisationSettingId } },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -570,8 +572,8 @@ export class Messaging extends BaseClient<paths> {
         params: { path: { organisationSettingId } },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -583,8 +585,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -594,8 +596,8 @@ export class Messaging extends BaseClient<paths> {
         params: { path: { eventId } },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -609,8 +611,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -630,8 +632,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -649,8 +651,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -668,8 +670,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
