@@ -4,7 +4,7 @@ import {
   type PaginationParams,
   preparePaginationParams,
   toStringOrUndefined,
-} from "./client-utils.js";
+} from "./../../../client/utils/client-utils.js";
 
 test("toStringOrUndefined should convert numbers and booleans to strings", () => {
   assert.strictEqual(
