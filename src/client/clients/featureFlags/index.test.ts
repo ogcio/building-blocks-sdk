@@ -2,10 +2,19 @@ import t from "tap";
 import * as td from "testdouble";
 import { FeatureFlags } from "./index.js";
 
-let isEnabled = true;
-
+const enabledOrNot = {
+  "not-enabled": false,
+  enabled: true,
+};
 await td.replaceEsm("unleash-client", {
   initialize: td.func(),
+  startUnleash: () => ({
+    isEnabled: (
+      name: "enabled" | "not-enabled",
+      _context: unknown,
+      _functionToUse: () => boolean,
+    ) => enabledOrNot[name],
+  }),
   InMemStorageProvider: td.func(),
 });
 
@@ -29,15 +38,13 @@ t.test("FeatureFlags", async (t) => {
   });
 
   t.test("should return false if flag is not enabled", async (t) => {
-    isEnabled = false;
-    const result = await featureFlags.isFlagEnabled("test-flag");
-    t.equal(result, isEnabled);
+    const result = await featureFlags.isFlagEnabled("not-enabled");
+    t.equal(result, enabledOrNot["not-enabled"]);
   });
 
   t.test("should return true if flag is enabled", async (t) => {
-    isEnabled = true;
-    const result = await featureFlags.isFlagEnabled("test-flag");
-    t.equal(result, isEnabled);
+    const result = await featureFlags.isFlagEnabled("enabled");
+    t.equal(result, enabledOrNot.enabled);
   });
 
   t.test(
