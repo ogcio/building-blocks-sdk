@@ -1,6 +1,7 @@
 import type createClient from "openapi-fetch";
 import { PROFILE } from "../../../types/index.js";
 import { BaseClient } from "../../base-client.js";
+import { formatError, formatResponse } from "../../utils/client-utils.js";
 import type { paths } from "./schema.js";
 
 export class Profile extends BaseClient<paths> {
@@ -9,8 +10,8 @@ export class Profile extends BaseClient<paths> {
 
   async getAddresses() {
     return this.client.GET("/api/v1/addresses/").then(
-      (response) => this.formatResponse(response),
-      (reason) => this.formatError(reason),
+      (response) => formatResponse(response),
+      (reason) => formatError(reason),
     );
   }
 
@@ -20,8 +21,8 @@ export class Profile extends BaseClient<paths> {
         params: { path: { addressId } },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -33,8 +34,8 @@ export class Profile extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -53,8 +54,8 @@ export class Profile extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -68,8 +69,8 @@ export class Profile extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -79,15 +80,15 @@ export class Profile extends BaseClient<paths> {
         params: { path: { addressId } },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
   async getEntitlements() {
     return this.client.GET("/api/v1/entitlements/").then(
-      (response) => this.formatResponse(response),
-      (reason) => this.formatError(reason),
+      (response) => formatResponse(response),
+      (reason) => formatError(reason),
     );
   }
 
@@ -97,8 +98,8 @@ export class Profile extends BaseClient<paths> {
         params: { path: { userId } },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -110,8 +111,8 @@ export class Profile extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -125,8 +126,8 @@ export class Profile extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -145,8 +146,8 @@ export class Profile extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -160,8 +161,8 @@ export class Profile extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -173,8 +174,8 @@ export class Profile extends BaseClient<paths> {
         body: { ids },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 }

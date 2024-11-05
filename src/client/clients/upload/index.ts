@@ -1,6 +1,7 @@
 import type createClient from "openapi-fetch";
 import { UPLOAD } from "../../../types/index.js";
 import { BaseClient } from "../../base-client.js";
+import { formatError, formatResponse } from "../../utils/client-utils.js";
 import type { paths } from "./schema.js";
 
 export class Upload extends BaseClient<paths> {
@@ -24,8 +25,8 @@ export class Upload extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -62,8 +63,8 @@ export class Upload extends BaseClient<paths> {
         params: { query: { userId } },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -73,8 +74,8 @@ export class Upload extends BaseClient<paths> {
         params: { path: { id } },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -84,8 +85,8 @@ export class Upload extends BaseClient<paths> {
         body: { fileId: id },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -99,8 +100,8 @@ export class Upload extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -110,8 +111,8 @@ export class Upload extends BaseClient<paths> {
         body: { fileId, userId },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
@@ -121,8 +122,8 @@ export class Upload extends BaseClient<paths> {
         body: { fileId, userId },
       })
       .then(
-        (response) => this.formatResponse(response),
-        (reason) => this.formatError(reason),
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
       );
   }
 
