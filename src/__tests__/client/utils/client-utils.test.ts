@@ -7,6 +7,13 @@ import {
   preparePaginationParams,
   toStringOrUndefined,
 } from "./../../../client/utils/client-utils.js";
+import type {
+  ApiError,
+  TestNestedResponseObject,
+  TestResponseObject,
+  TypedErrorResponse,
+  TypedSuccessResponse,
+} from "./response-types.js";
 describe("toStringOrUndefined", () => {
   test("should convert numbers and booleans to strings", () => {
     assert.strictEqual(
@@ -84,66 +91,6 @@ describe("preparePaginationParams", () => {
     );
   });
 });
-
-type TestResponseObject = {
-  get: {
-    responses: {
-      200: {
-        content: {
-          "application/json": {
-            value: string;
-          };
-        };
-      };
-      "4XX": {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": {
-            code: string;
-            message: string;
-          };
-        };
-      };
-    };
-  };
-};
-
-type TestNestedResponseObject = {
-  get: {
-    responses: {
-      200: {
-        content: {
-          "application/json": {
-            data: {
-              nested: {
-                value: string;
-              };
-            };
-          };
-        };
-      };
-    };
-  };
-};
-
-type TypedSuccessResponse<T> = {
-  data: T;
-  error?: never;
-  response: Response;
-};
-
-type TypedErrorResponse<T> = {
-  data?: never;
-  error: T;
-  response: Response;
-};
-
-interface ApiError {
-  message: string;
-  code: string;
-}
 
 describe("formatResponse", () => {
   test("should handle response with plain data", () => {
