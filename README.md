@@ -4,6 +4,14 @@
 
 The Building Blocks SDK is the `TypeScript` client for integrating with the various building blocks within the OGCIO ecosystem. It helps developers interact different modules in a streamlined way, providing a unified API for seamless integration.
 
+## Please note
+
+If you are using the package into a project using `webpack` for build and you are getting the an error similar to the following one during the build, please read [this](#next-build-error-resolution).
+
+```
+Module build failed: UnhandledSchemeError: Reading from "node:fs/promises" is not handled by plugins (Unhandled scheme).
+```
+
 ## Features
 
 - Proxy Client: Acts as a middleware to interact with various services via the SDK.
@@ -174,6 +182,7 @@ npm test
 ## Feature Flags
 
 ### Pre-requisites
+
 For local development, you should have the Feature Flags service running.
 Refer to the [unleash](https://github.com/ogcio/unleash) repository for instructions on how to run the service.
 You can also find examples on how to run Unleash with different auth strategies in the [unleash-examples](https://github.com/ogcio/unleash-examples/tree/feat/oidc-auth) repository.
@@ -184,7 +193,7 @@ To use the Feature Flags service you will need:
 
 - `baseUrl` A valid `Feature Flags` service URL. Use `http://localhost:4242` for local development.
 - `token` A valid `Feature Flags` service token. Refer to [Client Tokens](https://docs.getunleash.io/reference/api-tokens-and-client-keys#client-tokens)
-for instructions on how to generate a token.
+  for instructions on how to generate a token.
 
 Initialize the SDK with the `featureFlags` service:
 
@@ -214,6 +223,28 @@ const isEnabled = await sdk.featureFlags.isFlagEnabled("feature-name", {
 });
 ```
 
-*Note*: The `isFlagEnabled` is asynchronous because if the client is not connected yet,
+_Note_: The `isFlagEnabled` is asynchronous because if the client is not connected yet,
 it will wait for the connection to be established before checking the flag.
 Once the client is connected, the flag will be checked synchronously.
+
+### Next build error resolution
+
+When `next build` is run, it performs a static analysis of the code and tries to retrieve the contents of all dependencies, including those imported dynamically.
+
+So, if `unleash-client` is not installed, it causes a build error.
+
+To prevent this you can add this webpack configuration to your next configuration, to mark it as an external package so it won't be included in the bundle.
+
+```
+...
+webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.externals = config.externals || [];
+      config.externals.push('unleash-client');
+    }
+    return config;
+  },
+...
+```
+
+Then, once `unleash-client` is needed and installed, we can remove that configuration, and everything start working as expected.
