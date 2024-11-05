@@ -1,5 +1,5 @@
 import { Analytics } from "@ogcio/analytics-sdk";
-import { FeatureFlags } from "./client/clients/feature-flags/index.js";
+import { FeatureFlags } from "./client/clients/featureFlags/index.js";
 
 import { Messaging } from "./client/clients/messaging/index.js";
 import { Payments } from "./client/clients/payments/index.js";
