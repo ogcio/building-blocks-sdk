@@ -127,8 +127,21 @@ export class Upload extends BaseClient<paths> {
       );
   }
 
-  async uploadFile(file: File, expirationDate?: string) {
-    const { error } = await this.client.POST("/api/v1/files/", {
+  async uploadFile(
+    file: File,
+    expirationDate?: string,
+  ): Promise<{
+    error?: {
+      code: string;
+      detail: string;
+      requestId: string;
+      name: string;
+      validation?: unknown;
+      validationContext?: string;
+    };
+    data?: { uploadId?: string };
+  }> {
+    const { error, data } = await this.client.POST("/api/v1/files/", {
       body: {
         file,
         expirationDate,
@@ -145,6 +158,6 @@ export class Upload extends BaseClient<paths> {
       },
     });
 
-    return { error };
+    return { error, data: { uploadId: data?.data.id } };
   }
 }
