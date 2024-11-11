@@ -57,10 +57,10 @@ export class Upload extends BaseClient<paths> {
     }
   }
 
-  getSharedFilesForUser(userId: string) {
+  getSharedFilesForUser(userId: string, organizationId?: string) {
     return this.client
       .GET("/api/v1/metadata/", {
-        params: { query: { userId } },
+        params: { query: { userId, organizationId } },
       })
       .then(
         (response) => formatResponse(response),
@@ -68,10 +68,10 @@ export class Upload extends BaseClient<paths> {
       );
   }
 
-  getFileMetadata(id: string) {
+  getFileMetadata(id: string, organizationId?: string) {
     return this.client
       .GET("/api/v1/metadata/{id}", {
-        params: { path: { id } },
+        params: { path: { id, organizationId } },
       })
       .then(
         (response) => formatResponse(response),
