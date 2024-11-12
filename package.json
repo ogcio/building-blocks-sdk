@@ -16,7 +16,7 @@
     "fix:formatting": "biome format --write",
     "check:linting": "biome lint",
     "fix:linting": "biome lint --write",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npm i && npm run build && npm run test:local",
     "prepare": "husky || true"
   },
   "dependencies": {
