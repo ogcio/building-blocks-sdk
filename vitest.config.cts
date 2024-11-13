@@ -1,9 +1,18 @@
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
-  plugins: [],
   test: {
-    include: ["**/*.test.ts"],
-    globals: true,
+    reporters: "default",
+    coverage: {
+      reporter: ["text"],
+    },
+    include: [
+      "**/@(test?(s)|__test?(s)__)/**/*.test.@(js|cjs|mjs|tap|cts|jsx|mts|ts|tsx)",
+      "**/*.@(test?(s)|spec).@(js|cjs|mjs|tap|cts|jsx|mts|ts|tsx)",
+      "**/test?(s).@(js|cjs|mjs|tap|cts|jsx|mts|ts|tsx)",
+    ],
+    exclude: ["**/@(fixture*(s)|dist)/**"],
+    maxConcurrency: 1,
+    testTimeout: 30000, // Timeout in milliseconds (30 seconds)
   },
 });
