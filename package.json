@@ -5,8 +5,7 @@
   "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "test": "TAP_RCFILE=tap.yml tap --reporter junit --reporter-file results.xml",
-    "test:local": "vitest",
+    "test": "vitest run --coverage --reporter=junit --outputFile=results.xml",
     "test:e2e": "cd ./e2e && bru run --env local",
     "test:regression:e2e": "cd ./e2e && mkdir -p test-results && bru run --env dev --output ./test-results/results.xml --format junit",
     "build": "rm -rf dist && tsc -p tsconfig.prod.json",
@@ -16,7 +15,7 @@
     "fix:formatting": "biome format --write",
     "check:linting": "biome lint",
     "fix:linting": "biome lint --write",
-    "prepublishOnly": "npm i && npm run build && npm run test:local",
+    "prepublishOnly": "npm i && npm run build && npm run test",
     "prepare": "husky || true"
   },
   "dependencies": {
@@ -34,12 +33,13 @@
     "@biomejs/biome": "1.9.4",
     "@commitlint/config-conventional": "^19.5.0",
     "@types/http-errors": "^2.0.4",
+    "@vitest/coverage-istanbul": "^2.1.4",
     "commitlint": "^19.5.0",
     "husky": "^9.1.6",
     "testdouble": "^3.20.2",
-    "vitest": "^2.1.4",
     "tsx": "^4.19.2",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.4"
   },
   "peerDependencies": {
     "@logto/node": "2.5.5",

@@ -56,7 +56,7 @@ describe("FeatureFlags", () => {
     expect(result).toEqual({
       data: [],
       metadata: {},
-      error: null,
+      error: undefined,
     });
   });
 });
