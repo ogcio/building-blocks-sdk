@@ -1,5 +1,4 @@
-import assert from "node:assert";
-import { describe, test } from "node:test";
+import { describe, expect, it } from "vitest";
 import {
   type PaginationParams,
   formatError,
@@ -14,87 +13,51 @@ import type {
   TypedErrorResponse,
   TypedSuccessResponse,
 } from "./response-types.js";
+
 describe("toStringOrUndefined", () => {
-  test("should convert numbers and booleans to strings", () => {
-    assert.strictEqual(
-      toStringOrUndefined(42),
-      "42",
-      "Expected number to be converted to string",
-    );
-    assert.strictEqual(
-      toStringOrUndefined(true),
-      "true",
-      "Expected boolean true to be converted to string",
-    );
-    assert.strictEqual(
-      toStringOrUndefined(false),
-      "false",
-      "Expected boolean false to be converted to string",
-    );
+  it("should convert numbers and booleans to strings", () => {
+    expect(toStringOrUndefined(42)).toBe("42");
+    expect(toStringOrUndefined(true)).toBe("true");
+    expect(toStringOrUndefined(false)).toBe("false");
   });
 
-  test("should return undefined if input is undefined", () => {
-    assert.strictEqual(
-      toStringOrUndefined(undefined),
-      undefined,
-      "Expected undefined input to return undefined",
-    );
+  it("should return undefined if input is undefined", () => {
+    expect(toStringOrUndefined(undefined)).toBeUndefined();
   });
 
-  test("should convert offset and limit to strings if provided", () => {
+  it("should convert offset and limit to strings if provided", () => {
     const params: PaginationParams = { offset: 10, limit: 20 };
     const result = preparePaginationParams(params);
-    assert.deepStrictEqual(
-      result,
-      { offset: "10", limit: "20" },
-      "Expected offset and limit to be converted to strings",
-    );
+    expect(result).toEqual({ offset: "10", limit: "20" });
   });
 
-  test("should handle string inputs for offset and limit", () => {
+  it("should handle string inputs for offset and limit", () => {
     const params: PaginationParams = { offset: "5", limit: "15" };
     const result = preparePaginationParams(params);
-    assert.deepStrictEqual(
-      result,
-      { offset: "5", limit: "15" },
-      "Expected offset and limit to remain strings if already provided as strings",
-    );
+    expect(result).toEqual({ offset: "5", limit: "15" });
   });
 
-  test("should return an empty object if no pagination parameters are provided", () => {
+  it("should return an empty object if no pagination parameters are provided", () => {
     const result = preparePaginationParams();
-    assert.deepStrictEqual(
-      result,
-      {},
-      "Expected empty object if no pagination parameters are provided",
-    );
+    expect(result).toEqual({});
   });
 });
 
 describe("preparePaginationParams", () => {
-  test("should handle missing offset and limit individually", () => {
+  it("should handle missing offset and limit individually", () => {
     const offsetOnly: PaginationParams = { offset: 30 };
     const limitOnly: PaginationParams = { limit: 50 };
 
     const resultOffsetOnly = preparePaginationParams(offsetOnly);
-    assert.deepStrictEqual(
-      resultOffsetOnly,
-      { offset: "30" },
-      "Expected only offset to be set when limit is not provided",
-    );
+    expect(resultOffsetOnly).toEqual({ offset: "30" });
 
     const resultLimitOnly = preparePaginationParams(limitOnly);
-    assert.deepStrictEqual(
-      resultLimitOnly,
-      { limit: "50" },
-      "Expected only limit to be set when offset is not provided",
-    );
+    expect(resultLimitOnly).toEqual({ limit: "50" });
   });
 });
 
 describe("formatResponse", () => {
-  test("should handle response with plain data", () => {
-    // Create a properly typed success response
+  it("should handle response with plain data", () => {
     const mockResponse: TypedSuccessResponse<{ value: string }> = {
       data: { value: "test" },
       response: new Response(),
@@ -105,15 +68,14 @@ describe("formatResponse", () => {
       Record<string, unknown>
     >(mockResponse);
 
-    assert.deepStrictEqual(result, {
+    expect(result).toEqual({
       data: { value: "test" },
       metadata: undefined,
       error: undefined,
     });
   });
 
-  test("should handle response with nested data property", () => {
-    // Create a properly typed nested success response
+  it("should handle response with nested data property", () => {
     const mockResponse: TypedSuccessResponse<{
       data: {
         nested: {
@@ -136,7 +98,7 @@ describe("formatResponse", () => {
       Record<string, unknown>
     >(mockResponse);
 
-    assert.deepStrictEqual(result, {
+    expect(result).toEqual({
       data: {
         nested: {
           value: "test",
@@ -147,7 +109,7 @@ describe("formatResponse", () => {
     });
   });
 
-  test("should format typed error correctly", () => {
+  it("should format typed error correctly", () => {
     const mockError: ApiError = {
       message: "Test error",
       code: "500",
@@ -163,7 +125,7 @@ describe("formatResponse", () => {
       Record<string, unknown>
     >(errorResponse);
 
-    assert.deepStrictEqual(result, {
+    expect(result).toEqual({
       data: undefined,
       metadata: undefined,
       error: mockError,
@@ -172,26 +134,26 @@ describe("formatResponse", () => {
 });
 
 describe("formatError", () => {
-  test("should format error correctly", () => {
+  it("should format error correctly", () => {
     const error = new Error("Test error");
     const result = formatError(error);
-    assert.deepStrictEqual(result, {
+    expect(result).toEqual({
       error: error,
     });
   });
 
-  test("should handle non-error objects", () => {
+  it("should handle non-error objects", () => {
     const errorObj = { code: 500, message: "Server error" };
     const result = formatError(errorObj);
-    assert.deepStrictEqual(result, {
+    expect(result).toEqual({
       error: errorObj,
     });
   });
 
-  test("should handle primitive error values", () => {
+  it("should handle primitive error values", () => {
     const errorMessage = "Something went wrong";
     const result = formatError(errorMessage);
-    assert.deepStrictEqual(result, {
+    expect(result).toEqual({
       error: errorMessage,
     });
   });
