@@ -1,4 +1,3 @@
-import * as td from "testdouble";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { FeatureFlags } from "../../../../client/clients/featureFlags/index.js";
 
@@ -7,17 +6,19 @@ const enabledOrNot = {
   enabled: true,
 };
 
-await td.replaceEsm("unleash-client", {
-  initialize: td.func(),
+vi.mock("unleash-client", () => ({
+  initialize: vi.fn(),
   startUnleash: () => ({
-    isEnabled: (
-      name: "enabled" | "not-enabled",
-      _context: unknown,
-      _functionToUse: () => boolean,
-    ) => enabledOrNot[name],
+    isEnabled: vi.fn(
+      (
+        name: "enabled" | "not-enabled",
+        _context: unknown,
+        _functionToUse: () => boolean,
+      ) => enabledOrNot[name],
+    ),
   }),
-  InMemStorageProvider: td.func(),
-});
+  InMemStorageProvider: vi.fn(),
+}));
 
 let fetchResponse = {};
 
