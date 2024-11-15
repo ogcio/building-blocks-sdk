@@ -1,2 +1,2 @@
-npm run check:formatting
-npm run check:linting
+pnpm run check:formatting
+pnpm run check:linting

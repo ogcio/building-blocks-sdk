@@ -16,7 +16,8 @@
     "fix:formatting": "biome format --write",
     "check:linting": "biome lint",
     "fix:linting": "biome lint --write",
-    "prepublishOnly": "npm i && npm run build && npm run test",
+    "prepublishOnly": "pnpm i && pnpm run build && pnpm run test",
+    "preinstall": "npx only-allow pnpm",
     "prepare": "husky || true"
   },
   "dependencies": {
@@ -53,6 +54,7 @@
       "optional": true
     }
   },
+  "packageManager": "pnpm@9.0.0",
   "keywords": [],
   "author": "",
   "license": "ISC",

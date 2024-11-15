@@ -140,10 +140,15 @@ const sdk = getBuildingBlockSDK({
 
 ## Development
 
+### Requirements
+
+- [Node.js LTS](https://nodejs.org/en/download/)
+- [pnpm](https://pnpm.io/installation)
+
 This project is built with the latest Node LTS, clone this repository and install the dependencies with:
 
 ```bash
-npm install
+pnpm install
 ```
 
 The clients schemas are auto generated using open `openapi-typescript`.
@@ -152,7 +157,7 @@ you can update the json configuration clients for each client under: `src/client
 then run:
 
 ```bash
-npm run clients:update
+pnpm run clients:update
 ```
 
 to update the schemas. At this point you are ready to modify clients files and use the newly generated schemas
@@ -164,15 +169,15 @@ The code is formatted and linted with [biome](https://biomejs.dev/). If you use 
 To check the formatting and linting errors run:
 
 ```bash
-npm run check:formatting
-npm run check:linting
+pnpm run check:formatting
+pnpm run check:linting
 ```
 
 To fix the formatting and linting errors run:
 
 ```bash
-npm run fix:formatting
-npm run fix:linting
+pnpm run fix:formatting
+pnpm run fix:linting
 ```
 
 ### Testing
@@ -180,7 +185,7 @@ npm run fix:linting
 The project uses `vitest` for testing. To run the tests:
 
 ```bash
-npm test
+pnpm test
 ```
 
 ## Feature Flags
