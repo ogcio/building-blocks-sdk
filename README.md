@@ -47,6 +47,7 @@ At the present time available building blocks are:
 - upload
 - profile
 - scheduler
+- analytics
 
 ### Authentication
 
