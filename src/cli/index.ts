@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { program } from "commander";
-import outdatedClientsCommand from "./outdated-clients-command.js";
-import updateClientsCommand from "./update-clients-command.js";
+import { outdatedClientsCommand } from "./outdated-clients-command.js";
+import { updateClientsCommand } from "./update-clients-command.js";
 
 program
   .name("building-blocks-cli")

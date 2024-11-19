@@ -216,6 +216,19 @@ export class Payments extends BaseClient<paths> {
       );
   }
 
+  async getTransactionDetailsByExtPaymentId(extPaymentId: string) {
+    return this.client.GET(
+      "/api/v1/transactions/by-external-id/{extPaymentId}",
+      {
+        params: {
+          path: {
+            extPaymentId,
+          },
+        },
+      },
+    );
+  }
+
   async updateTransaction(
     transactionId: paths["/api/v1/transactions/{transactionId}"]["patch"]["parameters"]["path"]["transactionId"],
     data: paths["/api/v1/transactions/{transactionId}"]["patch"]["requestBody"]["content"]["application/json"],
@@ -233,6 +246,23 @@ export class Payments extends BaseClient<paths> {
         (response) => formatResponse(response),
         (reason) => formatError(reason),
       );
+  }
+
+  async updateTransactionByExtPaymentId(
+    extPaymentId: paths["/api/v1/transactions/by-external-id/{extPaymentId}"]["patch"]["parameters"]["path"]["extPaymentId"],
+    data: paths["/api/v1/transactions/by-external-id/{extPaymentId}"]["patch"]["requestBody"]["content"]["application/json"],
+  ) {
+    return this.client.PATCH(
+      "/api/v1/transactions/by-external-id/{extPaymentId}",
+      {
+        params: {
+          path: {
+            extPaymentId,
+          },
+        },
+        body: data,
+      },
+    );
   }
 
   async createTransaction(
