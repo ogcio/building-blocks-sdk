@@ -1,5 +1,4 @@
 import { Analytics } from "@ogcio/analytics-sdk";
-// index.test.ts
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { FeatureFlags } from "../client/clients/featureFlags/index.js";
 import { Messaging } from "../client/clients/messaging/index.js";
@@ -9,7 +8,6 @@ import { Scheduler } from "../client/clients/scheduler/index.js";
 import { Upload } from "../client/clients/upload/index.js";
 import { getBuildingBlockSDK } from "../index.js";
 
-// Mock all service classes
 vi.mock("@ogcio/analytics-sdk", () => ({
   Analytics: vi.fn(),
 }));
