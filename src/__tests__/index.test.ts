@@ -1,5 +1,5 @@
 import { Analytics } from "@ogcio/analytics-sdk";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, expectTypeOf, it, vi } from "vitest";
 import { FeatureFlags } from "../client/clients/featureFlags/index.js";
 import { Messaging } from "../client/clients/messaging/index.js";
 import { Payments } from "../client/clients/payments/index.js";
@@ -7,6 +7,7 @@ import { Profile } from "../client/clients/profile/index.js";
 import { Scheduler } from "../client/clients/scheduler/index.js";
 import { Upload } from "../client/clients/upload/index.js";
 import { getBuildingBlockSDK } from "../index.js";
+import type { BuildingBlockSDKParams } from "../types.js";
 
 vi.mock("@ogcio/analytics-sdk", () => ({
   Analytics: vi.fn(),
@@ -156,5 +157,58 @@ describe("getBuildingBlockSDK", () => {
     expect(Profile).not.toHaveBeenCalled();
     expect(Scheduler).not.toHaveBeenCalled();
     expect(Upload).not.toHaveBeenCalled();
+  });
+});
+
+describe("getBuildingBlockSDK type tests", () => {
+  it("should return type with only configured services", () => {
+    const params = {
+      services: {
+        analytics: {
+          baseUrl: "test",
+          trackingWebsiteId: "test",
+          organizationId: "test",
+        },
+        messaging: { baseUrl: "test" },
+      },
+      getTokenFn: async () => "token",
+    } satisfies BuildingBlockSDKParams;
+
+    type Result = ReturnType<typeof getBuildingBlockSDK<typeof params>>;
+
+    expectTypeOf<Result>().toMatchTypeOf<{
+      analytics: Analytics;
+      messaging: Messaging;
+    }>();
+
+    // Test that featureFlags is not included
+    expectTypeOf<Result>().toHaveProperty("featureFlags");
+  });
+
+  it("should return empty object type when no services configured", () => {
+    const params = {
+      services: {},
+      getTokenFn: async () => "token",
+    } satisfies BuildingBlockSDKParams;
+
+    type Result = ReturnType<typeof getBuildingBlockSDK<typeof params>>;
+
+    // biome-ignore lint/complexity/noBannedTypes: it's for testing purposes
+    expectTypeOf<Result>().toMatchTypeOf<{}>();
+  });
+
+  it("should not allow undefined baseUrl in service config", () => {
+    // biome-ignore lint/correctness/noUnusedVariables: it's for testing purposes
+    const params: BuildingBlockSDKParams = {
+      services: {
+        analytics: {
+          // @ts-expect-error - baseUrl cannot be undefined
+          baseUrl: undefined,
+          trackingWebsiteId: "test",
+          organizationId: "test",
+        },
+      },
+      getTokenFn: async () => "token",
+    };
   });
 });
