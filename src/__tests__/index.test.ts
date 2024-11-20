@@ -181,8 +181,9 @@ describe("getBuildingBlockSDK type tests", () => {
       messaging: Messaging;
     }>();
 
-    // Test that featureFlags is not included
-    expectTypeOf<Result>().toHaveProperty("featureFlags");
+    // @ts-expect-error - Property 'featureFlags' should not exist on type Result
+    // biome-ignore lint/correctness/noUnusedVariables: it's for testing purposes
+    type ShouldFail = Result["featureFlags"];
   });
 
   it("should return empty object type when no services configured", () => {

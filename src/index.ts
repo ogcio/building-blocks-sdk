@@ -25,9 +25,11 @@ import type {
 
 // Create type that only includes services that are defined in params
 type DefinedServices<T extends BuildingBlockSDKParams> = {
-  [K in keyof BuildingBlocksSDK as T["services"][K] extends undefined
-    ? never
-    : K]: BuildingBlocksSDK[K];
+  [K in keyof BuildingBlocksSDK as K extends keyof T["services"]
+    ? T["services"][K] extends undefined
+      ? never
+      : K
+    : never]: BuildingBlocksSDK[K];
 };
 
 const createService = <K extends keyof Services>(
