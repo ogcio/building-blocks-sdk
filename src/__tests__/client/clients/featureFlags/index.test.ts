@@ -33,7 +33,7 @@ global.fetch = async () =>
 
 describe("FeatureFlags", () => {
   const baseUrl = "http://fakehost";
-  const getTokenFn = () => "test-token";
+  const getTokenFn = () => Promise.resolve("test-token");
   let featureFlags: FeatureFlags;
 
   beforeEach(async () => {
