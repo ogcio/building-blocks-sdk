@@ -9,17 +9,10 @@ import { Upload } from "./client/clients/upload/index.js";
 export { getM2MTokenFn } from "./client/auth/index.js";
 
 import type {
-  AnalyticsConfig,
   BuildingBlockSDKParams,
   BuildingBlocksSDK,
-  FeatureFlagsConfig,
-  MessagingConfig,
-  PaymentsConfig,
-  ProfileConfig,
-  SchedulerConfig,
   Services,
   TokenFunction,
-  UploadConfig,
 } from "./types/index.js";
 
 // Create type that only includes services that are defined in params
@@ -33,15 +26,7 @@ type DefinedServices<T extends BuildingBlockSDKParams> = {
 
 const createService = <K extends keyof Services>(
   ServiceClass: new (
-    config: (
-      | AnalyticsConfig
-      | MessagingConfig
-      | PaymentsConfig
-      | ProfileConfig
-      | SchedulerConfig
-      | UploadConfig
-      | FeatureFlagsConfig
-    ) & { getTokenFn: TokenFunction },
+    config: Services[K] & { getTokenFn: TokenFunction },
   ) => BuildingBlocksSDK[K],
   config: Services[K] | undefined,
   getTokenFn: TokenFunction,
