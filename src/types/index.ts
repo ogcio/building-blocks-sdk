@@ -1,4 +1,4 @@
-import type { Analytics } from "@ogcio/analytics-sdk";
+import type { Analytics, AnalyticsOptions } from "@ogcio/analytics-sdk";
 
 import type { FeatureFlags } from "../client/clients/featureFlags/index.js";
 import type { Messaging } from "../client/clients/messaging/index.js";
@@ -23,12 +23,8 @@ type SERVICE_NAME =
   | typeof SCHEDULER
   | typeof UPLOAD
   | typeof FEATURE_FLAGS;
-interface AnalyticsConfig {
-  baseUrl: string;
-  adminToken?: string;
-  trackingWebsiteId: string;
-  organizationId: string;
-}
+
+interface AnalyticsConfig extends AnalyticsOptions {}
 
 interface MessagingConfig {
   baseUrl: string;
