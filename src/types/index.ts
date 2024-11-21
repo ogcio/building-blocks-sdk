@@ -1,4 +1,5 @@
 import type { Analytics } from "@ogcio/analytics-sdk";
+
 import type { FeatureFlags } from "../client/clients/featureFlags/index.js";
 import type { Messaging } from "../client/clients/messaging/index.js";
 import type { Payments } from "../client/clients/payments/index.js";
@@ -6,15 +7,15 @@ import type { Profile } from "../client/clients/profile/index.js";
 import type { Scheduler } from "../client/clients/scheduler/index.js";
 import type { Upload } from "../client/clients/upload/index.js";
 
-export const ANALYTICS = "analytics" as const;
-export const MESSAGING = "messaging" as const;
-export const PAYMENTS = "payments" as const;
-export const PROFILE = "profile" as const;
-export const SCHEDULER = "scheduler" as const;
-export const UPLOAD = "upload" as const;
-export const FEATURE_FLAGS = "featureFlags" as const;
+const ANALYTICS = "analytics" as const;
+const MESSAGING = "messaging" as const;
+const PAYMENTS = "payments" as const;
+const PROFILE = "profile" as const;
+const SCHEDULER = "scheduler" as const;
+const UPLOAD = "upload" as const;
+const FEATURE_FLAGS = "featureFlags" as const;
 
-export type SERVICE_NAME =
+type SERVICE_NAME =
   | typeof ANALYTICS
   | typeof MESSAGING
   | typeof PAYMENTS
@@ -22,54 +23,56 @@ export type SERVICE_NAME =
   | typeof SCHEDULER
   | typeof UPLOAD
   | typeof FEATURE_FLAGS;
+interface AnalyticsConfig {
+  baseUrl: string;
+  adminToken?: string;
+  trackingWebsiteId: string;
+  organizationId: string;
+}
 
-export type TokenFunction = (
-  serviceName: SERVICE_NAME,
-) => Promise<string> | string;
+interface MessagingConfig {
+  baseUrl: string;
+  adminToken?: string;
+}
 
-export type M2MParams = {
-  getOrganizationTokenParams?: GetOrganizationTokenParams;
-  getAccessTokenParams?: GetAccessTokenParams;
-};
+interface PaymentsConfig {
+  baseUrl: string;
+  adminToken?: string;
+}
 
-export type M2MTokenFnConfig = {
-  services: {
-    [key in SERVICE_NAME]?: M2MParams;
-  };
-};
+interface ProfileConfig {
+  baseUrl: string;
+  adminToken?: string;
+}
 
-export type SDKClientParams = {
-  baseUrl?: string;
-};
+interface SchedulerConfig {
+  baseUrl: string;
+  adminToken?: string;
+}
 
-export type BaseApiClientParams = SDKClientParams & {
-  getTokenFn?: TokenFunction;
-};
+interface UploadConfig {
+  baseUrl: string;
+  adminToken?: string;
+}
 
-type ServiceClients = {
-  analytics: typeof Analytics;
-  messaging: typeof Messaging;
-  payments: typeof Payments;
-  profile: typeof Profile;
-  scheduler: typeof Scheduler;
-  upload: typeof Upload;
-  featureFlags: typeof FeatureFlags;
-};
+interface FeatureFlagsConfig {
+  baseUrl: string;
+  adminToken?: string;
+}
 
-export type BuildingBlocksSDK = {
-  [key in keyof ServiceClients]: InstanceType<ServiceClients[key]>;
-};
+interface Services {
+  analytics?: AnalyticsConfig;
+  messaging?: MessagingConfig;
+  payments?: PaymentsConfig;
+  profile?: ProfileConfig;
+  scheduler?: SchedulerConfig;
+  upload?: UploadConfig;
+  featureFlags?: FeatureFlagsConfig;
+}
 
-export type BuildingBlockSDKParams = {
-  services: {
-    [key in keyof ServiceClients]?: ConstructorParameters<
-      ServiceClients[key]
-    >[0];
-  };
-  getTokenFn?: TokenFunction;
-};
+type TokenFunction = (serviceName: SERVICE_NAME) => Promise<string>;
 
-export interface TokenResponseBody {
+interface TokenResponseBody {
   access_token: string;
   expires_in: number;
   token_type: string;
@@ -83,10 +86,74 @@ interface GetTokenBaseParams {
   scopes?: string[];
 }
 
-export interface GetAccessTokenParams extends GetTokenBaseParams {
+interface GetAccessTokenParams extends GetTokenBaseParams {
   resource: string;
 }
 
-export interface GetOrganizationTokenParams extends GetTokenBaseParams {
+interface GetOrganizationTokenParams extends GetTokenBaseParams {
   organizationId: string;
 }
+
+type M2MParams = {
+  getOrganizationTokenParams?: GetOrganizationTokenParams;
+  getAccessTokenParams?: GetAccessTokenParams;
+};
+
+type M2MTokenFnConfig = {
+  services: {
+    [key in SERVICE_NAME]?: M2MParams;
+  };
+};
+
+interface BuildingBlockSDKParams {
+  services: Services;
+  getTokenFn: TokenFunction;
+}
+
+interface BuildingBlocksSDK {
+  analytics: Analytics;
+  messaging: Messaging;
+  payments: Payments;
+  profile: Profile;
+  scheduler: Scheduler;
+  upload: Upload;
+  featureFlags: FeatureFlags;
+}
+
+export {
+  ANALYTICS,
+  MESSAGING,
+  PAYMENTS,
+  PROFILE,
+  SCHEDULER,
+  UPLOAD,
+  FEATURE_FLAGS,
+};
+
+export type {
+  BuildingBlockSDKParams,
+  BuildingBlocksSDK,
+  Analytics,
+  AnalyticsConfig,
+  Messaging,
+  MessagingConfig,
+  Payments,
+  PaymentsConfig,
+  Profile,
+  ProfileConfig,
+  Scheduler,
+  SchedulerConfig,
+  Upload,
+  UploadConfig,
+  FeatureFlags,
+  FeatureFlagsConfig,
+  Services,
+  TokenFunction,
+  SERVICE_NAME,
+  TokenResponseBody,
+  GetTokenBaseParams,
+  GetAccessTokenParams,
+  GetOrganizationTokenParams,
+  M2MParams,
+  M2MTokenFnConfig,
+};

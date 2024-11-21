@@ -7,7 +7,7 @@ import { Profile } from "../client/clients/profile/index.js";
 import { Scheduler } from "../client/clients/scheduler/index.js";
 import { Upload } from "../client/clients/upload/index.js";
 import { getBuildingBlockSDK } from "../index.js";
-import type { BuildingBlockSDKParams } from "../types.js";
+import type { BuildingBlockSDKParams } from "../types/index.js";
 
 vi.mock("@ogcio/analytics-sdk", () => ({
   Analytics: vi.fn(),
