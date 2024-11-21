@@ -24,37 +24,21 @@ type SERVICE_NAME =
   | typeof UPLOAD
   | typeof FEATURE_FLAGS;
 
-interface AnalyticsConfig extends AnalyticsOptions {}
+type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
+type AnalyticsOptionsWithBaseUrl = WithRequired<AnalyticsOptions, "baseUrl">;
 
-interface MessagingConfig {
+interface AnalyticsConfig extends AnalyticsOptionsWithBaseUrl {}
+
+interface ServiceBaseConfig {
   baseUrl: string;
-  adminToken?: string;
 }
 
-interface PaymentsConfig {
-  baseUrl: string;
-  adminToken?: string;
-}
-
-interface ProfileConfig {
-  baseUrl: string;
-  adminToken?: string;
-}
-
-interface SchedulerConfig {
-  baseUrl: string;
-  adminToken?: string;
-}
-
-interface UploadConfig {
-  baseUrl: string;
-  adminToken?: string;
-}
-
-interface FeatureFlagsConfig {
-  baseUrl: string;
-  adminToken?: string;
-}
+interface MessagingConfig extends ServiceBaseConfig {}
+interface PaymentsConfig extends ServiceBaseConfig {}
+interface ProfileConfig extends ServiceBaseConfig {}
+interface SchedulerConfig extends ServiceBaseConfig {}
+interface UploadConfig extends ServiceBaseConfig {}
+interface FeatureFlagsConfig extends ServiceBaseConfig {}
 
 interface Services {
   analytics?: AnalyticsConfig;
