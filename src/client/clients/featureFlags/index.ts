@@ -1,5 +1,8 @@
 import type createClient from "openapi-fetch";
-import type { BaseApiClientParams } from "../../../types/index.js";
+import type {
+  FeatureFlagsConfig,
+  TokenFunction,
+} from "../../../types/index.js";
 import { FEATURE_FLAGS } from "../../../types/index.js";
 import { BaseClient } from "../../base-client.js";
 import { formatError, formatResponse } from "../../utils/client-utils.js";
@@ -15,7 +18,10 @@ export class FeatureFlags extends BaseClient<paths> {
     token?: string;
   };
 
-  constructor({ baseUrl, getTokenFn }: BaseApiClientParams) {
+  constructor({
+    baseUrl,
+    getTokenFn,
+  }: FeatureFlagsConfig & { getTokenFn: TokenFunction }) {
     super({ baseUrl, getTokenFn });
     this.unleashConnectionOptions = { url: baseUrl };
   }

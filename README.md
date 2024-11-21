@@ -26,7 +26,7 @@ Install the package via:
 npm install @ogcio/building-blocks-sdk
 ```
 
-SDK initialization:
+To initialise the SDK, give the desired configuration to `getBuildingBlockSDK`:
 
 ```typescript
 const sdk = getBuildingBlockSDK({
@@ -38,7 +38,7 @@ const sdk = getBuildingBlockSDK({
 });
 ```
 
-This snippet creates the SDK with configuration for the upload API building block. The SDK accepts a configuration for each building block API.
+This snippet above creates an SDK for the upload API building block. The SDK accepts a configuration for each building block API.
 
 At the present time available building blocks are:
 
@@ -48,6 +48,9 @@ At the present time available building blocks are:
 - profile
 - scheduler
 - analytics
+- feature-flags
+
+Please note that the type of the `sdk` variable only registers the building blocks that are present in the configuration. This is because the SDK does not create an instance for all available building blocks, even the ones not requested in the configuration.
 
 ### Authentication
 
@@ -186,7 +189,6 @@ npm test
 
 For local development, you should have the Feature Flags service running.
 Refer to the [unleash](https://github.com/ogcio/unleash) repository for instructions on how to run the service.
-You can also find examples on how to run Unleash with different auth strategies in the [unleash-examples](https://github.com/ogcio/unleash-examples/tree/feat/oidc-auth) repository.
 
 ### Usage
 
@@ -224,19 +226,18 @@ const isEnabled = await sdk.featureFlags.isFlagEnabled("feature-name", {
 });
 ```
 
-_Note_: The `isFlagEnabled` is asynchronous because if the client is not connected yet,
-it will wait for the connection to be established before checking the flag.
-Once the client is connected, the flag will be checked synchronously.
+_Note_: The `isFlagEnabled` is asynchronous because if the client is not connected yet, it will wait for the connection to be established before checking the flag. Once the client is connected, the flag will be checked synchronously. Only the first call made with the SDK will initiate a connection, all subsequent calls will use the connection already obtained.
 
 ### Next build error resolution
 
 When `next build` is run, it performs a static analysis of the code and tries to retrieve the contents of all dependencies, including those imported dynamically.
 
-So, if `unleash-client` is not installed, it causes a build error.
+IF any peer dependencies defined in the package.json (for example `unleash-client`) are not installed the build will fail.
 
-To prevent this you can add this webpack configuration to your next configuration, to mark it as an external package so it won't be included in the bundle.
+To prevent this you can add this webpack configuration to your next configuration, to mark missing peer dependencies as an external package so they won't be included in the bundle.
 
 ```
+// Example for unleash-client
 ...
 webpack: (config, { isServer }) => {
     if (isServer) {
@@ -248,4 +249,4 @@ webpack: (config, { isServer }) => {
 ...
 ```
 
-Then, once `unleash-client` is needed and installed, we can remove that configuration, and everything start working as expected.
+You can safely remove any external dependency from the weback config once it has been installed.

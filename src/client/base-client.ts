@@ -1,13 +1,5 @@
-import createClient, {
-  type Middleware,
-  type FetchResponse,
-} from "openapi-fetch";
-import type {
-  BaseApiClientParams,
-  SERVICE_NAME,
-  TokenFunction,
-} from "../types/index.js";
-import type { DataResponseValue } from "./utils/client-utils.js";
+import createClient, { type Middleware } from "openapi-fetch";
+import type { SERVICE_NAME, TokenFunction } from "../types/index.js";
 
 export abstract class BaseClient<T extends {}> {
   private baseUrl?: string;
@@ -19,7 +11,13 @@ export abstract class BaseClient<T extends {}> {
 
   protected client: ReturnType<typeof createClient<T>>;
 
-  constructor({ baseUrl, getTokenFn }: BaseApiClientParams) {
+  constructor({
+    baseUrl,
+    getTokenFn,
+  }: {
+    baseUrl: string;
+    getTokenFn?: TokenFunction;
+  }) {
     this.initialized = false;
     if (baseUrl) {
       this.baseUrl = baseUrl;
