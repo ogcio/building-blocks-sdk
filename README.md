@@ -232,9 +232,9 @@ _Note_: The `isFlagEnabled` is asynchronous because if the client is not connect
 
 When `next build` is run, it performs a static analysis of the code and tries to retrieve the contents of all dependencies, including those imported dynamically.
 
-IF any peer dependancies defined in the package.json (for example `unleash-client`) are not installed the build will fail.
+IF any peer dependencies defined in the package.json (for example `unleash-client`) are not installed the build will fail.
 
-To prevent this you can add this webpack configuration to your next configuration, to mark missing peer dependancies as an external package so they won't be included in the bundle.
+To prevent this you can add this webpack configuration to your next configuration, to mark missing peer dependencies as an external package so they won't be included in the bundle.
 
 ```
 // Example for unleash-client
@@ -249,4 +249,4 @@ webpack: (config, { isServer }) => {
 ...
 ```
 
-You can safely remove any external dependancy from the weback config once it has been installed.
+You can safely remove any external dependency from the weback config once it has been installed.
