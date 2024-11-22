@@ -6,6 +6,7 @@ import { Payments } from "./client/clients/payments/index.js";
 import { Profile } from "./client/clients/profile/index.js";
 import { Scheduler } from "./client/clients/scheduler/index.js";
 import { Upload } from "./client/clients/upload/index.js";
+import { Journey } from "./client/clients/journey/index.js";
 export { getM2MTokenFn } from "./client/auth/index.js";
 
 import type {
@@ -52,6 +53,7 @@ export const getBuildingBlockSDK = <T extends BuildingBlockSDKParams>(
       services.featureFlags,
       getTokenFn,
     ),
+    journey: createService(Journey, services.journey, getTokenFn),
   };
 
   // Remove undefined services
