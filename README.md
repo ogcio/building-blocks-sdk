@@ -207,7 +207,7 @@ const sdk = getBuildingBlockSDK({
       baseUrl,
     },
   },
-  getTokenFn: () => token,
+  getTokenFn: () => Promise.resolve(token),
 });
 ```
 

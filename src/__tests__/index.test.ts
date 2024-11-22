@@ -122,7 +122,6 @@ describe("getBuildingBlockSDK", () => {
       services: {
         analytics: {
           baseUrl,
-          adminToken: "admin-token",
           trackingWebsiteId: "website-id",
           organizationId: "org-id",
         },
@@ -134,7 +133,6 @@ describe("getBuildingBlockSDK", () => {
 
     expect(Analytics).toHaveBeenCalledWith({
       baseUrl,
-      adminToken: "admin-token",
       trackingWebsiteId: "website-id",
       organizationId: "org-id",
       getTokenFn,
