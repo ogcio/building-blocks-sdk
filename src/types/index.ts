@@ -24,10 +24,7 @@ type SERVICE_NAME =
   | typeof UPLOAD
   | typeof FEATURE_FLAGS;
 
-type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
-type AnalyticsOptionsWithBaseUrl = WithRequired<AnalyticsOptions, "baseUrl">;
-
-interface AnalyticsConfig extends AnalyticsOptionsWithBaseUrl {}
+interface AnalyticsConfig extends AnalyticsOptions {}
 
 interface ServiceBaseConfig {
   baseUrl: string;
