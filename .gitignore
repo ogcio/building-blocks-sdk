@@ -2,3 +2,4 @@ node_modules/
 dist/
 results.xml
 coverage/
+.DS_Store

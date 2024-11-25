@@ -1,6 +1,6 @@
 {
   "log-file": true,
-  "type": "Common,Dockerfile,OpenAPI",
+  "type": "CICD,Dockerfile,OpenAPI",
   "exclude-paths": ["dist", "node_modules", "coverage"],
   "output-path": "results",
   "exclude-queries": "",
