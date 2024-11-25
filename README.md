@@ -157,7 +157,7 @@ you can update the json configuration clients for each client under: `src/client
 then run:
 
 ```bash
-pnpm run clients:update
+pnpm clients:update
 ```
 
 to update the schemas. At this point you are ready to modify clients files and use the newly generated schemas
@@ -169,15 +169,15 @@ The code is formatted and linted with [biome](https://biomejs.dev/). If you use 
 To check the formatting and linting errors run:
 
 ```bash
-pnpm run check:formatting
-pnpm run check:linting
+pnpm check:formatting
+pnpm check:linting
 ```
 
 To fix the formatting and linting errors run:
 
 ```bash
-pnpm run fix:formatting
-pnpm run fix:linting
+pnpm fix:formatting
+pnpm fix:linting
 ```
 
 ### Testing

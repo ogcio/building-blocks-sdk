@@ -1,2 +1,2 @@
-pnpm run check:formatting
-pnpm run check:linting
+pnpm check:formatting
+pnpm check:linting
