@@ -4,7 +4,7 @@ export default defineConfig({
   test: {
     reporters: "default",
     coverage: {
-      reporter: ["text"],
+      reporter: ["text", "cobertura"],
       provider: "istanbul",
     },
 
