@@ -91,7 +91,7 @@
     },
     {
       "name": "journey",
-      "openApiDefinitionUrl": "http://localhost:8009/docs/json",
+      "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/life-events/refs/heads/dev/apps/journey-api/openapi-definition.yml",
       "openApiDefinitionFormat": "yaml",
       "citizenPermissions": [
         "integrator:journey.public:read",
