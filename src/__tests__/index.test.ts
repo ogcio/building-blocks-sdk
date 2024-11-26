@@ -6,6 +6,7 @@ import { Payments } from "../client/clients/payments/index.js";
 import { Profile } from "../client/clients/profile/index.js";
 import { Scheduler } from "../client/clients/scheduler/index.js";
 import { Upload } from "../client/clients/upload/index.js";
+import { Journey } from "../client/clients/journey/index.js";
 import { getBuildingBlockSDK } from "../index.js";
 import type { BuildingBlockSDKParams } from "../types/index.js";
 
@@ -37,6 +38,10 @@ vi.mock("../client/clients/upload/index.js", () => ({
   Upload: vi.fn(),
 }));
 
+vi.mock("../client/clients/journey/index.js", () => ({
+  Journey: vi.fn(),
+}));
+
 describe("getBuildingBlockSDK", () => {
   const getTokenFn = vi.fn().mockResolvedValue("test-token");
   const baseUrl = "http://test.com";
@@ -59,6 +64,7 @@ describe("getBuildingBlockSDK", () => {
         profile: { baseUrl },
         scheduler: { baseUrl },
         upload: { baseUrl },
+        journey: { baseUrl },
       },
       getTokenFn,
     };
@@ -80,6 +86,7 @@ describe("getBuildingBlockSDK", () => {
     expect(Profile).toHaveBeenCalledWith({ baseUrl, getTokenFn });
     expect(Scheduler).toHaveBeenCalledWith({ baseUrl, getTokenFn });
     expect(Upload).toHaveBeenCalledWith({ baseUrl, getTokenFn });
+    expect(Journey).toHaveBeenCalledWith({ baseUrl, getTokenFn });
 
     expect(Object.keys(sdk)).toHaveLength(7);
   });
@@ -111,6 +118,7 @@ describe("getBuildingBlockSDK", () => {
     expect(Profile).not.toHaveBeenCalled();
     expect(Scheduler).not.toHaveBeenCalled();
     expect(Upload).not.toHaveBeenCalled();
+    expect(Journey).not.toHaveBeenCalled();
 
     expect(Object.keys(sdk)).toHaveLength(2);
     expect(sdk).toHaveProperty("analytics");
@@ -155,6 +163,7 @@ describe("getBuildingBlockSDK", () => {
     expect(Profile).not.toHaveBeenCalled();
     expect(Scheduler).not.toHaveBeenCalled();
     expect(Upload).not.toHaveBeenCalled();
+    expect(Journey).not.toHaveBeenCalled();
   });
 });
 
