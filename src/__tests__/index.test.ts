@@ -88,7 +88,7 @@ describe("getBuildingBlockSDK", () => {
     expect(Upload).toHaveBeenCalledWith({ baseUrl, getTokenFn });
     expect(Journey).toHaveBeenCalledWith({ baseUrl, getTokenFn });
 
-    expect(Object.keys(sdk)).toHaveLength(7);
+    expect(Object.keys(sdk)).toHaveLength(8);
   });
 
   it("should create SDK with only specified services", () => {
