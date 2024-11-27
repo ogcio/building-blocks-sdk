@@ -1521,6 +1521,7 @@ export interface paths {
                                     runId?: string;
                                     journeyId?: string;
                                     journeyTitle?: string;
+                                    redirectUrl?: string;
                                 };
                                 description: string;
                                 providerName: string;
@@ -1763,6 +1764,7 @@ export interface paths {
                                     runId?: string;
                                     journeyId?: string;
                                     journeyTitle?: string;
+                                    redirectUrl?: string;
                                 };
                                 description: string;
                                 providerName: string;
@@ -1877,6 +1879,7 @@ export interface paths {
                             runId?: string;
                             journeyId?: string;
                             journeyTitle?: string;
+                            redirectUrl?: string;
                         };
                     };
                 };
@@ -2508,6 +2511,7 @@ export interface paths {
                                     runId?: string;
                                     journeyId?: string;
                                     journeyTitle?: string;
+                                    redirectUrl?: string;
                                 };
                                 description: string;
                                 providerName: string;
