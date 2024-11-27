@@ -1,0 +1,5756 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "OGCIO Journey API",
+    "description": "API for OGCIO Journey Service",
+    "version": "0.1.0"
+  },
+  "components": {
+    "schemas": {}
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/v1/journeys/": {
+      "get": {
+        "tags": [
+          "Journeys"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "type": "number"
+            },
+            "in": "query",
+            "name": "offset",
+            "required": false
+          },
+          {
+            "schema": {
+              "default": 10,
+              "minimum": 5,
+              "maximum": 50,
+              "multipleOf": 5,
+              "type": "number"
+            },
+            "in": "query",
+            "name": "limit",
+            "required": false
+          },
+          {
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            },
+            "in": "query",
+            "name": "ids",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "validator": "RequiredValidator",
+                            "type": "string"
+                          },
+                          "userId": {
+                            "type": "string"
+                          },
+                          "organizationId": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "active"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "draft"
+                                ]
+                              }
+                            ]
+                          },
+                          "initialStepId": {
+                            "type": "string"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          },
+                          "updatedAt": {
+                            "type": "string"
+                          },
+                          "userName": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "title",
+                          "userId",
+                          "organizationId",
+                          "status",
+                          "initialStepId",
+                          "createdAt",
+                          "updatedAt",
+                          "userName"
+                        ]
+                      }
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Journeys"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "validator": "RequiredValidator",
+                    "type": "string"
+                  },
+                  "organizationId": {
+                    "type": "string"
+                  },
+                  "userId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "title",
+                  "organizationId",
+                  "userId"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/journeys/{journeyId}": {
+      "get": {
+        "tags": [
+          "Journeys"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "journeyId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "validator": "RequiredValidator",
+                          "type": "string"
+                        },
+                        "userId": {
+                          "type": "string"
+                        },
+                        "organizationId": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "active"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "draft"
+                              ]
+                            }
+                          ]
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "initialStepId": {
+                          "type": "string"
+                        },
+                        "steps": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "journeyId": {
+                                "type": "string"
+                              },
+                              "stepType": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "title"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "form"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "payment"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "messaging"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "complete"
+                                    ]
+                                  }
+                                ]
+                              },
+                              "stepData": {
+                                "anyOf": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "url": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "url"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "paymentRequestId": {
+                                        "type": "string"
+                                      },
+                                      "title": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "paymentRequestId",
+                                      "title"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "templateId": {
+                                        "type": "string"
+                                      },
+                                      "title": {
+                                        "type": "string"
+                                      },
+                                      "organisationId": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "templateId",
+                                      "title",
+                                      "organisationId"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "buttonLabel": {
+                                        "type": "string"
+                                      },
+                                      "returnUrl": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "buttonLabel",
+                                      "returnUrl"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {}
+                                  }
+                                ]
+                              },
+                              "configured": {
+                                "type": "boolean"
+                              },
+                              "createdAt": {
+                                "type": "string"
+                              },
+                              "updatedAt": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "journeyId",
+                              "stepType",
+                              "stepData",
+                              "configured",
+                              "createdAt",
+                              "updatedAt"
+                            ]
+                          }
+                        },
+                        "connections": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "sourceStepId": {
+                                "type": "string"
+                              },
+                              "destinationStepId": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "sourceStepId",
+                              "destinationStepId"
+                            ]
+                          }
+                        },
+                        "userName": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "title",
+                        "userId",
+                        "organizationId",
+                        "status",
+                        "createdAt",
+                        "updatedAt",
+                        "initialStepId",
+                        "steps",
+                        "connections",
+                        "userName"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Journeys"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "validator": "RequiredValidator",
+                    "type": "string"
+                  },
+                  "status": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "active"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "draft"
+                        ]
+                      }
+                    ]
+                  },
+                  "initialStepId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "title",
+                  "status",
+                  "initialStepId"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "journeyId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/journeys/{journeyId}/public-info": {
+      "get": {
+        "tags": [
+          "Journeys"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "journeyId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "validator": "RequiredValidator",
+                          "type": "string"
+                        },
+                        "userId": {
+                          "type": "string"
+                        },
+                        "organizationId": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "active"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "draft"
+                              ]
+                            }
+                          ]
+                        },
+                        "initialStepId": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "title",
+                        "userId",
+                        "organizationId",
+                        "status",
+                        "initialStepId",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/journeys/{journeyId}/schema": {
+      "get": {
+        "tags": [
+          "Journeys"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "journeyId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "journeyId": {
+                          "type": "string"
+                        },
+                        "jounrneyTitle": {
+                          "type": "string"
+                        },
+                        "steps": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "stepId": {
+                                "type": "string"
+                              },
+                              "type": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "title"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "form"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "payment"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "messaging"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "complete"
+                                    ]
+                                  }
+                                ]
+                              },
+                              "resourceId": {
+                                "type": "string"
+                              },
+                              "stepSchema": {}
+                            },
+                            "required": [
+                              "stepId",
+                              "type",
+                              "resourceId"
+                            ]
+                          }
+                        },
+                        "stepConnections": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "sourceStepId": {
+                                "type": "string"
+                              },
+                              "destinationStepId": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "sourceStepId",
+                              "destinationStepId"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "journeyId",
+                        "jounrneyTitle",
+                        "steps",
+                        "stepConnections"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/journeys/create-journey": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/v1/journey_step_connections/{connectionId}": {
+      "get": {
+        "tags": [
+          "StepConnections"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "connectionId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "sourceStepId": {
+                          "type": "string"
+                        },
+                        "destinationStepId": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "sourceStepId",
+                        "destinationStepId"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "StepConnections"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "connectionId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/journey_step_connections/": {
+      "post": {
+        "tags": [
+          "StepConnections"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "sourceStepId": {
+                    "type": "string"
+                  },
+                  "destinationStepId": {
+                    "type": "string"
+                  },
+                  "journeyId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "sourceStepId",
+                  "destinationStepId",
+                  "journeyId"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "sourceStepId": {
+                          "type": "string"
+                        },
+                        "destinationStepId": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "sourceStepId",
+                        "destinationStepId"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/journey_steps/{stepId}": {
+      "get": {
+        "tags": [
+          "Steps"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "stepId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "journeyId": {
+                          "type": "string"
+                        },
+                        "stepType": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "title"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "form"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "payment"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "messaging"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "complete"
+                              ]
+                            }
+                          ]
+                        },
+                        "stepData": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "url": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "url"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "paymentRequestId": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "paymentRequestId",
+                                "title"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "templateId": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "organisationId": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "templateId",
+                                "title",
+                                "organisationId"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "buttonLabel": {
+                                  "type": "string"
+                                },
+                                "returnUrl": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "buttonLabel",
+                                "returnUrl"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {}
+                            }
+                          ]
+                        },
+                        "configured": {
+                          "type": "boolean"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "journeyId",
+                        "stepType",
+                        "stepData",
+                        "configured",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Steps"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "stepId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Steps"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "stepData": {
+                    "validator": "StepDataValidator",
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "url"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "paymentRequestId": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "paymentRequestId",
+                          "title"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "templateId": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "organisationId": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "templateId",
+                          "title",
+                          "organisationId"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "buttonLabel": {
+                            "type": "string"
+                          },
+                          "returnUrl": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "buttonLabel",
+                          "returnUrl"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {}
+                      }
+                    ]
+                  },
+                  "configured": {
+                    "type": "boolean"
+                  },
+                  "stepType": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "title"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "form"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "payment"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "messaging"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "complete"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "stepData",
+                  "configured",
+                  "stepType"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "stepId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "journeyId": {
+                          "type": "string"
+                        },
+                        "stepType": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "title"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "form"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "payment"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "messaging"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "complete"
+                              ]
+                            }
+                          ]
+                        },
+                        "stepData": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "url": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "url"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "paymentRequestId": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "paymentRequestId",
+                                "title"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "templateId": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "organisationId": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "templateId",
+                                "title",
+                                "organisationId"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "buttonLabel": {
+                                  "type": "string"
+                                },
+                                "returnUrl": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "buttonLabel",
+                                "returnUrl"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {}
+                            }
+                          ]
+                        },
+                        "configured": {
+                          "type": "boolean"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "journeyId",
+                        "stepType",
+                        "stepData",
+                        "configured",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/journey_steps/": {
+      "post": {
+        "tags": [
+          "Steps"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "journeyId": {
+                    "type": "string"
+                  },
+                  "stepType": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "title"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "form"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "payment"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "messaging"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "complete"
+                        ]
+                      }
+                    ]
+                  },
+                  "stepData": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "url"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "paymentRequestId": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "paymentRequestId",
+                          "title"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "templateId": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "organisationId": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "templateId",
+                          "title",
+                          "organisationId"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "buttonLabel": {
+                            "type": "string"
+                          },
+                          "returnUrl": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "buttonLabel",
+                          "returnUrl"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {}
+                      }
+                    ]
+                  },
+                  "configured": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "journeyId",
+                  "stepType",
+                  "stepData",
+                  "configured"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "journeyId": {
+                          "type": "string"
+                        },
+                        "stepType": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "title"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "form"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "payment"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "messaging"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "complete"
+                              ]
+                            }
+                          ]
+                        },
+                        "stepData": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "url": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "url"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "paymentRequestId": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "paymentRequestId",
+                                "title"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "templateId": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "organisationId": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "templateId",
+                                "title",
+                                "organisationId"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "buttonLabel": {
+                                  "type": "string"
+                                },
+                                "returnUrl": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "buttonLabel",
+                                "returnUrl"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {}
+                            }
+                          ]
+                        },
+                        "configured": {
+                          "type": "boolean"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "journeyId",
+                        "stepType",
+                        "stepData",
+                        "configured",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/executor/runs/self": {
+      "get": {
+        "tags": [
+          "Executor"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "userId": {
+                            "type": "string"
+                          },
+                          "journeyId": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "pending"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "failed"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "completed"
+                                ]
+                              }
+                            ]
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          },
+                          "updatedAt": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "userId",
+                          "journeyId",
+                          "status",
+                          "createdAt",
+                          "updatedAt"
+                        ]
+                      }
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/executor/runs/self/{runId}": {
+      "get": {
+        "tags": [
+          "Executor"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "runId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "userId": {
+                          "type": "string"
+                        },
+                        "journeyId": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "pending"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "failed"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "completed"
+                              ]
+                            }
+                          ]
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "steps": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "runId": {
+                                "type": "string"
+                              },
+                              "stepId": {
+                                "type": "string"
+                              },
+                              "stepType": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "title"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "form"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "payment"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "messaging"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "complete"
+                                    ]
+                                  }
+                                ]
+                              },
+                              "status": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "pending"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "in_progress"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "failed"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "completed"
+                                    ]
+                                  }
+                                ]
+                              },
+                              "data": {
+                                "anyOf": [
+                                  {
+                                    "type": "object",
+                                    "properties": {}
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "formSubmissionId": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "formSubmissionId"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "transactionId": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "transactionId"
+                                    ]
+                                  }
+                                ]
+                              },
+                              "createdAt": {
+                                "type": "string"
+                              },
+                              "updatedAt": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "runId",
+                              "stepId",
+                              "stepType",
+                              "status",
+                              "createdAt",
+                              "updatedAt"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "userId",
+                        "journeyId",
+                        "status",
+                        "createdAt",
+                        "updatedAt",
+                        "steps"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/executor/runs/journeys/{journeyId}": {
+      "get": {
+        "tags": [
+          "Executor"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "journeyId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "userId": {
+                            "type": "string"
+                          },
+                          "journeyId": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "pending"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "failed"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "completed"
+                                ]
+                              }
+                            ]
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          },
+                          "updatedAt": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "userId",
+                          "journeyId",
+                          "status",
+                          "createdAt",
+                          "updatedAt"
+                        ]
+                      }
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/executor/runs/{runId}": {
+      "get": {
+        "tags": [
+          "Executor"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "runId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "userId": {
+                          "type": "string"
+                        },
+                        "journeyId": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "pending"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "failed"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "completed"
+                              ]
+                            }
+                          ]
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "steps": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "runId": {
+                                "type": "string"
+                              },
+                              "stepId": {
+                                "type": "string"
+                              },
+                              "stepType": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "title"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "form"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "payment"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "messaging"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "complete"
+                                    ]
+                                  }
+                                ]
+                              },
+                              "status": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "pending"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "in_progress"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "failed"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "completed"
+                                    ]
+                                  }
+                                ]
+                              },
+                              "data": {
+                                "anyOf": [
+                                  {
+                                    "type": "object",
+                                    "properties": {}
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "formSubmissionId": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "formSubmissionId"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "transactionId": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "transactionId"
+                                    ]
+                                  }
+                                ]
+                              },
+                              "createdAt": {
+                                "type": "string"
+                              },
+                              "updatedAt": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "runId",
+                              "stepId",
+                              "stepType",
+                              "status",
+                              "createdAt",
+                              "updatedAt"
+                            ]
+                          }
+                        },
+                        "organizationId": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "userId",
+                        "journeyId",
+                        "status",
+                        "createdAt",
+                        "updatedAt",
+                        "steps",
+                        "organizationId",
+                        "email"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/executor/runs": {
+      "get": {
+        "tags": [
+          "Executor"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "type": "number"
+            },
+            "in": "query",
+            "name": "offset",
+            "required": false
+          },
+          {
+            "schema": {
+              "default": 10,
+              "minimum": 5,
+              "maximum": 50,
+              "multipleOf": 5,
+              "type": "number"
+            },
+            "in": "query",
+            "name": "limit",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "journeyId",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "userId": {
+                            "type": "string"
+                          },
+                          "journeyId": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "pending"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "failed"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "completed"
+                                ]
+                              }
+                            ]
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          },
+                          "updatedAt": {
+                            "type": "string"
+                          },
+                          "organizationId": {
+                            "type": "string"
+                          },
+                          "journeyTitle": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "userId",
+                          "journeyId",
+                          "status",
+                          "createdAt",
+                          "updatedAt",
+                          "organizationId",
+                          "journeyTitle",
+                          "email"
+                        ]
+                      }
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/executor/run": {
+      "post": {
+        "tags": [
+          "Executor"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "journeyId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "journeyId"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/executor/execute": {
+      "post": {
+        "tags": [
+          "Executor"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "journeyId": {
+                    "type": "string"
+                  },
+                  "runId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "journeyId",
+                  "runId"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string"
+                        },
+                        "stepId": {
+                          "type": "string"
+                        },
+                        "stepType": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "title"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "form"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "payment"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "messaging"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "complete"
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "url",
+                        "stepId",
+                        "stepType"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/executor/transition": {
+      "post": {
+        "tags": [
+          "Executor"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "journeyId": {
+                    "type": "string"
+                  },
+                  "runId": {
+                    "type": "string"
+                  },
+                  "token": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "journeyId",
+                  "runId"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string"
+                        },
+                        "stepId": {
+                          "type": "string"
+                        },
+                        "stepType": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "title"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "form"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "payment"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "messaging"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "complete"
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "url",
+                        "stepId",
+                        "stepType"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/executor/get-summary": {
+      "post": {
+        "tags": [
+          "Executor"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "journeyId": {
+                    "type": "string"
+                  },
+                  "runId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "journeyId",
+                  "runId"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "runId": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "actionLabel": {
+                          "type": "string"
+                        },
+                        "returnUrl": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "runId",
+                        "title",
+                        "createdAt",
+                        "actionLabel",
+                        "returnUrl"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Journey"
+    }
+  ]
+}

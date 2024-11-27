@@ -6,6 +6,7 @@ import type { Payments } from "../client/clients/payments/index.js";
 import type { Profile } from "../client/clients/profile/index.js";
 import type { Scheduler } from "../client/clients/scheduler/index.js";
 import type { Upload } from "../client/clients/upload/index.js";
+import type { Journey } from "../client/clients/journey/index.js";
 
 const ANALYTICS = "analytics" as const;
 const MESSAGING = "messaging" as const;
@@ -14,6 +15,7 @@ const PROFILE = "profile" as const;
 const SCHEDULER = "scheduler" as const;
 const UPLOAD = "upload" as const;
 const FEATURE_FLAGS = "featureFlags" as const;
+const JOURNEY = "journey" as const;
 
 type SERVICE_NAME =
   | typeof ANALYTICS
@@ -22,7 +24,8 @@ type SERVICE_NAME =
   | typeof PROFILE
   | typeof SCHEDULER
   | typeof UPLOAD
-  | typeof FEATURE_FLAGS;
+  | typeof FEATURE_FLAGS
+  | typeof JOURNEY;
 
 interface AnalyticsConfig extends AnalyticsOptions {}
 
@@ -36,6 +39,7 @@ interface ProfileConfig extends ServiceBaseConfig {}
 interface SchedulerConfig extends ServiceBaseConfig {}
 interface UploadConfig extends ServiceBaseConfig {}
 interface FeatureFlagsConfig extends ServiceBaseConfig {}
+interface JourneyConfig extends ServiceBaseConfig {}
 
 interface Services {
   analytics?: AnalyticsConfig;
@@ -45,6 +49,7 @@ interface Services {
   scheduler?: SchedulerConfig;
   upload?: UploadConfig;
   featureFlags?: FeatureFlagsConfig;
+  journey?: JourneyConfig;
 }
 
 type TokenFunction = (serviceName: SERVICE_NAME) => Promise<string>;
@@ -95,6 +100,7 @@ interface BuildingBlocksSDK {
   scheduler: Scheduler;
   upload: Upload;
   featureFlags: FeatureFlags;
+  journey: Journey;
 }
 
 export {
@@ -105,6 +111,7 @@ export {
   SCHEDULER,
   UPLOAD,
   FEATURE_FLAGS,
+  JOURNEY,
 };
 
 export type {
@@ -124,6 +131,8 @@ export type {
   UploadConfig,
   FeatureFlags,
   FeatureFlagsConfig,
+  Journey,
+  JourneyConfig,
   Services,
   TokenFunction,
   SERVICE_NAME,

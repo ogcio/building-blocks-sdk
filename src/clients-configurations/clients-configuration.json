@@ -88,6 +88,22 @@
       "citizenPermissions": [],
       "publicServantPermissions": [],
       "updateDefinitions": true
+    },
+    {
+      "name": "journey",
+      "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/life-events/refs/heads/dev/apps/journey-api/openapi-definition.yml",
+      "openApiDefinitionFormat": "yaml",
+      "citizenPermissions": [
+        "integrator:journey.public:read",
+        "integrator:run.self:read",
+        "integrator:run.self:write"
+      ],
+      "publicServantPermissions": [
+        "integrator:journey:*",
+        "integrator:step:*",
+        "integrator:run:read"
+      ],
+      "updateDefinitions": true
     }
   ]
 }
