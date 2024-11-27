@@ -3782,6 +3782,9 @@
                             },
                             "journeyTitle": {
                               "type": "string"
+                            },
+                            "redirectUrl": {
+                              "type": "string"
                             }
                           },
                           "required": [
@@ -4332,6 +4335,9 @@
                               },
                               "journeyTitle": {
                                 "type": "string"
+                              },
+                              "redirectUrl": {
+                                "type": "string"
                               }
                             },
                             "required": [
@@ -4602,6 +4608,9 @@
                         "type": "string"
                       },
                       "journeyTitle": {
+                        "type": "string"
+                      },
+                      "redirectUrl": {
                         "type": "string"
                       }
                     },
@@ -5906,6 +5915,9 @@
                               "type": "string"
                             },
                             "journeyTitle": {
+                              "type": "string"
+                            },
+                            "redirectUrl": {
                               "type": "string"
                             }
                           },
