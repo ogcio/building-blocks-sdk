@@ -5248,13 +5248,17 @@
                   "runId": {
                     "type": "string"
                   },
+                  "runStepId": {
+                    "type": "string"
+                  },
                   "token": {
                     "type": "string"
                   }
                 },
                 "required": [
                   "journeyId",
-                  "runId"
+                  "runId",
+                  "runStepId"
                 ]
               }
             }

@@ -2179,6 +2179,7 @@ export interface paths {
                     "application/json": {
                         journeyId: string;
                         runId: string;
+                        runStepId: string;
                         token?: string;
                     };
                 };

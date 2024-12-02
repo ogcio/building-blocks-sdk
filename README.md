@@ -49,6 +49,7 @@ At the present time available building blocks are:
 - scheduler
 - analytics
 - feature-flags
+- journey
 
 Please note that the type of the `sdk` variable only registers the building blocks that are present in the configuration. This is because the SDK does not create an instance for all available building blocks, even the ones not requested in the configuration.
 
