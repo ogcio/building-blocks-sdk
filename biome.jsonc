@@ -11,7 +11,8 @@
       "dist",
       "node_modules",
       "src/client/clients/**/*.json",
-      "src/client/clients/**/schema.ts"
+      "src/client/clients/**/schema.ts",
+      "test-frameworks"
     ]
   },
   "formatter": {
