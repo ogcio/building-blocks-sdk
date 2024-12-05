@@ -369,88 +369,6 @@
                               }
                             ]
                           },
-                          "data": {
-                            "anyOf": [
-                              {
-                                "type": "object",
-                                "properties": {
-                                  "iban": {
-                                    "type": "string"
-                                  },
-                                  "accountHolderName": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "iban",
-                                  "accountHolderName"
-                                ]
-                              },
-                              {
-                                "type": "object",
-                                "properties": {
-                                  "iban": {
-                                    "type": "string"
-                                  },
-                                  "accountHolderName": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "iban",
-                                  "accountHolderName"
-                                ]
-                              },
-                              {
-                                "type": "object",
-                                "properties": {
-                                  "livePublishableKey": {
-                                    "type": "string"
-                                  },
-                                  "liveSecretKey": {
-                                    "type": "string"
-                                  },
-                                  "webhookSigningKey": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "livePublishableKey",
-                                  "liveSecretKey"
-                                ]
-                              },
-                              {
-                                "type": "object",
-                                "properties": {
-                                  "merchantCode": {
-                                    "type": "string"
-                                  },
-                                  "installationId": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "merchantCode",
-                                  "installationId"
-                                ]
-                              },
-                              {
-                                "type": "object",
-                                "properties": {
-                                  "merchantId": {
-                                    "type": "string"
-                                  },
-                                  "sharedSecret": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "merchantId",
-                                  "sharedSecret"
-                                ]
-                              }
-                            ]
-                          },
                           "status": {
                             "anyOf": [
                               {
@@ -472,7 +390,6 @@
                           "id",
                           "name",
                           "type",
-                          "data",
                           "status"
                         ]
                       }
@@ -666,6 +583,22 @@
                             }
                           ]
                         },
+                        "status": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "connected"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "disconnected"
+                              ]
+                            }
+                          ]
+                        },
                         "data": {
                           "anyOf": [
                             {
@@ -747,30 +680,14 @@
                               ]
                             }
                           ]
-                        },
-                        "status": {
-                          "anyOf": [
-                            {
-                              "type": "string",
-                              "enum": [
-                                "connected"
-                              ]
-                            },
-                            {
-                              "type": "string",
-                              "enum": [
-                                "disconnected"
-                              ]
-                            }
-                          ]
                         }
                       },
                       "required": [
                         "id",
                         "name",
                         "type",
-                        "data",
-                        "status"
+                        "status",
+                        "data"
                       ]
                     },
                     "metadata": {
@@ -2218,6 +2135,164 @@
                     "detail",
                     "requestId",
                     "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/requests/external-info": {
+      "get": {
+        "tags": [
+          "PaymentRequests"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "type": "number"
+            },
+            "in": "query",
+            "name": "offset",
+            "required": false
+          },
+          {
+            "schema": {
+              "default": 10,
+              "minimum": 5,
+              "maximum": 50,
+              "multipleOf": 5,
+              "type": "number"
+            },
+            "in": "query",
+            "name": "limit",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "paymentRequestId": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "amount": {
+                            "type": "number"
+                          },
+                          "allowAmountOverride": {
+                            "type": "boolean"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "paymentRequestId",
+                          "title",
+                          "allowAmountOverride",
+                          "createdAt"
+                        ]
+                      }
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "description": "Object containing the links to the related endpoints",
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the request itself",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "description": "It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2'",
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "description": "Number representing the total number of available items",
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
                   ]
                 }
               }
