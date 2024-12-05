@@ -86,6 +86,21 @@ export class Payments extends BaseClient<paths> {
       );
   }
 
+  async getPaymentRequestsExternalInfo(
+    query: paths["/api/v1/requests/external-info"]["get"]["parameters"]["query"],
+  ) {
+    return this.client
+      .GET("/api/v1/requests/external-info", {
+        params: {
+          query,
+        },
+      })
+      .then(
+        (response) => formatResponse(response),
+        (reason) => formatError(reason),
+      );
+  }
+
   async getPaymentRequest(
     requestId: paths["/api/v1/requests/{requestId}"]["get"]["parameters"]["path"]["requestId"],
   ) {

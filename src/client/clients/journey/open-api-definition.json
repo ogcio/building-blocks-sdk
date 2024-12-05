@@ -558,6 +558,7 @@
                               "stepData": {
                                 "anyOf": [
                                   {
+                                    "additionalProperties": false,
                                     "type": "object",
                                     "properties": {
                                       "url": {
@@ -569,6 +570,7 @@
                                     ]
                                   },
                                   {
+                                    "additionalProperties": false,
                                     "type": "object",
                                     "properties": {
                                       "paymentRequestId": {
@@ -584,6 +586,7 @@
                                     ]
                                   },
                                   {
+                                    "additionalProperties": false,
                                     "type": "object",
                                     "properties": {
                                       "templateId": {
@@ -603,6 +606,7 @@
                                     ]
                                   },
                                   {
+                                    "additionalProperties": false,
                                     "type": "object",
                                     "properties": {
                                       "buttonLabel": {
@@ -2157,6 +2161,7 @@
                         "stepData": {
                           "anyOf": [
                             {
+                              "additionalProperties": false,
                               "type": "object",
                               "properties": {
                                 "url": {
@@ -2168,6 +2173,7 @@
                               ]
                             },
                             {
+                              "additionalProperties": false,
                               "type": "object",
                               "properties": {
                                 "paymentRequestId": {
@@ -2183,6 +2189,7 @@
                               ]
                             },
                             {
+                              "additionalProperties": false,
                               "type": "object",
                               "properties": {
                                 "templateId": {
@@ -2202,6 +2209,7 @@
                               ]
                             },
                             {
+                              "additionalProperties": false,
                               "type": "object",
                               "properties": {
                                 "buttonLabel": {
@@ -2572,9 +2580,15 @@
                 "type": "object",
                 "properties": {
                   "stepData": {
-                    "validator": "StepDataValidator",
+                    "validator": {
+                      "name": "StepDataValidator",
+                      "options": {
+                        "bypassRequired": false
+                      }
+                    },
                     "anyOf": [
                       {
+                        "additionalProperties": false,
                         "type": "object",
                         "properties": {
                           "url": {
@@ -2586,6 +2600,7 @@
                         ]
                       },
                       {
+                        "additionalProperties": false,
                         "type": "object",
                         "properties": {
                           "paymentRequestId": {
@@ -2601,6 +2616,7 @@
                         ]
                       },
                       {
+                        "additionalProperties": false,
                         "type": "object",
                         "properties": {
                           "templateId": {
@@ -2620,6 +2636,7 @@
                         ]
                       },
                       {
+                        "additionalProperties": false,
                         "type": "object",
                         "properties": {
                           "buttonLabel": {
@@ -2752,6 +2769,7 @@
                         "stepData": {
                           "anyOf": [
                             {
+                              "additionalProperties": false,
                               "type": "object",
                               "properties": {
                                 "url": {
@@ -2763,6 +2781,7 @@
                               ]
                             },
                             {
+                              "additionalProperties": false,
                               "type": "object",
                               "properties": {
                                 "paymentRequestId": {
@@ -2778,6 +2797,7 @@
                               ]
                             },
                             {
+                              "additionalProperties": false,
                               "type": "object",
                               "properties": {
                                 "templateId": {
@@ -2797,6 +2817,7 @@
                               ]
                             },
                             {
+                              "additionalProperties": false,
                               "type": "object",
                               "properties": {
                                 "buttonLabel": {
@@ -3034,9 +3055,19 @@
                       }
                     ]
                   },
+                  "configured": {
+                    "type": "boolean"
+                  },
                   "stepData": {
+                    "validator": {
+                      "name": "StepDataValidator",
+                      "options": {
+                        "bypassRequired": true
+                      }
+                    },
                     "anyOf": [
                       {
+                        "additionalProperties": false,
                         "type": "object",
                         "properties": {
                           "url": {
@@ -3048,6 +3079,7 @@
                         ]
                       },
                       {
+                        "additionalProperties": false,
                         "type": "object",
                         "properties": {
                           "paymentRequestId": {
@@ -3063,6 +3095,7 @@
                         ]
                       },
                       {
+                        "additionalProperties": false,
                         "type": "object",
                         "properties": {
                           "templateId": {
@@ -3082,6 +3115,7 @@
                         ]
                       },
                       {
+                        "additionalProperties": false,
                         "type": "object",
                         "properties": {
                           "buttonLabel": {
@@ -3101,16 +3135,13 @@
                         "properties": {}
                       }
                     ]
-                  },
-                  "configured": {
-                    "type": "boolean"
                   }
                 },
                 "required": [
                   "journeyId",
                   "stepType",
-                  "stepData",
-                  "configured"
+                  "configured",
+                  "stepData"
                 ]
               }
             }
@@ -3171,6 +3202,7 @@
                         "stepData": {
                           "anyOf": [
                             {
+                              "additionalProperties": false,
                               "type": "object",
                               "properties": {
                                 "url": {
@@ -3182,6 +3214,7 @@
                               ]
                             },
                             {
+                              "additionalProperties": false,
                               "type": "object",
                               "properties": {
                                 "paymentRequestId": {
@@ -3197,6 +3230,7 @@
                               ]
                             },
                             {
+                              "additionalProperties": false,
                               "type": "object",
                               "properties": {
                                 "templateId": {
@@ -3216,6 +3250,7 @@
                               ]
                             },
                             {
+                              "additionalProperties": false,
                               "type": "object",
                               "properties": {
                                 "buttonLabel": {

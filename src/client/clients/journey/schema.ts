@@ -1289,6 +1289,7 @@ export interface paths {
                     "application/json": {
                         journeyId: string;
                         stepType: "title" | "form" | "payment" | "messaging" | "complete";
+                        configured: boolean;
                         stepData: {
                             url: string;
                         } | {
@@ -1302,7 +1303,6 @@ export interface paths {
                             buttonLabel: string;
                             returnUrl: string;
                         } | Record<string, never>;
-                        configured: boolean;
                     };
                 };
             };
