@@ -13,8 +13,8 @@ export class Payments extends BaseClient<paths> {
    */
   async getProviders() {
     return this.client.GET("/api/v1/providers/").then(
-      (response) => formatResponse(response),
-      (reason) => formatError(reason),
+      (response) => formatResponse(response, this.serviceName, this.logger),
+      (reason) => formatError(reason, this.serviceName, this.logger),
     );
   }
 
@@ -30,8 +30,8 @@ export class Payments extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -43,8 +43,8 @@ export class Payments extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -62,8 +62,8 @@ export class Payments extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -81,8 +81,8 @@ export class Payments extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -96,8 +96,8 @@ export class Payments extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -113,8 +113,8 @@ export class Payments extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -132,8 +132,8 @@ export class Payments extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -145,8 +145,8 @@ export class Payments extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -162,8 +162,8 @@ export class Payments extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -175,8 +175,8 @@ export class Payments extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -192,8 +192,8 @@ export class Payments extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -211,8 +211,8 @@ export class Payments extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -226,8 +226,8 @@ export class Payments extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -241,8 +241,8 @@ export class Payments extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -260,8 +260,8 @@ export class Payments extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -273,15 +273,15 @@ export class Payments extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
   async generatePaymentIntentId() {
     return this.client.GET("/api/v1/transactions/generatePaymentIntentId").then(
-      (response) => formatResponse(response),
-      (reason) => formatError(reason),
+      (response) => formatResponse(response, this.serviceName, this.logger),
+      (reason) => formatError(reason, this.serviceName, this.logger),
     );
   }
 
@@ -295,8 +295,8 @@ export class Payments extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
   /**
@@ -313,8 +313,8 @@ export class Payments extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -328,8 +328,8 @@ export class Payments extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -347,8 +347,8 @@ export class Payments extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -364,15 +364,15 @@ export class Payments extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
   async getAuditLogEventTypes() {
     return this.client.GET("/api/v1/auditLogs/event-types").then(
-      (response) => formatResponse(response),
-      (reason) => formatError(reason),
+      (response) => formatResponse(response, this.serviceName, this.logger),
+      (reason) => formatError(reason, this.serviceName, this.logger),
     );
   }
 
@@ -388,8 +388,8 @@ export class Payments extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -401,8 +401,8 @@ export class Payments extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 }

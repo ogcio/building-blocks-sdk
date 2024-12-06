@@ -41,8 +41,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -60,8 +60,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -73,8 +73,8 @@ export class Messaging extends BaseClient<paths> {
         params: { path: { messageId } },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -86,8 +86,8 @@ export class Messaging extends BaseClient<paths> {
         body,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -101,8 +101,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -118,8 +118,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -196,8 +196,8 @@ export class Messaging extends BaseClient<paths> {
     body: paths["/api/v1/templates/"]["post"]["requestBody"]["content"]["application/json"],
   ) {
     return this.client.POST("/api/v1/templates/", { body }).then(
-      (response) => formatResponse(response),
-      (reason) => formatError(reason),
+      (response) => formatResponse(response, this.serviceName, this.logger),
+      (reason) => formatError(reason, this.serviceName, this.logger),
     );
   }
 
@@ -211,8 +211,8 @@ export class Messaging extends BaseClient<paths> {
         body,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -224,8 +224,8 @@ export class Messaging extends BaseClient<paths> {
         params: { path: { templateId } },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -294,8 +294,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -320,8 +320,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -331,8 +331,8 @@ export class Messaging extends BaseClient<paths> {
         params: { path: { providerId } },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -405,8 +405,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -429,8 +429,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -440,8 +440,8 @@ export class Messaging extends BaseClient<paths> {
         params: { path: { providerId } },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -469,8 +469,8 @@ export class Messaging extends BaseClient<paths> {
         body: toImport.records,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -480,8 +480,8 @@ export class Messaging extends BaseClient<paths> {
         parseAs: "blob",
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -498,8 +498,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -520,8 +520,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -531,8 +531,8 @@ export class Messaging extends BaseClient<paths> {
         params: { query: { importId, activeOnly: String(activeOnly) } },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -546,8 +546,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -557,8 +557,8 @@ export class Messaging extends BaseClient<paths> {
         params: { path: { organisationSettingId } },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -572,8 +572,8 @@ export class Messaging extends BaseClient<paths> {
         params: { path: { organisationSettingId } },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -585,8 +585,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -596,8 +596,8 @@ export class Messaging extends BaseClient<paths> {
         params: { path: { eventId } },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -611,8 +611,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -632,8 +632,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -651,8 +651,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -670,8 +670,8 @@ export class Messaging extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 

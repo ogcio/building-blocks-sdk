@@ -23,8 +23,8 @@ export class Journey extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -36,8 +36,8 @@ export class Journey extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -53,8 +53,8 @@ export class Journey extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -73,8 +73,8 @@ export class Journey extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -86,8 +86,8 @@ export class Journey extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -103,8 +103,8 @@ export class Journey extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -122,8 +122,8 @@ export class Journey extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -142,8 +142,8 @@ export class Journey extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -159,8 +159,8 @@ export class Journey extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -174,8 +174,8 @@ export class Journey extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -187,8 +187,8 @@ export class Journey extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -204,8 +204,8 @@ export class Journey extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -225,15 +225,15 @@ export class Journey extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
   async getUserRuns() {
     return this.client.GET("/api/v1/executor/runs/self", {}).then(
-      (response) => formatResponse(response),
-      (reason) => formatError(reason),
+      (response) => formatResponse(response, this.serviceName, this.logger),
+      (reason) => formatError(reason, this.serviceName, this.logger),
     );
   }
 
@@ -249,8 +249,8 @@ export class Journey extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -266,8 +266,8 @@ export class Journey extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -281,8 +281,8 @@ export class Journey extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -294,8 +294,8 @@ export class Journey extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -307,8 +307,8 @@ export class Journey extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -320,8 +320,8 @@ export class Journey extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -333,8 +333,8 @@ export class Journey extends BaseClient<paths> {
         body: data,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 }

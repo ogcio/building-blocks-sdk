@@ -20,8 +20,8 @@ export class Scheduler extends BaseClient<paths> {
         body: tasks,
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 }

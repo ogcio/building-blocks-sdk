@@ -1,12 +1,12 @@
 import type { Analytics, AnalyticsOptions } from "@ogcio/analytics-sdk";
 
 import type { FeatureFlags } from "../client/clients/featureFlags/index.js";
+import type { Journey } from "../client/clients/journey/index.js";
 import type { Messaging } from "../client/clients/messaging/index.js";
 import type { Payments } from "../client/clients/payments/index.js";
 import type { Profile } from "../client/clients/profile/index.js";
 import type { Scheduler } from "../client/clients/scheduler/index.js";
 import type { Upload } from "../client/clients/upload/index.js";
-import type { Journey } from "../client/clients/journey/index.js";
 
 const ANALYTICS = "analytics" as const;
 const MESSAGING = "messaging" as const;
@@ -87,9 +87,26 @@ type M2MTokenFnConfig = {
   };
 };
 
+interface LogFn {
+  <T extends object>(obj: T, msg?: string, ...args: unknown[]): void;
+  (obj: unknown, msg?: string, ...args: unknown[]): void;
+  (msg: string, ...args: unknown[]): void;
+}
+
+export type Logger = {
+  fatal: LogFn;
+  error: LogFn;
+  warn: LogFn;
+  info: LogFn;
+  debug: LogFn;
+  trace: LogFn;
+  silent: LogFn;
+};
+
 interface BuildingBlockSDKParams {
   services: Services;
   getTokenFn: TokenFunction;
+  logger?: Logger;
 }
 
 interface BuildingBlocksSDK {
