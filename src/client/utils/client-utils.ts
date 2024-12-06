@@ -6,6 +6,7 @@ import type {
   ResponseContent,
   ResponseObjectMap,
 } from "openapi-typescript-helpers";
+import type { Logger } from "../../types/index.js";
 
 export interface PaginationParams {
   offset?: string | number;
@@ -52,12 +53,18 @@ export function preparePaginationParams(paginationParams?: PaginationParams): {
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export function formatResponse<G extends Record<string | number, any>, O>(
   response: FetchResponse<G, O, "application/json">,
+  serviceName: string,
+  logger?: Logger,
 ): DataResponseValue<G, O> {
   let outputData = undefined;
   let outputMetadata = undefined;
+
   if (!response) {
+    logger?.trace(`${serviceName} - Undefined response`);
     return {} as DataResponseValue<G, O>;
   }
+
+  logger?.trace({ rawResponse: response }, `${serviceName} - Raw response`);
   if (response.data) {
     const dataEntries = Object.entries(response.data);
     // by docs the body should contain a "data"
@@ -71,13 +78,24 @@ export function formatResponse<G extends Record<string | number, any>, O>(
     outputData = containsData ? containsData[1] : response.data;
   }
 
-  return {
+  const formattedResponse = {
     data: outputData,
     metadata: outputMetadata,
     error: response.error,
   } as unknown as DataResponseValue<G, O>;
+
+  logger?.trace({ formattedResponse }, `${serviceName} - Formatted response`);
+
+  return formattedResponse;
 }
 
-export function formatError<G, O>(reason: unknown): DataResponseValue<G, O> {
+export function formatError<G, O>(
+  reason: unknown,
+  serviceName: string,
+  logger?: Logger,
+): DataResponseValue<G, O> {
+  if (logger) {
+    logger.trace({ reason }, `${serviceName} - Got error`);
+  }
   return { error: reason } as unknown as DataResponseValue<G, O>;
 }

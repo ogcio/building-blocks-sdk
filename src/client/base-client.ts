@@ -39,11 +39,13 @@ export abstract class BaseClient<T extends {}> {
           this.token = await this.getTokenFn(this.serviceName as SERVICE_NAME);
         }
 
-        const clonedRequest = request.clone();
-        this.logger?.trace(
-          { body: await clonedRequest.json(), url: clonedRequest.url },
-          `${this.serviceName} - executing request`,
-        );
+        if (this.logger) {
+          const clonedRequest = request.clone();
+          this.logger.trace(
+            { body: await clonedRequest.json(), url: clonedRequest.url },
+            `${this.serviceName} - executing request`,
+          );
+        }
 
         if (this.token) {
           request.headers.set("Authorization", `Bearer ${this.token}`);

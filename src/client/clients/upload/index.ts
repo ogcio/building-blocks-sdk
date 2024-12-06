@@ -25,8 +25,8 @@ export class Upload extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -63,8 +63,8 @@ export class Upload extends BaseClient<paths> {
         params: { query: { userId, organizationId } },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -74,8 +74,8 @@ export class Upload extends BaseClient<paths> {
         params: { path: { id, organizationId } },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -85,8 +85,8 @@ export class Upload extends BaseClient<paths> {
         body: { fileId: id },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -100,8 +100,8 @@ export class Upload extends BaseClient<paths> {
         },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -111,8 +111,8 @@ export class Upload extends BaseClient<paths> {
         body: { fileId, userId },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
@@ -122,8 +122,8 @@ export class Upload extends BaseClient<paths> {
         body: { fileId, userId },
       })
       .then(
-        (response) => formatResponse(response),
-        (reason) => formatError(reason),
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 
