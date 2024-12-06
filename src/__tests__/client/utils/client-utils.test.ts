@@ -66,7 +66,7 @@ describe("formatResponse", () => {
     const result = formatResponse<
       TestResponseObject["get"],
       Record<string, unknown>
-    >(mockResponse);
+    >(mockResponse, "mock", undefined);
 
     expect(result).toEqual({
       data: { value: "test" },
@@ -96,7 +96,7 @@ describe("formatResponse", () => {
     const result = formatResponse<
       TestNestedResponseObject["get"],
       Record<string, unknown>
-    >(mockResponse);
+    >(mockResponse, "mock", undefined);
 
     expect(result).toEqual({
       data: {
@@ -123,7 +123,7 @@ describe("formatResponse", () => {
     const result = formatResponse<
       TestResponseObject["get"],
       Record<string, unknown>
-    >(errorResponse);
+    >(errorResponse, "mock", undefined);
 
     expect(result).toEqual({
       data: undefined,
@@ -136,7 +136,7 @@ describe("formatResponse", () => {
 describe("formatError", () => {
   it("should format error correctly", () => {
     const error = new Error("Test error");
-    const result = formatError(error);
+    const result = formatError(error, "mock", undefined);
     expect(result).toEqual({
       error: error,
     });
@@ -144,7 +144,7 @@ describe("formatError", () => {
 
   it("should handle non-error objects", () => {
     const errorObj = { code: 500, message: "Server error" };
-    const result = formatError(errorObj);
+    const result = formatError(errorObj, "mock", undefined);
     expect(result).toEqual({
       error: errorObj,
     });
@@ -152,7 +152,7 @@ describe("formatError", () => {
 
   it("should handle primitive error values", () => {
     const errorMessage = "Something went wrong";
-    const result = formatError(errorMessage);
+    const result = formatError(errorMessage, "mock", undefined);
     expect(result).toEqual({
       error: errorMessage,
     });

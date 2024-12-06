@@ -17,8 +17,10 @@ import type {
   TokenFunction,
 } from "./types/index.js";
 
+export type { TokenFunction, BuildingBlocksSDK } from "./types/index.js";
+
 // Create type that only includes services that are defined in params
-type DefinedServices<T extends BuildingBlockSDKParams> = {
+export type DefinedServices<T extends BuildingBlockSDKParams> = {
   [K in keyof BuildingBlocksSDK as K extends keyof T["services"]
     ? T["services"][K] extends undefined
       ? never
