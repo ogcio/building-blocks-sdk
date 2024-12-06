@@ -41,8 +41,14 @@ export abstract class BaseClient<T extends {}> {
 
         if (this.logger) {
           const clonedRequest = request.clone();
+          let requestBody = null;
+          try {
+            requestBody = await clonedRequest.json();
+          } catch (_e) {
+            requestBody = clonedRequest.body;
+          }
           this.logger.debug(
-            { body: await clonedRequest.json(), url: clonedRequest.url },
+            { body: requestBody, url: clonedRequest.url },
             `${this.serviceName} - executing request`,
           );
         }
