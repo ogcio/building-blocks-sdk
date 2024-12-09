@@ -1,5 +1,5 @@
 import createClient, { type Middleware } from "openapi-fetch";
-import type { SERVICE_NAME, TokenFunction } from "../types/index.js";
+import type { Logger, SERVICE_NAME, TokenFunction } from "../types/index.js";
 
 export abstract class BaseClient<T extends {}> {
   private baseUrl?: string;
@@ -8,15 +8,18 @@ export abstract class BaseClient<T extends {}> {
   protected token?: string;
   protected getTokenFn?: TokenFunction;
   protected serviceName: SERVICE_NAME | undefined;
+  protected logger?: Logger;
 
   protected client: ReturnType<typeof createClient<T>>;
 
   constructor({
     baseUrl,
     getTokenFn,
+    logger,
   }: {
     baseUrl: string;
     getTokenFn?: TokenFunction;
+    logger?: Logger;
   }) {
     this.initialized = false;
     if (baseUrl) {
@@ -27,7 +30,7 @@ export abstract class BaseClient<T extends {}> {
     if (getTokenFn) {
       this.getTokenFn = getTokenFn;
     }
-
+    this.logger = logger;
     this.token = undefined;
     this.client = createClient<T>({ baseUrl: this.baseUrl });
     const authMiddleware: Middleware = {
@@ -36,9 +39,24 @@ export abstract class BaseClient<T extends {}> {
           this.token = await this.getTokenFn(this.serviceName as SERVICE_NAME);
         }
 
+        if (this.logger) {
+          const clonedRequest = request.clone();
+          let requestBody = null;
+          try {
+            requestBody = await clonedRequest.json();
+          } catch (_e) {
+            requestBody = clonedRequest.body;
+          }
+          this.logger.trace(
+            { body: requestBody, url: clonedRequest.url },
+            `${this.serviceName} - executing request`,
+          );
+        }
+
         if (this.token) {
           request.headers.set("Authorization", `Bearer ${this.token}`);
         }
+
         return request;
       },
     };

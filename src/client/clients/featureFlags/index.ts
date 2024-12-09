@@ -76,14 +76,17 @@ export class FeatureFlags extends BaseClient<paths> {
       .then(
         (response) => {
           // @ts-expect-error: TODO: fix me
-          const { data, metadata, error } = formatResponse(response);
+          const { data, metadata, error } = formatResponse(
+            response,
+            this.serviceName,
+          );
           return {
             data: data?.features as components["schemas"]["projectFeatureSchema"][],
             metadata,
             error,
           };
         },
-        (reason) => formatError(reason),
+        (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
 }
