@@ -60,11 +60,11 @@ export function formatResponse<G extends Record<string | number, any>, O>(
   let outputMetadata = undefined;
 
   if (!response) {
-    logger?.debug(`${serviceName} - Undefined response`);
+    logger?.trace(`${serviceName} - Undefined response`);
     return {} as DataResponseValue<G, O>;
   }
 
-  logger?.debug({ rawResponse: response }, `${serviceName} - Raw response`);
+  logger?.trace({ rawResponse: response }, `${serviceName} - Raw response`);
   if (response.data) {
     const dataEntries = Object.entries(response.data);
     // by docs the body should contain a "data"
@@ -84,7 +84,7 @@ export function formatResponse<G extends Record<string | number, any>, O>(
     error: response.error,
   } as unknown as DataResponseValue<G, O>;
 
-  logger?.debug({ formattedResponse }, `${serviceName} - Formatted response`);
+  logger?.trace({ formattedResponse }, `${serviceName} - Formatted response`);
 
   return formattedResponse;
 }
@@ -95,7 +95,7 @@ export function formatError<G, O>(
   logger?: Logger,
 ): DataResponseValue<G, O> {
   if (logger) {
-    logger.debug({ reason }, `${serviceName} - Got error`);
+    logger.trace({ reason }, `${serviceName} - Got error`);
   }
   return { error: reason } as unknown as DataResponseValue<G, O>;
 }

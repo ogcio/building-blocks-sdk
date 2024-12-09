@@ -47,7 +47,7 @@ export abstract class BaseClient<T extends {}> {
           } catch (_e) {
             requestBody = clonedRequest.body;
           }
-          this.logger.debug(
+          this.logger.trace(
             { body: requestBody, url: clonedRequest.url },
             `${this.serviceName} - executing request`,
           );
