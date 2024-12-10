@@ -595,14 +595,18 @@
                                       "title": {
                                         "type": "string"
                                       },
-                                      "organisationId": {
+                                      "recipient": {
                                         "type": "string"
+                                      },
+                                      "generatePDF": {
+                                        "type": "boolean"
                                       }
                                     },
                                     "required": [
                                       "templateId",
                                       "title",
-                                      "organisationId"
+                                      "recipient",
+                                      "generatePDF"
                                     ]
                                   },
                                   {
@@ -1514,15 +1518,6 @@
         }
       }
     },
-    "/api/v1/journeys/create-journey": {
-      "post": {
-        "responses": {
-          "200": {
-            "description": "Default Response"
-          }
-        }
-      }
-    },
     "/api/v1/journey_step_connections/{connectionId}": {
       "get": {
         "tags": [
@@ -2198,14 +2193,18 @@
                                 "title": {
                                   "type": "string"
                                 },
-                                "organisationId": {
+                                "recipient": {
                                   "type": "string"
+                                },
+                                "generatePDF": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
                                 "templateId",
                                 "title",
-                                "organisationId"
+                                "recipient",
+                                "generatePDF"
                               ]
                             },
                             {
@@ -2625,14 +2624,18 @@
                           "title": {
                             "type": "string"
                           },
-                          "organisationId": {
+                          "recipient": {
                             "type": "string"
+                          },
+                          "generatePDF": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
                           "templateId",
                           "title",
-                          "organisationId"
+                          "recipient",
+                          "generatePDF"
                         ]
                       },
                       {
@@ -2806,14 +2809,18 @@
                                 "title": {
                                   "type": "string"
                                 },
-                                "organisationId": {
+                                "recipient": {
                                   "type": "string"
+                                },
+                                "generatePDF": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
                                 "templateId",
                                 "title",
-                                "organisationId"
+                                "recipient",
+                                "generatePDF"
                               ]
                             },
                             {
@@ -3104,14 +3111,18 @@
                           "title": {
                             "type": "string"
                           },
-                          "organisationId": {
+                          "recipient": {
                             "type": "string"
+                          },
+                          "generatePDF": {
+                            "type": "boolean"
                           }
                         },
                         "required": [
                           "templateId",
                           "title",
-                          "organisationId"
+                          "recipient",
+                          "generatePDF"
                         ]
                       },
                       {
@@ -3239,14 +3250,18 @@
                                 "title": {
                                   "type": "string"
                                 },
-                                "organisationId": {
+                                "recipient": {
                                   "type": "string"
+                                },
+                                "generatePDF": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
                                 "templateId",
                                 "title",
-                                "organisationId"
+                                "recipient",
+                                "generatePDF"
                               ]
                             },
                             {
@@ -3764,13 +3779,12 @@
                                 "anyOf": [
                                   {
                                     "type": "object",
-                                    "properties": {}
-                                  },
-                                  {
-                                    "type": "object",
                                     "properties": {
                                       "formSubmissionId": {
                                         "type": "string"
+                                      },
+                                      "amount": {
+                                        "type": "number"
                                       }
                                     },
                                     "required": [
@@ -3787,6 +3801,10 @@
                                     "required": [
                                       "transactionId"
                                     ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {}
                                   }
                                 ]
                               },
@@ -4302,13 +4320,12 @@
                                 "anyOf": [
                                   {
                                     "type": "object",
-                                    "properties": {}
-                                  },
-                                  {
-                                    "type": "object",
                                     "properties": {
                                       "formSubmissionId": {
                                         "type": "string"
+                                      },
+                                      "amount": {
+                                        "type": "number"
                                       }
                                     },
                                     "required": [
@@ -4325,6 +4342,10 @@
                                     "required": [
                                       "transactionId"
                                     ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {}
                                   }
                                 ]
                               },
