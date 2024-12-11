@@ -258,7 +258,8 @@ export interface paths {
                                     } | {
                                         templateId: string;
                                         title: string;
-                                        organisationId: string;
+                                        recipient: string;
+                                        generatePDF: boolean;
                                     } | {
                                         buttonLabel: string;
                                         returnUrl: string;
@@ -633,39 +634,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/journeys/create-journey": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/api/v1/journey_step_connections/{connectionId}": {
         parameters: {
             query?: never;
@@ -989,7 +957,8 @@ export interface paths {
                                 } | {
                                     templateId: string;
                                     title: string;
-                                    organisationId: string;
+                                    recipient: string;
+                                    generatePDF: boolean;
                                 } | {
                                     buttonLabel: string;
                                     returnUrl: string;
@@ -1080,7 +1049,8 @@ export interface paths {
                         } | {
                             templateId: string;
                             title: string;
-                            organisationId: string;
+                            recipient: string;
+                            generatePDF: boolean;
                         } | {
                             buttonLabel: string;
                             returnUrl: string;
@@ -1110,7 +1080,8 @@ export interface paths {
                                 } | {
                                     templateId: string;
                                     title: string;
-                                    organisationId: string;
+                                    recipient: string;
+                                    generatePDF: boolean;
                                 } | {
                                     buttonLabel: string;
                                     returnUrl: string;
@@ -1298,7 +1269,8 @@ export interface paths {
                         } | {
                             templateId: string;
                             title: string;
-                            organisationId: string;
+                            recipient: string;
+                            generatePDF: boolean;
                         } | {
                             buttonLabel: string;
                             returnUrl: string;
@@ -1326,7 +1298,8 @@ export interface paths {
                                 } | {
                                     templateId: string;
                                     title: string;
-                                    organisationId: string;
+                                    recipient: string;
+                                    generatePDF: boolean;
                                 } | {
                                     buttonLabel: string;
                                     returnUrl: string;
@@ -1526,11 +1499,12 @@ export interface paths {
                                     stepId: string;
                                     stepType: "title" | "form" | "payment" | "messaging" | "complete";
                                     status: "pending" | "in_progress" | "failed" | "completed";
-                                    data?: Record<string, never> | {
+                                    data?: {
                                         formSubmissionId: string;
+                                        amount?: number;
                                     } | {
                                         transactionId: string;
-                                    };
+                                    } | Record<string, never>;
                                     createdAt: string;
                                     updatedAt: string;
                                 }[];
@@ -1730,11 +1704,12 @@ export interface paths {
                                     stepId: string;
                                     stepType: "title" | "form" | "payment" | "messaging" | "complete";
                                     status: "pending" | "in_progress" | "failed" | "completed";
-                                    data?: Record<string, never> | {
+                                    data?: {
                                         formSubmissionId: string;
+                                        amount?: number;
                                     } | {
                                         transactionId: string;
-                                    };
+                                    } | Record<string, never>;
                                     createdAt: string;
                                     updatedAt: string;
                                 }[];
