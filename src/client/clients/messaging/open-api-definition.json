@@ -236,7 +236,63 @@
               }
             }
           },
-          "400": {
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "description": "Code used to categorize the error",
+                      "type": "string"
+                    },
+                    "detail": {
+                      "description": "Description of the error",
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique request id. This one will be used to troubleshoot the problems",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of the error type",
+                      "type": "string"
+                    },
+                    "validation": {
+                      "description": "List of the validation errors",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "fieldName": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "fieldName",
+                          "message"
+                        ]
+                      }
+                    },
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "5XX": {
             "description": "Default Response",
             "content": {
               "application/json": {
@@ -419,13 +475,91 @@
                       "properties": {
                         "id": {
                           "format": "uuid",
-                          "description": "The unique id of the created message",
+                          "description": "Unique Id of the resource",
                           "type": "string"
                         }
                       },
                       "required": [
                         "id"
                       ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "description": "Object containing the links to the related endpoints",
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the request itself",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "description": "It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2'",
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "description": "Number representing the total number of available items",
+                          "type": "number"
+                        }
+                      }
                     }
                   },
                   "required": [
@@ -1282,7 +1416,7 @@
           }
         },
         "responses": {
-          "200": {
+          "201": {
             "description": "Default Response",
             "content": {
               "application/json": {
@@ -1300,6 +1434,84 @@
                       "required": [
                         "id"
                       ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "description": "Object containing the links to the related endpoints",
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the request itself",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "description": "It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2'",
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "description": "Number representing the total number of available items",
+                          "type": "number"
+                        }
+                      }
                     }
                   },
                   "required": [
@@ -1451,8 +1663,7 @@
             },
             "in": "path",
             "name": "providerId",
-            "required": true,
-            "description": "The unique id of the requested provider"
+            "required": true
           }
         ],
         "responses": {
@@ -1951,7 +2162,109 @@
         ],
         "responses": {
           "200": {
-            "description": "Default Response"
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "format": "uuid",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "description": "Object containing the links to the related endpoints",
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the request itself",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "description": "It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2'",
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "description": "Number representing the total number of available items",
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
           },
           "5XX": {
             "description": "Default Response",
@@ -2080,13 +2393,114 @@
             },
             "in": "path",
             "name": "providerId",
-            "required": true,
-            "description": "Unique id of the provider to be deleted"
+            "required": true
           }
         ],
         "responses": {
           "200": {
-            "description": "Default Response"
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "format": "uuid",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "description": "Object containing the links to the related endpoints",
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the request itself",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "description": "It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2'",
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "description": "Number representing the total number of available items",
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
           },
           "5XX": {
             "description": "Default Response",
@@ -2582,13 +2996,90 @@
                       "properties": {
                         "id": {
                           "format": "uuid",
-                          "description": "Unique id of the created message",
                           "type": "string"
                         }
                       },
                       "required": [
                         "id"
                       ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "description": "Object containing the links to the related endpoints",
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the request itself",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "description": "It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2'",
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "description": "Number representing the total number of available items",
+                          "type": "number"
+                        }
+                      }
                     }
                   },
                   "required": [
@@ -3116,7 +3607,109 @@
         ],
         "responses": {
           "200": {
-            "description": "Default Response"
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "format": "uuid",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "description": "Object containing the links to the related endpoints",
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the request itself",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "description": "It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2'",
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "description": "Number representing the total number of available items",
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
           },
           "4XX": {
             "description": "Default Response",
@@ -3250,7 +3843,109 @@
         ],
         "responses": {
           "200": {
-            "description": "Default Response"
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "format": "uuid",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "description": "Object containing the links to the related endpoints",
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the request itself",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "description": "It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2'",
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "description": "Number representing the total number of available items",
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
           },
           "4XX": {
             "description": "Default Response",
@@ -7766,10 +8461,11 @@
         "tags": [
           "Message events"
         ],
-        "description": "Returns the selected event id",
+        "description": "Returns the selected event",
         "parameters": [
           {
             "schema": {
+              "format": "uuid",
               "type": "string"
             },
             "in": "path",
@@ -8074,7 +8770,7 @@
         }
       }
     },
-    "/api/v1/jobs/{id}": {
+    "/api/v1/jobs/{jobId}": {
       "post": {
         "tags": [
           "Jobs"
@@ -8102,10 +8798,11 @@
         "parameters": [
           {
             "schema": {
+              "format": "uuid",
               "type": "string"
             },
             "in": "path",
-            "name": "id",
+            "name": "jobId",
             "required": true
           }
         ],
@@ -8259,6 +8956,7 @@
         "parameters": [
           {
             "schema": {
+              "format": "uuid",
               "type": "string"
             },
             "in": "path",

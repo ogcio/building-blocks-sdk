@@ -467,6 +467,30 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/admin/email-subscription/{subscription}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Subscribe to email subscription
+         * @description Subscribe to email subscription e.g. monthly productivity report. By default everyone is subscribed. This API is mostly used by hosted Unleash.
+         */
+        put: operations["subscribeEmailSubscription"];
+        post?: never;
+        /**
+         * Unsubscribe from email subscription
+         * @description Unsubscribe from email subscription e.g. monthly productivity report. This API is mostly used by hosted Unleash.
+         */
+        delete: operations["unsubscribeEmailSubscription"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/admin/dashboard/executive": {
         parameters: {
             query?: never;
@@ -1361,7 +1385,7 @@ export interface paths {
         };
         /**
          * Gets configured context fields
-         * @description Returns all configured [Context fields](https://docs.getunleash.io/how-to/how-to-define-custom-context-fields) that have been created.
+         * @description Returns all configured [Context fields](https://docs.getunleash.io/reference/unleash-context) that have been created.
          */
         get: operations["getContextFields"];
         put?: never;
@@ -2605,7 +2629,7 @@ export interface paths {
         put?: never;
         /**
          * Set environment-default strategy
-         * @description Sets a default strategy for this environment. Unleash will use this strategy by default when enabling a toggle. Use the wild card "*" for `:environment` to add to all environments.
+         * @description Sets a default strategy for this environment. Unleash will use this strategy by default when enabling a feature flag. Use the wild card "*" for `:environment` to add to all environments.
          */
         post: operations["addDefaultStrategyToProjectEnvironment"];
         delete?: never;
@@ -2623,6 +2647,7 @@ export interface paths {
         };
         /**
          * Get a health report for a project.
+         * @deprecated
          * @description This endpoint returns a health report for the specified project. This data is used for [the technical debt dashboard](https://docs.getunleash.io/reference/technical-debt#the-technical-debt-dashboard)
          */
         get: operations["getProjectHealthReport"];
@@ -2863,6 +2888,26 @@ export interface paths {
          * @description This endpoint returns insights into the specified projects stats, health, lead time for changes, feature types used, members and change requests.
          */
         get: operations["getProjectInsights"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin/projects/{projectId}/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get project status
+         * @description This endpoint returns information on the status the project, including activities, health, resources, and aggregated flag lifecycle data.
+         */
+        get: operations["getProjectStatus"];
         put?: never;
         post?: never;
         delete?: never;
@@ -3504,6 +3549,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/client/features/delta": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get partial updates (SDK)
+         * @description Initially returns the full set of feature flags available to the provided API key. When called again with the returned etag, only returns the flags that have changed
+         */
+        get: operations["getDelta"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/client/features/{featureName}": {
         parameters: {
             query?: never;
@@ -3869,7 +3934,7 @@ export interface components {
              */
             howTo?: string;
             /**
-             * @description A list of [Unleash tag types](https://docs.getunleash.io/reference/tags#tag-types) that this addon uses. These tags will be added to the Unleash instance when an addon of this type is created.
+             * @description A list of [Unleash tag types](https://docs.getunleash.io/reference/feature-toggles#tags) that this addon uses. These tags will be added to the Unleash instance when an addon of this type is created.
              * @example [
              *       {
              *         "name": "slack",
@@ -5203,7 +5268,7 @@ export interface components {
              */
             replaceGroupId?: boolean;
         };
-        /** @description A strategy constraint. For more information, refer to [the strategy constraint reference documentation](https://docs.getunleash.io/reference/strategy-constraints) */
+        /** @description A strategy constraint. For more information, refer to [the strategy constraint reference documentation](https://docs.getunleash.io/reference/activation-strategies#constraints) */
         constraintSchema: {
             /**
              * @description The name of the context field that this constraint should apply to.
@@ -5211,7 +5276,7 @@ export interface components {
              */
             contextName: string;
             /**
-             * @description The operator to use when evaluating this constraint. For more information about the various operators, refer to [the strategy constraint operator documentation](https://docs.getunleash.io/reference/strategy-constraints#strategy-constraint-operators).
+             * @description The operator to use when evaluating this constraint. For more information about the various operators, refer to [the strategy constraint operator documentation](https://docs.getunleash.io/reference/activation-strategies#constraint-operators).
              * @example IN
              * @enum {string}
              */
@@ -5578,7 +5643,7 @@ export interface components {
              */
             sortOrder?: number;
             /**
-             * @description A list of the constraints attached to the strategy. See https://docs.getunleash.io/reference/strategy-constraints
+             * @description A list of the constraints attached to the strategy. See https://docs.getunleash.io/reference/activation-strategies#constraints
              * @example [
              *       {
              *         "values": [
@@ -5776,7 +5841,7 @@ export interface components {
                 value: string;
             };
         };
-        /** @description Data used to create a new [tag](https://docs.getunleash.io/reference/tags) */
+        /** @description Data used to create a new [tag](https://docs.getunleash.io/reference/feature-toggles#tags) */
         createTagSchema: {
             /**
              * @description The value of the tag. The value must be between 2 and 50 characters long. Leading and trailing whitespace is ignored and will be trimmed before saving the tag value.
@@ -5784,7 +5849,7 @@ export interface components {
              */
             value: string;
             /**
-             * @description The [type](https://docs.getunleash.io/reference/tags#tag-types) of the tag
+             * @description The [type](https://docs.getunleash.io/reference/feature-toggles#tags) of the tag
              * @example simple
              */
             type: string;
@@ -5863,6 +5928,16 @@ export interface components {
              * @example 01HTMEXAMPLESCIMID7SWWGHN6
              */
             scimId?: string | null;
+            /**
+             * @description Count of active browser sessions for this user
+             * @example 2
+             */
+            activeSessions?: number | null;
+            /**
+             * @description Experimental. The number of deleted browser sessions after last login
+             * @example 1
+             */
+            deletedSessions?: number;
         };
         /** @description The payload must contain at least one of the name and email properties, though which one is up to you. For the user to be able to log in to the system, the user must have an email. */
         createUserSchema: {
@@ -6016,7 +6091,7 @@ export interface components {
              * @example feature-created
              * @enum {string}
              */
-            type?: "application-created" | "feature-created" | "feature-deleted" | "feature-updated" | "feature-metadata-updated" | "feature-variants-updated" | "feature-environment-variants-updated" | "feature-project-change" | "feature-archived" | "feature-revived" | "feature-import" | "feature-tagged" | "feature-tag-import" | "feature-strategy-update" | "feature-strategy-add" | "feature-strategy-remove" | "feature-type-updated" | "feature-completed" | "feature-uncompleted" | "strategy-order-changed" | "drop-feature-tags" | "feature-untagged" | "feature-stale-on" | "feature-stale-off" | "drop-features" | "feature-environment-enabled" | "feature-environment-disabled" | "strategy-created" | "strategy-deleted" | "strategy-deprecated" | "strategy-reactivated" | "strategy-updated" | "strategy-import" | "drop-strategies" | "context-field-created" | "context-field-updated" | "context-field-deleted" | "project-access-added" | "project-access-user-roles-updated" | "project-access-group-roles-updated" | "project-access-user-roles-deleted" | "project-access-group-roles-deleted" | "project-access-updated" | "project-created" | "project-updated" | "project-deleted" | "project-archived" | "project-revived" | "project-import" | "project-user-added" | "project-user-removed" | "project-user-role-changed" | "project-group-role-changed" | "project-group-added" | "project-group-removed" | "role-created" | "role-updated" | "role-deleted" | "drop-projects" | "tag-created" | "tag-deleted" | "tag-import" | "drop-tags" | "tag-type-created" | "tag-type-deleted" | "tag-type-updated" | "tag-type-import" | "drop-tag-types" | "addon-config-created" | "addon-config-updated" | "addon-config-deleted" | "db-pool-update" | "user-created" | "user-updated" | "user-deleted" | "drop-environments" | "environment-import" | "environment-created" | "environment-updated" | "environment-deleted" | "segment-created" | "segment-updated" | "segment-deleted" | "group-created" | "group-updated" | "group-deleted" | "group-user-added" | "group-user-removed" | "setting-created" | "setting-updated" | "setting-deleted" | "client-metrics" | "client-register" | "pat-created" | "pat-deleted" | "public-signup-token-created" | "public-signup-token-user-added" | "public-signup-token-updated" | "change-request-created" | "change-request-discarded" | "change-added" | "change-discarded" | "change-edited" | "change-request-rejected" | "change-request-approved" | "change-request-approval-added" | "change-request-cancelled" | "change-request-sent-to-review" | "change-request-schedule-suspended" | "change-request-applied" | "change-request-scheduled" | "change-request-scheduled-application-success" | "change-request-scheduled-application-failure" | "change-request-configuration-updated" | "api-token-created" | "api-token-updated" | "api-token-deleted" | "feature-favorited" | "feature-unfavorited" | "project-favorited" | "project-unfavorited" | "features-exported" | "features-imported" | "service-account-created" | "service-account-deleted" | "service-account-updated" | "feature-potentially-stale-on" | "feature-dependency-added" | "feature-dependency-removed" | "feature-dependencies-removed" | "banner-created" | "banner-updated" | "banner-deleted" | "project-environment-added" | "project-environment-removed" | "default-strategy-updated" | "segment-import" | "signal-endpoint-created" | "signal-endpoint-updated" | "signal-endpoint-deleted" | "signal-endpoint-token-created" | "signal-endpoint-token-updated" | "signal-endpoint-token-deleted" | "actions-created" | "actions-updated" | "actions-deleted";
+            type?: "application-created" | "feature-created" | "feature-deleted" | "feature-updated" | "feature-metadata-updated" | "feature-variants-updated" | "feature-environment-variants-updated" | "feature-project-change" | "feature-archived" | "feature-revived" | "feature-import" | "feature-tagged" | "feature-tag-import" | "feature-strategy-update" | "feature-strategy-add" | "feature-strategy-remove" | "feature-type-updated" | "feature-completed" | "feature-uncompleted" | "strategy-order-changed" | "drop-feature-tags" | "feature-untagged" | "feature-stale-on" | "feature-stale-off" | "drop-features" | "feature-environment-enabled" | "feature-environment-disabled" | "strategy-created" | "strategy-deleted" | "strategy-deprecated" | "strategy-reactivated" | "strategy-updated" | "strategy-import" | "drop-strategies" | "context-field-created" | "context-field-updated" | "context-field-deleted" | "project-access-added" | "project-access-user-roles-updated" | "project-access-group-roles-updated" | "project-access-user-roles-deleted" | "project-access-group-roles-deleted" | "project-access-updated" | "project-created" | "project-updated" | "project-deleted" | "project-archived" | "project-revived" | "project-import" | "project-user-added" | "project-user-removed" | "project-user-role-changed" | "project-group-role-changed" | "project-group-added" | "project-group-removed" | "role-created" | "role-updated" | "role-deleted" | "drop-projects" | "tag-created" | "tag-deleted" | "tag-import" | "drop-tags" | "tag-type-created" | "tag-type-deleted" | "tag-type-updated" | "tag-type-import" | "drop-tag-types" | "addon-config-created" | "addon-config-updated" | "addon-config-deleted" | "db-pool-update" | "user-created" | "user-updated" | "user-deleted" | "drop-environments" | "environment-import" | "environment-created" | "environment-updated" | "environment-deleted" | "segment-created" | "segment-updated" | "segment-deleted" | "group-created" | "group-updated" | "group-deleted" | "group-user-added" | "group-user-removed" | "setting-created" | "setting-updated" | "setting-deleted" | "client-metrics" | "client-register" | "pat-created" | "pat-deleted" | "public-signup-token-created" | "public-signup-token-user-added" | "public-signup-token-updated" | "change-request-created" | "change-request-discarded" | "change-added" | "change-discarded" | "change-edited" | "change-request-rejected" | "change-request-approved" | "change-request-approval-added" | "change-request-cancelled" | "change-request-sent-to-review" | "change-request-schedule-suspended" | "change-request-applied" | "change-request-scheduled" | "change-request-scheduled-application-success" | "change-request-scheduled-application-failure" | "change-request-configuration-updated" | "api-token-created" | "api-token-updated" | "api-token-deleted" | "feature-favorited" | "feature-unfavorited" | "project-favorited" | "project-unfavorited" | "features-exported" | "features-imported" | "service-account-created" | "service-account-deleted" | "service-account-updated" | "feature-potentially-stale-on" | "feature-dependency-added" | "feature-dependency-removed" | "feature-dependencies-removed" | "banner-created" | "banner-updated" | "banner-deleted" | "project-environment-added" | "project-environment-removed" | "default-strategy-updated" | "segment-import" | "signal-endpoint-created" | "signal-endpoint-updated" | "signal-endpoint-deleted" | "signal-endpoint-token-created" | "signal-endpoint-token-updated" | "signal-endpoint-token-deleted" | "actions-created" | "actions-updated" | "actions-deleted" | "release-plan-template-created" | "release-plan-template-updated" | "release-plan-template-deleted" | "release-plan-added" | "release-plan-removed" | "release-plan-milestone-started" | "user-preference-updated";
             /**
              * @description Find events by project ID (case-sensitive).
              * @example default
@@ -6213,7 +6288,7 @@ export interface components {
              * @example feature-created
              * @enum {string}
              */
-            type: "application-created" | "feature-created" | "feature-deleted" | "feature-updated" | "feature-metadata-updated" | "feature-variants-updated" | "feature-environment-variants-updated" | "feature-project-change" | "feature-archived" | "feature-revived" | "feature-import" | "feature-tagged" | "feature-tag-import" | "feature-strategy-update" | "feature-strategy-add" | "feature-strategy-remove" | "feature-type-updated" | "feature-completed" | "feature-uncompleted" | "strategy-order-changed" | "drop-feature-tags" | "feature-untagged" | "feature-stale-on" | "feature-stale-off" | "drop-features" | "feature-environment-enabled" | "feature-environment-disabled" | "strategy-created" | "strategy-deleted" | "strategy-deprecated" | "strategy-reactivated" | "strategy-updated" | "strategy-import" | "drop-strategies" | "context-field-created" | "context-field-updated" | "context-field-deleted" | "project-access-added" | "project-access-user-roles-updated" | "project-access-group-roles-updated" | "project-access-user-roles-deleted" | "project-access-group-roles-deleted" | "project-access-updated" | "project-created" | "project-updated" | "project-deleted" | "project-archived" | "project-revived" | "project-import" | "project-user-added" | "project-user-removed" | "project-user-role-changed" | "project-group-role-changed" | "project-group-added" | "project-group-removed" | "role-created" | "role-updated" | "role-deleted" | "drop-projects" | "tag-created" | "tag-deleted" | "tag-import" | "drop-tags" | "tag-type-created" | "tag-type-deleted" | "tag-type-updated" | "tag-type-import" | "drop-tag-types" | "addon-config-created" | "addon-config-updated" | "addon-config-deleted" | "db-pool-update" | "user-created" | "user-updated" | "user-deleted" | "drop-environments" | "environment-import" | "environment-created" | "environment-updated" | "environment-deleted" | "segment-created" | "segment-updated" | "segment-deleted" | "group-created" | "group-updated" | "group-deleted" | "group-user-added" | "group-user-removed" | "setting-created" | "setting-updated" | "setting-deleted" | "client-metrics" | "client-register" | "pat-created" | "pat-deleted" | "public-signup-token-created" | "public-signup-token-user-added" | "public-signup-token-updated" | "change-request-created" | "change-request-discarded" | "change-added" | "change-discarded" | "change-edited" | "change-request-rejected" | "change-request-approved" | "change-request-approval-added" | "change-request-cancelled" | "change-request-sent-to-review" | "change-request-schedule-suspended" | "change-request-applied" | "change-request-scheduled" | "change-request-scheduled-application-success" | "change-request-scheduled-application-failure" | "change-request-configuration-updated" | "api-token-created" | "api-token-updated" | "api-token-deleted" | "feature-favorited" | "feature-unfavorited" | "project-favorited" | "project-unfavorited" | "features-exported" | "features-imported" | "service-account-created" | "service-account-deleted" | "service-account-updated" | "feature-potentially-stale-on" | "feature-dependency-added" | "feature-dependency-removed" | "feature-dependencies-removed" | "banner-created" | "banner-updated" | "banner-deleted" | "project-environment-added" | "project-environment-removed" | "default-strategy-updated" | "segment-import" | "signal-endpoint-created" | "signal-endpoint-updated" | "signal-endpoint-deleted" | "signal-endpoint-token-created" | "signal-endpoint-token-updated" | "signal-endpoint-token-deleted" | "actions-created" | "actions-updated" | "actions-deleted";
+            type: "application-created" | "feature-created" | "feature-deleted" | "feature-updated" | "feature-metadata-updated" | "feature-variants-updated" | "feature-environment-variants-updated" | "feature-project-change" | "feature-archived" | "feature-revived" | "feature-import" | "feature-tagged" | "feature-tag-import" | "feature-strategy-update" | "feature-strategy-add" | "feature-strategy-remove" | "feature-type-updated" | "feature-completed" | "feature-uncompleted" | "strategy-order-changed" | "drop-feature-tags" | "feature-untagged" | "feature-stale-on" | "feature-stale-off" | "drop-features" | "feature-environment-enabled" | "feature-environment-disabled" | "strategy-created" | "strategy-deleted" | "strategy-deprecated" | "strategy-reactivated" | "strategy-updated" | "strategy-import" | "drop-strategies" | "context-field-created" | "context-field-updated" | "context-field-deleted" | "project-access-added" | "project-access-user-roles-updated" | "project-access-group-roles-updated" | "project-access-user-roles-deleted" | "project-access-group-roles-deleted" | "project-access-updated" | "project-created" | "project-updated" | "project-deleted" | "project-archived" | "project-revived" | "project-import" | "project-user-added" | "project-user-removed" | "project-user-role-changed" | "project-group-role-changed" | "project-group-added" | "project-group-removed" | "role-created" | "role-updated" | "role-deleted" | "drop-projects" | "tag-created" | "tag-deleted" | "tag-import" | "drop-tags" | "tag-type-created" | "tag-type-deleted" | "tag-type-updated" | "tag-type-import" | "drop-tag-types" | "addon-config-created" | "addon-config-updated" | "addon-config-deleted" | "db-pool-update" | "user-created" | "user-updated" | "user-deleted" | "drop-environments" | "environment-import" | "environment-created" | "environment-updated" | "environment-deleted" | "segment-created" | "segment-updated" | "segment-deleted" | "group-created" | "group-updated" | "group-deleted" | "group-user-added" | "group-user-removed" | "setting-created" | "setting-updated" | "setting-deleted" | "client-metrics" | "client-register" | "pat-created" | "pat-deleted" | "public-signup-token-created" | "public-signup-token-user-added" | "public-signup-token-updated" | "change-request-created" | "change-request-discarded" | "change-added" | "change-discarded" | "change-edited" | "change-request-rejected" | "change-request-approved" | "change-request-approval-added" | "change-request-cancelled" | "change-request-sent-to-review" | "change-request-schedule-suspended" | "change-request-applied" | "change-request-scheduled" | "change-request-scheduled-application-success" | "change-request-scheduled-application-failure" | "change-request-configuration-updated" | "api-token-created" | "api-token-updated" | "api-token-deleted" | "feature-favorited" | "feature-unfavorited" | "project-favorited" | "project-unfavorited" | "features-exported" | "features-imported" | "service-account-created" | "service-account-deleted" | "service-account-updated" | "feature-potentially-stale-on" | "feature-dependency-added" | "feature-dependency-removed" | "feature-dependencies-removed" | "banner-created" | "banner-updated" | "banner-deleted" | "project-environment-added" | "project-environment-removed" | "default-strategy-updated" | "segment-import" | "signal-endpoint-created" | "signal-endpoint-updated" | "signal-endpoint-deleted" | "signal-endpoint-token-created" | "signal-endpoint-token-updated" | "signal-endpoint-token-deleted" | "actions-created" | "actions-updated" | "actions-deleted" | "release-plan-template-created" | "release-plan-template-updated" | "release-plan-template-deleted" | "release-plan-added" | "release-plan-removed" | "release-plan-milestone-started" | "user-preference-updated";
             /**
              * @description Which user created this event
              * @example johndoe
@@ -6271,9 +6346,9 @@ export interface components {
             preData?: Record<string, never>;
             /** @description Any tags related to the event, if applicable. */
             tags?: components["schemas"]["tagSchema"][] | null;
-            /** @description **[Experimental]** The concise, human-readable name of the event. */
+            /** @description The concise, human-readable name of the event. */
             label?: string | null;
-            /** @description **[Experimental]** A markdown-formatted summary of the event. */
+            /** @description A markdown-formatted summary of the event. */
             summary?: string | null;
         };
         /** @description A list of events that have been registered by the system */
@@ -6877,11 +6952,6 @@ export interface components {
              */
             dependencyType: "parent" | "child" | null;
             /**
-             * @description `true` if the feature is archived
-             * @example true
-             */
-            archived?: boolean;
-            /**
              * @description Name of the project the feature belongs to
              * @example dx-squad
              */
@@ -6912,7 +6982,7 @@ export interface components {
              * @description The date the feature was archived
              * @example 2023-01-29T15:21:39.975Z
              */
-            archivedAt?: string | null;
+            archivedAt: string | null;
             /**
              * Format: date-time
              * @deprecated
@@ -7021,7 +7091,7 @@ export interface components {
              *     ]
              */
             segments?: number[];
-            /** @description A list of the constraints attached to the strategy. See https://docs.getunleash.io/reference/strategy-constraints */
+            /** @description A list of the constraints attached to the strategy. See https://docs.getunleash.io/reference/activation-strategies#constraints */
             constraints?: components["schemas"]["constraintSchema"][];
             /** @description Strategy level variants */
             variants?: components["schemas"]["strategyVariantSchema"][];
@@ -7048,7 +7118,7 @@ export interface components {
              */
             featureName: string;
             /**
-             * @description The [type](https://docs.getunleash.io/reference/tags#tag-types tag types) of the tag
+             * @description The [type](https://docs.getunleash.io/reference/feature-toggles#tags tag types) of the tag
              * @example simple
              */
             tagType?: string;
@@ -7059,7 +7129,7 @@ export interface components {
             tagValue: string;
             /**
              * @deprecated
-             * @description The [type](https://docs.getunleash.io/reference/tags#tag-types tag types) of the tag. This property is deprecated and will be removed in a future version of Unleash. Superseded by the `tagType` property.
+             * @description The [type](https://docs.getunleash.io/reference/feature-toggles#tags tag types) of the tag. This property is deprecated and will be removed in a future version of Unleash. Superseded by the `tagType` property.
              */
             type?: string;
             /**
@@ -7768,6 +7838,11 @@ export interface components {
                  */
                 last90?: number;
             };
+            /**
+             * @description The number of users who had access to Unleash within the last 30 days, including those who may have been deleted during this period.
+             * @example 10
+             */
+            licensedUsers?: number;
             /** @description The number of changes to the production environment in the last 30, 60 and 90 days */
             productionChanges?: {
                 /**
@@ -8361,7 +8436,7 @@ export interface components {
                 type: string;
             }[];
         };
-        /** @description A strategy constraint. For more information, refer to [the strategy constraint reference documentation](https://docs.getunleash.io/reference/strategy-constraints) */
+        /** @description A strategy constraint. For more information, refer to [the strategy constraint reference documentation](https://docs.getunleash.io/reference/activation-strategies#constraints) */
         playgroundConstraintSchema: {
             /**
              * @description The name of the context field that this constraint should apply to.
@@ -8369,7 +8444,7 @@ export interface components {
              */
             contextName: string;
             /**
-             * @description The operator to use when evaluating this constraint. For more information about the various operators, refer to [the strategy constraint operator documentation](https://docs.getunleash.io/reference/strategy-constraints#strategy-constraint-operators).
+             * @description The operator to use when evaluating this constraint. For more information about the various operators, refer to [the strategy constraint operator documentation](https://docs.getunleash.io/reference/activation-strategies#constraint-operators).
              * @example IN
              * @enum {string}
              */
@@ -8477,14 +8552,14 @@ export interface components {
             /** @description The feature variants. */
             variants: components["schemas"]["variantSchema"][];
         };
-        /** @description Data for the playground API to evaluate toggles */
+        /** @description Data for the playground API to evaluate feature flags */
         playgroundRequestSchema: {
             /**
-             * @description The environment to evaluate toggles in.
+             * @description The environment to evaluate feature flags in.
              * @example development
              */
             environment: string;
-            /** @description A list of projects to check for toggles in. */
+            /** @description A list of projects to check for feature flags in. */
             projects?: string[] | "*";
             context: components["schemas"]["sdkContextSchema"];
         };
@@ -8609,11 +8684,28 @@ export interface components {
              */
             projects: string[];
             /**
+             * @description Which email subscriptions this user is subscribed to
+             * @example [
+             *       "productivity-report"
+             *     ]
+             */
+            subscriptions: string[];
+            /**
              * @description Deprecated, always returns empty array
              * @example []
              */
             features: components["schemas"]["featureSchema"][];
         };
+        /** @description An array of project activity information. Each item contains a date and the total number of activities for that date. */
+        projectActivitySchema: {
+            /**
+             * @description Activity date
+             * @example 2022-12-14
+             */
+            date: string;
+            /** @description Activity count */
+            count: number;
+        }[];
         /** @description A project application instance. */
         projectApplicationSchema: {
             /** @description Name of the application that is using the SDK. This is the same as the appName in the SDK configuration. */
@@ -9114,6 +9206,101 @@ export interface components {
              * @example 1
              */
             projectMembersAddedCurrentWindow: number;
+        };
+        /** @description Schema representing the overall status of a project, including an array of activity records. Each record in the activity array contains a date and a count, providing a snapshot of the project’s activity level over time. */
+        projectStatusSchema: {
+            /** @description Array of activity records with date and count, representing the project’s daily activity statistics. */
+            activityCountByDate: components["schemas"]["projectActivitySchema"];
+            /** @description Information about the project's health rating */
+            health: {
+                /**
+                 * @description The project's current health score, based on the ratio of healthy flags to stale and potentially stale flags.
+                 * @example 100
+                 */
+                current: number;
+            };
+            /** @description Key resources within the project */
+            resources: {
+                /** @description The number of API tokens created specifically for this project. */
+                apiTokens: number;
+                /** @description The number of users who have been granted roles in this project. Does not include users who have access via groups. */
+                members: number;
+                /** @description The number of segments that are scoped to this project. */
+                segments: number;
+            };
+            /** @description Information on stale and potentially stale flags in this project. */
+            staleFlags: {
+                /** @description The total number of flags in this project that are stale or potentially stale. */
+                total: number;
+            };
+            /** @description Feature flag lifecycle statistics for this project. */
+            lifecycleSummary: {
+                /** @description Statistics on feature flags in a given stage in this project. */
+                initial: {
+                    /**
+                     * @description The average number of days a feature flag remains in a stage in this project. Will be null if Unleash doesn't have any data for this stage yet.
+                     * @example 5
+                     */
+                    averageDays: number | null;
+                    /**
+                     * @description The number of feature flags currently in a stage in this project.
+                     * @example 10
+                     */
+                    currentFlags: number;
+                };
+                /** @description Statistics on feature flags in a given stage in this project. */
+                preLive: {
+                    /**
+                     * @description The average number of days a feature flag remains in a stage in this project. Will be null if Unleash doesn't have any data for this stage yet.
+                     * @example 5
+                     */
+                    averageDays: number | null;
+                    /**
+                     * @description The number of feature flags currently in a stage in this project.
+                     * @example 10
+                     */
+                    currentFlags: number;
+                };
+                /** @description Statistics on feature flags in a given stage in this project. */
+                live: {
+                    /**
+                     * @description The average number of days a feature flag remains in a stage in this project. Will be null if Unleash doesn't have any data for this stage yet.
+                     * @example 5
+                     */
+                    averageDays: number | null;
+                    /**
+                     * @description The number of feature flags currently in a stage in this project.
+                     * @example 10
+                     */
+                    currentFlags: number;
+                };
+                /** @description Statistics on feature flags in a given stage in this project. */
+                completed: {
+                    /**
+                     * @description The average number of days a feature flag remains in a stage in this project. Will be null if Unleash doesn't have any data for this stage yet.
+                     * @example 5
+                     */
+                    averageDays: number | null;
+                    /**
+                     * @description The number of feature flags currently in a stage in this project.
+                     * @example 10
+                     */
+                    currentFlags: number;
+                };
+                /** @description Information on archived flags in this project. */
+                archived: {
+                    /**
+                     * @description The number of archived feature flags in this project. If a flag is deleted permanently, it will no longer be counted as part of this statistic.
+                     * @example 10
+                     */
+                    currentFlags: number;
+                    /**
+                     * @description The number of flags in this project that have been changed over the last 30 days.
+                     * @example 5
+                     */
+                    last30Days: number;
+                };
+            };
         };
         /** @description An overview of all the projects in the Unleash instance */
         projectsSchema: {
@@ -9741,7 +9928,7 @@ export interface components {
                 value: string;
             };
         };
-        /** @description Representation of a [tag](https://docs.getunleash.io/reference/tags) */
+        /** @description Representation of a [tag](https://docs.getunleash.io/reference/feature-toggles#tags) */
         tagSchema: {
             /**
              * @description The value of the tag.
@@ -9749,7 +9936,7 @@ export interface components {
              */
             value: string;
             /**
-             * @description The [type](https://docs.getunleash.io/reference/tags#tag-types) of the tag
+             * @description The [type](https://docs.getunleash.io/reference/feature-toggles#tags) of the tag
              * @example simple
              */
             type: string;
@@ -9889,6 +10076,12 @@ export interface components {
              */
             environment?: string;
             /**
+             * @description The billing model in use for this Unleash instance.
+             * @example subscription
+             * @enum {string}
+             */
+            billing?: "subscription" | "pay-as-you-go";
+            /**
              * @description The URL of the Unleash instance.
              * @example https://unleash.mycompany.com/enterprise
              */
@@ -10017,6 +10210,11 @@ export interface components {
              * @example false
              */
             unleashAIAvailable?: boolean;
+            /**
+             * @description The maximum number of sessions that a user has.
+             * @example 10
+             */
+            maxSessionsCount?: number;
         };
         /** @description An object with fields to updated for a given API token. */
         updateApiTokenSchema: {
@@ -10095,7 +10293,7 @@ export interface components {
             name?: string;
             /** @description The order of the strategy in the list in feature environment configuration */
             sortOrder?: number;
-            /** @description A list of the constraints attached to the strategy. See https://docs.getunleash.io/reference/strategy-constraints */
+            /** @description A list of the constraints attached to the strategy. See https://docs.getunleash.io/reference/activation-strategies#constraints */
             constraints?: components["schemas"]["constraintSchema"][];
             /**
              * @description A descriptive title for the strategy
@@ -10324,6 +10522,16 @@ export interface components {
              * @example 01HTMEXAMPLESCIMID7SWWGHN6
              */
             scimId?: string | null;
+            /**
+             * @description Count of active browser sessions for this user
+             * @example 2
+             */
+            activeSessions?: number | null;
+            /**
+             * @description Experimental. The number of deleted browser sessions after last login
+             * @example 1
+             */
+            deletedSessions?: number;
         };
         /** @description An overview of user groups and users. */
         usersGroupsBaseSchema: {
@@ -10536,6 +10744,11 @@ export interface components {
              */
             instanceId?: string;
         };
+        /** @description Data related to actionable change requests in a project. */
+        actionableChangeRequestsSchema: {
+            /** @description The number of actionable change requests in the project. */
+            total: number;
+        };
         /** @description Describes a single permission */
         adminPermissionSchema: {
             /**
@@ -10715,7 +10928,7 @@ export interface components {
                  * @description The environments of the permission if the permission is environment specific
                  * @example development
                  */
-                environment?: string;
+                environment?: string | null;
             }[];
         } | {
             /**
@@ -10750,7 +10963,7 @@ export interface components {
                  * @description The environments of the permission if the permission is environment specific
                  * @example development
                  */
-                environment?: string;
+                environment?: string | null;
             }[];
         };
         /** @description A list of invoices */
@@ -12212,7 +12425,142 @@ export interface components {
             scheduled: number;
         };
         /** @description A list of change requests */
-        changeRequestsSchema: components["schemas"]["changeRequestSchema"][];
+        changeRequestsSchema: ({
+            /**
+             * @description This change requests's ID.
+             * @example 3
+             */
+            id: number;
+            /**
+             * @description A title describing the change request's content.
+             * @example Increasing gradual rollout
+             */
+            title?: string;
+            /**
+             * @description The environment in which the changes should be applied.
+             * @example development
+             */
+            environment: string;
+            /**
+             * @deprecated
+             * @description The minimum number of approvals required before this change request can be applied.
+             * @example 2
+             */
+            minApprovals: number;
+            /**
+             * @description The project this change request belongs to.
+             * @example unleash-project
+             */
+            project: string;
+            /** @description The list of features and their changes that relate to this change request. */
+            features: components["schemas"]["changeRequestFeatureSchema"][];
+            /** @description The list of segments and their changes that relate to this change request. */
+            segments: components["schemas"]["changeRequestSegmentChangeSchema"][];
+            /**
+             * @deprecated
+             * @description A list of approvals that this change request has received.
+             */
+            approvals?: components["schemas"]["changeRequestApprovalSchema"][];
+            /**
+             * @deprecated
+             * @description A list of rejections that this change request has received.
+             */
+            rejections?: components["schemas"]["changeRequestApprovalSchema"][];
+            /**
+             * @deprecated
+             * @description All comments that have been made on this change request.
+             */
+            comments?: components["schemas"]["changeRequestCommentSchema"][];
+            /** @description The user who created this change request. */
+            createdBy: {
+                /** @example Hunter */
+                username?: string | null;
+                /**
+                 * Format: uri
+                 * @description The URL of the user's profile image.
+                 */
+                imageUrl?: string | null;
+            };
+            /**
+             * Format: date-time
+             * @description When this change request was created.
+             * @example 2023-07-31T13:33:02Z
+             */
+            createdAt: string;
+            /**
+             * @description The current state of the change request.
+             * @enum {string}
+             */
+            state: "Draft" | "In review" | "Approved" | "Applied" | "Cancelled" | "Rejected";
+        } | {
+            /**
+             * @description This change requests's ID.
+             * @example 3
+             */
+            id: number;
+            /**
+             * @description A title describing the change request's content.
+             * @example Increasing gradual rollout
+             */
+            title?: string;
+            /**
+             * @description The environment in which the changes should be applied.
+             * @example development
+             */
+            environment: string;
+            /**
+             * @deprecated
+             * @description The minimum number of approvals required before this change request can be applied.
+             * @example 2
+             */
+            minApprovals: number;
+            /**
+             * @description The project this change request belongs to.
+             * @example unleash-project
+             */
+            project: string;
+            /** @description The list of features and their changes that relate to this change request. */
+            features: components["schemas"]["changeRequestFeatureSchema"][];
+            /** @description The list of segments and their changes that relate to this change request. */
+            segments: components["schemas"]["changeRequestSegmentChangeSchema"][];
+            /**
+             * @deprecated
+             * @description A list of approvals that this change request has received.
+             */
+            approvals?: components["schemas"]["changeRequestApprovalSchema"][];
+            /**
+             * @deprecated
+             * @description A list of rejections that this change request has received.
+             */
+            rejections?: components["schemas"]["changeRequestApprovalSchema"][];
+            /**
+             * @deprecated
+             * @description All comments that have been made on this change request.
+             */
+            comments?: components["schemas"]["changeRequestCommentSchema"][];
+            /** @description The user who created this change request. */
+            createdBy: {
+                /** @example Hunter */
+                username?: string | null;
+                /**
+                 * Format: uri
+                 * @description The URL of the user's profile image.
+                 */
+                imageUrl?: string | null;
+            };
+            /**
+             * Format: date-time
+             * @description When this change request was created.
+             * @example 2023-07-31T13:33:02Z
+             */
+            createdAt: string;
+            /**
+             * @description The current state of the change request.
+             * @enum {string}
+             */
+            state: "Scheduled";
+            schedule: components["schemas"]["changeRequestScheduleSchema"];
+        })[];
         /** @description A schedule for a change request's application. The schedule can either be pending, failed, or suspended. The schedule will always contain the state of the schedule and the last scheduled time, but other data varies between the different states. */
         changeRequestScheduleSchema: {
             /**
@@ -13102,6 +13450,38 @@ export interface components {
              * @example Your license expired 3 days ago
              */
             message?: string;
+        };
+        /** @description A schema representing a single licensed user data point. */
+        licensedUserSchema: {
+            /**
+             * Format: date-time
+             * @description The date associated with the licensed users count.
+             * @example 2024-10-01T00:00:00.000Z
+             */
+            date: string;
+            /**
+             * @description The count of licensed users on the given date.
+             * @example 100
+             */
+            count: number;
+        };
+        /** @description A response model representing user license data. */
+        licensedUsersSchema: {
+            /**
+             * @description The total number of licensed seats currently available for this Unleash instance.
+             * @example 25
+             */
+            seatCount: number;
+            /** @description An object containing historical and current licensed user data. */
+            licensedUsers: {
+                /** @description A monthly history of licensed user counts. */
+                history: components["schemas"]["licensedUserSchema"][];
+                /**
+                 * @description The current number of licenses in use.
+                 * @example 25
+                 */
+                current: number;
+            };
         };
         /** @description An object describing a signal. */
         signalSchema: {
@@ -14122,31 +14502,381 @@ export interface components {
              */
             sourceDescription?: string | null;
         };
-        /** @description A request for hosted customers to order new environments in Unleash. */
-        orderEnvironmentsSchema: {
+        /** @description Schema representing the creation of a release plan. */
+        releasePlanSchema: {
             /**
-             * @description An array of environments to be ordered, each with a name and type.
+             * @description The release plan/template's ID. Release template IDs are ulids.
+             * @example 01JB9GGTGQYEQ9D40R17T3YVW2
+             */
+            id: string;
+            /**
+             * @description A field to distinguish between release plans and release templates.
+             * @example plan
+             * @enum {string}
+             */
+            discriminator: "plan";
+            /**
+             * @description The name of the release template.
+             * @example My release plan
+             */
+            name: string;
+            /**
+             * @description A description of the release template.
+             * @example This is my release plan
+             */
+            description?: string | null;
+            /**
+             * @description The name of the feature that uses this release plan.
+             * @example my-feature
+             */
+            featureName: string;
+            /**
+             * @description The environment that this release plan is for.
+             * @example production
+             */
+            environment: string;
+            /**
+             * @description Release template: The ID of the user who created this template.
+             * @example 53
+             */
+            createdByUserId: number;
+            /**
+             * Format: date-time
+             * @description The date and time that the release template was created.
+             * @example 2022-01-01T00:00:00Z
+             */
+            createdAt: string;
+            /**
+             * @description The ID of the currently active milestone in this release plan.
+             * @example 01JB9GGTGQYEQ9D40R17T3YVW1
+             */
+            activeMilestoneId?: string | null;
+            /** @description A list of the milestones in this release template. */
+            milestones: components["schemas"]["releasePlanMilestoneSchema"][];
+            /**
+             * @description The ID of the release plan template that this release plan is based on.
+             * @example 01JB9GGTGQYEQ9D40R17T3YVW2
+             */
+            releasePlanTemplateId: string;
+        };
+        /** @description Schema representing the creation of a release template. */
+        releasePlanTemplateSchema: {
+            /**
+             * @description The release plan/template's ID. Release template IDs are ulids.
+             * @example 01JB9GGTGQYEQ9D40R17T3YVW2
+             */
+            id: string;
+            /**
+             * @description A field to distinguish between release plans and release templates.
+             * @example template
+             * @enum {string}
+             */
+            discriminator: "template";
+            /**
+             * @description The name of the release template.
+             * @example My release plan
+             */
+            name: string;
+            /**
+             * @description A description of the release template.
+             * @example This is my release plan
+             */
+            description?: string | null;
+            /**
+             * @description Release template: The ID of the user who created this template.
+             * @example 53
+             */
+            createdByUserId: number;
+            /**
+             * Format: date-time
+             * @description The date and time that the release template was created.
+             * @example 2022-01-01T00:00:00Z
+             */
+            createdAt: string;
+            /** @description A list of the milestones in this release template. */
+            milestones?: components["schemas"]["releasePlanMilestoneSchema"][];
+        };
+        /** @description Schema representing the creation of a release plan milestone. */
+        releasePlanMilestoneSchema: {
+            /**
+             * @description The milestone's ID. Milestone IDs are ulids.
+             * @example 01JB9GGTGQYEQ9D40R17T3YVW1
+             */
+            id: string;
+            /**
+             * @description The name of the milestone.
+             * @example My milestone
+             */
+            name: string;
+            /**
+             * @description The order of the milestone in the release plan.
+             * @example 1
+             */
+            sortOrder: number;
+            /**
+             * @description The ID of the release plan/template that this milestone belongs to.
+             * @example 01JB9GGTGQYEQ9D40R17T3YVW2
+             */
+            releasePlanDefinitionId: string;
+            /** @description A list of strategies that are attached to this milestone. */
+            strategies?: components["schemas"]["releasePlanMilestoneStrategySchema"][];
+        };
+        /** @description Schema representing the creation of a release plan milestone strategy. */
+        releasePlanMilestoneStrategySchema: {
+            /**
+             * @description The milestone strategy's ID. Milestone strategy IDs are ulids.
+             * @example 01JB9GGTGQYEQ9D40R17T3YVW3
+             */
+            id: string;
+            /**
+             * @description The ID of the milestone that this strategy belongs to.
+             * @example 01JB9GGTGQYEQ9D40R17T3YVW1
+             */
+            milestoneId: string;
+            /**
+             * @description The order of the strategy in the list
+             * @example 9999
+             */
+            sortOrder: number;
+            /**
+             * @description A descriptive title for the strategy
+             * @example Gradual Rollout 25-Prod
+             */
+            title?: string | null;
+            /**
+             * @description The name of the strategy type
+             * @example flexibleRollout
+             */
+            strategyName: string;
+            /**
+             * @description An object containing the parameters for the strategy
+             * @example {
+             *       "groupId": "some_new",
+             *       "rollout": "25",
+             *       "stickiness": "sessionId"
+             *     }
+             */
+            parameters?: components["schemas"]["parametersSchema"];
+            /**
+             * @description A list of the constraints attached to the strategy. See https://docs.getunleash.io/reference/activation-strategies#constraints
              * @example [
              *       {
-             *         "name": "development",
-             *         "type": "test"
-             *       },
-             *       {
-             *         "name": "production",
-             *         "type": "live"
-             *       },
-             *       {
-             *         "name": "staging",
-             *         "type": "pre-prod"
+             *         "values": [
+             *           "1",
+             *           "2"
+             *         ],
+             *         "inverted": false,
+             *         "operator": "IN",
+             *         "contextName": "appName",
+             *         "caseInsensitive": false
              *       }
              *     ]
              */
-            environments: {
-                /** @description The name of the environment. */
-                name: string;
-                /** @description The type of the environment. */
-                type: string;
-            }[];
+            constraints?: components["schemas"]["constraintSchema"][];
+            /** @description Strategy level variants */
+            variants?: components["schemas"]["createStrategyVariantSchema"][];
+            /**
+             * @description Ids of segments to use for this strategy
+             * @example [
+             *       1,
+             *       2
+             *     ]
+             */
+            segments?: number[];
+        };
+        /** @description Schema representing the creation of a release template. */
+        createReleasePlanTemplateSchema: {
+            /**
+             * @description The name of the release template.
+             * @example My release plan
+             */
+            name: string;
+            /**
+             * @description A description of the release template.
+             * @example This is my release plan
+             */
+            description?: string | null;
+            /** @description A list of the milestones in this release template. */
+            milestones?: components["schemas"]["createReleasePlanMilestoneSchema"][];
+        };
+        /** @description Schema representing the creation of a release plan milestone. */
+        createReleasePlanMilestoneSchema: {
+            /**
+             * @description The name of the milestone.
+             * @example My milestone
+             */
+            name: string;
+            /**
+             * @description The order of the milestone in the release plan.
+             * @example 1
+             */
+            sortOrder: number;
+            /** @description A list of strategies that are attached to this milestone. */
+            strategies?: components["schemas"]["createReleasePlanMilestoneStrategySchema"][];
+        };
+        /** @description Schema representing the creation of a release plan milestone strategy. */
+        createReleasePlanMilestoneStrategySchema: {
+            /**
+             * @description The order of the strategy in the list
+             * @example 9999
+             */
+            sortOrder: number;
+            /**
+             * @description A descriptive title for the strategy
+             * @example Gradual Rollout 25-Prod
+             */
+            title?: string | null;
+            /**
+             * @description The name of the strategy type
+             * @example flexibleRollout
+             */
+            strategyName: string;
+            /**
+             * @description An object containing the parameters for the strategy
+             * @example {
+             *       "groupId": "some_new",
+             *       "rollout": "25",
+             *       "stickiness": "sessionId"
+             *     }
+             */
+            parameters?: components["schemas"]["parametersSchema"];
+            /**
+             * @description A list of the constraints attached to the strategy. See https://docs.getunleash.io/reference/activation-strategies#constraints
+             * @example [
+             *       {
+             *         "values": [
+             *           "1",
+             *           "2"
+             *         ],
+             *         "inverted": false,
+             *         "operator": "IN",
+             *         "contextName": "appName",
+             *         "caseInsensitive": false
+             *       }
+             *     ]
+             */
+            constraints?: components["schemas"]["constraintSchema"][];
+            /** @description Strategy level variants */
+            variants?: components["schemas"]["createStrategyVariantSchema"][];
+            /**
+             * @description Ids of segments to use for this strategy
+             * @example [
+             *       1,
+             *       2
+             *     ]
+             */
+            segments?: number[];
+        };
+        /** @description Schema representing the update of a release template. */
+        updateReleasePlanTemplateSchema: {
+            /**
+             * @description The release plan/template's ID. Release template IDs are ulids.
+             * @example 01JB9GGTGQYEQ9D40R17T3YVW2
+             */
+            id: string;
+            /**
+             * @description The name of the release template.
+             * @example My release plan
+             */
+            name: string;
+            /**
+             * @description A description of the release template.
+             * @example This is my release plan
+             */
+            description?: string | null;
+            /** @description A list of the milestones in this release template. */
+            milestones?: components["schemas"]["createReleasePlanMilestoneSchema"][] | null;
+        };
+        /** @description Schema representing the update of a release plan milestone. */
+        updateReleasePlanMilestoneSchema: {
+            /**
+             * @description The name of the milestone.
+             * @example My milestone
+             */
+            name: string;
+            /**
+             * @description The order of the milestone in the release plan.
+             * @example 1
+             */
+            sortOrder: number;
+            /**
+             * @description The ID of the release plan/template that this milestone belongs to.
+             * @example 01JB9GGTGQYEQ9D40R17T3YVW2
+             */
+            releasePlanDefinitionId: string;
+            /** @description A list of strategies that are attached to this milestone. */
+            strategies?: components["schemas"]["updateReleasePlanMilestoneStrategySchema"][];
+        };
+        /** @description Schema representing the update of a release plan milestone. */
+        updateReleasePlanMilestoneStrategySchema: {
+            /**
+             * @description The milestone strategy's ID. Milestone strategy IDs are ulids.
+             * @example 01JB9GGTGQYEQ9D40R17T3YVW3
+             */
+            id?: string;
+            /**
+             * @description The ID of the milestone that this strategy belongs to.
+             * @example 01JB9GGTGQYEQ9D40R17T3YVW1
+             */
+            milestoneId: string;
+            /**
+             * @description The order of the strategy in the list
+             * @example 9999
+             */
+            sortOrder: number;
+            /**
+             * @description A descriptive title for the strategy
+             * @example Gradual Rollout 25-Prod
+             */
+            title?: string | null;
+            /**
+             * @description The name of the strategy type
+             * @example flexibleRollout
+             */
+            strategyName: string;
+            /**
+             * @description An object containing the parameters for the strategy
+             * @example {
+             *       "groupId": "some_new",
+             *       "rollout": "25",
+             *       "stickiness": "sessionId"
+             *     }
+             */
+            parameters?: components["schemas"]["parametersSchema"];
+            /**
+             * @description A list of the constraints attached to the strategy. See https://docs.getunleash.io/reference/activation-strategies#constraints
+             * @example [
+             *       {
+             *         "values": [
+             *           "1",
+             *           "2"
+             *         ],
+             *         "inverted": false,
+             *         "operator": "IN",
+             *         "contextName": "appName",
+             *         "caseInsensitive": false
+             *       }
+             *     ]
+             */
+            constraints?: components["schemas"]["constraintSchema"][];
+            /** @description Strategy level variants */
+            variants?: components["schemas"]["createStrategyVariantSchema"][];
+            /**
+             * @description Ids of segments to use for this strategy
+             * @example [
+             *       1,
+             *       2
+             *     ]
+             */
+            segments?: number[];
+        };
+        /** @description Schema for creating a release plan for a feature flag environment by copying and applying the configuration from a release plan template. */
+        releasePlanTemplateIdSchema: {
+            /**
+             * @description The release plan template's ID. Release template IDs are ulids.
+             * @example 01JB9GGTGQYEQ9D40R17T3YVW2
+             */
+            templateId: string;
         };
     };
     responses: never;
@@ -16899,6 +17629,146 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["instanceInsightsSchema"];
+                };
+            };
+        };
+    };
+    subscribeEmailSubscription: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                subscription: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description This response has no body. */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`. */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example AuthenticationRequired
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at /auth/simple/login.
+                         */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description The requested resource was not found. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example NotFoundError
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example Could not find the addon with ID "12345".
+                         */
+                        message?: string;
+                    };
+                };
+            };
+        };
+    };
+    unsubscribeEmailSubscription: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                subscription: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description This response has no body. */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`. */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example AuthenticationRequired
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at /auth/simple/login.
+                         */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description The requested resource was not found. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example NotFoundError
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example Could not find the addon with ID "12345".
+                         */
+                        message?: string;
+                    };
                 };
             };
         };
@@ -20570,7 +21440,8 @@ export interface operations {
             query?: never;
             header?: never;
             path: {
-                id: string;
+                /** @description a personal access token id */
+                id: number;
             };
             cookie?: never;
         };
@@ -23338,7 +24209,8 @@ export interface operations {
             query?: never;
             header?: never;
             path: {
-                id: string;
+                /** @description a user id */
+                id: number;
             };
             cookie?: never;
         };
@@ -23831,7 +24703,8 @@ export interface operations {
             };
             header?: never;
             path: {
-                id: string;
+                /** @description a user id */
+                id: number;
             };
             cookie?: never;
         };
@@ -23996,7 +24869,8 @@ export interface operations {
             query?: never;
             header?: never;
             path: {
-                id: string;
+                /** @description a user id */
+                id: number;
             };
             cookie?: never;
         };
@@ -24093,6 +24967,7 @@ export interface operations {
             query?: never;
             header?: never;
             path: {
+                /** @description a user id */
                 id: number;
             };
             cookie?: never;
@@ -24220,7 +25095,8 @@ export interface operations {
             query?: never;
             header?: never;
             path: {
-                id: string;
+                /** @description a user id */
+                id: number;
             };
             cookie?: never;
         };
@@ -30090,6 +30966,103 @@ export interface operations {
             };
         };
     };
+    getProjectStatus: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                projectId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description projectStatusSchema */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["projectStatusSchema"];
+                };
+            };
+            /** @description Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`. */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example AuthenticationRequired
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at /auth/simple/login.
+                         */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description The provided user credentials are valid, but the user does not have the necessary permissions to perform this operation */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example NoAccessError
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example You need the "UPDATE_ADDON" permission to perform this action in the "development" environment.
+                         */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description The requested resource was not found. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example NotFoundError
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example Could not find the addon with ID "12345".
+                         */
+                        message?: string;
+                    };
+                };
+            };
+        };
+    };
     getFeatureLifecycle: {
         parameters: {
             query?: never;
@@ -32269,7 +33242,8 @@ export interface operations {
             query?: never;
             header?: never;
             path: {
-                id: string;
+                /** @description a segment id */
+                id: number;
             };
             cookie?: never;
         };
@@ -32291,7 +33265,8 @@ export interface operations {
             query?: never;
             header?: never;
             path: {
-                id: string;
+                /** @description a segment id */
+                id: number;
             };
             cookie?: never;
         };
@@ -32338,7 +33313,8 @@ export interface operations {
             query?: never;
             header?: never;
             path: {
-                id: string;
+                /** @description a segment id */
+                id: number;
             };
             cookie?: never;
         };
@@ -32488,7 +33464,8 @@ export interface operations {
             query?: never;
             header?: never;
             path: {
-                id: string;
+                /** @description a segment id */
+                id: number;
             };
             cookie?: never;
         };
@@ -32967,6 +33944,8 @@ export interface operations {
                 sortOrder?: "asc" | "desc";
                 /** @description The flag to indicate if the favorite features should be returned first. By default it is set to false. */
                 favoritesFirst?: string;
+                /** @description Whether to get results for archived feature flags or active feature flags. If `true`, Unleash will return only archived flags. If `false`, it will return only active flags. */
+                archived?: string;
                 /** @description The date the feature was created. The date can be specified with an operator. The supported operators are IS_BEFORE, IS_ON_OR_AFTER. */
                 createdAt?: string;
             };
@@ -33170,6 +34149,26 @@ export interface operations {
                          */
                         message?: string;
                     };
+                };
+            };
+        };
+    };
+    getDelta: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description clientFeaturesSchema */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["clientFeaturesSchema"];
                 };
             };
         };
