@@ -7,7 +7,7 @@
   ],
   "info": {
     "title": "Unleash API",
-    "version": "6.3.0"
+    "version": "6.5.1"
   },
   "security": [
     {
@@ -262,7 +262,7 @@
           },
           "tagTypes": {
             "type": "array",
-            "description": "A list of [Unleash tag types](https://docs.getunleash.io/reference/tags#tag-types) that this addon uses. These tags will be added to the Unleash instance when an addon of this type is created.",
+            "description": "A list of [Unleash tag types](https://docs.getunleash.io/reference/feature-toggles#tags) that this addon uses. These tags will be added to the Unleash instance when an addon of this type is created.",
             "example": [
               {
                 "name": "slack",
@@ -2255,7 +2255,7 @@
           "contextName",
           "operator"
         ],
-        "description": "A strategy constraint. For more information, refer to [the strategy constraint reference documentation](https://docs.getunleash.io/reference/strategy-constraints)",
+        "description": "A strategy constraint. For more information, refer to [the strategy constraint reference documentation](https://docs.getunleash.io/reference/activation-strategies#constraints)",
         "properties": {
           "contextName": {
             "description": "The name of the context field that this constraint should apply to.",
@@ -2263,7 +2263,7 @@
             "type": "string"
           },
           "operator": {
-            "description": "The operator to use when evaluating this constraint. For more information about the various operators, refer to [the strategy constraint operator documentation](https://docs.getunleash.io/reference/strategy-constraints#strategy-constraint-operators).",
+            "description": "The operator to use when evaluating this constraint. For more information about the various operators, refer to [the strategy constraint operator documentation](https://docs.getunleash.io/reference/activation-strategies#constraint-operators).",
             "type": "string",
             "enum": [
               "NOT_IN",
@@ -2800,7 +2800,7 @@
           },
           "constraints": {
             "type": "array",
-            "description": "A list of the constraints attached to the strategy. See https://docs.getunleash.io/reference/strategy-constraints",
+            "description": "A list of the constraints attached to the strategy. See https://docs.getunleash.io/reference/activation-strategies#constraints",
             "example": [
               {
                 "values": [
@@ -3106,7 +3106,7 @@
       },
       "createTagSchema": {
         "type": "object",
-        "description": "Data used to create a new [tag](https://docs.getunleash.io/reference/tags)",
+        "description": "Data used to create a new [tag](https://docs.getunleash.io/reference/feature-toggles#tags)",
         "additionalProperties": false,
         "required": [
           "value",
@@ -3123,7 +3123,7 @@
             "type": "string",
             "minLength": 2,
             "maxLength": 50,
-            "description": "The [type](https://docs.getunleash.io/reference/tags#tag-types) of the tag",
+            "description": "The [type](https://docs.getunleash.io/reference/feature-toggles#tags) of the tag",
             "example": "simple"
           }
         }
@@ -3236,6 +3236,17 @@
             "type": "string",
             "nullable": true,
             "example": "01HTMEXAMPLESCIMID7SWWGHN6"
+          },
+          "activeSessions": {
+            "description": "Count of active browser sessions for this user",
+            "type": "integer",
+            "nullable": true,
+            "example": 2
+          },
+          "deletedSessions": {
+            "description": "Experimental. The number of deleted browser sessions after last login",
+            "type": "number",
+            "example": 1
           }
         }
       },
@@ -3614,7 +3625,14 @@
               "signal-endpoint-token-deleted",
               "actions-created",
               "actions-updated",
-              "actions-deleted"
+              "actions-deleted",
+              "release-plan-template-created",
+              "release-plan-template-updated",
+              "release-plan-template-deleted",
+              "release-plan-added",
+              "release-plan-removed",
+              "release-plan-milestone-started",
+              "user-preference-updated"
             ],
             "example": "feature-created"
           },
@@ -4078,7 +4096,14 @@
               "signal-endpoint-token-deleted",
               "actions-created",
               "actions-updated",
-              "actions-deleted"
+              "actions-deleted",
+              "release-plan-template-created",
+              "release-plan-template-updated",
+              "release-plan-template-deleted",
+              "release-plan-added",
+              "release-plan-removed",
+              "release-plan-milestone-started",
+              "user-preference-updated"
             ],
             "example": "feature-created"
           },
@@ -4156,12 +4181,12 @@
           "label": {
             "type": "string",
             "nullable": true,
-            "description": "**[Experimental]** The concise, human-readable name of the event."
+            "description": "The concise, human-readable name of the event."
           },
           "summary": {
             "type": "string",
             "nullable": true,
-            "description": "**[Experimental]** A markdown-formatted summary of the event."
+            "description": "A markdown-formatted summary of the event."
           }
         }
       },
@@ -5094,7 +5119,8 @@
           "createdAt",
           "createdBy",
           "environments",
-          "segments"
+          "segments",
+          "archivedAt"
         ],
         "description": "A feature flag definition",
         "properties": {
@@ -5124,11 +5150,6 @@
             "nullable": true,
             "example": "parent",
             "description": "The type of dependency. 'parent' means that the feature is a parent feature, 'child' means that the feature is a child feature."
-          },
-          "archived": {
-            "type": "boolean",
-            "example": true,
-            "description": "`true` if the feature is archived"
           },
           "project": {
             "type": "string",
@@ -5331,7 +5352,7 @@
           },
           "constraints": {
             "type": "array",
-            "description": "A list of the constraints attached to the strategy. See https://docs.getunleash.io/reference/strategy-constraints",
+            "description": "A list of the constraints attached to the strategy. See https://docs.getunleash.io/reference/activation-strategies#constraints",
             "items": {
               "$ref": "#/components/schemas/constraintSchema"
             }
@@ -5386,7 +5407,7 @@
           "tagType": {
             "type": "string",
             "example": "simple",
-            "description": "The [type](https://docs.getunleash.io/reference/tags#tag-types tag types) of the tag"
+            "description": "The [type](https://docs.getunleash.io/reference/feature-toggles#tags tag types) of the tag"
           },
           "tagValue": {
             "type": "string",
@@ -5396,7 +5417,7 @@
           "type": {
             "deprecated": true,
             "type": "string",
-            "description": "The [type](https://docs.getunleash.io/reference/tags#tag-types tag types) of the tag. This property is deprecated and will be removed in a future version of Unleash. Superseded by the `tagType` property."
+            "description": "The [type](https://docs.getunleash.io/reference/feature-toggles#tags tag types) of the tag. This property is deprecated and will be removed in a future version of Unleash. Superseded by the `tagType` property."
           },
           "value": {
             "deprecated": true,
@@ -6496,6 +6517,12 @@
               }
             }
           },
+          "licensedUsers": {
+            "type": "integer",
+            "description": "The number of users who had access to Unleash within the last 30 days, including those who may have been deleted during this period.",
+            "example": 10,
+            "minimum": 0
+          },
           "productionChanges": {
             "type": "object",
             "description": "The number of changes to the production environment in the last 30, 60 and 90 days",
@@ -7543,7 +7570,7 @@
           "operator",
           "result"
         ],
-        "description": "A strategy constraint. For more information, refer to [the strategy constraint reference documentation](https://docs.getunleash.io/reference/strategy-constraints)",
+        "description": "A strategy constraint. For more information, refer to [the strategy constraint reference documentation](https://docs.getunleash.io/reference/activation-strategies#constraints)",
         "properties": {
           "contextName": {
             "description": "The name of the context field that this constraint should apply to.",
@@ -7551,7 +7578,7 @@
             "type": "string"
           },
           "operator": {
-            "description": "The operator to use when evaluating this constraint. For more information about the various operators, refer to [the strategy constraint operator documentation](https://docs.getunleash.io/reference/strategy-constraints#strategy-constraint-operators).",
+            "description": "The operator to use when evaluating this constraint. For more information about the various operators, refer to [the strategy constraint operator documentation](https://docs.getunleash.io/reference/activation-strategies#constraint-operators).",
             "type": "string",
             "enum": [
               "NOT_IN",
@@ -7739,7 +7766,7 @@
         }
       },
       "playgroundRequestSchema": {
-        "description": "Data for the playground API to evaluate toggles",
+        "description": "Data for the playground API to evaluate feature flags",
         "type": "object",
         "required": [
           "environment",
@@ -7749,10 +7776,10 @@
           "environment": {
             "type": "string",
             "example": "development",
-            "description": "The environment to evaluate toggles in."
+            "description": "The environment to evaluate feature flags in."
           },
           "projects": {
-            "description": "A list of projects to check for toggles in.",
+            "description": "A list of projects to check for feature flags in.",
             "oneOf": [
               {
                 "type": "array",
@@ -7762,14 +7789,14 @@
                 "example": [
                   "my-project"
                 ],
-                "description": "A list of projects to check for toggles in."
+                "description": "A list of projects to check for feature flags in."
               },
               {
                 "type": "string",
                 "enum": [
                   "*"
                 ],
-                "description": "Check toggles in all projects."
+                "description": "Check feature flags in all projects."
               }
             ]
           },
@@ -8030,7 +8057,8 @@
         "required": [
           "rootRole",
           "projects",
-          "features"
+          "features",
+          "subscriptions"
         ],
         "properties": {
           "rootRole": {
@@ -8047,6 +8075,16 @@
               "my-projectB"
             ]
           },
+          "subscriptions": {
+            "description": "Which email subscriptions this user is subscribed to",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "productivity-report"
+            ]
+          },
           "features": {
             "description": "Deprecated, always returns empty array",
             "type": "array",
@@ -8054,6 +8092,30 @@
               "$ref": "#/components/schemas/featureSchema"
             },
             "example": []
+          }
+        }
+      },
+      "projectActivitySchema": {
+        "type": "array",
+        "description": "An array of project activity information. Each item contains a date and the total number of activities for that date.",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "date",
+            "count"
+          ],
+          "properties": {
+            "date": {
+              "type": "string",
+              "example": "2022-12-14",
+              "description": "Activity date"
+            },
+            "count": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Activity count"
+            }
           }
         }
       },
@@ -8876,6 +8938,205 @@
             "type": "number",
             "example": 1,
             "description": "The number of members that were added to the project during the current window"
+          }
+        }
+      },
+      "projectStatusSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "activityCountByDate",
+          "resources",
+          "health",
+          "lifecycleSummary",
+          "staleFlags"
+        ],
+        "description": "Schema representing the overall status of a project, including an array of activity records. Each record in the activity array contains a date and a count, providing a snapshot of the project’s activity level over time.",
+        "properties": {
+          "activityCountByDate": {
+            "$ref": "#/components/schemas/projectActivitySchema",
+            "description": "Array of activity records with date and count, representing the project’s daily activity statistics."
+          },
+          "health": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "current"
+            ],
+            "description": "Information about the project's health rating",
+            "properties": {
+              "current": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "The project's current health score, based on the ratio of healthy flags to stale and potentially stale flags.",
+                "example": 100
+              }
+            }
+          },
+          "resources": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "apiTokens",
+              "members",
+              "segments"
+            ],
+            "description": "Key resources within the project",
+            "properties": {
+              "apiTokens": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "The number of API tokens created specifically for this project."
+              },
+              "members": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "The number of users who have been granted roles in this project. Does not include users who have access via groups."
+              },
+              "segments": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "The number of segments that are scoped to this project."
+              }
+            }
+          },
+          "staleFlags": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Information on stale and potentially stale flags in this project.",
+            "required": [
+              "total"
+            ],
+            "properties": {
+              "total": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "The total number of flags in this project that are stale or potentially stale."
+              }
+            }
+          },
+          "lifecycleSummary": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Feature flag lifecycle statistics for this project.",
+            "required": [
+              "initial",
+              "preLive",
+              "live",
+              "completed",
+              "archived"
+            ],
+            "properties": {
+              "initial": {
+                "type": "object",
+                "additionalProperties": false,
+                "description": "Statistics on feature flags in a given stage in this project.",
+                "required": [
+                  "averageDays",
+                  "currentFlags"
+                ],
+                "properties": {
+                  "averageDays": {
+                    "type": "number",
+                    "nullable": true,
+                    "description": "The average number of days a feature flag remains in a stage in this project. Will be null if Unleash doesn't have any data for this stage yet.",
+                    "example": 5
+                  },
+                  "currentFlags": {
+                    "type": "integer",
+                    "description": "The number of feature flags currently in a stage in this project.",
+                    "example": 10
+                  }
+                }
+              },
+              "preLive": {
+                "type": "object",
+                "additionalProperties": false,
+                "description": "Statistics on feature flags in a given stage in this project.",
+                "required": [
+                  "averageDays",
+                  "currentFlags"
+                ],
+                "properties": {
+                  "averageDays": {
+                    "type": "number",
+                    "nullable": true,
+                    "description": "The average number of days a feature flag remains in a stage in this project. Will be null if Unleash doesn't have any data for this stage yet.",
+                    "example": 5
+                  },
+                  "currentFlags": {
+                    "type": "integer",
+                    "description": "The number of feature flags currently in a stage in this project.",
+                    "example": 10
+                  }
+                }
+              },
+              "live": {
+                "type": "object",
+                "additionalProperties": false,
+                "description": "Statistics on feature flags in a given stage in this project.",
+                "required": [
+                  "averageDays",
+                  "currentFlags"
+                ],
+                "properties": {
+                  "averageDays": {
+                    "type": "number",
+                    "nullable": true,
+                    "description": "The average number of days a feature flag remains in a stage in this project. Will be null if Unleash doesn't have any data for this stage yet.",
+                    "example": 5
+                  },
+                  "currentFlags": {
+                    "type": "integer",
+                    "description": "The number of feature flags currently in a stage in this project.",
+                    "example": 10
+                  }
+                }
+              },
+              "completed": {
+                "type": "object",
+                "additionalProperties": false,
+                "description": "Statistics on feature flags in a given stage in this project.",
+                "required": [
+                  "averageDays",
+                  "currentFlags"
+                ],
+                "properties": {
+                  "averageDays": {
+                    "type": "number",
+                    "nullable": true,
+                    "description": "The average number of days a feature flag remains in a stage in this project. Will be null if Unleash doesn't have any data for this stage yet.",
+                    "example": 5
+                  },
+                  "currentFlags": {
+                    "type": "integer",
+                    "description": "The number of feature flags currently in a stage in this project.",
+                    "example": 10
+                  }
+                }
+              },
+              "archived": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "currentFlags",
+                  "last30Days"
+                ],
+                "description": "Information on archived flags in this project.",
+                "properties": {
+                  "currentFlags": {
+                    "type": "integer",
+                    "description": "The number of archived feature flags in this project. If a flag is deleted permanently, it will no longer be counted as part of this statistic.",
+                    "example": 10
+                  },
+                  "last30Days": {
+                    "type": "integer",
+                    "description": "The number of flags in this project that have been changed over the last 30 days.",
+                    "example": 5
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -9904,7 +10165,7 @@
       },
       "tagSchema": {
         "type": "object",
-        "description": "Representation of a [tag](https://docs.getunleash.io/reference/tags)",
+        "description": "Representation of a [tag](https://docs.getunleash.io/reference/feature-toggles#tags)",
         "additionalProperties": false,
         "required": [
           "value",
@@ -9922,7 +10183,7 @@
             "type": "string",
             "minLength": 2,
             "maxLength": 50,
-            "description": "The [type](https://docs.getunleash.io/reference/tags#tag-types) of the tag",
+            "description": "The [type](https://docs.getunleash.io/reference/feature-toggles#tags) of the tag",
             "example": "simple"
           }
         }
@@ -10169,6 +10430,15 @@
             "description": "What kind of Unleash instance it is: Enterprise, Pro, or Open source",
             "example": "Enterprise"
           },
+          "billing": {
+            "type": "string",
+            "description": "The billing model in use for this Unleash instance.",
+            "example": "subscription",
+            "enum": [
+              "subscription",
+              "pay-as-you-go"
+            ]
+          },
           "unleashUrl": {
             "type": "string",
             "description": "The URL of the Unleash instance.",
@@ -10321,6 +10591,11 @@
             "type": "boolean",
             "description": "Whether Unleash AI is available.",
             "example": false
+          },
+          "maxSessionsCount": {
+            "type": "number",
+            "description": "The maximum number of sessions that a user has.",
+            "example": 10
           }
         }
       },
@@ -10432,7 +10707,7 @@
             "items": {
               "$ref": "#/components/schemas/constraintSchema"
             },
-            "description": "A list of the constraints attached to the strategy. See https://docs.getunleash.io/reference/strategy-constraints"
+            "description": "A list of the constraints attached to the strategy. See https://docs.getunleash.io/reference/activation-strategies#constraints"
           },
           "title": {
             "type": "string",
@@ -10781,6 +11056,17 @@
             "type": "string",
             "nullable": true,
             "example": "01HTMEXAMPLESCIMID7SWWGHN6"
+          },
+          "activeSessions": {
+            "description": "Count of active browser sessions for this user",
+            "type": "integer",
+            "nullable": true,
+            "example": 2
+          },
+          "deletedSessions": {
+            "description": "Experimental. The number of deleted browser sessions after last login",
+            "type": "number",
+            "example": 1
           }
         }
       },
@@ -11141,6 +11427,20 @@
           }
         }
       },
+      "actionableChangeRequestsSchema": {
+        "type": "object",
+        "description": "Data related to actionable change requests in a project.",
+        "required": [
+          "total"
+        ],
+        "properties": {
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "The number of actionable change requests in the project."
+          }
+        }
+      },
       "adminPermissionSchema": {
         "type": "object",
         "required": [
@@ -11450,6 +11750,7 @@
                     },
                     "environment": {
                       "type": "string",
+                      "nullable": true,
                       "example": "development",
                       "description": "The environments of the permission if the permission is environment specific"
                     }
@@ -11503,6 +11804,7 @@
                     },
                     "environment": {
                       "type": "string",
+                      "nullable": true,
                       "example": "development",
                       "description": "The environments of the permission if the permission is environment specific"
                     }
@@ -14036,7 +14338,239 @@
         "type": "array",
         "description": "A list of change requests",
         "items": {
-          "$ref": "#/components/schemas/changeRequestSchema"
+          "type": "object",
+          "description": "A simplified change request overview",
+          "oneOf": [
+            {
+              "required": [
+                "id",
+                "environment",
+                "state",
+                "minApprovals",
+                "project",
+                "features",
+                "segments",
+                "createdAt",
+                "createdBy"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 3,
+                  "description": "This change requests's ID."
+                },
+                "title": {
+                  "type": "string",
+                  "example": "Increasing gradual rollout",
+                  "description": "A title describing the change request's content."
+                },
+                "environment": {
+                  "type": "string",
+                  "example": "development",
+                  "description": "The environment in which the changes should be applied."
+                },
+                "minApprovals": {
+                  "type": "number",
+                  "example": 2,
+                  "description": "The minimum number of approvals required before this change request can be applied.",
+                  "deprecated": true
+                },
+                "project": {
+                  "type": "string",
+                  "example": "unleash-project",
+                  "description": "The project this change request belongs to."
+                },
+                "features": {
+                  "type": "array",
+                  "description": "The list of features and their changes that relate to this change request.",
+                  "items": {
+                    "$ref": "#/components/schemas/changeRequestFeatureSchema"
+                  }
+                },
+                "segments": {
+                  "type": "array",
+                  "description": "The list of segments and their changes that relate to this change request.",
+                  "items": {
+                    "$ref": "#/components/schemas/changeRequestSegmentChangeSchema"
+                  }
+                },
+                "approvals": {
+                  "type": "array",
+                  "description": "A list of approvals that this change request has received.",
+                  "items": {
+                    "$ref": "#/components/schemas/changeRequestApprovalSchema"
+                  },
+                  "deprecated": true
+                },
+                "rejections": {
+                  "type": "array",
+                  "description": "A list of rejections that this change request has received. ",
+                  "items": {
+                    "$ref": "#/components/schemas/changeRequestApprovalSchema"
+                  },
+                  "deprecated": true
+                },
+                "comments": {
+                  "type": "array",
+                  "description": "All comments that have been made on this change request.",
+                  "items": {
+                    "$ref": "#/components/schemas/changeRequestCommentSchema"
+                  },
+                  "deprecated": true
+                },
+                "createdBy": {
+                  "description": "The user who created this change request.",
+                  "type": "object",
+                  "properties": {
+                    "username": {
+                      "type": "string",
+                      "nullable": true,
+                      "example": "Hunter"
+                    },
+                    "imageUrl": {
+                      "type": "string",
+                      "format": "uri",
+                      "nullable": true,
+                      "description": "The URL of the user's profile image."
+                    }
+                  }
+                },
+                "createdAt": {
+                  "description": "When this change request was created.",
+                  "type": "string",
+                  "format": "date-time",
+                  "example": "2023-07-31T13:33:02Z"
+                },
+                "state": {
+                  "type": "string",
+                  "enum": [
+                    "Draft",
+                    "In review",
+                    "Approved",
+                    "Applied",
+                    "Cancelled",
+                    "Rejected"
+                  ],
+                  "description": "The current state of the change request."
+                }
+              }
+            },
+            {
+              "required": [
+                "id",
+                "environment",
+                "state",
+                "minApprovals",
+                "project",
+                "features",
+                "segments",
+                "createdAt",
+                "createdBy",
+                "schedule"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 3,
+                  "description": "This change requests's ID."
+                },
+                "title": {
+                  "type": "string",
+                  "example": "Increasing gradual rollout",
+                  "description": "A title describing the change request's content."
+                },
+                "environment": {
+                  "type": "string",
+                  "example": "development",
+                  "description": "The environment in which the changes should be applied."
+                },
+                "minApprovals": {
+                  "type": "number",
+                  "example": 2,
+                  "description": "The minimum number of approvals required before this change request can be applied.",
+                  "deprecated": true
+                },
+                "project": {
+                  "type": "string",
+                  "example": "unleash-project",
+                  "description": "The project this change request belongs to."
+                },
+                "features": {
+                  "type": "array",
+                  "description": "The list of features and their changes that relate to this change request.",
+                  "items": {
+                    "$ref": "#/components/schemas/changeRequestFeatureSchema"
+                  }
+                },
+                "segments": {
+                  "type": "array",
+                  "description": "The list of segments and their changes that relate to this change request.",
+                  "items": {
+                    "$ref": "#/components/schemas/changeRequestSegmentChangeSchema"
+                  }
+                },
+                "approvals": {
+                  "type": "array",
+                  "description": "A list of approvals that this change request has received.",
+                  "items": {
+                    "$ref": "#/components/schemas/changeRequestApprovalSchema"
+                  },
+                  "deprecated": true
+                },
+                "rejections": {
+                  "type": "array",
+                  "description": "A list of rejections that this change request has received. ",
+                  "items": {
+                    "$ref": "#/components/schemas/changeRequestApprovalSchema"
+                  },
+                  "deprecated": true
+                },
+                "comments": {
+                  "type": "array",
+                  "description": "All comments that have been made on this change request.",
+                  "items": {
+                    "$ref": "#/components/schemas/changeRequestCommentSchema"
+                  },
+                  "deprecated": true
+                },
+                "createdBy": {
+                  "description": "The user who created this change request.",
+                  "type": "object",
+                  "properties": {
+                    "username": {
+                      "type": "string",
+                      "nullable": true,
+                      "example": "Hunter"
+                    },
+                    "imageUrl": {
+                      "type": "string",
+                      "format": "uri",
+                      "nullable": true,
+                      "description": "The URL of the user's profile image."
+                    }
+                  }
+                },
+                "createdAt": {
+                  "description": "When this change request was created.",
+                  "type": "string",
+                  "format": "date-time",
+                  "example": "2023-07-31T13:33:02Z"
+                },
+                "state": {
+                  "type": "string",
+                  "enum": [
+                    "Scheduled"
+                  ],
+                  "description": "The current state of the change request."
+                },
+                "schedule": {
+                  "$ref": "#/components/schemas/changeRequestScheduleSchema"
+                }
+              }
+            }
+          ]
         }
       },
       "changeRequestScheduleSchema": {
@@ -15450,6 +15984,69 @@
             "description": "Message describing the current state of the Unleash license",
             "type": "string",
             "example": "Your license expired 3 days ago"
+          }
+        }
+      },
+      "licensedUserSchema": {
+        "description": "A schema representing a single licensed user data point.",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "date",
+          "count"
+        ],
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date associated with the licensed users count.",
+            "example": "2024-10-01T00:00:00.000Z"
+          },
+          "count": {
+            "type": "integer",
+            "description": "The count of licensed users on the given date.",
+            "minimum": 0,
+            "example": 100
+          }
+        }
+      },
+      "licensedUsersSchema": {
+        "description": "A response model representing user license data.",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "licensedUsers",
+          "seatCount"
+        ],
+        "properties": {
+          "seatCount": {
+            "type": "integer",
+            "minimum": 0,
+            "example": 25,
+            "description": "The total number of licensed seats currently available for this Unleash instance."
+          },
+          "licensedUsers": {
+            "type": "object",
+            "required": [
+              "history",
+              "current"
+            ],
+            "description": "An object containing historical and current licensed user data.",
+            "properties": {
+              "history": {
+                "type": "array",
+                "description": "A monthly history of licensed user counts.",
+                "items": {
+                  "$ref": "#/components/schemas/licensedUserSchema"
+                }
+              },
+              "current": {
+                "description": "The current number of licenses in use.",
+                "type": "integer",
+                "minimum": 0,
+                "example": 25
+              }
+            }
           }
         }
       },
@@ -16940,49 +17537,576 @@
           }
         }
       },
-      "orderEnvironmentsSchema": {
-        "type": "object",
-        "description": "A request for hosted customers to order new environments in Unleash.",
+      "releasePlanSchema": {
         "additionalProperties": false,
+        "description": "Schema representing the creation of a release plan.",
+        "type": "object",
         "required": [
-          "environments"
+          "id",
+          "discriminator",
+          "name",
+          "featureName",
+          "environment",
+          "createdByUserId",
+          "createdAt",
+          "milestones",
+          "releasePlanTemplateId"
         ],
         "properties": {
-          "environments": {
-            "description": "An array of environments to be ordered, each with a name and type.",
+          "id": {
+            "type": "string",
+            "description": "The release plan/template's ID. Release template IDs are ulids.",
+            "example": "01JB9GGTGQYEQ9D40R17T3YVW2",
+            "nullable": false
+          },
+          "discriminator": {
+            "type": "string",
+            "description": "A field to distinguish between release plans and release templates.",
+            "example": "plan",
+            "nullable": false,
+            "enum": [
+              "plan"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the release template.",
+            "example": "My release plan"
+          },
+          "description": {
+            "type": "string",
+            "description": "A description of the release template.",
+            "example": "This is my release plan",
+            "nullable": true
+          },
+          "featureName": {
+            "type": "string",
+            "description": "The name of the feature that uses this release plan.",
+            "example": "my-feature"
+          },
+          "environment": {
+            "type": "string",
+            "description": "The environment that this release plan is for.",
+            "example": "production"
+          },
+          "createdByUserId": {
+            "type": "number",
+            "description": "Release template: The ID of the user who created this template.",
+            "example": 53,
+            "nullable": false
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time that the release template was created.",
+            "example": "2022-01-01T00:00:00Z",
+            "nullable": false
+          },
+          "activeMilestoneId": {
+            "type": "string",
+            "description": "The ID of the currently active milestone in this release plan.",
+            "example": "01JB9GGTGQYEQ9D40R17T3YVW1",
+            "nullable": true
+          },
+          "milestones": {
             "type": "array",
+            "description": "A list of the milestones in this release template.",
             "items": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "description": "The name of the environment."
-                },
-                "type": {
-                  "type": "string",
-                  "description": "The type of the environment."
-                }
-              },
-              "required": [
-                "name",
-                "type"
-              ],
-              "additionalProperties": false
+              "$ref": "#/components/schemas/releasePlanMilestoneSchema"
+            }
+          },
+          "releasePlanTemplateId": {
+            "type": "string",
+            "description": "The ID of the release plan template that this release plan is based on.",
+            "example": "01JB9GGTGQYEQ9D40R17T3YVW2",
+            "nullable": false
+          }
+        }
+      },
+      "releasePlanTemplateSchema": {
+        "additionalProperties": false,
+        "description": "Schema representing the creation of a release template.",
+        "type": "object",
+        "required": [
+          "id",
+          "discriminator",
+          "name",
+          "createdByUserId",
+          "createdAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The release plan/template's ID. Release template IDs are ulids.",
+            "example": "01JB9GGTGQYEQ9D40R17T3YVW2",
+            "nullable": false
+          },
+          "discriminator": {
+            "type": "string",
+            "description": "A field to distinguish between release plans and release templates.",
+            "example": "template",
+            "nullable": false,
+            "enum": [
+              "template"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the release template.",
+            "example": "My release plan"
+          },
+          "description": {
+            "type": "string",
+            "description": "A description of the release template.",
+            "example": "This is my release plan",
+            "nullable": true
+          },
+          "createdByUserId": {
+            "type": "number",
+            "description": "Release template: The ID of the user who created this template.",
+            "example": 53,
+            "nullable": false
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time that the release template was created.",
+            "example": "2022-01-01T00:00:00Z",
+            "nullable": false
+          },
+          "milestones": {
+            "type": "array",
+            "description": "A list of the milestones in this release template.",
+            "items": {
+              "$ref": "#/components/schemas/releasePlanMilestoneSchema"
+            }
+          }
+        }
+      },
+      "releasePlanMilestoneSchema": {
+        "additionalProperties": false,
+        "description": "Schema representing the creation of a release plan milestone.",
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "sortOrder",
+          "releasePlanDefinitionId"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The milestone's ID. Milestone IDs are ulids.",
+            "example": "01JB9GGTGQYEQ9D40R17T3YVW1",
+            "nullable": false
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the milestone.",
+            "example": "My milestone"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "description": "The order of the milestone in the release plan.",
+            "example": 1
+          },
+          "releasePlanDefinitionId": {
+            "type": "string",
+            "description": "The ID of the release plan/template that this milestone belongs to.",
+            "example": "01JB9GGTGQYEQ9D40R17T3YVW2"
+          },
+          "strategies": {
+            "type": "array",
+            "description": "A list of strategies that are attached to this milestone.",
+            "items": {
+              "$ref": "#/components/schemas/releasePlanMilestoneStrategySchema"
+            }
+          }
+        }
+      },
+      "releasePlanMilestoneStrategySchema": {
+        "additionalProperties": false,
+        "description": "Schema representing the creation of a release plan milestone strategy.",
+        "type": "object",
+        "required": [
+          "id",
+          "milestoneId",
+          "sortOrder",
+          "strategyName"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The milestone strategy's ID. Milestone strategy IDs are ulids.",
+            "example": "01JB9GGTGQYEQ9D40R17T3YVW3",
+            "nullable": false
+          },
+          "milestoneId": {
+            "type": "string",
+            "description": "The ID of the milestone that this strategy belongs to.",
+            "example": "01JB9GGTGQYEQ9D40R17T3YVW1"
+          },
+          "sortOrder": {
+            "type": "number",
+            "description": "The order of the strategy in the list",
+            "example": 9999
+          },
+          "title": {
+            "type": "string",
+            "nullable": true,
+            "description": "A descriptive title for the strategy",
+            "example": "Gradual Rollout 25-Prod"
+          },
+          "strategyName": {
+            "type": "string",
+            "description": "The name of the strategy type",
+            "example": "flexibleRollout"
+          },
+          "parameters": {
+            "description": "An object containing the parameters for the strategy",
+            "example": {
+              "groupId": "some_new",
+              "rollout": "25",
+              "stickiness": "sessionId"
             },
+            "$ref": "#/components/schemas/parametersSchema"
+          },
+          "constraints": {
+            "type": "array",
+            "description": "A list of the constraints attached to the strategy. See https://docs.getunleash.io/reference/activation-strategies#constraints",
             "example": [
               {
-                "name": "development",
-                "type": "test"
-              },
-              {
-                "name": "production",
-                "type": "live"
-              },
-              {
-                "name": "staging",
-                "type": "pre-prod"
+                "values": [
+                  "1",
+                  "2"
+                ],
+                "inverted": false,
+                "operator": "IN",
+                "contextName": "appName",
+                "caseInsensitive": false
               }
-            ]
+            ],
+            "items": {
+              "$ref": "#/components/schemas/constraintSchema"
+            }
+          },
+          "variants": {
+            "type": "array",
+            "description": "Strategy level variants",
+            "items": {
+              "$ref": "#/components/schemas/createStrategyVariantSchema"
+            }
+          },
+          "segments": {
+            "type": "array",
+            "description": "Ids of segments to use for this strategy",
+            "example": [
+              1,
+              2
+            ],
+            "items": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "createReleasePlanTemplateSchema": {
+        "additionalProperties": false,
+        "description": "Schema representing the creation of a release template.",
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the release template.",
+            "example": "My release plan"
+          },
+          "description": {
+            "type": "string",
+            "description": "A description of the release template.",
+            "example": "This is my release plan",
+            "nullable": true
+          },
+          "milestones": {
+            "type": "array",
+            "description": "A list of the milestones in this release template.",
+            "items": {
+              "$ref": "#/components/schemas/createReleasePlanMilestoneSchema"
+            }
+          }
+        }
+      },
+      "createReleasePlanMilestoneSchema": {
+        "additionalProperties": false,
+        "description": "Schema representing the creation of a release plan milestone.",
+        "type": "object",
+        "required": [
+          "name",
+          "sortOrder"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the milestone.",
+            "example": "My milestone"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "description": "The order of the milestone in the release plan.",
+            "example": 1
+          },
+          "strategies": {
+            "type": "array",
+            "description": "A list of strategies that are attached to this milestone.",
+            "items": {
+              "$ref": "#/components/schemas/createReleasePlanMilestoneStrategySchema"
+            }
+          }
+        }
+      },
+      "createReleasePlanMilestoneStrategySchema": {
+        "additionalProperties": false,
+        "description": "Schema representing the creation of a release plan milestone strategy.",
+        "type": "object",
+        "required": [
+          "sortOrder",
+          "strategyName"
+        ],
+        "properties": {
+          "sortOrder": {
+            "type": "number",
+            "description": "The order of the strategy in the list",
+            "example": 9999
+          },
+          "title": {
+            "type": "string",
+            "nullable": true,
+            "description": "A descriptive title for the strategy",
+            "example": "Gradual Rollout 25-Prod"
+          },
+          "strategyName": {
+            "type": "string",
+            "description": "The name of the strategy type",
+            "example": "flexibleRollout"
+          },
+          "parameters": {
+            "description": "An object containing the parameters for the strategy",
+            "example": {
+              "groupId": "some_new",
+              "rollout": "25",
+              "stickiness": "sessionId"
+            },
+            "$ref": "#/components/schemas/parametersSchema"
+          },
+          "constraints": {
+            "type": "array",
+            "description": "A list of the constraints attached to the strategy. See https://docs.getunleash.io/reference/activation-strategies#constraints",
+            "example": [
+              {
+                "values": [
+                  "1",
+                  "2"
+                ],
+                "inverted": false,
+                "operator": "IN",
+                "contextName": "appName",
+                "caseInsensitive": false
+              }
+            ],
+            "items": {
+              "$ref": "#/components/schemas/constraintSchema"
+            }
+          },
+          "variants": {
+            "type": "array",
+            "description": "Strategy level variants",
+            "items": {
+              "$ref": "#/components/schemas/createStrategyVariantSchema"
+            }
+          },
+          "segments": {
+            "type": "array",
+            "description": "Ids of segments to use for this strategy",
+            "example": [
+              1,
+              2
+            ],
+            "items": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "updateReleasePlanTemplateSchema": {
+        "additionalProperties": false,
+        "description": "Schema representing the update of a release template.",
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The release plan/template's ID. Release template IDs are ulids.",
+            "example": "01JB9GGTGQYEQ9D40R17T3YVW2",
+            "nullable": false
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the release template.",
+            "example": "My release plan"
+          },
+          "description": {
+            "type": "string",
+            "description": "A description of the release template.",
+            "example": "This is my release plan",
+            "nullable": true
+          },
+          "milestones": {
+            "type": "array",
+            "description": "A list of the milestones in this release template.",
+            "items": {
+              "$ref": "#/components/schemas/createReleasePlanMilestoneSchema"
+            },
+            "nullable": true
+          }
+        }
+      },
+      "updateReleasePlanMilestoneSchema": {
+        "additionalProperties": false,
+        "description": "Schema representing the update of a release plan milestone.",
+        "type": "object",
+        "required": [
+          "name",
+          "sortOrder",
+          "releasePlanDefinitionId"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the milestone.",
+            "example": "My milestone"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "description": "The order of the milestone in the release plan.",
+            "example": 1
+          },
+          "releasePlanDefinitionId": {
+            "type": "string",
+            "description": "The ID of the release plan/template that this milestone belongs to.",
+            "example": "01JB9GGTGQYEQ9D40R17T3YVW2"
+          },
+          "strategies": {
+            "type": "array",
+            "description": "A list of strategies that are attached to this milestone.",
+            "items": {
+              "$ref": "#/components/schemas/updateReleasePlanMilestoneStrategySchema"
+            }
+          }
+        }
+      },
+      "updateReleasePlanMilestoneStrategySchema": {
+        "additionalProperties": false,
+        "description": "Schema representing the update of a release plan milestone.",
+        "type": "object",
+        "required": [
+          "milestoneId",
+          "sortOrder",
+          "strategyName"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The milestone strategy's ID. Milestone strategy IDs are ulids.",
+            "example": "01JB9GGTGQYEQ9D40R17T3YVW3"
+          },
+          "milestoneId": {
+            "type": "string",
+            "description": "The ID of the milestone that this strategy belongs to.",
+            "example": "01JB9GGTGQYEQ9D40R17T3YVW1",
+            "nullable": false
+          },
+          "sortOrder": {
+            "type": "number",
+            "description": "The order of the strategy in the list",
+            "example": 9999
+          },
+          "title": {
+            "type": "string",
+            "nullable": true,
+            "description": "A descriptive title for the strategy",
+            "example": "Gradual Rollout 25-Prod"
+          },
+          "strategyName": {
+            "type": "string",
+            "description": "The name of the strategy type",
+            "example": "flexibleRollout"
+          },
+          "parameters": {
+            "description": "An object containing the parameters for the strategy",
+            "example": {
+              "groupId": "some_new",
+              "rollout": "25",
+              "stickiness": "sessionId"
+            },
+            "$ref": "#/components/schemas/parametersSchema"
+          },
+          "constraints": {
+            "type": "array",
+            "description": "A list of the constraints attached to the strategy. See https://docs.getunleash.io/reference/activation-strategies#constraints",
+            "example": [
+              {
+                "values": [
+                  "1",
+                  "2"
+                ],
+                "inverted": false,
+                "operator": "IN",
+                "contextName": "appName",
+                "caseInsensitive": false
+              }
+            ],
+            "items": {
+              "$ref": "#/components/schemas/constraintSchema"
+            }
+          },
+          "variants": {
+            "type": "array",
+            "description": "Strategy level variants",
+            "items": {
+              "$ref": "#/components/schemas/createStrategyVariantSchema"
+            }
+          },
+          "segments": {
+            "type": "array",
+            "description": "Ids of segments to use for this strategy",
+            "example": [
+              1,
+              2
+            ],
+            "items": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "releasePlanTemplateIdSchema": {
+        "additionalProperties": false,
+        "description": "Schema for creating a release plan for a feature flag environment by copying and applying the configuration from a release plan template.",
+        "type": "object",
+        "required": [
+          "templateId"
+        ],
+        "properties": {
+          "templateId": {
+            "type": "string",
+            "description": "The release plan template's ID. Release template IDs are ulids.",
+            "example": "01JB9GGTGQYEQ9D40R17T3YVW2",
+            "nullable": false
           }
         }
       }
@@ -17111,7 +18235,7 @@
     },
     {
       "name": "Tags",
-      "description": "Create, update, and delete [tags and tag types](https://docs.getunleash.io/reference/tags)."
+      "description": "Create, update, and delete [tags and tag types](https://docs.getunleash.io/reference/feature-toggles#tags)."
     },
     {
       "name": "Telemetry",
@@ -20365,6 +21489,162 @@
         ],
         "summary": "Get instance information",
         "description": "Gets high level information about the usage of this Unleash instance, including user, project, and flag information."
+      }
+    },
+    "/api/admin/email-subscription/{subscription}": {
+      "put": {
+        "tags": [
+          "Unstable"
+        ],
+        "operationId": "subscribeEmailSubscription",
+        "responses": {
+          "202": {
+            "description": "This response has no body."
+          },
+          "401": {
+            "description": "Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "9c40958a-daac-400e-98fb-3bb438567008",
+                      "description": "The ID of the error instance"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "AuthenticationRequired",
+                      "description": "The name of the error kind"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at /auth/simple/login.",
+                      "description": "A description of what went wrong."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The requested resource was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "9c40958a-daac-400e-98fb-3bb438567008",
+                      "description": "The ID of the error instance"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "NotFoundError",
+                      "description": "The name of the error kind"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Could not find the addon with ID \"12345\".",
+                      "description": "A description of what went wrong."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Subscribe to email subscription",
+        "description": "Subscribe to email subscription e.g. monthly productivity report. By default everyone is subscribed. This API is mostly used by hosted Unleash.",
+        "parameters": [
+          {
+            "name": "subscription",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Unstable"
+        ],
+        "operationId": "unsubscribeEmailSubscription",
+        "responses": {
+          "202": {
+            "description": "This response has no body."
+          },
+          "401": {
+            "description": "Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "9c40958a-daac-400e-98fb-3bb438567008",
+                      "description": "The ID of the error instance"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "AuthenticationRequired",
+                      "description": "The name of the error kind"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at /auth/simple/login.",
+                      "description": "A description of what went wrong."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The requested resource was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "9c40958a-daac-400e-98fb-3bb438567008",
+                      "description": "The ID of the error instance"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "NotFoundError",
+                      "description": "The name of the error kind"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Could not find the addon with ID \"12345\".",
+                      "description": "A description of what went wrong."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Unsubscribe from email subscription",
+        "description": "Unsubscribe from email subscription e.g. monthly productivity report. This API is mostly used by hosted Unleash.",
+        "parameters": [
+          {
+            "name": "subscription",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
       }
     },
     "/api/admin/dashboard/executive": {
@@ -24629,6 +25909,17 @@
         "operationId": "deletePat",
         "summary": "Delete a personal access token (PAT) for the current user.",
         "description": "Deletes a [personal access token](https://docs.getunleash.io/how-to/how-to-create-personal-access-tokens) (PAT) belonging to the current user.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "a personal access token id"
+          }
+        ],
         "responses": {
           "200": {
             "description": "This response has no body."
@@ -24714,17 +26005,7 @@
               }
             }
           }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/admin/ui-config": {
@@ -24779,7 +26060,7 @@
           "Context"
         ],
         "summary": "Gets configured context fields",
-        "description": "Returns all configured [Context fields](https://docs.getunleash.io/how-to/how-to-define-custom-context-fields) that have been created.",
+        "description": "Returns all configured [Context fields](https://docs.getunleash.io/reference/unleash-context) that have been created.",
         "operationId": "getContextFields",
         "responses": {
           "200": {
@@ -27828,6 +29109,17 @@
         "operationId": "changeUserPassword",
         "summary": "Change password for a user",
         "description": "Change password for a user as an admin",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "a user id"
+          }
+        ],
         "requestBody": {
           "description": "passwordSchema",
           "required": true,
@@ -27924,17 +29216,7 @@
               }
             }
           }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/admin/user-admin/reset-password": {
@@ -28397,8 +29679,9 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
-            }
+              "type": "integer"
+            },
+            "description": "a user id"
           },
           {
             "name": "project",
@@ -28589,6 +29872,17 @@
         "operationId": "getUser",
         "summary": "Get user",
         "description": "Will return a single user by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "a user id"
+          }
+        ],
         "responses": {
           "200": {
             "description": "userSchema",
@@ -28681,17 +29975,7 @@
               }
             }
           }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
+        }
       },
       "put": {
         "tags": [
@@ -28718,7 +30002,8 @@
             "required": true,
             "schema": {
               "type": "integer"
-            }
+            },
+            "description": "a user id"
           }
         ],
         "responses": {
@@ -28849,6 +30134,17 @@
         "operationId": "deleteUser",
         "summary": "Delete a user",
         "description": "Deletes the user with the given userId",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "a user id"
+          }
+        ],
         "responses": {
           "200": {
             "description": "This response has no body."
@@ -28934,17 +30230,7 @@
               }
             }
           }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/admin/feedback": {
@@ -33813,7 +35099,7 @@
         ],
         "operationId": "addDefaultStrategyToProjectEnvironment",
         "summary": "Set environment-default strategy",
-        "description": "Sets a default strategy for this environment. Unleash will use this strategy by default when enabling a toggle. Use the wild card \"*\" for `:environment` to add to all environments. ",
+        "description": "Sets a default strategy for this environment. Unleash will use this strategy by default when enabling a feature flag. Use the wild card \"*\" for `:environment` to add to all environments. ",
         "requestBody": {
           "description": "createFeatureStrategySchema",
           "required": true,
@@ -33889,6 +35175,7 @@
         "tags": [
           "Projects"
         ],
+        "deprecated": true,
         "operationId": "getProjectHealthReport",
         "summary": "Get a health report for a project.",
         "description": "This endpoint returns a health report for the specified project. This data is used for [the technical debt dashboard](https://docs.getunleash.io/reference/technical-debt#the-technical-debt-dashboard)",
@@ -36051,6 +37338,119 @@
         ]
       }
     },
+    "/api/admin/projects/{projectId}/status": {
+      "get": {
+        "tags": [
+          "Unstable"
+        ],
+        "operationId": "getProjectStatus",
+        "summary": "Get project status",
+        "description": "This endpoint returns information on the status the project, including activities, health, resources, and aggregated flag lifecycle data.",
+        "responses": {
+          "200": {
+            "description": "projectStatusSchema",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/projectStatusSchema"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "9c40958a-daac-400e-98fb-3bb438567008",
+                      "description": "The ID of the error instance"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "AuthenticationRequired",
+                      "description": "The name of the error kind"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at /auth/simple/login.",
+                      "description": "A description of what went wrong."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The provided user credentials are valid, but the user does not have the necessary permissions to perform this operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "9c40958a-daac-400e-98fb-3bb438567008",
+                      "description": "The ID of the error instance"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "NoAccessError",
+                      "description": "The name of the error kind"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You need the \"UPDATE_ADDON\" permission to perform this action in the \"development\" environment.",
+                      "description": "A description of what went wrong."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The requested resource was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "9c40958a-daac-400e-98fb-3bb438567008",
+                      "description": "The ID of the error instance"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "NotFoundError",
+                      "description": "The name of the error kind"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Could not find the addon with ID \"12345\".",
+                      "description": "A description of what went wrong."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
     "/api/admin/projects/{projectId}/features/{featureName}/lifecycle": {
       "get": {
         "tags": [
@@ -37886,7 +39286,7 @@
             "description": "instanceAdminStatsSchemaCsv",
             "content": {
               "text/csv": {
-                "example": "\"OIDCenabled\",\"SAMLenabled\",\"clientApps\",\"contextFields\",\"environments\",\"featureExports\",\"featureImports\",\"featureToggles\",\"archivedFeatureToggles\",\"groups\",\"instanceId\",\"projects\",\"roles\",\"customRootRoles\",\"customRootRolesInUse\",\"segments\",\"strategies\",\"sum\",\"timestamp\",\"users\",\"serviceAccounts\",\"apiTokens\",\"versionEnterprise\",\"versionOSS\",\"activeUsers\",\"productionChanges\",\"previousDayMetricsBucketsCount\",\"maxEnvironmentStrategies\",\"maxConstraints\",\"maxConstraintValues\"\ntrue,false,\"[{\"\"range\"\":\"\"allTime\"\",\"\"count\"\":15},{\"\"range\"\":\"\"30d\"\",\"\"count\"\":9},{\"\"range\"\":\"\"7d\"\",\"\"count\"\":5}]\",6,2,0,0,29,10,3,\"ed3861ae-78f9-4e8c-8e57-b57efc15f82b\",4,5,2,1,2,8,\"some-sha256-hash\",\"2023-07-12T10:00:00.000Z\",10,2,\"{}\",\"5.1.7\",\"5.1.7\",\"{\"\"last90\"\":15,\"\"last60\"\":12,\"\"last30\"\":10,\"\"last7\"\":5}\",\"{\"\"last30\"\":100,\"\"last60\"\":200,\"\"last90\"\":200}\",\"{\"\"variantCount\"\":100,\"\"enabledCount\"\":200}\",20,17,123",
+                "example": "\"OIDCenabled\",\"SAMLenabled\",\"passwordAuthEnabled\",\"SCIMenabled\",\"clientApps\",\"contextFields\",\"environments\",\"featureExports\",\"featureImports\",\"featureToggles\",\"archivedFeatureToggles\",\"groups\",\"instanceId\",\"projects\",\"roles\",\"customRootRoles\",\"customRootRolesInUse\",\"segments\",\"strategies\",\"sum\",\"timestamp\",\"users\",\"licensedUsers\",\"serviceAccounts\",\"apiTokens\",\"versionEnterprise\",\"versionOSS\",\"activeUsers\",\"productionChanges\",\"previousDayMetricsBucketsCount\",\"maxEnvironmentStrategies\",\"maxConstraints\",\"maxConstraintValues\"\ntrue,false,true,false,\"[{\"\"range\"\":\"\"allTime\"\",\"\"count\"\":15},{\"\"range\"\":\"\"30d\"\",\"\"count\"\":9},{\"\"range\"\":\"\"7d\"\",\"\"count\"\":5}]\",6,2,0,0,29,10,3,\"ed3861ae-78f9-4e8c-8e57-b57efc15f82b\",4,5,2,1,2,8,\"some-sha256-hash\",\"2023-07-12T10:00:00.000Z\",10,12,2,\"{}\",\"5.1.7\",\"5.1.7\",\"{\"\"last90\"\":15,\"\"last60\"\":12,\"\"last30\"\":10,\"\"last7\"\":5}\",\"{\"\"last30\"\":100,\"\"last60\"\":200,\"\"last90\"\":200}\",\"{\"\"variantCount\"\":100,\"\"enabledCount\"\":200}\",20,17,123",
                 "schema": {
                   "type": "string"
                 }
@@ -38571,6 +39971,17 @@
         "operationId": "getStrategiesBySegmentId",
         "summary": "Get strategies that reference segment",
         "description": "Retrieve all strategies that reference the specified segment.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "a segment id"
+          }
+        ],
         "responses": {
           "200": {
             "description": "segmentStrategiesSchema",
@@ -38582,23 +39993,24 @@
               }
             }
           }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/admin/segments/{id}": {
       "delete": {
         "summary": "Deletes a segment by id",
         "description": "Deletes a segment by its id, if not found returns a 409 error",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "a segment id"
+          }
+        ],
         "tags": [
           "Segments"
         ],
@@ -38688,17 +40100,7 @@
               }
             }
           }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
+        }
       },
       "put": {
         "summary": "Update segment by id",
@@ -38707,6 +40109,17 @@
           "Segments"
         ],
         "operationId": "updateSegment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "a segment id"
+          }
+        ],
         "requestBody": {
           "description": "upsertSegmentSchema",
           "required": true,
@@ -38857,17 +40270,7 @@
               }
             }
           }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
+        }
       },
       "get": {
         "summary": "Get a segment",
@@ -38876,6 +40279,17 @@
           "Segments"
         ],
         "operationId": "getSegment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "a segment id"
+          }
+        ],
         "responses": {
           "200": {
             "description": "adminSegmentSchema",
@@ -38914,17 +40328,7 @@
               }
             }
           }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/admin/segments": {
@@ -39467,6 +40871,15 @@
             "in": "query"
           },
           {
+            "name": "archived",
+            "schema": {
+              "type": "string",
+              "example": "IS:true"
+            },
+            "description": "Whether to get results for archived feature flags or active feature flags. If `true`, Unleash will return only archived flags. If `false`, it will return only active flags.",
+            "in": "query"
+          },
+          {
             "name": "createdAt",
             "schema": {
               "type": "string",
@@ -39758,6 +41171,28 @@
                       "description": "A description of what went wrong."
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/client/features/delta": {
+      "get": {
+        "summary": "Get partial updates (SDK)",
+        "description": "Initially returns the full set of feature flags available to the provided API key. When called again with the returned etag, only returns the flags that have changed",
+        "operationId": "getDelta",
+        "tags": [
+          "Unstable"
+        ],
+        "responses": {
+          "200": {
+            "description": "clientFeaturesSchema",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/clientFeaturesSchema"
                 }
               }
             }

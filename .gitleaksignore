@@ -1,3 +1,5 @@
 # Ignore OpenAPI examples values
 /src/src/client/clients/featureFlags/open-api-definition.json:generic-api-key:9024
 /src/src/client/clients/featureFlags/schema.ts:generic-api-key:9202
+/src/src/client/clients/featureFlags/open-api-definition.json:generic-api-key:9285
+/src/src/client/clients/featureFlags/schema.ts:generic-api-key:9389
