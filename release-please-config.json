@@ -19,7 +19,7 @@
       "component": "@ogcio/building-blocks-sdk",
       "release-type": "node",
       "bump-minor-pre-major": true,
-      "bump-patch-for-minor-pre-major": false
+      "bump-patch-for-minor-pre-major": true
     }
   }
 }
