@@ -45,6 +45,9 @@ export interface paths {
                     offset?: number;
                     limit?: number;
                     ids?: string | string[];
+                    search?: string;
+                    from?: string;
+                    to?: string;
                 };
                 header?: never;
                 path?: never;
