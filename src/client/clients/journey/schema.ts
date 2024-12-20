@@ -1802,6 +1802,10 @@ export interface paths {
                     offset?: number;
                     limit?: number;
                     journeyId?: string;
+                    status?: "pending" | "failed" | "completed";
+                    search?: string;
+                    to?: string;
+                    from?: string;
                 };
                 header?: never;
                 path?: never;
