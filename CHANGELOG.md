@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.14](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.1.13...@ogcio/building-blocks-sdk@v0.1.14) (2024-12-20)
+
+
+### Features
+
+* update journey schema ([#97](https://github.com/ogcio/building-blocks-sdk/issues/97)) ([cc06854](https://github.com/ogcio/building-blocks-sdk/commit/cc068546457d517a31bda420cfeb2f78f8858915))
+
 ## [0.1.13](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.1.12...@ogcio/building-blocks-sdk@v0.1.13) (2024-12-18)
 
 
