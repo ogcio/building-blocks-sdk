@@ -16,7 +16,7 @@ importers:
         version: 0.1.0-beta.8
       '@sinclair/typebox':
         specifier: ^0.34.11
-        version: 0.34.11
+        version: 0.34.13
       commander:
         specifier: ^12.1.0
         version: 12.1.0
@@ -701,8 +701,8 @@ packages:
     resolution: {integrity: sha512-bD+82D9Dfa1F5xX1kfdR5ODIoJS41NOxTuHx4shVS5A4/ayEG+ZplpDDjB19fsa7kZXgSgD75R4sUCXjm88x6w==}
     engines: {node: ^18.12.0 || ^20.9.0 || ^22.0.0, pnpm: ^9.0.0}
 
-  '@sinclair/typebox@0.34.11':
-    resolution: {integrity: sha512-zE9pWGVSG82z+sFO+oUmqmqRVm8Wg5sVhmljYi1fDhLOSphBBy939QmC/qXcKFWqTiRJ6keyG4y75bIoTPRBAw==}
+  '@sinclair/typebox@0.34.13':
+    resolution: {integrity: sha512-ceVKqyCEgC355Kw0s/0tyfY9MzMQINSykJ/pG2w6YnaZyrcjV48svZpr8lVZrYgWjzOmrIPBhQRAtr/7eJpA5g==}
 
   '@types/conventional-commits-parser@5.0.0':
     resolution: {integrity: sha512-loB369iXNmAZglwWATL+WRe+CRMmmBPtpolYzIebFaX4YA3x+BEfLqhUAV9WanycKI3TG1IMr5bMJDajDKLlUQ==}
@@ -2287,7 +2287,7 @@ snapshots:
 
   '@silverhand/essentials@2.9.2': {}
 
-  '@sinclair/typebox@0.34.11': {}
+  '@sinclair/typebox@0.34.13': {}
 
   '@types/conventional-commits-parser@5.0.0':
     dependencies:
