@@ -1469,8 +1469,6 @@ export interface paths {
                                 title: string;
                                 userId: string;
                                 metadata: {
-                                    name: string;
-                                    email: string;
                                     runId?: string;
                                     journeyId?: string;
                                     journeyTitle?: string;
@@ -1480,6 +1478,10 @@ export interface paths {
                                 providerName: string;
                                 providerType: string;
                                 paymentRequestId: string;
+                                userInfo: {
+                                    name: string;
+                                    email: string;
+                                };
                             };
                             metadata?: {
                                 /** @description Object containing the links to the related endpoints */
@@ -1712,8 +1714,6 @@ export interface paths {
                                 title: string;
                                 userId: string;
                                 metadata: {
-                                    name: string;
-                                    email: string;
                                     runId?: string;
                                     journeyId?: string;
                                     journeyTitle?: string;
@@ -1827,8 +1827,6 @@ export interface paths {
                         amount: number;
                         paymentProviderId: string;
                         metadata: {
-                            name: string;
-                            email: string;
                             runId?: string;
                             journeyId?: string;
                             journeyTitle?: string;
@@ -2459,8 +2457,6 @@ export interface paths {
                                 title: string;
                                 userId: string;
                                 metadata: {
-                                    name: string;
-                                    email: string;
                                     runId?: string;
                                     journeyId?: string;
                                     journeyTitle?: string;
