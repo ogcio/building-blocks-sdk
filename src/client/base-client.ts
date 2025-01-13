@@ -6,6 +6,8 @@ export abstract class BaseClient<T extends {}> {
   private initialized;
 
   protected token?: string;
+  protected tokenExpiryCheckTime = Number.POSITIVE_INFINITY;
+
   protected getTokenFn?: TokenFunction;
   protected serviceName: SERVICE_NAME | undefined;
   protected logger?: Logger;
@@ -35,8 +37,25 @@ export abstract class BaseClient<T extends {}> {
     this.client = createClient<T>({ baseUrl: this.baseUrl });
     const authMiddleware: Middleware = {
       onRequest: async ({ request }) => {
-        if (!this.token && this.getTokenFn) {
+        if (
+          (!this.token || Date.now() >= this.tokenExpiryCheckTime) &&
+          this.getTokenFn
+        ) {
           this.token = await this.getTokenFn(this.serviceName as SERVICE_NAME);
+
+          try {
+            const parsed = JSON.parse(
+              Buffer.from(this.token.split(".")?.[1], "base64").toString(),
+            );
+            const expiry = Number.parseInt(parsed.exp);
+            if (!Number.isNaN(expiry)) {
+              this.tokenExpiryCheckTime = expiry;
+            }
+          } catch (err) {
+            if (this.logger) {
+              this.logger.warn(err, "failed to parse exp from token");
+            }
+          }
         }
 
         if (this.logger) {
@@ -66,6 +85,7 @@ export abstract class BaseClient<T extends {}> {
 
   public deleteToken() {
     this.token = undefined;
+    this.tokenExpiryCheckTime = Number.POSITIVE_INFINITY;
   }
 
   protected async getToken() {
