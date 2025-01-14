@@ -99,3 +99,42 @@ export function formatError<G, O>(
   }
   return { error: reason } as unknown as DataResponseValue<G, O>;
 }
+
+export function parseJwtToken(token: string): {
+  header: Record<string, unknown>;
+  payload: Record<string, unknown>;
+} {
+  const parts = token.split(".");
+  if (!parts || parts.length !== 3) {
+    throw "invalid jwt format";
+  }
+
+  const [headerPart, payloadPart] = parts;
+  try {
+    return {
+      header: JSON.parse(Buffer.from(headerPart, "base64").toString()),
+      payload: JSON.parse(Buffer.from(payloadPart, "base64").toString()),
+    };
+  } catch (_err) {
+    throw "invalid jwt format";
+  }
+}
+
+export function getNumberValueFromObject(
+  object: Record<string, unknown>,
+  key: string,
+): number {
+  const value = object[key];
+  if (value === null) {
+    throw new Error("failed to cast null to number");
+  }
+
+  if (value === undefined) {
+    throw new Error("failed to cast undefined to number");
+  }
+
+  if (Number.isNaN(Number(value))) {
+    throw new Error(`failed to cast ${value} to number`);
+  }
+  return Number(value);
+}

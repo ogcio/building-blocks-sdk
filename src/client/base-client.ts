@@ -1,10 +1,14 @@
 import createClient, { type Middleware } from "openapi-fetch";
 import type { Logger, SERVICE_NAME, TokenFunction } from "../types/index.js";
+import {
+  getNumberValueFromObject,
+  parseJwtToken,
+} from "./utils/client-utils.js";
 
 export abstract class BaseClient<T extends {}> {
   private baseUrl?: string;
   private initialized;
-
+  private tokenExpiryThresholdMs = 5000;
   protected token?: string;
   protected tokenExpiryCheckTime = Number.POSITIVE_INFINITY;
 
@@ -44,16 +48,12 @@ export abstract class BaseClient<T extends {}> {
           this.token = await this.getTokenFn(this.serviceName as SERVICE_NAME);
 
           try {
-            const parsed = JSON.parse(
-              Buffer.from(this.token.split(".")?.[1], "base64").toString(),
-            );
-            const expiry = Number.parseInt(parsed.exp);
-            if (!Number.isNaN(expiry)) {
-              this.tokenExpiryCheckTime = expiry;
-            }
+            const { payload } = parseJwtToken(this.token);
+            const expires = getNumberValueFromObject(payload, "exp");
+            this.tokenExpiryCheckTime = expires - this.tokenExpiryThresholdMs;
           } catch (err) {
             if (this.logger) {
-              this.logger.warn(err, "failed to parse exp from token");
+              this.logger.warn(err, "failed to set tokenExpiryCheckTime");
             }
           }
         }
