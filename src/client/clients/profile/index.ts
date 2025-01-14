@@ -3,99 +3,22 @@ import { PROFILE } from "../../../types/index.js";
 import { BaseClient } from "../../base-client.js";
 import { formatError, formatResponse } from "../../utils/client-utils.js";
 import type { paths } from "./schema.js";
-
 export class Profile extends BaseClient<paths> {
   protected declare client: ReturnType<typeof createClient<paths>>;
   protected serviceName = PROFILE;
 
-  async getAddresses() {
-    return this.client.GET("/api/v1/addresses/").then(
-      (response) => formatResponse(response, this.serviceName, this.logger),
-      (reason) => formatError(reason, this.serviceName, this.logger),
-    );
+  /**
+   * @deprecated Use getProfile() instead of getUser()
+   */
+  async getUser(profileId: string) {
+    console.warn("Warning: getUser() is deprecated. Use getProfile() instead.");
+    return this.getProfile(profileId);
   }
 
-  async getAddress(addressId: string) {
+  async getProfile(profileId: string) {
     return this.client
-      .GET("/api/v1/addresses/{addressId}", {
-        params: { path: { addressId } },
-      })
-      .then(
-        (response) => formatResponse(response, this.serviceName, this.logger),
-        (reason) => formatError(reason, this.serviceName, this.logger),
-      );
-  }
-
-  async createAddress(
-    data: paths["/api/v1/addresses/"]["post"]["requestBody"]["content"]["application/json"],
-  ) {
-    return this.client
-      .POST("/api/v1/addresses/", {
-        body: data,
-      })
-      .then(
-        (response) => formatResponse(response, this.serviceName, this.logger),
-        (reason) => formatError(reason, this.serviceName, this.logger),
-      );
-  }
-
-  async patchAddress(
-    addressId: string,
-    data: NonNullable<
-      paths["/api/v1/addresses/{addressId}"]["patch"]["requestBody"]
-    >["content"]["application/json"],
-  ) {
-    if (!data || Object.keys(data).length === 0) {
-      return;
-    }
-    return this.client
-      .PATCH("/api/v1/addresses/{addressId}", {
-        params: { path: { addressId } },
-        body: data,
-      })
-      .then(
-        (response) => formatResponse(response, this.serviceName, this.logger),
-        (reason) => formatError(reason, this.serviceName, this.logger),
-      );
-  }
-
-  async updateAddress(
-    addressId: string,
-    data: paths["/api/v1/addresses/{addressId}"]["put"]["requestBody"]["content"]["application/json"],
-  ) {
-    return this.client
-      .PUT("/api/v1/addresses/{addressId}", {
-        params: { path: { addressId } },
-        body: data,
-      })
-      .then(
-        (response) => formatResponse(response, this.serviceName, this.logger),
-        (reason) => formatError(reason, this.serviceName, this.logger),
-      );
-  }
-
-  async deleteAddress(addressId: string) {
-    return this.client
-      .DELETE("/api/v1/addresses/{addressId}", {
-        params: { path: { addressId } },
-      })
-      .then(
-        (response) => formatResponse(response, this.serviceName, this.logger),
-        (reason) => formatError(reason, this.serviceName, this.logger),
-      );
-  }
-
-  async getEntitlements() {
-    return this.client.GET("/api/v1/entitlements/").then(
-      (response) => formatResponse(response, this.serviceName, this.logger),
-      (reason) => formatError(reason, this.serviceName, this.logger),
-    );
-  }
-
-  async getUser(userId: string) {
-    return this.client
-      .GET("/api/v1/users/{userId}", {
-        params: { path: { userId } },
+      .GET("/api/v1/profiles/{profileId}", {
+        params: { path: { profileId } },
       })
       .then(
         (response) => formatResponse(response, this.serviceName, this.logger),
@@ -104,10 +27,12 @@ export class Profile extends BaseClient<paths> {
   }
 
   async createUser(
-    data: paths["/api/v1/users/"]["post"]["requestBody"]["content"]["application/json"],
+    data: NonNullable<
+      paths["/api/v1/profiles/import-profiles"]["post"]["requestBody"]
+    >["content"]["application/json"],
   ) {
     return this.client
-      .POST("/api/v1/users/", {
+      .POST("/api/v1/profiles/import-profiles", {
         body: data,
       })
       .then(
@@ -117,12 +42,14 @@ export class Profile extends BaseClient<paths> {
   }
 
   async updateUser(
-    userId: string,
-    data: paths["/api/v1/users/{userId}"]["put"]["requestBody"]["content"]["application/json"],
+    profileId: string,
+    data: NonNullable<
+      paths["/api/v1/profiles/{profileId}"]["put"]["requestBody"]
+    >["content"]["application/json"],
   ) {
     return this.client
-      .PUT("/api/v1/users/{userId}", {
-        params: { path: { userId } },
+      .PUT("/api/v1/profiles/{profileId}", {
+        params: { path: { profileId }, query: { organizationId: "string" } },
         body: data,
       })
       .then(
@@ -132,17 +59,17 @@ export class Profile extends BaseClient<paths> {
   }
 
   async patchUser(
-    userId: string,
+    profileId: string,
     data?: NonNullable<
-      paths["/api/v1/users/{userId}"]["patch"]["requestBody"]
+      paths["/api/v1/profiles/{profileId}"]["patch"]["requestBody"]
     >["content"]["application/json"],
   ) {
     if (!data || Object.keys(data).length === 0) {
       return;
     }
     return this.client
-      .PATCH("/api/v1/users/{userId}", {
-        params: { path: { userId } },
+      .PATCH("/api/v1/profiles/{profileId}", {
+        params: { path: { profileId }, query: { organizationId: "string" } },
         body: data,
       })
       .then(
@@ -152,10 +79,10 @@ export class Profile extends BaseClient<paths> {
   }
 
   async findUser(
-    query: paths["/api/v1/users/find"]["get"]["parameters"]["query"],
+    query: paths["/api/v1/profiles/find-profile"]["get"]["parameters"]["query"],
   ) {
     return this.client
-      .GET("/api/v1/users/find", {
+      .GET("/api/v1/profiles/find-profile", {
         params: {
           query,
         },
@@ -167,11 +94,15 @@ export class Profile extends BaseClient<paths> {
   }
 
   async selectUsers(
-    ids: paths["/api/v1/users/select"]["post"]["requestBody"]["content"]["application/json"]["ids"],
+    ids: paths["/api/v1/profiles/select-profiles"]["get"]["parameters"]["query"]["ids"],
   ) {
     return this.client
-      .POST("/api/v1/users/select", {
-        body: { ids },
+      .GET("/api/v1/profiles/select-profiles", {
+        params: {
+          query: {
+            ids,
+          },
+        },
       })
       .then(
         (response) => formatResponse(response, this.serviceName, this.logger),

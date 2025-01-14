@@ -1,35 +1,82 @@
 export interface paths {
-    "/health": {
+    "/api/v1/profiles/": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-            };
-        };
+        get: operations["indexProfiles"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
+        trace?: never;
+    };
+    "/api/v1/profiles/import-profiles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["importProfiles"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/profiles/select-profiles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["selectProfiles"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/profiles/find-profile": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["findProfile"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/profiles/{profileId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getProfile"];
+        put: operations["updateProfilePut"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["updateProfilePatch"];
         trace?: never;
     };
     "/user-login-wh": {
@@ -65,1355 +112,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/addresses/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                addressId: string;
-                                addressLine1: string;
-                                addressLine2: string;
-                                town: string;
-                                county: string;
-                                eirecode: string;
-                                updatedAt: string;
-                                moveInDate?: string;
-                                moveOutDate?: string;
-                                isPrimary?: boolean;
-                                ownershipStatus?: string;
-                            }[];
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            code: string;
-                            detail: string;
-                            requestId: string;
-                            name: string;
-                            validation?: unknown;
-                            validationContext?: string;
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        addressLine1: string;
-                        addressLine2?: string;
-                        town: string;
-                        county: string;
-                        eirecode: string;
-                        moveInDate?: string;
-                        moveOutDate?: string;
-                    };
-                };
-            };
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                id: string;
-                            };
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            code: string;
-                            detail: string;
-                            requestId: string;
-                            name: string;
-                            validation?: unknown;
-                            validationContext?: string;
-                        };
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/addresses/{addressId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    addressId: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                addressId: string;
-                                addressLine1: string;
-                                addressLine2: string;
-                                town: string;
-                                county: string;
-                                eirecode: string;
-                                updatedAt: string;
-                                moveInDate?: string;
-                                moveOutDate?: string;
-                                isPrimary?: boolean;
-                                ownershipStatus?: string;
-                            };
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            code: string;
-                            detail: string;
-                            requestId: string;
-                            name: string;
-                            validation?: unknown;
-                            validationContext?: string;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            code: string;
-                            detail: string;
-                            requestId: string;
-                            name: string;
-                            validation?: unknown;
-                            validationContext?: string;
-                        };
-                    };
-                };
-            };
-        };
-        put: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    addressId: string;
-                };
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        addressLine1: string;
-                        addressLine2?: string;
-                        town: string;
-                        county: string;
-                        eirecode: string;
-                        moveInDate?: string;
-                        moveOutDate?: string;
-                        isPrimary: boolean;
-                        ownershipStatus: string;
-                    };
-                };
-            };
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                id: string;
-                            };
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            code: string;
-                            detail: string;
-                            requestId: string;
-                            name: string;
-                            validation?: unknown;
-                            validationContext?: string;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            code: string;
-                            detail: string;
-                            requestId: string;
-                            name: string;
-                            validation?: unknown;
-                            validationContext?: string;
-                        };
-                    };
-                };
-            };
-        };
-        post?: never;
-        delete: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    addressId: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                id: string;
-                            };
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            code: string;
-                            detail: string;
-                            requestId: string;
-                            name: string;
-                            validation?: unknown;
-                            validationContext?: string;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            code: string;
-                            detail: string;
-                            requestId: string;
-                            name: string;
-                            validation?: unknown;
-                            validationContext?: string;
-                        };
-                    };
-                };
-            };
-        };
-        options?: never;
-        head?: never;
-        patch: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    addressId: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": {
-                        isPrimary?: boolean;
-                        ownershipStatus?: string;
-                    };
-                };
-            };
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                id: string;
-                            };
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            code: string;
-                            detail: string;
-                            requestId: string;
-                            name: string;
-                            validation?: unknown;
-                            validationContext?: string;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            code: string;
-                            detail: string;
-                            requestId: string;
-                            name: string;
-                            validation?: unknown;
-                            validationContext?: string;
-                        };
-                    };
-                };
-            };
-        };
-        trace?: never;
-    };
-    "/api/v1/entitlements/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                firstname: string;
-                                lastname: string;
-                                type: string;
-                                issueDate: string;
-                                expiryDate?: string;
-                                documentNumber: string;
-                            }[];
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            code: string;
-                            detail: string;
-                            requestId: string;
-                            name: string;
-                            validation?: unknown;
-                            validationContext?: string;
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/users/{userId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    userId: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                /** @default null */
-                                title: null | string;
-                                firstName: string;
-                                lastName: string;
-                                /** @default null */
-                                dateOfBirth: null | string;
-                                /** @default null */
-                                ppsn: null | string;
-                                /** @default false */
-                                ppsnVisible: null | boolean;
-                                /** @default null */
-                                gender: null | string;
-                                /** Format: email */
-                                email: string;
-                                /** @default null */
-                                phone: null | string;
-                                /** @default false */
-                                consentToPrefillData: null | boolean;
-                                /** @default en */
-                                preferredLanguage: string;
-                            };
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            code: string;
-                            detail: string;
-                            requestId: string;
-                            name: string;
-                            validation?: unknown;
-                            validationContext?: string;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            code: string;
-                            detail: string;
-                            requestId: string;
-                            name: string;
-                            validation?: unknown;
-                            validationContext?: string;
-                        };
-                    };
-                };
-            };
-        };
-        put: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    userId: string;
-                };
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        firstname: string;
-                        lastname: string;
-                        email: string;
-                        title: string;
-                        dateOfBirth: string;
-                        ppsn: string;
-                        ppsnVisible: boolean;
-                        gender: string;
-                        phone: string;
-                        consentToPrefillData?: boolean;
-                        preferredLanguage: string;
-                    };
-                };
-            };
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                id: string;
-                            };
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            code: string;
-                            detail: string;
-                            requestId: string;
-                            name: string;
-                            validation?: unknown;
-                            validationContext?: string;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            code: string;
-                            detail: string;
-                            requestId: string;
-                            name: string;
-                            validation?: unknown;
-                            validationContext?: string;
-                        };
-                    };
-                };
-            };
-        };
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    userId: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": {
-                        ppsnVisible?: boolean;
-                        consentToPrefillData?: boolean;
-                        preferredLanguage?: string;
-                    };
-                };
-            };
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                id: string;
-                            };
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            code: string;
-                            detail: string;
-                            requestId: string;
-                            name: string;
-                            validation?: unknown;
-                            validationContext?: string;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            code: string;
-                            detail: string;
-                            requestId: string;
-                            name: string;
-                            validation?: unknown;
-                            validationContext?: string;
-                        };
-                    };
-                };
-            };
-        };
-        trace?: never;
-    };
-    "/api/v1/users/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        firstname: string;
-                        lastname: string;
-                        email: string;
-                        title?: string;
-                        dateOfBirth?: string;
-                        ppsn?: string;
-                        ppsnVisible?: boolean;
-                        gender?: string;
-                        phone?: string;
-                        consentToPrefillData?: boolean;
-                        /** @default en */
-                        preferredLanguage: string;
-                    };
-                };
-            };
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                id: string;
-                            };
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            code: string;
-                            detail: string;
-                            requestId: string;
-                            name: string;
-                            validation?: unknown;
-                            validationContext?: string;
-                        };
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/users/find": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: {
-                    firstname?: string;
-                    lastname?: string;
-                    email?: string;
-                    dateOfBirth?: string;
-                    ppsn?: string;
-                    gender?: string;
-                    phone?: string;
-                    strict?: boolean;
-                };
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                id: string;
-                                firstname: string;
-                                lastname: string;
-                                matchQuality: "exact" | "approximate";
-                            };
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            code: string;
-                            detail: string;
-                            requestId: string;
-                            name: string;
-                            validation?: unknown;
-                            validationContext?: string;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            code: string;
-                            detail: string;
-                            requestId: string;
-                            name: string;
-                            validation?: unknown;
-                            validationContext?: string;
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/users/select": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        ids: string[];
-                    };
-                };
-            };
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                id: string;
-                                firstName: string;
-                                lastName: string;
-                                ppsn: string;
-                                /** Format: email */
-                                email?: string;
-                                phone?: string;
-                                preferredLanguage: string;
-                            }[];
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "4XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            code: string;
-                            detail: string;
-                            requestId: string;
-                            name: string;
-                            validation?: unknown;
-                            validationContext?: string;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "5XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            code: string;
-                            detail: string;
-                            requestId: string;
-                            name: string;
-                            validation?: unknown;
-                            validationContext?: string;
-                        };
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -1425,4 +123,336 @@ export interface components {
     pathItems: never;
 }
 export type $defs = Record<string, never>;
-export type operations = Record<string, never>;
+export interface operations {
+    indexProfiles: {
+        parameters: {
+            query?: {
+                /** @description If set, the endpoint searches for users whom contain this value in either the public name or the email address */
+                search?: string;
+                /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
+                offset?: string;
+                /** @description Indicates the maximum number (100) of items that will be returned in a single request */
+                limit?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            id: string;
+                            public_name: string;
+                            email: string;
+                            primary_user_id: string;
+                            safe_level?: number;
+                            /** Format: date-time */
+                            created_at?: string;
+                            /** Format: date-time */
+                            updated_at?: string;
+                            details: {
+                                city?: {
+                                    value: string;
+                                    type: string;
+                                };
+                                email?: {
+                                    value: string;
+                                    type: string;
+                                };
+                                address?: {
+                                    value: string;
+                                    type: string;
+                                };
+                                phone?: {
+                                    value: string;
+                                    type: string;
+                                };
+                                first_name?: {
+                                    value: string;
+                                    type: string;
+                                };
+                                last_name?: {
+                                    value: string;
+                                    type: string;
+                                };
+                                date_of_birth?: {
+                                    value: string;
+                                    type: string;
+                                };
+                            };
+                        }[];
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+        };
+    };
+    importProfiles: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": {
+                    address: string;
+                    city: string;
+                    first_name: string;
+                    last_name: string;
+                    /** Format: email */
+                    email: string;
+                    phone: string;
+                    /** Format: date */
+                    date_of_birth: string;
+                }[];
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    selectProfiles: {
+        parameters: {
+            query: {
+                /** @description Comma-separated list of profile IDs */
+                ids: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    findProfile: {
+        parameters: {
+            query?: {
+                /** @description Email address to search for */
+                email?: string;
+                /** @description First name to search for */
+                firstName?: string;
+                /** @description Last name to search for */
+                lastName?: string;
+                /** @description Phone number to search for */
+                phone?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    getProfile: {
+        parameters: {
+            query?: {
+                organizationId?: string;
+            };
+            header?: never;
+            path: {
+                /** @description ID of the profile to retrieve */
+                profileId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    updateProfilePut: {
+        parameters: {
+            query: {
+                /** @description Organization ID owning the profile */
+                organizationId: string;
+            };
+            header?: never;
+            path: {
+                /** @description ID of the profile to update */
+                profileId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": {
+                    public_name?: string;
+                    /** Format: email */
+                    email?: string;
+                    phone?: string;
+                    address?: string;
+                    city?: string;
+                    first_name?: string;
+                    last_name?: string;
+                    /** Format: date */
+                    date_of_birth?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    updateProfilePatch: {
+        parameters: {
+            query: {
+                /** @description Organization ID owning the profile */
+                organizationId: string;
+            };
+            header?: never;
+            path: {
+                /** @description ID of the profile to update */
+                profileId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": {
+                    public_name?: string;
+                    /** Format: email */
+                    email?: string;
+                    phone?: string;
+                    address?: string;
+                    city?: string;
+                    first_name?: string;
+                    last_name?: string;
+                    /** Format: date */
+                    date_of_birth?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+}
