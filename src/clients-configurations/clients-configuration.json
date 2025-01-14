@@ -63,7 +63,7 @@
     },
     {
       "name": "profile",
-      "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/life-events/refs/heads/dev/apps/profile-api/openapi-definition.yml",
+      "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/govie-services-profile/refs/heads/main/apps/profile-api/openapi-definition.yml",
       "openApiDefinitionFormat": "yaml",
       "citizenPermissions": [
         "profile:user.self:read",
@@ -72,7 +72,8 @@
         "profile:address.self:write",
         "profile:entitlement.self:read",
         "profile:entitlement.self:write",
-        "profile:user:read"
+        "profile:user:read",
+        "profile:user:*"
       ],
       "publicServantPermissions": [
         "profile:user:*",
