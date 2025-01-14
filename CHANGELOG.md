@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.16](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.1.15...@ogcio/building-blocks-sdk@v0.1.16) (2025-01-14)
+
+
+### Features
+
+* add expiry time and check on request middleware ([#106](https://github.com/ogcio/building-blocks-sdk/issues/106)) ([6a3505d](https://github.com/ogcio/building-blocks-sdk/commit/6a3505d763ad7a26a985e4c6fb8bd9c65c060abb))
+
 ## [0.1.15](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.1.14...@ogcio/building-blocks-sdk@v0.1.15) (2025-01-08)
 
 
