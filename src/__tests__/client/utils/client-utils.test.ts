@@ -3,6 +3,8 @@ import {
   type PaginationParams,
   formatError,
   formatResponse,
+  getNumberValueFromObject,
+  parseJwtToken,
   preparePaginationParams,
   toStringOrUndefined,
 } from "./../../../client/utils/client-utils.js";
@@ -156,5 +158,69 @@ describe("formatError", () => {
     expect(result).toEqual({
       error: errorMessage,
     });
+  });
+});
+
+describe(parseJwtToken.name, () => {
+  it("should throw on empty string parameter", () => {
+    expect(() => parseJwtToken("")).toThrow("invalid jwt format");
+  });
+
+  it("should throw on illegal jwt characters parameter", () => {
+    expect(() => parseJwtToken("all.the.parts!")).toThrow("invalid jwt format");
+  });
+
+  it("should throw on too long jwt format parameter", () => {
+    expect(() => parseJwtToken("too.many.parts.here")).toThrow(
+      "invalid jwt format",
+    );
+  });
+
+  it("should throw on too short jwt format parameter", () => {
+    expect(() => parseJwtToken("parts.missing")).toThrow("invalid jwt format");
+  });
+
+  it("should throw if payload is invalid json", () => {
+    expect(() =>
+      parseJwtToken(
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.invalidJsonPayload.dXNlcnNlY3JldA",
+      ),
+    ).toThrow("invalid jwt format");
+  });
+});
+
+describe(getNumberValueFromObject.name, () => {
+  it("should return correct with numeric value type", () => {
+    const expected = 123;
+    const actual = getNumberValueFromObject({ exp: 123 }, "exp");
+
+    expect(actual).toBeTypeOf("number");
+    expect(actual).toBe(expected);
+  });
+
+  it("should return correct with string value type that represent a valid number", () => {
+    const expected = 123;
+    const actual = getNumberValueFromObject({ exp: "123" }, "exp");
+
+    expect(actual).toBeTypeOf("number");
+    expect(actual).toBe(expected);
+  });
+
+  it("should throw if value string isn't parseable as number", () => {
+    expect(() => getNumberValueFromObject({ exp: "12a3" }, "exp")).toThrow(
+      "failed to cast 12a3 to number",
+    );
+  });
+
+  it("should throw if value type is null", () => {
+    expect(() => getNumberValueFromObject({ exp: null }, "exp")).toThrow(
+      "failed to cast null to number",
+    );
+  });
+
+  it("should throw if value type is undefined", () => {
+    expect(() => getNumberValueFromObject({ expo: 123 }, "exp")).toThrow(
+      "failed to cast undefined to number",
+    );
   });
 });
