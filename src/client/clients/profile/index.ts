@@ -181,4 +181,19 @@ export class Profile extends BaseClient<paths> {
         (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
+
+  async listProfiles(
+    query: paths["/api/v1/profiles/"]["get"]["parameters"]["query"],
+  ) {
+    return this.client
+      .GET("/api/v1/profiles/", {
+        params: {
+          query,
+        },
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
 }
