@@ -1,11 +1,17 @@
 import createClient, { type Middleware } from "openapi-fetch";
 import type { Logger, SERVICE_NAME, TokenFunction } from "../types/index.js";
+import {
+  getNumberValueFromObject,
+  parseJwtToken,
+} from "./utils/client-utils.js";
 
 export abstract class BaseClient<T extends {}> {
   private baseUrl?: string;
   private initialized;
-
+  private tokenExpiryThresholdMs = 5000;
   protected token?: string;
+  protected tokenExpiryCheckTime = Number.POSITIVE_INFINITY;
+
   protected getTokenFn?: TokenFunction;
   protected serviceName: SERVICE_NAME | undefined;
   protected logger?: Logger;
@@ -35,8 +41,21 @@ export abstract class BaseClient<T extends {}> {
     this.client = createClient<T>({ baseUrl: this.baseUrl });
     const authMiddleware: Middleware = {
       onRequest: async ({ request }) => {
-        if (!this.token && this.getTokenFn) {
+        if (
+          (!this.token || Date.now() >= this.tokenExpiryCheckTime) &&
+          this.getTokenFn
+        ) {
           this.token = await this.getTokenFn(this.serviceName as SERVICE_NAME);
+
+          try {
+            const { payload } = parseJwtToken(this.token);
+            const expires = getNumberValueFromObject(payload, "exp");
+            this.tokenExpiryCheckTime = expires - this.tokenExpiryThresholdMs;
+          } catch (err) {
+            if (this.logger) {
+              this.logger.warn(err, "failed to set tokenExpiryCheckTime");
+            }
+          }
         }
 
         if (this.logger) {
@@ -66,6 +85,7 @@ export abstract class BaseClient<T extends {}> {
 
   public deleteToken() {
     this.token = undefined;
+    this.tokenExpiryCheckTime = Number.POSITIVE_INFINITY;
   }
 
   protected async getToken() {
