@@ -83,6 +83,13 @@
                           "safe_level": {
                             "type": "number"
                           },
+                          "preferred_language": {
+                            "enum": [
+                              "en",
+                              "ga"
+                            ],
+                            "type": "string"
+                          },
                           "created_at": {
                             "format": "date-time",
                             "type": "string"
@@ -206,8 +213,7 @@
                           "id",
                           "public_name",
                           "email",
-                          "primary_user_id",
-                          "details"
+                          "primary_user_id"
                         ]
                       }
                     },
@@ -449,6 +455,13 @@
                     "date_of_birth": {
                       "format": "date",
                       "type": "string"
+                    },
+                    "preferred_language": {
+                      "enum": [
+                        "en",
+                        "ga"
+                      ],
+                      "type": "string"
                     }
                   },
                   "required": [
@@ -688,6 +701,13 @@
                           "safe_level": {
                             "type": "number"
                           },
+                          "preferred_language": {
+                            "enum": [
+                              "en",
+                              "ga"
+                            ],
+                            "type": "string"
+                          },
                           "created_at": {
                             "format": "date-time",
                             "type": "string"
@@ -811,8 +831,7 @@
                           "id",
                           "public_name",
                           "email",
-                          "primary_user_id",
-                          "details"
+                          "primary_user_id"
                         ]
                       }
                     },
@@ -1088,6 +1107,13 @@
                         "safe_level": {
                           "type": "number"
                         },
+                        "preferred_language": {
+                          "enum": [
+                            "en",
+                            "ga"
+                          ],
+                          "type": "string"
+                        },
                         "created_at": {
                           "format": "date-time",
                           "type": "string"
@@ -1211,8 +1237,7 @@
                         "id",
                         "public_name",
                         "email",
-                        "primary_user_id",
-                        "details"
+                        "primary_user_id"
                       ]
                     },
                     "metadata": {
@@ -1467,6 +1492,13 @@
                         "safe_level": {
                           "type": "number"
                         },
+                        "preferred_language": {
+                          "enum": [
+                            "en",
+                            "ga"
+                          ],
+                          "type": "string"
+                        },
                         "created_at": {
                           "format": "date-time",
                           "type": "string"
@@ -1590,8 +1622,7 @@
                         "id",
                         "public_name",
                         "email",
-                        "primary_user_id",
-                        "details"
+                        "primary_user_id"
                       ]
                     },
                     "metadata": {
@@ -1831,6 +1862,13 @@
                   "date_of_birth": {
                     "format": "date",
                     "type": "string"
+                  },
+                  "preferred_language": {
+                    "enum": [
+                      "en",
+                      "ga"
+                    ],
+                    "type": "string"
                   }
                 }
               }
@@ -1882,6 +1920,13 @@
                         },
                         "safe_level": {
                           "type": "number"
+                        },
+                        "preferred_language": {
+                          "enum": [
+                            "en",
+                            "ga"
+                          ],
+                          "type": "string"
                         },
                         "created_at": {
                           "format": "date-time",
@@ -2006,8 +2051,7 @@
                         "id",
                         "public_name",
                         "email",
-                        "primary_user_id",
-                        "details"
+                        "primary_user_id"
                       ]
                     },
                     "metadata": {
@@ -2247,6 +2291,13 @@
                   "date_of_birth": {
                     "format": "date",
                     "type": "string"
+                  },
+                  "preferred_language": {
+                    "enum": [
+                      "en",
+                      "ga"
+                    ],
+                    "type": "string"
                   }
                 }
               }
@@ -2298,6 +2349,13 @@
                         },
                         "safe_level": {
                           "type": "number"
+                        },
+                        "preferred_language": {
+                          "enum": [
+                            "en",
+                            "ga"
+                          ],
+                          "type": "string"
                         },
                         "created_at": {
                           "format": "date-time",
@@ -2422,8 +2480,7 @@
                         "id",
                         "public_name",
                         "email",
-                        "primary_user_id",
-                        "details"
+                        "primary_user_id"
                       ]
                     },
                     "metadata": {

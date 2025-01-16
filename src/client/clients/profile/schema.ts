@@ -153,11 +153,13 @@ export interface operations {
                             email: string;
                             primary_user_id: string;
                             safe_level?: number;
+                            /** @enum {string} */
+                            preferred_language?: "en" | "ga";
                             /** Format: date-time */
                             created_at?: string;
                             /** Format: date-time */
                             updated_at?: string;
-                            details: {
+                            details?: {
                                 city?: {
                                     value: string;
                                     type: string;
@@ -293,6 +295,8 @@ export interface operations {
                     phone: string;
                     /** Format: date */
                     date_of_birth: string;
+                    /** @enum {string} */
+                    preferred_language?: "en" | "ga";
                 }[];
             };
         };
@@ -383,11 +387,13 @@ export interface operations {
                             email: string;
                             primary_user_id: string;
                             safe_level?: number;
+                            /** @enum {string} */
+                            preferred_language?: "en" | "ga";
                             /** Format: date-time */
                             created_at?: string;
                             /** Format: date-time */
                             updated_at?: string;
-                            details: {
+                            details?: {
                                 city?: {
                                     value: string;
                                     type: string;
@@ -535,11 +541,13 @@ export interface operations {
                             email: string;
                             primary_user_id: string;
                             safe_level?: number;
+                            /** @enum {string} */
+                            preferred_language?: "en" | "ga";
                             /** Format: date-time */
                             created_at?: string;
                             /** Format: date-time */
                             updated_at?: string;
-                            details: {
+                            details?: {
                                 city?: {
                                     value: string;
                                     type: string;
@@ -683,11 +691,13 @@ export interface operations {
                             email: string;
                             primary_user_id: string;
                             safe_level?: number;
+                            /** @enum {string} */
+                            preferred_language?: "en" | "ga";
                             /** Format: date-time */
                             created_at?: string;
                             /** Format: date-time */
                             updated_at?: string;
-                            details: {
+                            details?: {
                                 city?: {
                                     value: string;
                                     type: string;
@@ -830,6 +840,8 @@ export interface operations {
                     last_name?: string;
                     /** Format: date */
                     date_of_birth?: string;
+                    /** @enum {string} */
+                    preferred_language?: "en" | "ga";
                 };
             };
         };
@@ -847,11 +859,13 @@ export interface operations {
                             email: string;
                             primary_user_id: string;
                             safe_level?: number;
+                            /** @enum {string} */
+                            preferred_language?: "en" | "ga";
                             /** Format: date-time */
                             created_at?: string;
                             /** Format: date-time */
                             updated_at?: string;
-                            details: {
+                            details?: {
                                 city?: {
                                     value: string;
                                     type: string;
@@ -994,6 +1008,8 @@ export interface operations {
                     last_name?: string;
                     /** Format: date */
                     date_of_birth?: string;
+                    /** @enum {string} */
+                    preferred_language?: "en" | "ga";
                 };
             };
         };
@@ -1011,11 +1027,13 @@ export interface operations {
                             email: string;
                             primary_user_id: string;
                             safe_level?: number;
+                            /** @enum {string} */
+                            preferred_language?: "en" | "ga";
                             /** Format: date-time */
                             created_at?: string;
                             /** Format: date-time */
                             updated_at?: string;
-                            details: {
+                            details?: {
                                 city?: {
                                     value: string;
                                     type: string;
