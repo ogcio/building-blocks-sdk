@@ -150,45 +150,19 @@ export interface operations {
                         data: {
                             id: string;
                             public_name: string;
+                            /** Format: email */
                             email: string;
                             primary_user_id: string;
                             safe_level?: number;
-                            /** @enum {string} */
-                            preferred_language?: "en" | "ga";
+                            /**
+                             * @default en
+                             * @enum {string}
+                             */
+                            preferred_language: "en" | "ga";
                             /** Format: date-time */
                             created_at?: string;
                             /** Format: date-time */
                             updated_at?: string;
-                            details?: {
-                                city?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                email?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                address?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                phone?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                first_name?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                last_name?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                date_of_birth?: {
-                                    value: string;
-                                    type: string;
-                                };
-                            };
                         }[];
                         metadata?: {
                             /** @description Object containing the links to the related endpoints */
@@ -295,7 +269,11 @@ export interface operations {
                     phone: string;
                     /** Format: date */
                     date_of_birth: string;
-                    /** @enum {string} */
+                    ppsn?: string;
+                    /**
+                     * @default en
+                     * @enum {string}
+                     */
                     preferred_language?: "en" | "ga";
                 }[];
             };
@@ -384,44 +362,30 @@ export interface operations {
                         data: {
                             id: string;
                             public_name: string;
+                            /** Format: email */
                             email: string;
                             primary_user_id: string;
                             safe_level?: number;
-                            /** @enum {string} */
-                            preferred_language?: "en" | "ga";
+                            /**
+                             * @default en
+                             * @enum {string}
+                             */
+                            preferred_language: "en" | "ga";
                             /** Format: date-time */
                             created_at?: string;
                             /** Format: date-time */
                             updated_at?: string;
                             details?: {
-                                city?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                email?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                address?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                phone?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                first_name?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                last_name?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                date_of_birth?: {
-                                    value: string;
-                                    type: string;
-                                };
+                                city?: string;
+                                /** Format: email */
+                                email?: string;
+                                address?: string;
+                                phone?: string;
+                                first_name?: string;
+                                last_name?: string;
+                                /** Format: date */
+                                date_of_birth?: string;
+                                ppsn?: string;
                             };
                         }[];
                         metadata?: {
@@ -538,44 +502,30 @@ export interface operations {
                         data: {
                             id: string;
                             public_name: string;
+                            /** Format: email */
                             email: string;
                             primary_user_id: string;
                             safe_level?: number;
-                            /** @enum {string} */
-                            preferred_language?: "en" | "ga";
+                            /**
+                             * @default en
+                             * @enum {string}
+                             */
+                            preferred_language: "en" | "ga";
                             /** Format: date-time */
                             created_at?: string;
                             /** Format: date-time */
                             updated_at?: string;
                             details?: {
-                                city?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                email?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                address?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                phone?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                first_name?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                last_name?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                date_of_birth?: {
-                                    value: string;
-                                    type: string;
-                                };
+                                city?: string;
+                                /** Format: email */
+                                email?: string;
+                                address?: string;
+                                phone?: string;
+                                first_name?: string;
+                                last_name?: string;
+                                /** Format: date */
+                                date_of_birth?: string;
+                                ppsn?: string;
                             };
                         };
                         metadata?: {
@@ -688,44 +638,30 @@ export interface operations {
                         data: {
                             id: string;
                             public_name: string;
+                            /** Format: email */
                             email: string;
                             primary_user_id: string;
                             safe_level?: number;
-                            /** @enum {string} */
-                            preferred_language?: "en" | "ga";
+                            /**
+                             * @default en
+                             * @enum {string}
+                             */
+                            preferred_language: "en" | "ga";
                             /** Format: date-time */
                             created_at?: string;
                             /** Format: date-time */
                             updated_at?: string;
                             details?: {
-                                city?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                email?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                address?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                phone?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                first_name?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                last_name?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                date_of_birth?: {
-                                    value: string;
-                                    type: string;
-                                };
+                                city?: string;
+                                /** Format: email */
+                                email?: string;
+                                address?: string;
+                                phone?: string;
+                                first_name?: string;
+                                last_name?: string;
+                                /** Format: date */
+                                date_of_birth?: string;
+                                ppsn?: string;
                             };
                         };
                         metadata?: {
@@ -856,44 +792,30 @@ export interface operations {
                         data: {
                             id: string;
                             public_name: string;
+                            /** Format: email */
                             email: string;
                             primary_user_id: string;
                             safe_level?: number;
-                            /** @enum {string} */
-                            preferred_language?: "en" | "ga";
+                            /**
+                             * @default en
+                             * @enum {string}
+                             */
+                            preferred_language: "en" | "ga";
                             /** Format: date-time */
                             created_at?: string;
                             /** Format: date-time */
                             updated_at?: string;
                             details?: {
-                                city?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                email?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                address?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                phone?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                first_name?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                last_name?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                date_of_birth?: {
-                                    value: string;
-                                    type: string;
-                                };
+                                city?: string;
+                                /** Format: email */
+                                email?: string;
+                                address?: string;
+                                phone?: string;
+                                first_name?: string;
+                                last_name?: string;
+                                /** Format: date */
+                                date_of_birth?: string;
+                                ppsn?: string;
                             };
                         };
                         metadata?: {
@@ -1024,44 +946,30 @@ export interface operations {
                         data: {
                             id: string;
                             public_name: string;
+                            /** Format: email */
                             email: string;
                             primary_user_id: string;
                             safe_level?: number;
-                            /** @enum {string} */
-                            preferred_language?: "en" | "ga";
+                            /**
+                             * @default en
+                             * @enum {string}
+                             */
+                            preferred_language: "en" | "ga";
                             /** Format: date-time */
                             created_at?: string;
                             /** Format: date-time */
                             updated_at?: string;
                             details?: {
-                                city?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                email?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                address?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                phone?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                first_name?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                last_name?: {
-                                    value: string;
-                                    type: string;
-                                };
-                                date_of_birth?: {
-                                    value: string;
-                                    type: string;
-                                };
+                                city?: string;
+                                /** Format: email */
+                                email?: string;
+                                address?: string;
+                                phone?: string;
+                                first_name?: string;
+                                last_name?: string;
+                                /** Format: date */
+                                date_of_birth?: string;
+                                ppsn?: string;
                             };
                         };
                         metadata?: {
