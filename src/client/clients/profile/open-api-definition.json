@@ -71,20 +71,20 @@
                           "id": {
                             "type": "string"
                           },
-                          "public_name": {
+                          "publicName": {
                             "type": "string"
                           },
                           "email": {
                             "format": "email",
                             "type": "string"
                           },
-                          "primary_user_id": {
+                          "primaryUserId": {
                             "type": "string"
                           },
-                          "safe_level": {
+                          "safeLevel": {
                             "type": "number"
                           },
-                          "preferred_language": {
+                          "preferredLanguage": {
                             "type": "string",
                             "enum": [
                               "en",
@@ -92,20 +92,20 @@
                             ],
                             "default": "en"
                           },
-                          "created_at": {
+                          "createdAt": {
                             "format": "date-time",
                             "type": "string"
                           },
-                          "updated_at": {
+                          "updatedAt": {
                             "format": "date-time",
                             "type": "string"
                           }
                         },
                         "required": [
                           "id",
-                          "public_name",
+                          "publicName",
                           "email",
-                          "primary_user_id"
+                          "primaryUserId"
                         ]
                       }
                     },
@@ -331,10 +331,10 @@
                     "city": {
                       "type": "string"
                     },
-                    "first_name": {
+                    "firstName": {
                       "type": "string"
                     },
-                    "last_name": {
+                    "lastName": {
                       "type": "string"
                     },
                     "email": {
@@ -344,14 +344,14 @@
                     "phone": {
                       "type": "string"
                     },
-                    "date_of_birth": {
+                    "dateOfBirth": {
                       "format": "date",
                       "type": "string"
                     },
                     "ppsn": {
                       "type": "string"
                     },
-                    "preferred_language": {
+                    "preferredLanguage": {
                       "type": "string",
                       "enum": [
                         "en",
@@ -363,11 +363,11 @@
                   "required": [
                     "address",
                     "city",
-                    "first_name",
-                    "last_name",
+                    "firstName",
+                    "lastName",
                     "email",
                     "phone",
-                    "date_of_birth"
+                    "dateOfBirth"
                   ]
                 }
               }
@@ -585,20 +585,20 @@
                           "id": {
                             "type": "string"
                           },
-                          "public_name": {
+                          "publicName": {
                             "type": "string"
                           },
                           "email": {
                             "format": "email",
                             "type": "string"
                           },
-                          "primary_user_id": {
+                          "primaryUserId": {
                             "type": "string"
                           },
-                          "safe_level": {
+                          "safeLevel": {
                             "type": "number"
                           },
-                          "preferred_language": {
+                          "preferredLanguage": {
                             "type": "string",
                             "enum": [
                               "en",
@@ -606,22 +606,28 @@
                             ],
                             "default": "en"
                           },
-                          "created_at": {
+                          "createdAt": {
                             "format": "date-time",
                             "type": "string"
                           },
-                          "updated_at": {
+                          "updatedAt": {
                             "format": "date-time",
                             "type": "string"
                           },
                           "details": {
                             "type": "object",
                             "properties": {
-                              "city": {
-                                "type": "string"
-                              },
                               "email": {
                                 "format": "email",
+                                "type": "string"
+                              },
+                              "firstName": {
+                                "type": "string"
+                              },
+                              "lastName": {
+                                "type": "string"
+                              },
+                              "city": {
                                 "type": "string"
                               },
                               "address": {
@@ -630,27 +636,26 @@
                               "phone": {
                                 "type": "string"
                               },
-                              "first_name": {
-                                "type": "string"
-                              },
-                              "last_name": {
-                                "type": "string"
-                              },
-                              "date_of_birth": {
+                              "dateOfBirth": {
                                 "format": "date",
                                 "type": "string"
                               },
                               "ppsn": {
                                 "type": "string"
                               }
-                            }
+                            },
+                            "required": [
+                              "email",
+                              "firstName",
+                              "lastName"
+                            ]
                           }
                         },
                         "required": [
                           "id",
-                          "public_name",
+                          "publicName",
                           "email",
-                          "primary_user_id"
+                          "primaryUserId"
                         ]
                       }
                     },
@@ -914,20 +919,20 @@
                         "id": {
                           "type": "string"
                         },
-                        "public_name": {
+                        "publicName": {
                           "type": "string"
                         },
                         "email": {
                           "format": "email",
                           "type": "string"
                         },
-                        "primary_user_id": {
+                        "primaryUserId": {
                           "type": "string"
                         },
-                        "safe_level": {
+                        "safeLevel": {
                           "type": "number"
                         },
-                        "preferred_language": {
+                        "preferredLanguage": {
                           "type": "string",
                           "enum": [
                             "en",
@@ -935,22 +940,28 @@
                           ],
                           "default": "en"
                         },
-                        "created_at": {
+                        "createdAt": {
                           "format": "date-time",
                           "type": "string"
                         },
-                        "updated_at": {
+                        "updatedAt": {
                           "format": "date-time",
                           "type": "string"
                         },
                         "details": {
                           "type": "object",
                           "properties": {
-                            "city": {
-                              "type": "string"
-                            },
                             "email": {
                               "format": "email",
+                              "type": "string"
+                            },
+                            "firstName": {
+                              "type": "string"
+                            },
+                            "lastName": {
+                              "type": "string"
+                            },
+                            "city": {
                               "type": "string"
                             },
                             "address": {
@@ -959,27 +970,26 @@
                             "phone": {
                               "type": "string"
                             },
-                            "first_name": {
-                              "type": "string"
-                            },
-                            "last_name": {
-                              "type": "string"
-                            },
-                            "date_of_birth": {
+                            "dateOfBirth": {
                               "format": "date",
                               "type": "string"
                             },
                             "ppsn": {
                               "type": "string"
                             }
-                          }
+                          },
+                          "required": [
+                            "email",
+                            "firstName",
+                            "lastName"
+                          ]
                         }
                       },
                       "required": [
                         "id",
-                        "public_name",
+                        "publicName",
                         "email",
-                        "primary_user_id"
+                        "primaryUserId"
                       ]
                     },
                     "metadata": {
@@ -1222,20 +1232,20 @@
                         "id": {
                           "type": "string"
                         },
-                        "public_name": {
+                        "publicName": {
                           "type": "string"
                         },
                         "email": {
                           "format": "email",
                           "type": "string"
                         },
-                        "primary_user_id": {
+                        "primaryUserId": {
                           "type": "string"
                         },
-                        "safe_level": {
+                        "safeLevel": {
                           "type": "number"
                         },
-                        "preferred_language": {
+                        "preferredLanguage": {
                           "type": "string",
                           "enum": [
                             "en",
@@ -1243,22 +1253,28 @@
                           ],
                           "default": "en"
                         },
-                        "created_at": {
+                        "createdAt": {
                           "format": "date-time",
                           "type": "string"
                         },
-                        "updated_at": {
+                        "updatedAt": {
                           "format": "date-time",
                           "type": "string"
                         },
                         "details": {
                           "type": "object",
                           "properties": {
-                            "city": {
-                              "type": "string"
-                            },
                             "email": {
                               "format": "email",
+                              "type": "string"
+                            },
+                            "firstName": {
+                              "type": "string"
+                            },
+                            "lastName": {
+                              "type": "string"
+                            },
+                            "city": {
                               "type": "string"
                             },
                             "address": {
@@ -1267,27 +1283,26 @@
                             "phone": {
                               "type": "string"
                             },
-                            "first_name": {
-                              "type": "string"
-                            },
-                            "last_name": {
-                              "type": "string"
-                            },
-                            "date_of_birth": {
+                            "dateOfBirth": {
                               "format": "date",
                               "type": "string"
                             },
                             "ppsn": {
                               "type": "string"
                             }
-                          }
+                          },
+                          "required": [
+                            "email",
+                            "firstName",
+                            "lastName"
+                          ]
                         }
                       },
                       "required": [
                         "id",
-                        "public_name",
+                        "publicName",
                         "email",
-                        "primary_user_id"
+                        "primaryUserId"
                       ]
                     },
                     "metadata": {
@@ -1502,7 +1517,7 @@
                 "additionalProperties": false,
                 "type": "object",
                 "properties": {
-                  "public_name": {
+                  "publicName": {
                     "type": "string"
                   },
                   "email": {
@@ -1518,22 +1533,23 @@
                   "city": {
                     "type": "string"
                   },
-                  "first_name": {
+                  "firstName": {
                     "type": "string"
                   },
-                  "last_name": {
+                  "lastName": {
                     "type": "string"
                   },
-                  "date_of_birth": {
+                  "dateOfBirth": {
                     "format": "date",
                     "type": "string"
                   },
-                  "preferred_language": {
+                  "preferredLanguage": {
+                    "type": "string",
                     "enum": [
                       "en",
                       "ga"
                     ],
-                    "type": "string"
+                    "default": "en"
                   }
                 }
               }
@@ -1574,20 +1590,20 @@
                         "id": {
                           "type": "string"
                         },
-                        "public_name": {
+                        "publicName": {
                           "type": "string"
                         },
                         "email": {
                           "format": "email",
                           "type": "string"
                         },
-                        "primary_user_id": {
+                        "primaryUserId": {
                           "type": "string"
                         },
-                        "safe_level": {
+                        "safeLevel": {
                           "type": "number"
                         },
-                        "preferred_language": {
+                        "preferredLanguage": {
                           "type": "string",
                           "enum": [
                             "en",
@@ -1595,22 +1611,28 @@
                           ],
                           "default": "en"
                         },
-                        "created_at": {
+                        "createdAt": {
                           "format": "date-time",
                           "type": "string"
                         },
-                        "updated_at": {
+                        "updatedAt": {
                           "format": "date-time",
                           "type": "string"
                         },
                         "details": {
                           "type": "object",
                           "properties": {
-                            "city": {
-                              "type": "string"
-                            },
                             "email": {
                               "format": "email",
+                              "type": "string"
+                            },
+                            "firstName": {
+                              "type": "string"
+                            },
+                            "lastName": {
+                              "type": "string"
+                            },
+                            "city": {
                               "type": "string"
                             },
                             "address": {
@@ -1619,27 +1641,26 @@
                             "phone": {
                               "type": "string"
                             },
-                            "first_name": {
-                              "type": "string"
-                            },
-                            "last_name": {
-                              "type": "string"
-                            },
-                            "date_of_birth": {
+                            "dateOfBirth": {
                               "format": "date",
                               "type": "string"
                             },
                             "ppsn": {
                               "type": "string"
                             }
-                          }
+                          },
+                          "required": [
+                            "email",
+                            "firstName",
+                            "lastName"
+                          ]
                         }
                       },
                       "required": [
                         "id",
-                        "public_name",
+                        "publicName",
                         "email",
-                        "primary_user_id"
+                        "primaryUserId"
                       ]
                     },
                     "metadata": {
@@ -1854,7 +1875,7 @@
                 "additionalProperties": false,
                 "type": "object",
                 "properties": {
-                  "public_name": {
+                  "publicName": {
                     "type": "string"
                   },
                   "email": {
@@ -1870,22 +1891,23 @@
                   "city": {
                     "type": "string"
                   },
-                  "first_name": {
+                  "firstName": {
                     "type": "string"
                   },
-                  "last_name": {
+                  "lastName": {
                     "type": "string"
                   },
-                  "date_of_birth": {
+                  "dateOfBirth": {
                     "format": "date",
                     "type": "string"
                   },
-                  "preferred_language": {
+                  "preferredLanguage": {
+                    "type": "string",
                     "enum": [
                       "en",
                       "ga"
                     ],
-                    "type": "string"
+                    "default": "en"
                   }
                 }
               }
@@ -1926,20 +1948,20 @@
                         "id": {
                           "type": "string"
                         },
-                        "public_name": {
+                        "publicName": {
                           "type": "string"
                         },
                         "email": {
                           "format": "email",
                           "type": "string"
                         },
-                        "primary_user_id": {
+                        "primaryUserId": {
                           "type": "string"
                         },
-                        "safe_level": {
+                        "safeLevel": {
                           "type": "number"
                         },
-                        "preferred_language": {
+                        "preferredLanguage": {
                           "type": "string",
                           "enum": [
                             "en",
@@ -1947,22 +1969,28 @@
                           ],
                           "default": "en"
                         },
-                        "created_at": {
+                        "createdAt": {
                           "format": "date-time",
                           "type": "string"
                         },
-                        "updated_at": {
+                        "updatedAt": {
                           "format": "date-time",
                           "type": "string"
                         },
                         "details": {
                           "type": "object",
                           "properties": {
-                            "city": {
-                              "type": "string"
-                            },
                             "email": {
                               "format": "email",
+                              "type": "string"
+                            },
+                            "firstName": {
+                              "type": "string"
+                            },
+                            "lastName": {
+                              "type": "string"
+                            },
+                            "city": {
                               "type": "string"
                             },
                             "address": {
@@ -1971,27 +1999,26 @@
                             "phone": {
                               "type": "string"
                             },
-                            "first_name": {
-                              "type": "string"
-                            },
-                            "last_name": {
-                              "type": "string"
-                            },
-                            "date_of_birth": {
+                            "dateOfBirth": {
                               "format": "date",
                               "type": "string"
                             },
                             "ppsn": {
                               "type": "string"
                             }
-                          }
+                          },
+                          "required": [
+                            "email",
+                            "firstName",
+                            "lastName"
+                          ]
                         }
                       },
                       "required": [
                         "id",
-                        "public_name",
+                        "publicName",
                         "email",
-                        "primary_user_id"
+                        "primaryUserId"
                       ]
                     },
                     "metadata": {

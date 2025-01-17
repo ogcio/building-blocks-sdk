@@ -149,20 +149,20 @@ export interface operations {
                     "application/json": {
                         data: {
                             id: string;
-                            public_name: string;
+                            publicName: string;
                             /** Format: email */
                             email: string;
-                            primary_user_id: string;
-                            safe_level?: number;
+                            primaryUserId: string;
+                            safeLevel?: number;
                             /**
                              * @default en
                              * @enum {string}
                              */
-                            preferred_language: "en" | "ga";
+                            preferredLanguage: "en" | "ga";
                             /** Format: date-time */
-                            created_at?: string;
+                            createdAt?: string;
                             /** Format: date-time */
-                            updated_at?: string;
+                            updatedAt?: string;
                         }[];
                         metadata?: {
                             /** @description Object containing the links to the related endpoints */
@@ -262,19 +262,19 @@ export interface operations {
                 "application/json": {
                     address: string;
                     city: string;
-                    first_name: string;
-                    last_name: string;
+                    firstName: string;
+                    lastName: string;
                     /** Format: email */
                     email: string;
                     phone: string;
                     /** Format: date */
-                    date_of_birth: string;
+                    dateOfBirth: string;
                     ppsn?: string;
                     /**
                      * @default en
                      * @enum {string}
                      */
-                    preferred_language?: "en" | "ga";
+                    preferredLanguage?: "en" | "ga";
                 }[];
             };
         };
@@ -361,30 +361,30 @@ export interface operations {
                     "application/json": {
                         data: {
                             id: string;
-                            public_name: string;
+                            publicName: string;
                             /** Format: email */
                             email: string;
-                            primary_user_id: string;
-                            safe_level?: number;
+                            primaryUserId: string;
+                            safeLevel?: number;
                             /**
                              * @default en
                              * @enum {string}
                              */
-                            preferred_language: "en" | "ga";
+                            preferredLanguage: "en" | "ga";
                             /** Format: date-time */
-                            created_at?: string;
+                            createdAt?: string;
                             /** Format: date-time */
-                            updated_at?: string;
+                            updatedAt?: string;
                             details?: {
-                                city?: string;
                                 /** Format: email */
-                                email?: string;
+                                email: string;
+                                firstName: string;
+                                lastName: string;
+                                city?: string;
                                 address?: string;
                                 phone?: string;
-                                first_name?: string;
-                                last_name?: string;
                                 /** Format: date */
-                                date_of_birth?: string;
+                                dateOfBirth?: string;
                                 ppsn?: string;
                             };
                         }[];
@@ -501,30 +501,30 @@ export interface operations {
                     "application/json": {
                         data: {
                             id: string;
-                            public_name: string;
+                            publicName: string;
                             /** Format: email */
                             email: string;
-                            primary_user_id: string;
-                            safe_level?: number;
+                            primaryUserId: string;
+                            safeLevel?: number;
                             /**
                              * @default en
                              * @enum {string}
                              */
-                            preferred_language: "en" | "ga";
+                            preferredLanguage: "en" | "ga";
                             /** Format: date-time */
-                            created_at?: string;
+                            createdAt?: string;
                             /** Format: date-time */
-                            updated_at?: string;
+                            updatedAt?: string;
                             details?: {
-                                city?: string;
                                 /** Format: email */
-                                email?: string;
+                                email: string;
+                                firstName: string;
+                                lastName: string;
+                                city?: string;
                                 address?: string;
                                 phone?: string;
-                                first_name?: string;
-                                last_name?: string;
                                 /** Format: date */
-                                date_of_birth?: string;
+                                dateOfBirth?: string;
                                 ppsn?: string;
                             };
                         };
@@ -637,30 +637,30 @@ export interface operations {
                     "application/json": {
                         data: {
                             id: string;
-                            public_name: string;
+                            publicName: string;
                             /** Format: email */
                             email: string;
-                            primary_user_id: string;
-                            safe_level?: number;
+                            primaryUserId: string;
+                            safeLevel?: number;
                             /**
                              * @default en
                              * @enum {string}
                              */
-                            preferred_language: "en" | "ga";
+                            preferredLanguage: "en" | "ga";
                             /** Format: date-time */
-                            created_at?: string;
+                            createdAt?: string;
                             /** Format: date-time */
-                            updated_at?: string;
+                            updatedAt?: string;
                             details?: {
-                                city?: string;
                                 /** Format: email */
-                                email?: string;
+                                email: string;
+                                firstName: string;
+                                lastName: string;
+                                city?: string;
                                 address?: string;
                                 phone?: string;
-                                first_name?: string;
-                                last_name?: string;
                                 /** Format: date */
-                                date_of_birth?: string;
+                                dateOfBirth?: string;
                                 ppsn?: string;
                             };
                         };
@@ -766,18 +766,21 @@ export interface operations {
         requestBody?: {
             content: {
                 "application/json": {
-                    public_name?: string;
+                    publicName?: string;
                     /** Format: email */
                     email?: string;
                     phone?: string;
                     address?: string;
                     city?: string;
-                    first_name?: string;
-                    last_name?: string;
+                    firstName?: string;
+                    lastName?: string;
                     /** Format: date */
-                    date_of_birth?: string;
-                    /** @enum {string} */
-                    preferred_language?: "en" | "ga";
+                    dateOfBirth?: string;
+                    /**
+                     * @default en
+                     * @enum {string}
+                     */
+                    preferredLanguage?: "en" | "ga";
                 };
             };
         };
@@ -791,30 +794,30 @@ export interface operations {
                     "application/json": {
                         data: {
                             id: string;
-                            public_name: string;
+                            publicName: string;
                             /** Format: email */
                             email: string;
-                            primary_user_id: string;
-                            safe_level?: number;
+                            primaryUserId: string;
+                            safeLevel?: number;
                             /**
                              * @default en
                              * @enum {string}
                              */
-                            preferred_language: "en" | "ga";
+                            preferredLanguage: "en" | "ga";
                             /** Format: date-time */
-                            created_at?: string;
+                            createdAt?: string;
                             /** Format: date-time */
-                            updated_at?: string;
+                            updatedAt?: string;
                             details?: {
-                                city?: string;
                                 /** Format: email */
-                                email?: string;
+                                email: string;
+                                firstName: string;
+                                lastName: string;
+                                city?: string;
                                 address?: string;
                                 phone?: string;
-                                first_name?: string;
-                                last_name?: string;
                                 /** Format: date */
-                                date_of_birth?: string;
+                                dateOfBirth?: string;
                                 ppsn?: string;
                             };
                         };
@@ -920,18 +923,21 @@ export interface operations {
         requestBody?: {
             content: {
                 "application/json": {
-                    public_name?: string;
+                    publicName?: string;
                     /** Format: email */
                     email?: string;
                     phone?: string;
                     address?: string;
                     city?: string;
-                    first_name?: string;
-                    last_name?: string;
+                    firstName?: string;
+                    lastName?: string;
                     /** Format: date */
-                    date_of_birth?: string;
-                    /** @enum {string} */
-                    preferred_language?: "en" | "ga";
+                    dateOfBirth?: string;
+                    /**
+                     * @default en
+                     * @enum {string}
+                     */
+                    preferredLanguage?: "en" | "ga";
                 };
             };
         };
@@ -945,30 +951,30 @@ export interface operations {
                     "application/json": {
                         data: {
                             id: string;
-                            public_name: string;
+                            publicName: string;
                             /** Format: email */
                             email: string;
-                            primary_user_id: string;
-                            safe_level?: number;
+                            primaryUserId: string;
+                            safeLevel?: number;
                             /**
                              * @default en
                              * @enum {string}
                              */
-                            preferred_language: "en" | "ga";
+                            preferredLanguage: "en" | "ga";
                             /** Format: date-time */
-                            created_at?: string;
+                            createdAt?: string;
                             /** Format: date-time */
-                            updated_at?: string;
+                            updatedAt?: string;
                             details?: {
-                                city?: string;
                                 /** Format: email */
-                                email?: string;
+                                email: string;
+                                firstName: string;
+                                lastName: string;
+                                city?: string;
                                 address?: string;
                                 phone?: string;
-                                first_name?: string;
-                                last_name?: string;
                                 /** Format: date */
-                                date_of_birth?: string;
+                                dateOfBirth?: string;
                                 ppsn?: string;
                             };
                         };
