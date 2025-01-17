@@ -299,6 +299,19 @@ export class Payments extends BaseClient<paths> {
         (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
+
+  async createStripePaymentIntent(
+    data: paths["/api/v1/stripe/paymentIntent"]["post"]["requestBody"]["content"]["application/json"],
+  ) {
+    return this.client
+      .POST("/api/v1/stripe/paymentIntent", {
+        body: data,
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
   /**
    * Citizen
    */
