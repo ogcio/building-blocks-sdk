@@ -300,6 +300,7 @@ export class Payments extends BaseClient<paths> {
       );
   }
 
+
   async createStripePaymentIntent(
     data: paths["/api/v1/stripe/paymentIntent"]["post"]["requestBody"]["content"]["application/json"],
   ) {
@@ -312,6 +313,43 @@ export class Payments extends BaseClient<paths> {
         (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
+
+  async createRefund(
+    transactionId: paths["/api/v1/transactions/{transactionId}/refund"]["post"]["parameters"]["path"]["transactionId"],
+    data: paths["/api/v1/transactions/{transactionId}/refund"]["post"]["requestBody"]["content"]["application/json"],
+  ) {
+    return this.client
+      .POST("/api/v1/transactions/{transactionId}/refund", {
+        params: {
+          path: {
+            transactionId,
+          },
+        },
+        body: data,
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
+
+  async getRefoundByTransactionId(
+    transactionId: paths["/api/v1/transactions/{transactionId}/refund"]["post"]["parameters"]["path"]["transactionId"],
+  ) {
+    return this.client
+      .GET("/api/v1/transactions/{transactionId}/refund", {
+        params: {
+          path: {
+            transactionId,
+          },
+        },
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
+
   /**
    * Citizen
    */
