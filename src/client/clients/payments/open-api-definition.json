@@ -3159,7 +3159,7 @@
                       "type": "object",
                       "properties": {
                         "amount": {
-                          "type": "number"
+                          "type": "string"
                         },
                         "runId": {
                           "type": "string"
@@ -3710,6 +3710,9 @@
                               "type": "string"
                             },
                             "redirectUrl": {
+                              "type": "string"
+                            },
+                            "amount": {
                               "type": "string"
                             }
                           }
@@ -4270,6 +4273,9 @@
                               },
                               "redirectUrl": {
                                 "type": "string"
+                              },
+                              "amount": {
+                                "type": "string"
                               }
                             }
                           },
@@ -4534,8 +4540,14 @@
                       },
                       "redirectUrl": {
                         "type": "string"
+                      },
+                      "amount": {
+                        "type": "string"
                       }
                     }
+                  },
+                  "token": {
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -5831,6 +5843,9 @@
                             },
                             "redirectUrl": {
                               "type": "string"
+                            },
+                            "amount": {
+                              "type": "string"
                             }
                           }
                         },
@@ -6015,6 +6030,22 @@
             "in": "query",
             "name": "providerId",
             "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "paymentRequestId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "token",
+            "required": false
           }
         ],
         "responses": {
@@ -7159,6 +7190,9 @@
                   },
                   "amount": {
                     "type": "number"
+                  },
+                  "token": {
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -7281,6 +7315,40 @@
                   },
                   "required": [
                     "data"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
                   ]
                 }
               }

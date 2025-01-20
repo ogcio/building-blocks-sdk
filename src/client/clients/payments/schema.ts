@@ -1238,7 +1238,7 @@ export interface paths {
                     content: {
                         "application/json": {
                             data: {
-                                amount?: number;
+                                amount?: string;
                                 runId: string;
                                 journeyId: string;
                                 redirectUrl: string;
@@ -1473,6 +1473,7 @@ export interface paths {
                                     journeyId?: string;
                                     journeyTitle?: string;
                                     redirectUrl?: string;
+                                    amount?: string;
                                 };
                                 description: string;
                                 providerName: string;
@@ -1718,6 +1719,7 @@ export interface paths {
                                     journeyId?: string;
                                     journeyTitle?: string;
                                     redirectUrl?: string;
+                                    amount?: string;
                                 };
                                 description: string;
                                 providerName: string;
@@ -1831,7 +1833,9 @@ export interface paths {
                             journeyId?: string;
                             journeyTitle?: string;
                             redirectUrl?: string;
+                            amount?: string;
                         };
+                        token?: string;
                     };
                 };
             };
@@ -2461,6 +2465,7 @@ export interface paths {
                                     journeyId?: string;
                                     journeyTitle?: string;
                                     redirectUrl?: string;
+                                    amount?: string;
                                 };
                                 description: string;
                                 providerName: string;
@@ -2542,6 +2547,8 @@ export interface paths {
                     amount: string;
                     intentId: string;
                     providerId: string;
+                    paymentRequestId: string;
+                    token?: string;
                 };
                 header?: never;
                 path?: never;
@@ -3125,6 +3132,7 @@ export interface paths {
                     "application/json": {
                         paymentRequestId: string;
                         amount: number;
+                        token?: string;
                     };
                 };
             };
@@ -3173,6 +3181,22 @@ export interface paths {
                                 /** @description Number representing the total number of available items */
                                 totalCount?: number;
                             };
+                        };
+                    };
+                };
+                /** @description Default Response */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            code: string;
+                            detail: string;
+                            requestId: string;
+                            name: string;
+                            validation?: unknown;
+                            validationContext?: string;
                         };
                     };
                 };
