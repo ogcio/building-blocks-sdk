@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.18](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.1.17...@ogcio/building-blocks-sdk@v0.1.18) (2025-01-20)
+
+
+### Features
+
+* validate transaction amount ([#114](https://github.com/ogcio/building-blocks-sdk/issues/114)) ([dabb99a](https://github.com/ogcio/building-blocks-sdk/commit/dabb99add732cf3ff24412ca764a2b9268057c1d))
+
 ## [0.1.17](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.1.16...@ogcio/building-blocks-sdk@v0.1.17) (2025-01-17)
 
 
