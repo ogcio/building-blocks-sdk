@@ -300,7 +300,6 @@ export class Payments extends BaseClient<paths> {
       );
   }
 
-
   async createStripePaymentIntent(
     data: paths["/api/v1/stripe/paymentIntent"]["post"]["requestBody"]["content"]["application/json"],
   ) {
