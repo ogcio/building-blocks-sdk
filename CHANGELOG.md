@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.2.0](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.1.18...@ogcio/building-blocks-sdk@v0.2.0) (2025-01-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* Moved to the new profile apis and removed imports from messaging ([#108](https://github.com/ogcio/building-blocks-sdk/issues/108))
+
+### Features
+
+* Moved to the new profile apis and removed imports from messaging ([#108](https://github.com/ogcio/building-blocks-sdk/issues/108)) ([2aff0e1](https://github.com/ogcio/building-blocks-sdk/commit/2aff0e1807c061a233d064f0c9a2080c9b0e78e0))
+
 ## [0.1.18](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.1.17...@ogcio/building-blocks-sdk@v0.1.18) (2025-01-20)
 
 
