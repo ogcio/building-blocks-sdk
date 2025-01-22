@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.1.18](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.1.17...@ogcio/building-blocks-sdk@v0.1.18) (2025-01-20)
+
+
+### Features
+
+* validate transaction amount ([#114](https://github.com/ogcio/building-blocks-sdk/issues/114)) ([dabb99a](https://github.com/ogcio/building-blocks-sdk/commit/dabb99add732cf3ff24412ca764a2b9268057c1d))
+
+## [0.1.17](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.1.16...@ogcio/building-blocks-sdk@v0.1.17) (2025-01-17)
+
+
+### Features
+
+* add method for stripe payment intent creation ([#112](https://github.com/ogcio/building-blocks-sdk/issues/112)) ([08a5b1e](https://github.com/ogcio/building-blocks-sdk/commit/08a5b1e9d3a39e4a06f5dea567cc9ee68f774fca))
+* update analytics sdk to beta10 ([#110](https://github.com/ogcio/building-blocks-sdk/issues/110)) ([a1e510c](https://github.com/ogcio/building-blocks-sdk/commit/a1e510c2c179923b5d60f52da43f4fb00c4d6e74))
+
 ## [0.1.16](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.1.15...@ogcio/building-blocks-sdk@v0.1.16) (2025-01-14)
 
 
