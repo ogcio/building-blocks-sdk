@@ -1,24 +1,25 @@
+import createError from "http-errors";
 import type createClient from "openapi-fetch";
 import { PROFILE } from "../../../types/index.js";
 import { BaseClient } from "../../base-client.js";
 import { formatError, formatResponse } from "../../utils/client-utils.js";
 import type { paths } from "./schema.js";
-
 export class Profile extends BaseClient<paths> {
   protected declare client: ReturnType<typeof createClient<paths>>;
   protected serviceName = PROFILE;
 
-  async getAddresses() {
-    return this.client.GET("/api/v1/addresses/").then(
-      (response) => formatResponse(response, this.serviceName, this.logger),
-      (reason) => formatError(reason, this.serviceName, this.logger),
-    );
+  /**
+   * @deprecated Use getProfile() instead of getUser()
+   */
+  async getUser(profileId: string) {
+    console.warn("Warning: getUser() is deprecated. Use getProfile() instead.");
+    return this.getProfile(profileId);
   }
 
-  async getAddress(addressId: string) {
+  async getProfile(profileId: string) {
     return this.client
-      .GET("/api/v1/addresses/{addressId}", {
-        params: { path: { addressId } },
+      .GET("/api/v1/profiles/{profileId}", {
+        params: { path: { profileId } },
       })
       .then(
         (response) => formatResponse(response, this.serviceName, this.logger),
@@ -26,123 +27,98 @@ export class Profile extends BaseClient<paths> {
       );
   }
 
-  async createAddress(
-    data: paths["/api/v1/addresses/"]["post"]["requestBody"]["content"]["application/json"],
-  ) {
-    return this.client
-      .POST("/api/v1/addresses/", {
-        body: data,
-      })
-      .then(
-        (response) => formatResponse(response, this.serviceName, this.logger),
-        (reason) => formatError(reason, this.serviceName, this.logger),
-      );
-  }
-
-  async patchAddress(
-    addressId: string,
-    data: NonNullable<
-      paths["/api/v1/addresses/{addressId}"]["patch"]["requestBody"]
-    >["content"]["application/json"],
-  ) {
-    if (!data || Object.keys(data).length === 0) {
-      return;
-    }
-    return this.client
-      .PATCH("/api/v1/addresses/{addressId}", {
-        params: { path: { addressId } },
-        body: data,
-      })
-      .then(
-        (response) => formatResponse(response, this.serviceName, this.logger),
-        (reason) => formatError(reason, this.serviceName, this.logger),
-      );
-  }
-
-  async updateAddress(
-    addressId: string,
-    data: paths["/api/v1/addresses/{addressId}"]["put"]["requestBody"]["content"]["application/json"],
-  ) {
-    return this.client
-      .PUT("/api/v1/addresses/{addressId}", {
-        params: { path: { addressId } },
-        body: data,
-      })
-      .then(
-        (response) => formatResponse(response, this.serviceName, this.logger),
-        (reason) => formatError(reason, this.serviceName, this.logger),
-      );
-  }
-
-  async deleteAddress(addressId: string) {
-    return this.client
-      .DELETE("/api/v1/addresses/{addressId}", {
-        params: { path: { addressId } },
-      })
-      .then(
-        (response) => formatResponse(response, this.serviceName, this.logger),
-        (reason) => formatError(reason, this.serviceName, this.logger),
-      );
-  }
-
-  async getEntitlements() {
-    return this.client.GET("/api/v1/entitlements/").then(
-      (response) => formatResponse(response, this.serviceName, this.logger),
-      (reason) => formatError(reason, this.serviceName, this.logger),
-    );
-  }
-
-  async getUser(userId: string) {
-    return this.client
-      .GET("/api/v1/users/{userId}", {
-        params: { path: { userId } },
-      })
-      .then(
-        (response) => formatResponse(response, this.serviceName, this.logger),
-        (reason) => formatError(reason, this.serviceName, this.logger),
-      );
-  }
-
+  /**
+   * @deprecated Use getProfile() instead of getUser()
+   */
   async createUser(
-    data: paths["/api/v1/users/"]["post"]["requestBody"]["content"]["application/json"],
-  ) {
-    return this.client
-      .POST("/api/v1/users/", {
-        body: data,
-      })
-      .then(
-        (response) => formatResponse(response, this.serviceName, this.logger),
-        (reason) => formatError(reason, this.serviceName, this.logger),
-      );
-  }
-
-  async updateUser(
-    userId: string,
-    data: paths["/api/v1/users/{userId}"]["put"]["requestBody"]["content"]["application/json"],
-  ) {
-    return this.client
-      .PUT("/api/v1/users/{userId}", {
-        params: { path: { userId } },
-        body: data,
-      })
-      .then(
-        (response) => formatResponse(response, this.serviceName, this.logger),
-        (reason) => formatError(reason, this.serviceName, this.logger),
-      );
-  }
-
-  async patchUser(
-    userId: string,
-    data?: NonNullable<
-      paths["/api/v1/users/{userId}"]["patch"]["requestBody"]
+    data: NonNullable<
+      paths["/api/v1/profiles/import-profiles"]["post"]["requestBody"]
     >["content"]["application/json"],
+  ) {
+    console.warn(
+      "Warning: createUser() is deprecated. Use createProfile() instead.",
+    );
+    return this.createProfile(data);
+  }
+
+  async createProfile(
+    data: NonNullable<
+      paths["/api/v1/profiles/import-profiles"]["post"]["requestBody"]
+    >["content"]["application/json"],
+  ) {
+    return this.client
+      .POST("/api/v1/profiles/import-profiles", {
+        body: data,
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
+
+  /**
+   * @deprecated Use getProfile() instead of getUser()
+   */
+  async updateUser(
+    profileId: string,
+    data: NonNullable<
+      paths["/api/v1/profiles/{profileId}"]["put"]["requestBody"]
+    >["content"]["application/json"],
+    organizationId?: string,
+  ) {
+    console.warn(
+      "Warning: updateUser() is deprecated. Use updateProfile() instead.",
+    );
+    return this.updateProfile(profileId, data, organizationId);
+  }
+
+  async updateProfile(
+    profileId: string,
+    data: NonNullable<
+      paths["/api/v1/profiles/{profileId}"]["put"]["requestBody"]
+    >["content"]["application/json"],
+    organizationId?: string,
+  ) {
+    return this.client
+      .PUT("/api/v1/profiles/{profileId}", {
+        params: { path: { profileId }, query: { organizationId } },
+        body: data,
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
+
+  /**
+   * @deprecated Use getProfile() instead of getUser()
+   */
+  async patchUser(
+    profileId: string,
+    data: NonNullable<
+      paths["/api/v1/profiles/{profileId}"]["put"]["requestBody"]
+    >["content"]["application/json"],
+    organizationId?: string,
+  ) {
+    console.warn(
+      "Warning: patchUser() is deprecated. Use patchProfile() instead.",
+    );
+    return this.patchProfile(profileId, data, organizationId);
+  }
+
+  async patchProfile(
+    profileId: string,
+    data?: NonNullable<
+      paths["/api/v1/profiles/{profileId}"]["patch"]["requestBody"]
+    >["content"]["application/json"],
+    organizationId?: string,
   ) {
     if (!data || Object.keys(data).length === 0) {
       return;
     }
     return this.client
-      .PATCH("/api/v1/users/{userId}", {
-        params: { path: { userId } },
+      .PATCH("/api/v1/profiles/{profileId}", {
+        params: { path: { profileId }, query: { organizationId } },
         body: data,
       })
       .then(
@@ -151,11 +127,23 @@ export class Profile extends BaseClient<paths> {
       );
   }
 
+  /**
+   * @deprecated Use getProfile() instead of getUser()
+   */
   async findUser(
-    query: paths["/api/v1/users/find"]["get"]["parameters"]["query"],
+    query: paths["/api/v1/profiles/find-profile"]["get"]["parameters"]["query"],
+  ) {
+    console.warn(
+      "Warning: findUser() is deprecated. Use findProfile() instead.",
+    );
+    return this.findProfile(query);
+  }
+
+  async findProfile(
+    query: paths["/api/v1/profiles/find-profile"]["get"]["parameters"]["query"],
   ) {
     return this.client
-      .GET("/api/v1/users/find", {
+      .GET("/api/v1/profiles/find-profile", {
         params: {
           query,
         },
@@ -166,12 +154,80 @@ export class Profile extends BaseClient<paths> {
       );
   }
 
+  /**
+   * @deprecated Use getProfile() instead of getUser()
+   */
   async selectUsers(
-    ids: paths["/api/v1/users/select"]["post"]["requestBody"]["content"]["application/json"]["ids"],
+    ids: paths["/api/v1/profiles/select-profiles"]["get"]["parameters"]["query"]["ids"],
+  ) {
+    console.warn(
+      "Warning: selectUsers() is deprecated. Use selectProfiles() instead.",
+    );
+    return this.selectProfiles(ids);
+  }
+
+  async selectProfiles(
+    ids: paths["/api/v1/profiles/select-profiles"]["get"]["parameters"]["query"]["ids"],
   ) {
     return this.client
-      .POST("/api/v1/users/select", {
-        body: { ids },
+      .GET("/api/v1/profiles/select-profiles", {
+        params: {
+          query: {
+            ids,
+          },
+        },
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
+
+  async listProfiles(
+    query: paths["/api/v1/profiles/"]["get"]["parameters"]["query"],
+  ) {
+    return this.client
+      .GET("/api/v1/profiles/", {
+        params: {
+          query,
+        },
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
+
+  async importProfiles(toImport: {
+    file?: File;
+    records?: NonNullable<
+      paths["/api/v1/profiles/import-profiles"]["post"]["requestBody"]
+    >["content"]["application/json"]["profiles"];
+  }) {
+    if (toImport.file) {
+      const { data, error } = await this.client.POST(
+        "/api/v1/profiles/import-profiles",
+        {
+          body: {
+            file: toImport.file,
+          },
+          bodySerializer: (body: unknown) => {
+            const parsed = body as { file?: File } | undefined;
+            if (!parsed || !parsed.file) {
+              throw createError.BadRequest("File is missing!");
+            }
+            const formData = new FormData();
+            formData.set("file", parsed.file);
+            return formData;
+          },
+        },
+      );
+      return { data, error };
+    }
+
+    return this.client
+      .POST("/api/v1/profiles/import-profiles", {
+        body: { profiles: toImport.records },
       })
       .then(
         (response) => formatResponse(response, this.serviceName, this.logger),

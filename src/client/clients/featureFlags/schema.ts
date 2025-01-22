@@ -512,6 +512,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/admin/licensed-users": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieves all licensed users data.
+         * @description Fetches an array of licensed users with date and count.
+         */
+        get: operations["getAllLicensedUsers"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health": {
         parameters: {
             query?: never;
@@ -1376,6 +1396,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/admin/ui-config/cors": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Sets allowed CORS origins
+         * @description Sets Cross-Origin Resource Sharing headers for Frontend SDK API.
+         */
+        post: operations["setCors"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/admin/context": {
         parameters: {
             query?: never;
@@ -1443,6 +1483,46 @@ export interface paths {
         put?: never;
         post?: never;
         delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin/context/{contextField}/legal-values": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Add or update legal value for the context field
+         * @description Endpoint that allows adding or updating a single custom context field legal value. If the legal value already exists, it will be updated with the new description
+         */
+        post: operations["updateContextFieldLegalValue"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin/context/{contextField}/legal-values/{legalValue}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Delete legal value for the context field
+         * @description Removes the specified custom context field legal value. Does not validate that the legal value is not in use and does not remove usage from constraints that use it.
+         */
+        delete: operations["deleteContextFieldLegalValue"];
         options?: never;
         head?: never;
         patch?: never;
@@ -2445,7 +2525,7 @@ export interface paths {
         put?: never;
         /**
          * Mark features as stale / not stale
-         * @description This endpoint marks the provided list of features as either [stale](https://docs.getunleash.io/reference/technical-debt#stale-and-potentially-stale-toggles) or not stale depending on the request body you send. Any provided features that don't exist are ignored.
+         * @description This endpoint marks the provided list of features as either [stale](https://docs.getunleash.io/reference/technical-debt#stale-and-potentially-stale-flags) or not stale depending on the request body you send. Any provided features that don't exist are ignored.
          */
         post: operations["staleFeatures"];
         delete?: never;
@@ -2648,7 +2728,7 @@ export interface paths {
         /**
          * Get a health report for a project.
          * @deprecated
-         * @description This endpoint returns a health report for the specified project. This data is used for [the technical debt dashboard](https://docs.getunleash.io/reference/technical-debt#the-technical-debt-dashboard)
+         * @description This endpoint returns a health report for the specified project. This data is used for [the technical debt insights](https://docs.getunleash.io/reference/technical-debt)
          */
         get: operations["getProjectHealthReport"];
         put?: never;
@@ -3549,7 +3629,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/client/features/delta": {
+    "/api/client/delta": {
         parameters: {
             query?: never;
             header?: never;
@@ -4456,49 +4536,6 @@ export interface components {
                 invalidContextProperties?: string[];
             };
         };
-        /** @description Describes an Unleash AI chat message. */
-        aiChatMessageSchema: {
-            /**
-             * @description The role of the message sender.
-             * @example user
-             * @enum {string}
-             */
-            role: "system" | "user" | "assistant";
-            /**
-             * @description The message content.
-             * @example What is your purpose?
-             */
-            content: string;
-        };
-        /** @description Describes a new Unleash AI chat message sent by the user. */
-        aiChatNewMessageSchema: {
-            /**
-             * @description The message content.
-             * @example What is your purpose?
-             */
-            message: string;
-        };
-        /** @description Describes an Unleash AI chat. */
-        aiChatSchema: {
-            /**
-             * @description The chat's ID. Chat IDs are incrementing integers. In other words, a more recently created chat will always have a higher ID than an older one. This ID is represented as a string since it is a BigInt.
-             * @example 7
-             */
-            id: string;
-            /**
-             * @description The ID of the user that the chat belongs to.
-             * @example 7
-             */
-            userId: number;
-            /**
-             * Format: date-time
-             * @description The date and time of when the chat was created.
-             * @example 2023-12-27T13:37:00+01:00
-             */
-            createdAt: string;
-            /** @description The messages exchanged between the user and the Unleash AI. */
-            messages: components["schemas"]["aiChatMessageSchema"][];
-        };
         /** @description An overview of an [Unleash API token](https://docs.getunleash.io/reference/api-tokens-and-client-keys). */
         apiTokenSchema: {
             /**
@@ -4583,7 +4620,7 @@ export interface components {
                  * @description An SDK version identifier. Usually formatted as "unleash-client-<language>:<version>"
                  * @example unleash-client-java:7.0.0
                  */
-                sdkVersion?: string;
+                sdkVersion?: string | null;
                 /**
                  * @description An IP address identifying the instance of the application running the SDK
                  * @example 192.168.0.1
@@ -5048,6 +5085,17 @@ export interface components {
             variants?: components["schemas"]["variantSchema"][] | null;
             /** @description Feature dependencies for this flag */
             dependencies?: components["schemas"]["dependentFeatureSchema"][];
+        };
+        /** @description Schema for delta updates of feature configurations. */
+        clientFeaturesDeltaSchema: {
+            /** @description A list of updated feature configurations. */
+            updated: components["schemas"]["clientFeatureSchema"][];
+            /** @description The revision ID of the delta update. */
+            revisionId: number;
+            /** @description A list of feature names that were removed. */
+            removed: string[];
+            /** @description A list of [Segments](https://docs.getunleash.io/reference/segments) configured for this Unleash instance */
+            segments?: components["schemas"]["clientSegmentSchema"][];
         };
         /** @description Query parameters active for a client features request */
         clientFeaturesQuerySchema: {
@@ -6036,7 +6084,7 @@ export interface components {
              */
             members?: number;
             /**
-             * @description An indicator of the [project's health](https://docs.getunleash.io/reference/technical-debt#health-rating) on a scale from 0 to 100
+             * @description An indicator of the [project's health](https://docs.getunleash.io/reference/technical-debt#project-status) on a scale from 0 to 100
              * @example 50
              */
             health?: number;
@@ -6328,7 +6376,7 @@ export interface components {
              *       "impressionData": true
              *     }
              */
-            data?: Record<string, never>;
+            data?: Record<string, never> | null;
             /**
              * @description Data relating to the previous state of the event's subject.
              * @example {
@@ -6343,7 +6391,7 @@ export interface components {
              *       "impressionData": true
              *     }
              */
-            preData?: Record<string, never>;
+            preData?: Record<string, never> | null;
             /** @description Any tags related to the event, if applicable. */
             tags?: components["schemas"]["tagSchema"][] | null;
             /** @description The concise, human-readable name of the event. */
@@ -7530,7 +7578,7 @@ export interface components {
              */
             members: number;
             /**
-             * @description The overall [health rating](https://docs.getunleash.io/reference/technical-debt#health-rating) of the project.
+             * @description The overall [health rating](https://docs.getunleash.io/reference/technical-debt#project-status) of the project.
              * @example 95
              */
             health: number;
@@ -7598,7 +7646,7 @@ export interface components {
              */
             members: number;
             /**
-             * @description The overall [health rating](https://docs.getunleash.io/reference/technical-debt#health-rating) of the project.
+             * @description The overall [health rating](https://docs.getunleash.io/reference/technical-debt#project-status) of the project.
              * @example 95
              */
             health: number;
@@ -8402,7 +8450,7 @@ export interface components {
                  */
                 name: string;
                 /**
-                 * @description An indicator of the [project's health](https://docs.getunleash.io/reference/technical-debt#health-rating) on a scale from 0 to 100
+                 * @description An indicator of the [project's health](https://docs.getunleash.io/reference/technical-debt#project-status) on a scale from 0 to 100
                  * @example 50
                  */
                 health: number;
@@ -8891,7 +8939,7 @@ export interface components {
             /** @description Health summary of the project */
             health: {
                 /**
-                 * @description An indicator of the [project's health](https://docs.getunleash.io/reference/technical-debt#health-rating) on a scale from 0 to 100
+                 * @description An indicator of the [project's health](https://docs.getunleash.io/reference/technical-debt#project-status) on a scale from 0 to 100
                  * @example 95
                  */
                 rating: number;
@@ -8971,7 +9019,7 @@ export interface components {
              */
             members?: number;
             /**
-             * @description An indicator of the [project's health](https://docs.getunleash.io/reference/technical-debt#health-rating) on a scale from 0 to 100
+             * @description An indicator of the [project's health](https://docs.getunleash.io/reference/technical-debt#project-status) on a scale from 0 to 100
              * @example 50
              */
             health?: number;
@@ -9060,7 +9108,7 @@ export interface components {
              */
             description?: string | null;
             /**
-             * @description An indicator of the [project's health](https://docs.getunleash.io/reference/technical-debt#health-rating) on a scale from 0 to 100
+             * @description An indicator of the [project's health](https://docs.getunleash.io/reference/technical-debt#project-status) on a scale from 0 to 100
              * @example 50
              */
             health?: number;
@@ -9778,6 +9826,16 @@ export interface components {
             /** @description A list of segments */
             segments?: components["schemas"]["adminSegmentSchema"][];
         };
+        /** @description Unleash CORS configuration. */
+        setCorsSchema: {
+            /**
+             * @description The list of origins that the front-end API should accept requests from.
+             * @example [
+             *       "*"
+             *     ]
+             */
+            frontendApiOrigins?: string[];
+        };
         /** @description An array of strategies with their new sort order */
         setStrategySortOrderSchema: {
             /**
@@ -10205,11 +10263,6 @@ export interface components {
              * @example false
              */
             samlConfiguredThroughEnv?: boolean;
-            /**
-             * @description Whether Unleash AI is available.
-             * @example false
-             */
-            unleashAIAvailable?: boolean;
             /**
              * @description The maximum number of sessions that a user has.
              * @example 10
@@ -17793,6 +17846,26 @@ export interface operations {
             };
         };
     };
+    getAllLicensedUsers: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description licensedUsersSchema */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["licensedUsersSchema"];
+                };
+            };
+        };
+    };
     getHealth: {
         parameters: {
             query?: never;
@@ -21574,6 +21647,29 @@ export interface operations {
             };
         };
     };
+    setCors: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description setCorsSchema */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["setCorsSchema"];
+            };
+        };
+        responses: {
+            /** @description This response has no body. */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
     getContextFields: {
         parameters: {
             query?: never;
@@ -21732,6 +21828,52 @@ export interface operations {
                         message?: string;
                     };
                 };
+            };
+        };
+    };
+    updateContextFieldLegalValue: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                contextField: string;
+            };
+            cookie?: never;
+        };
+        /** @description legalValueSchema */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["legalValueSchema"];
+            };
+        };
+        responses: {
+            /** @description This response has no body. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    deleteContextFieldLegalValue: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                contextField: string;
+                legalValue: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description This response has no body. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
         };
     };
@@ -34162,13 +34304,13 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description clientFeaturesSchema */
+            /** @description clientFeaturesDeltaSchema */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["clientFeaturesSchema"];
+                    "application/json": components["schemas"]["clientFeaturesDeltaSchema"];
                 };
             };
         };
