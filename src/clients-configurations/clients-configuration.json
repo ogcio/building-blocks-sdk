@@ -4,7 +4,7 @@
       "name": "analytics",
       "openApiDefinitionUrl": "",
       "openApiDefinitionFormat": "yaml",
-      "updateDefinitions": true,
+      "updateDefinitions": false,
       "citizenPermissions": [],
       "publicServantPermissions": []
     },
@@ -51,7 +51,7 @@
         "payments:payment_request.public:read",
         "payments:transaction:*"
       ],
-      "updateDefinitions": true
+      "updateDefinitions": false
     },
     {
       "name": "scheduler",
@@ -63,7 +63,7 @@
     },
     {
       "name": "profile",
-      "openApiDefinitionUrl": "http://127.0.0.1:8003/docs/yaml",
+      "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/govie-services-profile/refs/heads/dev/apps/profile-api/openapi-definition.yml",
       "openApiDefinitionFormat": "yaml",
       "citizenPermissions": [
         "profile:user.self:read",
@@ -104,7 +104,7 @@
         "integrator:step:*",
         "integrator:run:read"
       ],
-      "updateDefinitions": true
+      "updateDefinitions": false
     }
   ]
 }

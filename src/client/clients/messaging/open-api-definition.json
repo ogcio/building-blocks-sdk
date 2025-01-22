@@ -18,6 +18,7 @@
   "paths": {
     "/api/v1/messages/": {
       "get": {
+        "operationId": "ListMessages",
         "tags": [
           "Messages"
         ],
@@ -351,6 +352,7 @@
         }
       },
       "post": {
+        "operationId": "CreateMessage",
         "tags": [
           "Messages"
         ],
@@ -686,6 +688,7 @@
     },
     "/api/v1/messages/{messageId}": {
       "get": {
+        "operationId": "GetMessage",
         "tags": [
           "Messages"
         ],
@@ -983,6 +986,7 @@
     },
     "/api/v1/providers/": {
       "get": {
+        "operationId": "ListProviders",
         "tags": [
           "Providers"
         ],
@@ -1007,8 +1011,8 @@
             "schema": {
               "type": "string",
               "enum": [
-                "sms",
-                "email"
+                "email",
+                "sms"
               ]
             },
             "in": "query",
@@ -1068,8 +1072,8 @@
                           "type": {
                             "type": "string",
                             "enum": [
-                              "sms",
-                              "email"
+                              "email",
+                              "sms"
                             ],
                             "description": "Provider types that can be manipulated"
                           }
@@ -1283,6 +1287,7 @@
         }
       },
       "post": {
+        "operationId": "CreateProvider",
         "tags": [
           "Providers"
         ],
@@ -1647,8 +1652,8 @@
             "schema": {
               "type": "string",
               "enum": [
-                "sms",
-                "email"
+                "email",
+                "sms"
               ]
             },
             "in": "query",
@@ -2007,6 +2012,7 @@
         }
       },
       "put": {
+        "operationId": "UpdateProvider",
         "tags": [
           "Providers"
         ],
@@ -2381,6 +2387,7 @@
         }
       },
       "delete": {
+        "operationId": "DeleteProvider",
         "tags": [
           "Providers"
         ],
@@ -2619,6 +2626,7 @@
     },
     "/api/v1/templates/": {
       "get": {
+        "operationId": "ListTemplates",
         "tags": [
           "Templates"
         ],
@@ -2897,6 +2905,7 @@
         }
       },
       "post": {
+        "operationId": "CreateTemplate",
         "tags": [
           "Templates"
         ],
@@ -3206,6 +3215,7 @@
     },
     "/api/v1/templates/{templateId}": {
       "get": {
+        "operationId": "GetTemplate",
         "tags": [
           "Templates"
         ],
@@ -3503,6 +3513,7 @@
         }
       },
       "put": {
+        "operationId": "UpdateTemplate",
         "tags": [
           "Templates"
         ],
@@ -3826,6 +3837,7 @@
         }
       },
       "delete": {
+        "operationId": "DeleteTemplate",
         "tags": [
           "Templates"
         ],
@@ -4180,8 +4192,8 @@
                             "items": {
                               "type": "string",
                               "enum": [
-                                "sms",
-                                "email"
+                                "email",
+                                "sms"
                               ],
                               "description": "Provider types that can be manipulated"
                             }
@@ -4726,8 +4738,8 @@
                           "items": {
                             "type": "string",
                             "enum": [
-                              "sms",
-                              "email"
+                              "email",
+                              "sms"
                             ],
                             "description": "Provider types that can be manipulated"
                           }
@@ -5194,8 +5206,8 @@
                     "items": {
                       "type": "string",
                       "enum": [
-                        "sms",
-                        "email"
+                        "email",
+                        "sms"
                       ],
                       "description": "Provider types that can be manipulated"
                     }
@@ -5306,8 +5318,8 @@
                           "items": {
                             "type": "string",
                             "enum": [
-                              "sms",
-                              "email"
+                              "email",
+                              "sms"
                             ],
                             "description": "Provider types that can be manipulated"
                           }
@@ -7204,8 +7216,8 @@
                             "items": {
                               "type": "string",
                               "enum": [
-                                "sms",
-                                "email"
+                                "email",
+                                "sms"
                               ],
                               "description": "Provider types that can be manipulated"
                             }
@@ -7769,8 +7781,8 @@
                           "items": {
                             "type": "string",
                             "enum": [
-                              "sms",
-                              "email"
+                              "email",
+                              "sms"
                             ],
                             "description": "Provider types that can be manipulated"
                           }

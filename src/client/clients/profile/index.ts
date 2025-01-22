@@ -1,3 +1,4 @@
+import createError from "http-errors";
 import type createClient from "openapi-fetch";
 import { PROFILE } from "../../../types/index.js";
 import { BaseClient } from "../../base-client.js";
@@ -190,6 +191,43 @@ export class Profile extends BaseClient<paths> {
         params: {
           query,
         },
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
+
+  async importProfiles(toImport: {
+    file?: File;
+    records?: NonNullable<
+      paths["/api/v1/profiles/import-profiles"]["post"]["requestBody"]
+    >["content"]["application/json"]["profiles"];
+  }) {
+    if (toImport.file) {
+      const { data, error } = await this.client.POST(
+        "/api/v1/profiles/import-profiles",
+        {
+          body: {
+            file: toImport.file,
+          },
+          bodySerializer: (body: unknown) => {
+            const parsed = body as { file?: File } | undefined;
+            if (!parsed || !parsed.file) {
+              throw createError.BadRequest("File is missing!");
+            }
+            const formData = new FormData();
+            formData.set("file", parsed.file);
+            return formData;
+          },
+        },
+      );
+      return { data, error };
+    }
+
+    return this.client
+      .POST("/api/v1/profiles/import-profiles", {
+        body: { profiles: toImport.records },
       })
       .then(
         (response) => formatResponse(response, this.serviceName, this.logger),

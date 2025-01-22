@@ -7,289 +7,10 @@ export interface paths {
             cookie?: never;
         };
         /** @description Returns all the messages for the requested organisation or the requested recipient */
-        get: {
-            parameters: {
-                query?: {
-                    status?: "delivered";
-                    isSeen?: "true" | "false" | "0" | "1";
-                    search?: string;
-                    /** @description Either recipientUserId and organisationId are mandatory */
-                    recipientUserId?: string;
-                    /** @description Either recipientUserId and organisationId are mandatory */
-                    organisationId?: string;
-                    /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
-                    offset?: string;
-                    /** @description Indicates the maximum number (100) of items that will be returned in a single request */
-                    limit?: string;
-                };
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                /** @description Unique Id of the message */
-                                id: string;
-                                /** @description Subject */
-                                subject: string;
-                                /** @description Creation date time */
-                                createdAt: string;
-                                /** @description Thread Name used to group messages */
-                                threadName: string;
-                                /** @description Organisation sender id */
-                                organisationId: string;
-                                /** @description Unique id of the recipient */
-                                recipientUserId: string;
-                                /** @description Number of attachments */
-                                attachmentsCount: number;
-                            }[];
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "4XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "5XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                        };
-                    };
-                };
-            };
-        };
+        get: operations["ListMessages"];
         put?: never;
         /** @description Creates a message */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        /** @description The list of the preferred transports to use. If the selected transports are not available for the recipient, others will be used */
-                        preferredTransports: ("sms" | "email" | "lifeEvent")[];
-                        /** @description Unique user id of the recipient */
-                        recipientUserId: string;
-                        /**
-                         * @description Confidentiality level of the message
-                         * @enum {string}
-                         */
-                        security: "confidential" | "public";
-                        /**
-                         * @description If true, the message will be sent even if the recipient didn't accept the organisation's invitation
-                         * @default false
-                         */
-                        bypassConsent: boolean;
-                        /**
-                         * Format: date-time
-                         * @description Date and time of when schedule the message
-                         */
-                        scheduleAt: string;
-                        message: {
-                            /** @description Thread Name used to group messages */
-                            threadName?: string;
-                            /** @description Subject. This is the only part that will be seen outside of the messaging platform is security is 'confidential' */
-                            subject: string;
-                            /** @description Brief description of the message */
-                            excerpt: string;
-                            /** @description Plain text version of the message */
-                            plainText: string;
-                            /** @description Rich text version of the message */
-                            richText: string;
-                            /**
-                             * @description Language used to send the message
-                             * @enum {string}
-                             */
-                            language: "en" | "ga";
-                        };
-                        attachments?: string[];
-                    };
-                };
-            };
-            responses: {
-                /** @description Default Response */
-                201: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                /**
-                                 * Format: uuid
-                                 * @description Unique Id of the resource
-                                 */
-                                id: string;
-                            };
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "4XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "5XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                        };
-                    };
-                };
-            };
-        };
+        post: operations["CreateMessage"];
         delete?: never;
         options?: never;
         head?: never;
@@ -304,138 +25,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description Returns the requested message */
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    /** @description The requested message unique id */
-                    messageId: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                /** @description Subject. This is the only part that will be seen outside of the messaging platform is security is 'confidential' */
-                                subject: string;
-                                /** @description Creation date time */
-                                createdAt: string;
-                                /** @description Thread Name used to group messages */
-                                threadName: string;
-                                /** @description Organisation sender id */
-                                organisationId: string;
-                                /** @description Unique id of the recipient */
-                                recipientUserId: string;
-                                /** @description Brief description of the message */
-                                excerpt: string;
-                                /** @description Plain text version of the message */
-                                plainText: string;
-                                /** @description Rich text version of the message */
-                                richText: string;
-                                /** @description True if the message has already been seen by the recipient */
-                                isSeen: boolean;
-                                /**
-                                 * @description Confidentiality level of the message
-                                 * @enum {string}
-                                 */
-                                security: "confidential" | "public";
-                                /** @description Ids of the related attachments */
-                                attachments: string[];
-                            };
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "4XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "5XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                        };
-                    };
-                };
-            };
-        };
+        get: operations["GetMessage"];
         put?: never;
         post?: never;
         delete?: never;
@@ -452,280 +42,10 @@ export interface paths {
             cookie?: never;
         };
         /** @description Returns the providers matching the requested query */
-        get: {
-            parameters: {
-                query: {
-                    /** @description If set, returns only the primary providers if true, otherwise the non-primary ones */
-                    primary?: "true" | "false" | "0" | "1";
-                    /** @description Provider types that can be manipulated */
-                    type: "sms" | "email";
-                    /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
-                    offset?: string;
-                    /** @description Indicates the maximum number (100) of items that will be returned in a single request */
-                    limit?: string;
-                };
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                /**
-                                 * Format: uuid
-                                 * @description Unique id of the provider
-                                 */
-                                id: string;
-                                /** @description Name of the provider */
-                                providerName: string;
-                                /** @description If true, the provider is set as primary for the selected type for the current organisation. Please note, each organisation can only have one primary provider for each type */
-                                isPrimary: boolean;
-                                /**
-                                 * @description Provider types that can be manipulated
-                                 * @enum {string}
-                                 */
-                                type: "sms" | "email";
-                            }[];
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "5XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "4XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                        };
-                    };
-                };
-            };
-        };
+        get: operations["ListProviders"];
         put?: never;
         /** @description Creates a new provider */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": {
-                        /** @description Name of the provider */
-                        providerName: string;
-                        /** @description If true, the provider is set as primary for the selected type for the current organisation. Please note, each organisation can only have one primary provider for each type */
-                        isPrimary: boolean;
-                        /** @enum {string} */
-                        type: "email";
-                        /** @description Address of the SMTP host */
-                        smtpHost: string;
-                        /** @description Port of the SMTP host */
-                        smtpPort: number;
-                        /** @description Username to use to log into the SMTP server */
-                        username: string;
-                        /** @description Password to use to log into the SMTP server */
-                        password: string;
-                        /** @description Optional field to adjust how long time between each mail, in miliseconds */
-                        throttle?: number;
-                        /** @description Email address to use as sender */
-                        fromAddress: string;
-                        /** @description Is connection to the SMTP server secure? */
-                        ssl: boolean;
-                    } | {
-                        /** @description Name of the provider */
-                        providerName: string;
-                        /** @description If true, the provider is set as primary for the selected type for the current organisation. Please note, each organisation can only have one primary provider for each type */
-                        isPrimary: boolean;
-                        /** @enum {string} */
-                        type: "sms";
-                        config: {
-                            /** @enum {string} */
-                            type: "AWS";
-                            accessKey: string;
-                            secretAccessKey: string;
-                            region: string;
-                        };
-                    };
-                };
-            };
-            responses: {
-                /** @description Default Response */
-                201: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                /** Format: uuid */
-                                id: string;
-                            };
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "5XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "4XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                        };
-                    };
-                };
-            };
-        };
+        post: operations["CreateProvider"];
         delete?: never;
         options?: never;
         head?: never;
@@ -744,7 +64,7 @@ export interface paths {
             parameters: {
                 query: {
                     /** @description Provider types that can be manipulated */
-                    type: "sms" | "email";
+                    type: "email" | "sms";
                 };
                 header?: never;
                 path: {
@@ -888,267 +208,10 @@ export interface paths {
             };
         };
         /** @description Updates the requested provider */
-        put: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    providerId: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": {
-                        /** Format: uuid */
-                        id: string;
-                        /** @description Name of the provider */
-                        providerName: string;
-                        /** @description If true, the provider is set as primary for the selected type for the current organisation. Please note, each organisation can only have one primary provider for each type */
-                        isPrimary: boolean;
-                        /** @enum {string} */
-                        type: "email";
-                        /** @description Address of the SMTP host */
-                        smtpHost: string;
-                        /** @description Port of the SMTP host */
-                        smtpPort: number;
-                        /** @description Username to use to log into the SMTP server */
-                        username: string;
-                        /** @description Password to use to log into the SMTP server */
-                        password: string;
-                        /** @description Optional field to adjust how long time between each mail, in miliseconds */
-                        throttle?: number;
-                        /** @description Email address to use as sender */
-                        fromAddress: string;
-                        /** @description Is connection to the SMTP server secure? */
-                        ssl: boolean;
-                    } | {
-                        /** Format: uuid */
-                        id: string;
-                        /** @description Name of the provider */
-                        providerName: string;
-                        /** @description If true, the provider is set as primary for the selected type for the current organisation. Please note, each organisation can only have one primary provider for each type */
-                        isPrimary: boolean;
-                        /** @enum {string} */
-                        type: "sms";
-                        config: {
-                            /** @enum {string} */
-                            type: "AWS";
-                            accessKey: string;
-                            secretAccessKey: string;
-                            region: string;
-                        };
-                    };
-                };
-            };
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                /** Format: uuid */
-                                id: string;
-                            };
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "5XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "4XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                        };
-                    };
-                };
-            };
-        };
+        put: operations["UpdateProvider"];
         post?: never;
         /** @description Deletes the requested provider */
-        delete: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    providerId: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                /** Format: uuid */
-                                id: string;
-                            };
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "5XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "4XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                        };
-                    };
-                };
-            };
-        };
+        delete: operations["DeleteProvider"];
         options?: never;
         head?: never;
         patch?: never;
@@ -1162,263 +225,10 @@ export interface paths {
             cookie?: never;
         };
         /** @description Returns the providers matching the requested query */
-        get: {
-            parameters: {
-                query?: {
-                    /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
-                    offset?: string;
-                    /** @description Indicates the maximum number (100) of items that will be returned in a single request */
-                    limit?: string;
-                };
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                /**
-                                 * Format: uuid
-                                 * @description Unique id of the template
-                                 */
-                                id: string;
-                                contents: {
-                                    /**
-                                     * @description Template content language
-                                     * @enum {string}
-                                     */
-                                    language: "en" | "ga";
-                                    /** @description Template name for the related language */
-                                    templateName: string;
-                                }[];
-                            }[];
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "4XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "5XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                        };
-                    };
-                };
-            };
-        };
+        get: operations["ListTemplates"];
         put?: never;
         /** @description Creates a new template */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        contents: {
-                            /** @description Template name for the related language */
-                            templateName: string;
-                            /**
-                             * @description Template content language
-                             * @enum {string}
-                             */
-                            language: "en" | "ga";
-                            /** @description Subject of the template */
-                            subject: string;
-                            /** @description Brief description of the template content */
-                            excerpt: string;
-                            /** @description Plain text version of the template */
-                            plainText: string;
-                            /** @description Rich text version of the template */
-                            richText: string;
-                        }[];
-                        /** @description List of the variables that are needed to be filled to create a message using this template */
-                        variables?: {
-                            name: string;
-                        }[];
-                    };
-                };
-            };
-            responses: {
-                /** @description Default Response */
-                201: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                /** Format: uuid */
-                                id: string;
-                            };
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "5XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "4XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                        };
-                    };
-                };
-            };
-        };
+        post: operations["CreateTemplate"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1433,379 +243,12 @@ export interface paths {
             cookie?: never;
         };
         /** @description Returns the requested template */
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    templateId: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                contents: {
-                                    /** @description Template name for the related language */
-                                    templateName: string;
-                                    /**
-                                     * @description Template content language
-                                     * @enum {string}
-                                     */
-                                    language: "en" | "ga";
-                                    /** @description Subject of the template */
-                                    subject: string;
-                                    /** @description Brief description of the template content */
-                                    excerpt: string;
-                                    /** @description Plain text version of the template */
-                                    plainText: string;
-                                    /** @description Rich text version of the template */
-                                    richText: string;
-                                }[];
-                                fields: {
-                                    fieldName: string;
-                                }[];
-                            };
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "5XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                        };
-                    };
-                };
-            };
-        };
+        get: operations["GetTemplate"];
         /** @description Updates the requested template */
-        put: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    templateId: string;
-                };
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        /** Format: uuid */
-                        id: string;
-                        contents: {
-                            /** @description Template name for the related language */
-                            templateName: string;
-                            /**
-                             * @description Template content language
-                             * @enum {string}
-                             */
-                            language: "en" | "ga";
-                            /** @description Subject of the template */
-                            subject: string;
-                            /** @description Brief description of the template content */
-                            excerpt: string;
-                            /** @description Plain text version of the template */
-                            plainText: string;
-                            /** @description Rich text version of the template */
-                            richText: string;
-                        }[];
-                        /** @description List of the variables that are needed to be filled to create a message using this template */
-                        variables?: {
-                            name: string;
-                        }[];
-                    };
-                };
-            };
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                /** Format: uuid */
-                                id: string;
-                            };
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "4XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "5XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                        };
-                    };
-                };
-            };
-        };
+        put: operations["UpdateTemplate"];
         post?: never;
         /** @description Deletes the requested template */
-        delete: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    templateId: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                /** Format: uuid */
-                                id: string;
-                            };
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "4XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "5XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                        };
-                    };
-                };
-            };
-        };
+        delete: operations["DeleteTemplate"];
         options?: never;
         head?: never;
         patch?: never;
@@ -1879,7 +322,7 @@ export interface paths {
                                 /** @description Date and time describing when the user has gave a feedback to the organisation invitation */
                                 organisationInvitationFeedbackAt?: string;
                                 /** @description The list of the preferred transports to use. If the selected transports are not available for the recipient, others will be used */
-                                organisationPreferredTransports: ("sms" | "email")[];
+                                organisationPreferredTransports: ("email" | "sms")[];
                                 /**
                                  * @description If full, it means that the user is already on the Life Events platform, if partial the match has to be reviewed, if not_related the user does not exist
                                  * @enum {string}
@@ -2122,7 +565,7 @@ export interface paths {
                                 /** @description Date and time describing when the user has gave a feedback to the organisation invitation */
                                 organisationInvitationFeedbackAt?: string;
                                 /** @description The list of the preferred transports to use. If the selected transports are not available for the recipient, others will be used */
-                                organisationPreferredTransports: ("sms" | "email")[];
+                                organisationPreferredTransports: ("email" | "sms")[];
                                 /**
                                  * @description If full, it means that the user is already on the Life Events platform, if partial the match has to be reviewed, if not_related the user does not exist
                                  * @enum {string}
@@ -2317,7 +760,7 @@ export interface paths {
                          */
                         invitationStatusFeedback: "accepted" | "declined";
                         /** @description The list of the preferred transports to use. If the selected transports are not available for the recipient, others will be used */
-                        preferredTransports: ("sms" | "email")[];
+                        preferredTransports: ("email" | "sms")[];
                     };
                 };
             };
@@ -2368,7 +811,7 @@ export interface paths {
                                 /** @description Date and time describing when the user has gave a feedback to the organisation invitation */
                                 organisationInvitationFeedbackAt?: string;
                                 /** @description The list of the preferred transports to use. If the selected transports are not available for the recipient, others will be used */
-                                organisationPreferredTransports: ("sms" | "email")[];
+                                organisationPreferredTransports: ("email" | "sms")[];
                                 /**
                                  * @description If full, it means that the user is already on the Life Events platform, if partial the match has to be reviewed, if not_related the user does not exist
                                  * @enum {string}
@@ -3204,7 +1647,7 @@ export interface paths {
                                 /** @description Date and time describing when the user has gave a feedback to the organisation invitation */
                                 organisationInvitationFeedbackAt?: string;
                                 /** @description The list of the preferred transports to use. If the selected transports are not available for the recipient, others will be used */
-                                organisationPreferredTransports: ("sms" | "email")[];
+                                organisationPreferredTransports: ("email" | "sms")[];
                                 /**
                                  * @description If full, it means that the user is already on the Life Events platform, if partial the match has to be reviewed, if not_related the user does not exist
                                  * @enum {string}
@@ -3451,7 +1894,7 @@ export interface paths {
                                 /** @description Date and time describing when the user has gave a feedback to the organisation invitation */
                                 organisationInvitationFeedbackAt?: string;
                                 /** @description The list of the preferred transports to use. If the selected transports are not available for the recipient, others will be used */
-                                organisationPreferredTransports: ("sms" | "email")[];
+                                organisationPreferredTransports: ("email" | "sms")[];
                                 /**
                                  * @description If full, it means that the user is already on the Life Events platform, if partial the match has to be reviewed, if not_related the user does not exist
                                  * @enum {string}
@@ -4097,4 +2540,1574 @@ export interface components {
     pathItems: never;
 }
 export type $defs = Record<string, never>;
-export type operations = Record<string, never>;
+export interface operations {
+    ListMessages: {
+        parameters: {
+            query?: {
+                status?: "delivered";
+                isSeen?: "true" | "false" | "0" | "1";
+                search?: string;
+                /** @description Either recipientUserId and organisationId are mandatory */
+                recipientUserId?: string;
+                /** @description Either recipientUserId and organisationId are mandatory */
+                organisationId?: string;
+                /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
+                offset?: string;
+                /** @description Indicates the maximum number (100) of items that will be returned in a single request */
+                limit?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** @description Unique Id of the message */
+                            id: string;
+                            /** @description Subject */
+                            subject: string;
+                            /** @description Creation date time */
+                            createdAt: string;
+                            /** @description Thread Name used to group messages */
+                            threadName: string;
+                            /** @description Organisation sender id */
+                            organisationId: string;
+                            /** @description Unique id of the recipient */
+                            recipientUserId: string;
+                            /** @description Number of attachments */
+                            attachmentsCount: number;
+                        }[];
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+        };
+    };
+    CreateMessage: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @description The list of the preferred transports to use. If the selected transports are not available for the recipient, others will be used */
+                    preferredTransports: ("sms" | "email" | "lifeEvent")[];
+                    /** @description Unique user id of the recipient */
+                    recipientUserId: string;
+                    /**
+                     * @description Confidentiality level of the message
+                     * @enum {string}
+                     */
+                    security: "confidential" | "public";
+                    /**
+                     * @description If true, the message will be sent even if the recipient didn't accept the organisation's invitation
+                     * @default false
+                     */
+                    bypassConsent: boolean;
+                    /**
+                     * Format: date-time
+                     * @description Date and time of when schedule the message
+                     */
+                    scheduleAt: string;
+                    message: {
+                        /** @description Thread Name used to group messages */
+                        threadName?: string;
+                        /** @description Subject. This is the only part that will be seen outside of the messaging platform is security is 'confidential' */
+                        subject: string;
+                        /** @description Brief description of the message */
+                        excerpt: string;
+                        /** @description Plain text version of the message */
+                        plainText: string;
+                        /** @description Rich text version of the message */
+                        richText: string;
+                        /**
+                         * @description Language used to send the message
+                         * @enum {string}
+                         */
+                        language: "en" | "ga";
+                    };
+                    attachments?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /**
+                             * Format: uuid
+                             * @description Unique Id of the resource
+                             */
+                            id: string;
+                        };
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+        };
+    };
+    GetMessage: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description The requested message unique id */
+                messageId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** @description Subject. This is the only part that will be seen outside of the messaging platform is security is 'confidential' */
+                            subject: string;
+                            /** @description Creation date time */
+                            createdAt: string;
+                            /** @description Thread Name used to group messages */
+                            threadName: string;
+                            /** @description Organisation sender id */
+                            organisationId: string;
+                            /** @description Unique id of the recipient */
+                            recipientUserId: string;
+                            /** @description Brief description of the message */
+                            excerpt: string;
+                            /** @description Plain text version of the message */
+                            plainText: string;
+                            /** @description Rich text version of the message */
+                            richText: string;
+                            /** @description True if the message has already been seen by the recipient */
+                            isSeen: boolean;
+                            /**
+                             * @description Confidentiality level of the message
+                             * @enum {string}
+                             */
+                            security: "confidential" | "public";
+                            /** @description Ids of the related attachments */
+                            attachments: string[];
+                        };
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+        };
+    };
+    ListProviders: {
+        parameters: {
+            query: {
+                /** @description If set, returns only the primary providers if true, otherwise the non-primary ones */
+                primary?: "true" | "false" | "0" | "1";
+                /** @description Provider types that can be manipulated */
+                type: "email" | "sms";
+                /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
+                offset?: string;
+                /** @description Indicates the maximum number (100) of items that will be returned in a single request */
+                limit?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /**
+                             * Format: uuid
+                             * @description Unique id of the provider
+                             */
+                            id: string;
+                            /** @description Name of the provider */
+                            providerName: string;
+                            /** @description If true, the provider is set as primary for the selected type for the current organisation. Please note, each organisation can only have one primary provider for each type */
+                            isPrimary: boolean;
+                            /**
+                             * @description Provider types that can be manipulated
+                             * @enum {string}
+                             */
+                            type: "email" | "sms";
+                        }[];
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+        };
+    };
+    CreateProvider: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": {
+                    /** @description Name of the provider */
+                    providerName: string;
+                    /** @description If true, the provider is set as primary for the selected type for the current organisation. Please note, each organisation can only have one primary provider for each type */
+                    isPrimary: boolean;
+                    /** @enum {string} */
+                    type: "email";
+                    /** @description Address of the SMTP host */
+                    smtpHost: string;
+                    /** @description Port of the SMTP host */
+                    smtpPort: number;
+                    /** @description Username to use to log into the SMTP server */
+                    username: string;
+                    /** @description Password to use to log into the SMTP server */
+                    password: string;
+                    /** @description Optional field to adjust how long time between each mail, in miliseconds */
+                    throttle?: number;
+                    /** @description Email address to use as sender */
+                    fromAddress: string;
+                    /** @description Is connection to the SMTP server secure? */
+                    ssl: boolean;
+                } | {
+                    /** @description Name of the provider */
+                    providerName: string;
+                    /** @description If true, the provider is set as primary for the selected type for the current organisation. Please note, each organisation can only have one primary provider for each type */
+                    isPrimary: boolean;
+                    /** @enum {string} */
+                    type: "sms";
+                    config: {
+                        /** @enum {string} */
+                        type: "AWS";
+                        accessKey: string;
+                        secretAccessKey: string;
+                        region: string;
+                    };
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                        };
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+        };
+    };
+    UpdateProvider: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                providerId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    id: string;
+                    /** @description Name of the provider */
+                    providerName: string;
+                    /** @description If true, the provider is set as primary for the selected type for the current organisation. Please note, each organisation can only have one primary provider for each type */
+                    isPrimary: boolean;
+                    /** @enum {string} */
+                    type: "email";
+                    /** @description Address of the SMTP host */
+                    smtpHost: string;
+                    /** @description Port of the SMTP host */
+                    smtpPort: number;
+                    /** @description Username to use to log into the SMTP server */
+                    username: string;
+                    /** @description Password to use to log into the SMTP server */
+                    password: string;
+                    /** @description Optional field to adjust how long time between each mail, in miliseconds */
+                    throttle?: number;
+                    /** @description Email address to use as sender */
+                    fromAddress: string;
+                    /** @description Is connection to the SMTP server secure? */
+                    ssl: boolean;
+                } | {
+                    /** Format: uuid */
+                    id: string;
+                    /** @description Name of the provider */
+                    providerName: string;
+                    /** @description If true, the provider is set as primary for the selected type for the current organisation. Please note, each organisation can only have one primary provider for each type */
+                    isPrimary: boolean;
+                    /** @enum {string} */
+                    type: "sms";
+                    config: {
+                        /** @enum {string} */
+                        type: "AWS";
+                        accessKey: string;
+                        secretAccessKey: string;
+                        region: string;
+                    };
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                        };
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+        };
+    };
+    DeleteProvider: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                providerId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                        };
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+        };
+    };
+    ListTemplates: {
+        parameters: {
+            query?: {
+                /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
+                offset?: string;
+                /** @description Indicates the maximum number (100) of items that will be returned in a single request */
+                limit?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /**
+                             * Format: uuid
+                             * @description Unique id of the template
+                             */
+                            id: string;
+                            contents: {
+                                /**
+                                 * @description Template content language
+                                 * @enum {string}
+                                 */
+                                language: "en" | "ga";
+                                /** @description Template name for the related language */
+                                templateName: string;
+                            }[];
+                        }[];
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+        };
+    };
+    CreateTemplate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    contents: {
+                        /** @description Template name for the related language */
+                        templateName: string;
+                        /**
+                         * @description Template content language
+                         * @enum {string}
+                         */
+                        language: "en" | "ga";
+                        /** @description Subject of the template */
+                        subject: string;
+                        /** @description Brief description of the template content */
+                        excerpt: string;
+                        /** @description Plain text version of the template */
+                        plainText: string;
+                        /** @description Rich text version of the template */
+                        richText: string;
+                    }[];
+                    /** @description List of the variables that are needed to be filled to create a message using this template */
+                    variables?: {
+                        name: string;
+                    }[];
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                        };
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+        };
+    };
+    GetTemplate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                templateId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            contents: {
+                                /** @description Template name for the related language */
+                                templateName: string;
+                                /**
+                                 * @description Template content language
+                                 * @enum {string}
+                                 */
+                                language: "en" | "ga";
+                                /** @description Subject of the template */
+                                subject: string;
+                                /** @description Brief description of the template content */
+                                excerpt: string;
+                                /** @description Plain text version of the template */
+                                plainText: string;
+                                /** @description Rich text version of the template */
+                                richText: string;
+                            }[];
+                            fields: {
+                                fieldName: string;
+                            }[];
+                        };
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+        };
+    };
+    UpdateTemplate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                templateId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    id: string;
+                    contents: {
+                        /** @description Template name for the related language */
+                        templateName: string;
+                        /**
+                         * @description Template content language
+                         * @enum {string}
+                         */
+                        language: "en" | "ga";
+                        /** @description Subject of the template */
+                        subject: string;
+                        /** @description Brief description of the template content */
+                        excerpt: string;
+                        /** @description Plain text version of the template */
+                        plainText: string;
+                        /** @description Rich text version of the template */
+                        richText: string;
+                    }[];
+                    /** @description List of the variables that are needed to be filled to create a message using this template */
+                    variables?: {
+                        name: string;
+                    }[];
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                        };
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+        };
+    };
+    DeleteTemplate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                templateId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                        };
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                    };
+                };
+            };
+        };
+    };
+}
