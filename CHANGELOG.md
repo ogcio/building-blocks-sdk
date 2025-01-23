@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.0...@ogcio/building-blocks-sdk@v0.2.1) (2025-01-23)
+
+
+### Features
+
+* **24831:** add cancel payment endpoint ([#121](https://github.com/ogcio/building-blocks-sdk/issues/121)) ([0586d78](https://github.com/ogcio/building-blocks-sdk/commit/0586d78b7a14a0ca1fec0e8ff18ad37238623bbe))
+
 ## [0.2.0](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.1.18...@ogcio/building-blocks-sdk@v0.2.0) (2025-01-22)
 
 
