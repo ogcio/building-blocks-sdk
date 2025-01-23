@@ -162,6 +162,7 @@ export interface paths {
                                 message: string;
                             }[];
                             validationContext?: string;
+                            statusCode: number;
                         };
                     };
                 };
@@ -186,6 +187,7 @@ export interface paths {
                                 message: string;
                             }[];
                             validationContext?: string;
+                            statusCode: number;
                         };
                     };
                 };
@@ -348,6 +350,7 @@ export interface paths {
                                 message: string;
                             }[];
                             validationContext?: string;
+                            statusCode: number;
                         };
                     };
                 };
@@ -372,6 +375,7 @@ export interface paths {
                                 message: string;
                             }[];
                             validationContext?: string;
+                            statusCode: number;
                         };
                     };
                 };
@@ -459,8 +463,6 @@ export interface paths {
                                      * @enum {string}
                                      */
                                     security: "confidential" | "public";
-                                    /** @description If true, the message will be sent even if the recipient didn't accept the organisation's invitation */
-                                    bypassConsent: boolean;
                                 } | {
                                     /** @description Unique id of the related message */
                                     messageId: string;
@@ -500,6 +502,7 @@ export interface paths {
                                 message: string;
                             }[];
                             validationContext?: string;
+                            statusCode: number;
                         };
                     };
                 };
@@ -524,6 +527,7 @@ export interface paths {
                                 message: string;
                             }[];
                             validationContext?: string;
+                            statusCode: number;
                         };
                     };
                 };
@@ -593,6 +597,7 @@ export interface paths {
                                 message: string;
                             }[];
                             validationContext?: string;
+                            statusCode: number;
                         };
                     };
                 };
@@ -617,6 +622,7 @@ export interface paths {
                                 message: string;
                             }[];
                             validationContext?: string;
+                            statusCode: number;
                         };
                     };
                 };
@@ -683,6 +689,7 @@ export interface paths {
                                 message: string;
                             }[];
                             validationContext?: string;
+                            statusCode: number;
                         };
                     };
                 };
@@ -707,6 +714,7 @@ export interface paths {
                                 message: string;
                             }[];
                             validationContext?: string;
+                            statusCode: number;
                         };
                     };
                 };
@@ -832,6 +840,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -856,6 +865,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -880,11 +890,6 @@ export interface operations {
                      * @enum {string}
                      */
                     security: "confidential" | "public";
-                    /**
-                     * @description If true, the message will be sent even if the recipient didn't accept the organisation's invitation
-                     * @default false
-                     */
-                    bypassConsent: boolean;
                     /**
                      * Format: date-time
                      * @description Date and time of when schedule the message
@@ -983,6 +988,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -1007,6 +1013,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -1115,6 +1122,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -1139,6 +1147,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -1242,6 +1251,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -1266,6 +1276,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -1373,6 +1384,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -1397,6 +1409,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -1508,6 +1521,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -1532,6 +1546,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -1619,6 +1634,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -1643,6 +1659,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -1742,6 +1759,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -1766,6 +1784,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -1874,6 +1893,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -1898,6 +1918,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -2000,6 +2021,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -2024,6 +2046,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -2136,6 +2159,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -2160,6 +2184,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -2244,6 +2269,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -2268,6 +2294,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };

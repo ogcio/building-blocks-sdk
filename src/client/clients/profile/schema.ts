@@ -167,6 +167,7 @@ export interface paths {
                                 message: string;
                             }[];
                             validationContext?: string;
+                            statusCode: number;
                         };
                     };
                 };
@@ -191,6 +192,7 @@ export interface paths {
                                 message: string;
                             }[];
                             validationContext?: string;
+                            statusCode: number;
                         };
                     };
                 };
@@ -378,6 +380,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -402,6 +405,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -512,6 +516,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -536,6 +541,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -651,6 +657,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -675,6 +682,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -796,6 +804,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -820,6 +829,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -917,6 +927,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -941,6 +952,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -1058,6 +1070,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -1082,6 +1095,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -1220,6 +1234,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -1244,6 +1259,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -1382,6 +1398,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -1406,6 +1423,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -1454,6 +1472,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };
@@ -1478,6 +1497,7 @@ export interface operations {
                             message: string;
                         }[];
                         validationContext?: string;
+                        statusCode: number;
                     };
                 };
             };

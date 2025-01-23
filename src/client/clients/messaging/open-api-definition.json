@@ -281,13 +281,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -337,13 +341,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -386,11 +394,6 @@
                       "public"
                     ],
                     "description": "Confidentiality level of the message"
-                  },
-                  "bypassConsent": {
-                    "default": false,
-                    "description": "If true, the message will be sent even if the recipient didn't accept the organisation's invitation",
-                    "type": "boolean"
                   },
                   "scheduleAt": {
                     "format": "date-time",
@@ -454,7 +457,6 @@
                   "preferredTransports",
                   "recipientUserId",
                   "security",
-                  "bypassConsent",
                   "scheduleAt",
                   "message"
                 ]
@@ -614,13 +616,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -670,13 +676,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -912,13 +922,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -968,13 +982,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -1213,13 +1231,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -1269,13 +1291,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -1509,13 +1535,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -1565,13 +1595,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -1815,13 +1849,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -1871,13 +1909,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -2127,13 +2169,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -2183,13 +2229,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -2376,13 +2426,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -2432,13 +2486,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -2657,13 +2715,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -2713,13 +2775,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -2965,13 +3031,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -3021,13 +3091,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -3265,13 +3339,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -3321,13 +3399,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -3589,13 +3671,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -3645,13 +3731,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -3826,13 +3916,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -3882,13 +3976,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -4121,13 +4219,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -4177,13 +4279,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -4314,10 +4420,6 @@
                                       "public"
                                     ],
                                     "description": "Confidentiality level of the message"
-                                  },
-                                  "bypassConsent": {
-                                    "description": "If true, the message will be sent even if the recipient didn't accept the organisation's invitation",
-                                    "type": "boolean"
                                   }
                                 },
                                 "required": [
@@ -4334,8 +4436,7 @@
                                   "transports",
                                   "scheduledAt",
                                   "organisationName",
-                                  "security",
-                                  "bypassConsent"
+                                  "security"
                                 ]
                               },
                               {
@@ -4435,13 +4536,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -4491,13 +4596,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -4590,13 +4699,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -4646,13 +4759,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -4748,13 +4865,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
@@ -4804,13 +4925,17 @@
                     },
                     "validationContext": {
                       "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
                     }
                   },
                   "required": [
                     "code",
                     "detail",
                     "requestId",
-                    "name"
+                    "name",
+                    "statusCode"
                   ]
                 }
               }
