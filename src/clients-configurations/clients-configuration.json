@@ -37,7 +37,7 @@
     },
     {
       "name": "payments",
-      "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/life-events/refs/heads/dev/apps/payments-api/openapi-definition.yml",
+      "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/payments-building-block/refs/heads/dev/apps/payments-api/openapi-definition.yml",
       "openApiDefinitionFormat": "yaml",
       "citizenPermissions": [
         "payments:transaction.self:read",
@@ -92,7 +92,7 @@
     },
     {
       "name": "journey",
-      "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/life-events/refs/heads/dev/apps/journey-api/openapi-definition.yml",
+      "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/journey-builder/refs/heads/dev/apps/journey-api/openapi-definition.yml",
       "openApiDefinitionFormat": "yaml",
       "citizenPermissions": [
         "integrator:journey.public:read",

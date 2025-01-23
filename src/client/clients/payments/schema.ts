@@ -1349,7 +1349,7 @@ export interface paths {
                         "application/json": {
                             data: {
                                 transactionId: string;
-                                status: "initiated" | "pending" | "succeeded" | "cancelled" | "failed";
+                                status: "initiated" | "pending" | "succeeded" | "cancelled" | "cancellation_requested" | "failed" | "refunded" | "refund_failed";
                                 amount: number;
                                 extPaymentId: string;
                                 paymentProviderId: string;
@@ -1461,7 +1461,7 @@ export interface paths {
                         "application/json": {
                             data: {
                                 transactionId: string;
-                                status: "initiated" | "pending" | "succeeded" | "cancelled" | "failed";
+                                status: "initiated" | "pending" | "succeeded" | "cancelled" | "cancellation_requested" | "failed" | "refunded" | "refund_failed";
                                 amount: number;
                                 extPaymentId: string;
                                 paymentProviderId: string;
@@ -1555,7 +1555,7 @@ export interface paths {
             requestBody: {
                 content: {
                     "application/json": {
-                        status: "initiated" | "pending" | "succeeded" | "cancelled" | "failed";
+                        status: "initiated" | "pending" | "succeeded" | "cancelled" | "cancellation_requested" | "failed" | "refunded" | "refund_failed";
                     };
                 };
             };
@@ -1707,7 +1707,7 @@ export interface paths {
                         "application/json": {
                             data: {
                                 transactionId: string;
-                                status: "initiated" | "pending" | "succeeded" | "cancelled" | "failed";
+                                status: "initiated" | "pending" | "succeeded" | "cancelled" | "cancellation_requested" | "failed" | "refunded" | "refund_failed";
                                 amount: number;
                                 extPaymentId: string;
                                 paymentProviderId: string;
@@ -2126,7 +2126,7 @@ export interface paths {
                                 extReferenceCode: string;
                                 paymentMethod: string;
                                 paymentProviderName: string;
-                                status: "initiated" | "pending" | "succeeded" | "cancelled" | "failed";
+                                status: "initiated" | "pending" | "succeeded" | "cancelled" | "cancellation_requested" | "failed" | "refunded" | "refund_failed";
                                 createdAt: string;
                                 updatedAt: string;
                             };
@@ -2529,6 +2529,112 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/transactions/{transactionId}/cancel-payment": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    transactionId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                success: boolean;
+                            };
+                            metadata?: {
+                                /** @description Object containing the links to the related endpoints */
+                                links?: {
+                                    self: {
+                                        /** @description URL pointing to the request itself */
+                                        href?: string;
+                                    };
+                                    next?: {
+                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                        href?: string;
+                                    };
+                                    prev?: {
+                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                        href?: string;
+                                    };
+                                    first: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
+                                        href?: string;
+                                    };
+                                    last: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
+                                        href?: string;
+                                    };
+                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                    pages: {
+                                        [key: string]: {
+                                            href?: string;
+                                        };
+                                    };
+                                };
+                                /** @description Number representing the total number of available items */
+                                totalCount?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            code: string;
+                            detail: string;
+                            requestId: string;
+                            name: string;
+                            validation?: unknown;
+                            validationContext?: string;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            code: string;
+                            detail: string;
+                            requestId: string;
+                            name: string;
+                            validation?: unknown;
+                            validationContext?: string;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/citizen/transactions": {
         parameters: {
             query?: never;
@@ -2557,7 +2663,7 @@ export interface paths {
                         "application/json": {
                             data: {
                                 transactionId: string;
-                                status: "initiated" | "pending" | "succeeded" | "cancelled" | "failed";
+                                status: "initiated" | "pending" | "succeeded" | "cancelled" | "cancellation_requested" | "failed" | "refunded" | "refund_failed";
                                 title: string;
                                 updatedAt: string;
                                 extPaymentId: string;
@@ -2684,7 +2790,7 @@ export interface paths {
                         "application/json": {
                             data: {
                                 transactionId: string;
-                                status: "initiated" | "pending" | "succeeded" | "cancelled" | "failed";
+                                status: "initiated" | "pending" | "succeeded" | "cancelled" | "cancellation_requested" | "failed" | "refunded" | "refund_failed";
                                 amount: number;
                                 extPaymentId: string;
                                 paymentProviderId: string;

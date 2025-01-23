@@ -349,6 +349,23 @@ export class Payments extends BaseClient<paths> {
       );
   }
 
+  async cancelPayment(
+    transactionId: paths["/api/v1/transactions/{transactionId}/cancel-payment"]["post"]["parameters"]["path"]["transactionId"],
+  ) {
+    return this.client
+      .POST("/api/v1/transactions/{transactionId}/cancel-payment", {
+        params: {
+          path: {
+            transactionId,
+          },
+        },
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
+
   /**
    * Citizen
    */
