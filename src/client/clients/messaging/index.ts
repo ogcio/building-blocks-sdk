@@ -4,10 +4,10 @@ import { MESSAGING } from "../../../types/index.js";
 import { BaseClient } from "../../base-client.js";
 import {
   type PaginationParams,
+  ensureStringIsNotEmpty,
   formatError,
   formatResponse,
   preparePaginationParams,
-  toStringOrUndefined,
 } from "../../utils/client-utils.js";
 import type { paths } from "./schema.js";
 
@@ -22,6 +22,7 @@ export class Messaging extends BaseClient<paths> {
       search?: string;
     } & PaginationParams,
   ) {
+    ensureStringIsNotEmpty(userId);
     const isSeen =
       filter?.isSeen === undefined
         ? undefined
@@ -50,6 +51,7 @@ export class Messaging extends BaseClient<paths> {
     organisationId: string,
     filter?: PaginationParams,
   ) {
+    ensureStringIsNotEmpty(organisationId);
     return this.client
       .GET("/api/v1/messages/", {
         params: {
@@ -68,6 +70,7 @@ export class Messaging extends BaseClient<paths> {
   async getMessage(
     messageId: paths["/api/v1/messages/{messageId}"]["get"]["parameters"]["path"]["messageId"],
   ) {
+    ensureStringIsNotEmpty(messageId);
     return this.client
       .GET("/api/v1/messages/{messageId}", {
         params: { path: { messageId } },
@@ -109,6 +112,7 @@ export class Messaging extends BaseClient<paths> {
   async getTemplate(
     templateId: paths["/api/v1/templates/{templateId}"]["get"]["parameters"]["path"]["templateId"],
   ) {
+    ensureStringIsNotEmpty(templateId);
     return this.client
       .GET("/api/v1/templates/{templateId}", {
         params: {
@@ -205,6 +209,7 @@ export class Messaging extends BaseClient<paths> {
     templateId: paths["/api/v1/templates/{templateId}"]["put"]["parameters"]["path"]["templateId"],
     body: paths["/api/v1/templates/{templateId}"]["put"]["requestBody"]["content"]["application/json"],
   ) {
+    ensureStringIsNotEmpty(templateId);
     return this.client
       .PUT("/api/v1/templates/{templateId}", {
         params: { path: { templateId } },
@@ -219,6 +224,7 @@ export class Messaging extends BaseClient<paths> {
   async deleteTemplate(
     templateId: paths["/api/v1/templates/{templateId}"]["delete"]["parameters"]["path"]["templateId"],
   ) {
+    ensureStringIsNotEmpty(templateId);
     return this.client
       .DELETE("/api/v1/templates/{templateId}", {
         params: { path: { templateId } },
@@ -261,6 +267,7 @@ export class Messaging extends BaseClient<paths> {
   }
 
   async getEmailProvider(providerId: string) {
+    ensureStringIsNotEmpty(providerId);
     const { data, error } = await this.client.GET(
       "/api/v1/providers/{providerId}",
       {
@@ -311,6 +318,7 @@ export class Messaging extends BaseClient<paths> {
     fromAddress: string;
     ssl: boolean;
   }) {
+    ensureStringIsNotEmpty(provider.id);
     return this.client
       .PUT("/api/v1/providers/{providerId}", {
         params: { path: { providerId: provider.id } },
@@ -326,6 +334,7 @@ export class Messaging extends BaseClient<paths> {
   }
 
   async deleteEmailProvider(providerId: string) {
+    ensureStringIsNotEmpty(providerId);
     return this.client
       .DELETE("/api/v1/providers/{providerId}", {
         // biome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -351,6 +360,7 @@ export class Messaging extends BaseClient<paths> {
   }
 
   async getMessageEvent(eventId: string) {
+    ensureStringIsNotEmpty(eventId);
     return this.client
       .GET("/api/v1/message-events/{eventId}", {
         params: { path: { eventId } },
@@ -362,6 +372,7 @@ export class Messaging extends BaseClient<paths> {
   }
 
   async seeMessage(messageId: string) {
+    ensureStringIsNotEmpty(messageId);
     return this.client
       .PUT("/api/v1/message-actions/{messageId}", {
         params: {
@@ -381,6 +392,7 @@ export class Messaging extends BaseClient<paths> {
   }
 
   async unseeMessage(messageId: string) {
+    ensureStringIsNotEmpty(messageId);
     return this.client
       .PUT("/api/v1/message-actions/{messageId}", {
         params: {
