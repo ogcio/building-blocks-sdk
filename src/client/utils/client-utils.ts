@@ -138,3 +138,9 @@ export function getNumberValueFromObject(
   }
   return Number(value);
 }
+
+export function ensureStringIsNotEmpty(input: string): void {
+  if (!input || input.length === 0) {
+    throw Error("Parameter cannot be an empty string!");
+  }
+}
