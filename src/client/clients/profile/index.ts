@@ -3,9 +3,9 @@ import type createClient from "openapi-fetch";
 import { PROFILE } from "../../../types/index.js";
 import { BaseClient } from "../../base-client.js";
 import {
-  ensureStringIsNotEmpty,
   formatError,
   formatResponse,
+  throwIfEmpty,
 } from "../../utils/client-utils.js";
 import type { paths } from "./schema.js";
 export class Profile extends BaseClient<paths> {
@@ -21,7 +21,7 @@ export class Profile extends BaseClient<paths> {
   }
 
   async getProfile(profileId: string) {
-    ensureStringIsNotEmpty(profileId);
+    throwIfEmpty(profileId);
     return this.client
       .GET("/api/v1/profiles/{profileId}", {
         params: { path: { profileId } },
@@ -84,7 +84,7 @@ export class Profile extends BaseClient<paths> {
     >["content"]["application/json"],
     organizationId?: string,
   ) {
-    ensureStringIsNotEmpty(profileId);
+    throwIfEmpty(profileId);
 
     return this.client
       .PUT("/api/v1/profiles/{profileId}", {
@@ -120,7 +120,7 @@ export class Profile extends BaseClient<paths> {
     >["content"]["application/json"],
     organizationId?: string,
   ) {
-    ensureStringIsNotEmpty(profileId);
+    throwIfEmpty(profileId);
 
     if (!data || Object.keys(data).length === 0) {
       return;
@@ -179,7 +179,7 @@ export class Profile extends BaseClient<paths> {
     ids: paths["/api/v1/profiles/select-profiles"]["get"]["parameters"]["query"]["ids"],
   ) {
     for (const id of ids) {
-      ensureStringIsNotEmpty(id);
+      throwIfEmpty(id);
     }
     return this.client
       .GET("/api/v1/profiles/select-profiles", {

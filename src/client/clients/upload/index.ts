@@ -2,9 +2,9 @@ import type createClient from "openapi-fetch";
 import { UPLOAD } from "../../../types/index.js";
 import { BaseClient } from "../../base-client.js";
 import {
-  ensureStringIsNotEmpty,
   formatError,
   formatResponse,
+  throwIfEmpty,
 } from "../../utils/client-utils.js";
 import type { paths } from "./schema.js";
 
@@ -35,7 +35,7 @@ export class Upload extends BaseClient<paths> {
   }
 
   async getFile(id: string) {
-    ensureStringIsNotEmpty(id);
+    throwIfEmpty(id);
     try {
       const {
         error,
@@ -63,7 +63,7 @@ export class Upload extends BaseClient<paths> {
   }
 
   getSharedFilesForUser(userId: string, organizationId?: string) {
-    ensureStringIsNotEmpty(userId);
+    throwIfEmpty(userId);
     return this.client
       .GET("/api/v1/metadata/", {
         params: { query: { userId, organizationId } },
@@ -75,7 +75,7 @@ export class Upload extends BaseClient<paths> {
   }
 
   getFileMetadata(id: string, organizationId?: string) {
-    ensureStringIsNotEmpty(id);
+    throwIfEmpty(id);
     return this.client
       .GET("/api/v1/metadata/{id}", {
         params: { path: { id, organizationId } },
@@ -87,7 +87,7 @@ export class Upload extends BaseClient<paths> {
   }
 
   scheduleFileDeletion(id: string) {
-    ensureStringIsNotEmpty(id);
+    throwIfEmpty(id);
     return this.client
       .DELETE("/api/v1/metadata/", {
         body: { fileId: id },
@@ -99,7 +99,7 @@ export class Upload extends BaseClient<paths> {
   }
 
   getFileSharings(id: string) {
-    ensureStringIsNotEmpty(id);
+    throwIfEmpty(id);
     return this.client
       .GET("/api/v1/permissions/", {
         params: {
@@ -115,8 +115,8 @@ export class Upload extends BaseClient<paths> {
   }
 
   shareFile(fileId: string, userId: string) {
-    ensureStringIsNotEmpty(fileId);
-    ensureStringIsNotEmpty(userId);
+    throwIfEmpty(fileId);
+    throwIfEmpty(userId);
     return this.client
       .POST("/api/v1/permissions/", {
         body: { fileId, userId },
@@ -128,8 +128,8 @@ export class Upload extends BaseClient<paths> {
   }
 
   removeFileSharing(fileId: string, userId: string) {
-    ensureStringIsNotEmpty(userId);
-    ensureStringIsNotEmpty(fileId);
+    throwIfEmpty(userId);
+    throwIfEmpty(fileId);
     return this.client
       .DELETE("/api/v1/permissions/", {
         body: { fileId, userId },
