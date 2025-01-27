@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.1...@ogcio/building-blocks-sdk@v0.2.2) (2025-01-27)
+
+
+### Bug Fixes
+
+* fixed empty string check on get single methods ([#123](https://github.com/ogcio/building-blocks-sdk/issues/123)) ([e610c31](https://github.com/ogcio/building-blocks-sdk/commit/e610c315358045425d33cf96e6f2afb4052615ed))
+
 ## [0.2.1](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.0...@ogcio/building-blocks-sdk@v0.2.1) (2025-01-23)
 
 
