@@ -94,13 +94,11 @@ interface LogFn {
 }
 
 export type Logger = {
-  fatal: LogFn;
   error: LogFn;
   warn: LogFn;
   info: LogFn;
   debug: LogFn;
   trace: LogFn;
-  silent: LogFn;
 };
 
 interface BuildingBlockSDKParams {
