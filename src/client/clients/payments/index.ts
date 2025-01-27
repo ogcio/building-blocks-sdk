@@ -1,7 +1,11 @@
 import type createClient from "openapi-fetch";
 import { PAYMENTS } from "../../../types/index.js";
 import { BaseClient } from "../../base-client.js";
-import { formatError, formatResponse } from "../../utils/client-utils.js";
+import {
+  formatError,
+  formatResponse,
+  throwIfEmpty,
+} from "../../utils/client-utils.js";
 import type { paths } from "./schema.js";
 
 export class Payments extends BaseClient<paths> {
@@ -21,6 +25,7 @@ export class Payments extends BaseClient<paths> {
   async getProviderById(
     providerId: paths["/api/v1/providers/{providerId}"]["get"]["parameters"]["path"]["providerId"],
   ) {
+    throwIfEmpty(providerId);
     return this.client
       .GET("/api/v1/providers/{providerId}", {
         params: {
@@ -52,6 +57,7 @@ export class Payments extends BaseClient<paths> {
     providerId: paths["/api/v1/providers/{providerId}"]["put"]["parameters"]["path"]["providerId"],
     data: paths["/api/v1/providers/{providerId}"]["put"]["requestBody"]["content"]["application/json"],
   ) {
+    throwIfEmpty(providerId);
     return this.client
       .PUT("/api/v1/providers/{providerId}", {
         params: {
@@ -104,6 +110,7 @@ export class Payments extends BaseClient<paths> {
   async getPaymentRequest(
     requestId: paths["/api/v1/requests/{requestId}"]["get"]["parameters"]["path"]["requestId"],
   ) {
+    throwIfEmpty(requestId);
     return this.client
       .GET("/api/v1/requests/{requestId}", {
         params: {
@@ -122,6 +129,7 @@ export class Payments extends BaseClient<paths> {
     requestId: paths["/api/v1/requests/{requestId}/transactions"]["get"]["parameters"]["path"]["requestId"],
     query: paths["/api/v1/requests/{requestId}/transactions"]["get"]["parameters"]["query"],
   ) {
+    throwIfEmpty(requestId);
     return this.client
       .GET("/api/v1/requests/{requestId}/transactions", {
         params: {
@@ -153,6 +161,7 @@ export class Payments extends BaseClient<paths> {
   async getPaymentRequestPublicInfo(
     requestId: paths["/api/v1/requests/{requestId}/public-info"]["get"]["parameters"]["path"]["requestId"],
   ) {
+    throwIfEmpty(requestId);
     return this.client
       .GET("/api/v1/requests/{requestId}/public-info", {
         params: {
@@ -183,6 +192,7 @@ export class Payments extends BaseClient<paths> {
   async deletePaymentRequest(
     requestId: paths["/api/v1/requests/{requestId}"]["delete"]["parameters"]["path"]["requestId"],
   ) {
+    throwIfEmpty(requestId);
     return this.client
       .DELETE("/api/v1/requests/{requestId}", {
         params: {
@@ -217,6 +227,7 @@ export class Payments extends BaseClient<paths> {
   }
 
   async getTransactionDetails(transactionId: string) {
+    throwIfEmpty(transactionId);
     return this.client
       .GET("/api/v1/transactions/{transactionId}", {
         params: {
@@ -232,6 +243,7 @@ export class Payments extends BaseClient<paths> {
   }
 
   async getTransactionIdByExtPaymentId(extPaymentId: string) {
+    throwIfEmpty(extPaymentId);
     return this.client
       .GET("/api/v1/transactions/transactionId/{extPaymentId}", {
         params: {
@@ -250,6 +262,7 @@ export class Payments extends BaseClient<paths> {
     transactionId: paths["/api/v1/transactions/{transactionId}"]["patch"]["parameters"]["path"]["transactionId"],
     data: paths["/api/v1/transactions/{transactionId}"]["patch"]["requestBody"]["content"]["application/json"],
   ) {
+    throwIfEmpty(transactionId);
     return this.client
       .PATCH("/api/v1/transactions/{transactionId}", {
         params: {
@@ -317,6 +330,7 @@ export class Payments extends BaseClient<paths> {
     transactionId: paths["/api/v1/transactions/{transactionId}/refund"]["post"]["parameters"]["path"]["transactionId"],
     data: paths["/api/v1/transactions/{transactionId}/refund"]["post"]["requestBody"]["content"]["application/json"],
   ) {
+    throwIfEmpty(transactionId);
     return this.client
       .POST("/api/v1/transactions/{transactionId}/refund", {
         params: {
@@ -335,6 +349,7 @@ export class Payments extends BaseClient<paths> {
   async getRefoundByTransactionId(
     transactionId: paths["/api/v1/transactions/{transactionId}/refund"]["post"]["parameters"]["path"]["transactionId"],
   ) {
+    throwIfEmpty(transactionId);
     return this.client
       .GET("/api/v1/transactions/{transactionId}/refund", {
         params: {
@@ -352,6 +367,7 @@ export class Payments extends BaseClient<paths> {
   async cancelPayment(
     transactionId: paths["/api/v1/transactions/{transactionId}/cancel-payment"]["post"]["parameters"]["path"]["transactionId"],
   ) {
+    throwIfEmpty(transactionId);
     return this.client
       .POST("/api/v1/transactions/{transactionId}/cancel-payment", {
         params: {
@@ -386,6 +402,7 @@ export class Payments extends BaseClient<paths> {
   }
 
   async getCitizenTransactionDetails(transactionId: string) {
+    throwIfEmpty(transactionId);
     return this.client
       .GET("/api/v1/citizen/transactions/{transactionId}", {
         params: {
@@ -422,6 +439,7 @@ export class Payments extends BaseClient<paths> {
   async getAuditLogDetails(
     auditLogId: paths["/api/v1/auditLogs/{auditLogId}"]["get"]["parameters"]["path"]["auditLogId"],
   ) {
+    throwIfEmpty(auditLogId);
     return this.client
       .GET("/api/v1/auditLogs/{auditLogId}", {
         params: {
@@ -446,6 +464,7 @@ export class Payments extends BaseClient<paths> {
   async getRedirectToken(
     transactionId: paths["/api/v1/transactions/{transactionId}/token"]["get"]["parameters"]["path"]["transactionId"],
   ) {
+    throwIfEmpty(transactionId);
     return this.client
       .GET("/api/v1/transactions/{transactionId}/token", {
         params: {

@@ -1,7 +1,11 @@
 import type createClient from "openapi-fetch";
 import { JOURNEY } from "../../../types/index.js";
 import { BaseClient } from "../../base-client.js";
-import { formatError, formatResponse } from "../../utils/client-utils.js";
+import {
+  formatError,
+  formatResponse,
+  throwIfEmpty,
+} from "../../utils/client-utils.js";
 import type { paths } from "./schema.js";
 
 export class Journey extends BaseClient<paths> {
@@ -14,6 +18,7 @@ export class Journey extends BaseClient<paths> {
   async getConnectionById(
     connectionId: paths["/api/v1/journey_step_connections/{connectionId}"]["get"]["parameters"]["path"]["connectionId"],
   ) {
+    throwIfEmpty(connectionId);
     return this.client
       .GET("/api/v1/journey_step_connections/{connectionId}", {
         params: {
@@ -44,6 +49,7 @@ export class Journey extends BaseClient<paths> {
   async deleteConnection(
     connectionId: paths["/api/v1/journey_step_connections/{connectionId}"]["delete"]["parameters"]["path"]["connectionId"],
   ) {
+    throwIfEmpty(connectionId);
     return this.client
       .DELETE("/api/v1/journey_step_connections/{connectionId}", {
         params: {
@@ -64,6 +70,7 @@ export class Journey extends BaseClient<paths> {
   async getStepById(
     stepId: paths["/api/v1/journey_steps/{stepId}"]["get"]["parameters"]["path"]["stepId"],
   ) {
+    throwIfEmpty(stepId);
     return this.client
       .GET("/api/v1/journey_steps/{stepId}", {
         params: {
@@ -94,6 +101,7 @@ export class Journey extends BaseClient<paths> {
   async deleteStep(
     stepId: paths["/api/v1/journey_steps/{stepId}"]["delete"]["parameters"]["path"]["stepId"],
   ) {
+    throwIfEmpty(stepId);
     return this.client
       .DELETE("/api/v1/journey_steps/{stepId}", {
         params: {
@@ -112,6 +120,7 @@ export class Journey extends BaseClient<paths> {
     stepId: paths["/api/v1/journey_steps/{stepId}"]["put"]["parameters"]["path"]["stepId"],
     data: paths["/api/v1/journey_steps/{stepId}"]["put"]["requestBody"]["content"]["application/json"],
   ) {
+    throwIfEmpty(stepId);
     return this.client
       .PUT("/api/v1/journey_steps/{stepId}", {
         params: {
@@ -133,6 +142,7 @@ export class Journey extends BaseClient<paths> {
   async getJourneyPublicInfo(
     journeyId: paths["/api/v1/journeys/{journeyId}/public-info"]["get"]["parameters"]["path"]["journeyId"],
   ) {
+    throwIfEmpty(journeyId);
     return this.client
       .GET("/api/v1/journeys/{journeyId}/public-info", {
         params: {
@@ -150,6 +160,7 @@ export class Journey extends BaseClient<paths> {
   async getJourneyById(
     journeyId: paths["/api/v1/journeys/{journeyId}"]["get"]["parameters"]["path"]["journeyId"],
   ) {
+    throwIfEmpty(journeyId);
     return this.client
       .GET("/api/v1/journeys/{journeyId}", {
         params: {
@@ -196,6 +207,7 @@ export class Journey extends BaseClient<paths> {
     journeyId: paths["/api/v1/journeys/{journeyId}"]["put"]["parameters"]["path"]["journeyId"],
     data: paths["/api/v1/journeys/{journeyId}"]["put"]["requestBody"]["content"]["application/json"],
   ) {
+    throwIfEmpty(journeyId);
     return this.client
       .PUT("/api/v1/journeys/{journeyId}", {
         params: {
@@ -216,6 +228,7 @@ export class Journey extends BaseClient<paths> {
   async getUserRunById(
     runId: paths["/api/v1/executor/runs/self/{runId}"]["get"]["parameters"]["path"]["runId"],
   ) {
+    throwIfEmpty(runId);
     return this.client
       .GET("/api/v1/executor/runs/self/{runId}", {
         params: {
@@ -240,6 +253,7 @@ export class Journey extends BaseClient<paths> {
   async getRunsByJourneyId(
     journeyId: paths["/api/v1/executor/runs/journeys/{journeyId}"]["get"]["parameters"]["path"]["journeyId"],
   ) {
+    throwIfEmpty(journeyId);
     return this.client
       .GET("/api/v1/executor/runs/journeys/{journeyId}", {
         params: {
@@ -257,6 +271,7 @@ export class Journey extends BaseClient<paths> {
   async getRunById(
     runId: paths["/api/v1/executor/runs/{runId}"]["get"]["parameters"]["path"]["runId"],
   ) {
+    throwIfEmpty(runId);
     return this.client
       .GET("/api/v1/executor/runs/{runId}", {
         params: {
