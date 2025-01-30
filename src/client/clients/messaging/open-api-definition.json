@@ -4013,6 +4013,7 @@
           },
           {
             "schema": {
+              "format": "date",
               "type": "string"
             },
             "in": "query",
@@ -4022,6 +4023,7 @@
           },
           {
             "schema": {
+              "format": "date",
               "type": "string"
             },
             "in": "query",
