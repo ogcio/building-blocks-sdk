@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.3](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.2...@ogcio/building-blocks-sdk@v0.2.3) (2025-01-30)
+
+
+### Features
+
+* **messaging:** add date parameters to event logs search ([8479edb](https://github.com/ogcio/building-blocks-sdk/commit/8479edbbbc8347a9684c1cebf91ecbfa762c3302))
+
 ## [0.2.2](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.1...@ogcio/building-blocks-sdk@v0.2.2) (2025-01-27)
 
 
