@@ -251,8 +251,12 @@ export interface paths {
         get: {
             parameters: {
                 query?: {
-                    /** @description If set, it filters the events for the messages containing the set value in subject */
+                    /** @description If set, it filters the events for the messages containing the searched value in the subject or recipients of the message */
                     search?: string;
+                    /** @description If set, it filters the events for the messages created after the set date */
+                    dateFrom?: string;
+                    /** @description If set, it filters the events for the messages created before the set date */
+                    dateTo?: string;
                     /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
                     offset?: string;
                     /** @description Indicates the maximum number (100) of items that will be returned in a single request */
@@ -416,6 +420,11 @@ export interface paths {
                     content: {
                         "application/json": {
                             data: {
+                                /**
+                                 * Format: uuid
+                                 * @description Message id
+                                 */
+                                messageId: string;
                                 /** @description Event type description */
                                 eventType: string;
                                 /** @description Status for event type */
