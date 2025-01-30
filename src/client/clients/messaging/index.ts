@@ -346,11 +346,22 @@ export class Messaging extends BaseClient<paths> {
       );
   }
 
-  async getMessageEvents(params: { search?: string } & PaginationParams) {
+  async getMessageEvents(
+    params: {
+      search?: string;
+      dateFrom?: string;
+      dateTo?: string;
+    } & PaginationParams,
+  ) {
     return this.client
       .GET("/api/v1/message-events/", {
         params: {
-          query: { search: params.search, ...preparePaginationParams(params) },
+          query: {
+            search: params.search,
+            dateFrom: params.dateFrom,
+            dateTo: params.dateTo,
+            ...preparePaginationParams(params),
+          },
         },
       })
       .then(

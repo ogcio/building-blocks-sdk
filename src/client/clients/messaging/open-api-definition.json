@@ -4009,7 +4009,25 @@
             "in": "query",
             "name": "search",
             "required": false,
-            "description": "If set, it filters the events for the messages containing the set value in subject"
+            "description": "If set, it filters the events for the messages containing the searched value in the subject or recipients of the message"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "dateFrom",
+            "required": false,
+            "description": "If set, it filters the events for the messages created after the set date"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "dateTo",
+            "required": false,
+            "description": "If set, it filters the events for the messages created before the set date"
           },
           {
             "schema": {
@@ -4328,6 +4346,11 @@
                       "items": {
                         "type": "object",
                         "properties": {
+                          "messageId": {
+                            "format": "uuid",
+                            "description": "Message id",
+                            "type": "string"
+                          },
                           "eventType": {
                             "description": "Event type description",
                             "type": "string"
@@ -4477,6 +4500,7 @@
                           }
                         },
                         "required": [
+                          "messageId",
                           "eventType",
                           "eventStatus",
                           "data",
