@@ -619,18 +619,29 @@
                                       "title": {
                                         "type": "string"
                                       },
-                                      "recipient": {
-                                        "type": "string"
+                                      "recipients": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
                                       },
                                       "generatePDF": {
                                         "type": "boolean"
+                                      },
+                                      "uiConfig": {
+                                        "type": "object",
+                                        "properties": {
+                                          "setupPageVersion": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "setupPageVersion"
+                                        ]
                                       }
                                     },
                                     "required": [
-                                      "templateId",
-                                      "title",
-                                      "recipient",
-                                      "generatePDF"
+                                      "uiConfig"
                                     ]
                                   },
                                   {
@@ -2217,18 +2228,29 @@
                                 "title": {
                                   "type": "string"
                                 },
-                                "recipient": {
-                                  "type": "string"
+                                "recipients": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
                                 },
                                 "generatePDF": {
                                   "type": "boolean"
+                                },
+                                "uiConfig": {
+                                  "type": "object",
+                                  "properties": {
+                                    "setupPageVersion": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "setupPageVersion"
+                                  ]
                                 }
                               },
                               "required": [
-                                "templateId",
-                                "title",
-                                "recipient",
-                                "generatePDF"
+                                "uiConfig"
                               ]
                             },
                             {
@@ -2648,18 +2670,29 @@
                           "title": {
                             "type": "string"
                           },
-                          "recipient": {
-                            "type": "string"
+                          "recipients": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
                           },
                           "generatePDF": {
                             "type": "boolean"
+                          },
+                          "uiConfig": {
+                            "type": "object",
+                            "properties": {
+                              "setupPageVersion": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "setupPageVersion"
+                            ]
                           }
                         },
                         "required": [
-                          "templateId",
-                          "title",
-                          "recipient",
-                          "generatePDF"
+                          "uiConfig"
                         ]
                       },
                       {
@@ -2833,18 +2866,29 @@
                                 "title": {
                                   "type": "string"
                                 },
-                                "recipient": {
-                                  "type": "string"
+                                "recipients": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
                                 },
                                 "generatePDF": {
                                   "type": "boolean"
+                                },
+                                "uiConfig": {
+                                  "type": "object",
+                                  "properties": {
+                                    "setupPageVersion": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "setupPageVersion"
+                                  ]
                                 }
                               },
                               "required": [
-                                "templateId",
-                                "title",
-                                "recipient",
-                                "generatePDF"
+                                "uiConfig"
                               ]
                             },
                             {
@@ -3135,18 +3179,29 @@
                           "title": {
                             "type": "string"
                           },
-                          "recipient": {
-                            "type": "string"
+                          "recipients": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
                           },
                           "generatePDF": {
                             "type": "boolean"
+                          },
+                          "uiConfig": {
+                            "type": "object",
+                            "properties": {
+                              "setupPageVersion": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "setupPageVersion"
+                            ]
                           }
                         },
                         "required": [
-                          "templateId",
-                          "title",
-                          "recipient",
-                          "generatePDF"
+                          "uiConfig"
                         ]
                       },
                       {
@@ -3274,18 +3329,29 @@
                                 "title": {
                                   "type": "string"
                                 },
-                                "recipient": {
-                                  "type": "string"
+                                "recipients": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
                                 },
                                 "generatePDF": {
                                   "type": "boolean"
+                                },
+                                "uiConfig": {
+                                  "type": "object",
+                                  "properties": {
+                                    "setupPageVersion": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "setupPageVersion"
+                                  ]
                                 }
                               },
                               "required": [
-                                "templateId",
-                                "title",
-                                "recipient",
-                                "generatePDF"
+                                "uiConfig"
                               ]
                             },
                             {
