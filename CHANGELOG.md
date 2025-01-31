@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.5](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.4...@ogcio/building-blocks-sdk@v0.2.5) (2025-01-31)
+
+
+### Bug Fixes
+
+* journey api ([#131](https://github.com/ogcio/building-blocks-sdk/issues/131)) ([e348070](https://github.com/ogcio/building-blocks-sdk/commit/e348070aa6f68b81d84dfd613695a616e91de374))
+
 ## [0.2.4](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.3...@ogcio/building-blocks-sdk@v0.2.4) (2025-01-31)
 
 
