@@ -259,17 +259,21 @@ export interface paths {
                                         paymentRequestId: string;
                                         title: string;
                                     } | {
-                                        templateId?: string;
-                                        title?: string;
-                                        recipients?: string[];
-                                        generatePDF?: boolean;
+                                        templateId: string;
+                                        title: string;
+                                        recipients: string[];
+                                        generatePDF: boolean;
                                         uiConfig: {
                                             setupPageVersion: string;
                                         };
                                     } | {
                                         buttonLabel: string;
                                         returnUrl: string;
-                                    } | Record<string, never>;
+                                    } | {
+                                        uiConfig?: {
+                                            setupPageVersion?: string;
+                                        };
+                                    };
                                     configured: boolean;
                                     createdAt: string;
                                     updatedAt: string;
@@ -961,17 +965,21 @@ export interface paths {
                                     paymentRequestId: string;
                                     title: string;
                                 } | {
-                                    templateId?: string;
-                                    title?: string;
-                                    recipients?: string[];
-                                    generatePDF?: boolean;
+                                    templateId: string;
+                                    title: string;
+                                    recipients: string[];
+                                    generatePDF: boolean;
                                     uiConfig: {
                                         setupPageVersion: string;
                                     };
                                 } | {
                                     buttonLabel: string;
                                     returnUrl: string;
-                                } | Record<string, never>;
+                                } | {
+                                    uiConfig?: {
+                                        setupPageVersion?: string;
+                                    };
+                                };
                                 configured: boolean;
                                 createdAt: string;
                                 updatedAt: string;
@@ -1056,17 +1064,21 @@ export interface paths {
                             paymentRequestId: string;
                             title: string;
                         } | {
-                            templateId?: string;
-                            title?: string;
-                            recipients?: string[];
-                            generatePDF?: boolean;
+                            templateId: string;
+                            title: string;
+                            recipients: string[];
+                            generatePDF: boolean;
                             uiConfig: {
                                 setupPageVersion: string;
                             };
                         } | {
                             buttonLabel: string;
                             returnUrl: string;
-                        } | Record<string, never>;
+                        } | {
+                            uiConfig?: {
+                                setupPageVersion?: string;
+                            };
+                        };
                         configured: boolean;
                         stepType: "title" | "form" | "payment" | "messaging" | "complete";
                     };
@@ -1090,17 +1102,21 @@ export interface paths {
                                     paymentRequestId: string;
                                     title: string;
                                 } | {
-                                    templateId?: string;
-                                    title?: string;
-                                    recipients?: string[];
-                                    generatePDF?: boolean;
+                                    templateId: string;
+                                    title: string;
+                                    recipients: string[];
+                                    generatePDF: boolean;
                                     uiConfig: {
                                         setupPageVersion: string;
                                     };
                                 } | {
                                     buttonLabel: string;
                                     returnUrl: string;
-                                } | Record<string, never>;
+                                } | {
+                                    uiConfig?: {
+                                        setupPageVersion?: string;
+                                    };
+                                };
                                 configured: boolean;
                                 createdAt: string;
                                 updatedAt: string;
@@ -1282,17 +1298,21 @@ export interface paths {
                             paymentRequestId: string;
                             title: string;
                         } | {
-                            templateId?: string;
-                            title?: string;
-                            recipients?: string[];
-                            generatePDF?: boolean;
+                            templateId: string;
+                            title: string;
+                            recipients: string[];
+                            generatePDF: boolean;
                             uiConfig: {
                                 setupPageVersion: string;
                             };
                         } | {
                             buttonLabel: string;
                             returnUrl: string;
-                        } | Record<string, never>;
+                        } | {
+                            uiConfig?: {
+                                setupPageVersion?: string;
+                            };
+                        };
                     };
                 };
             };
@@ -1314,17 +1334,21 @@ export interface paths {
                                     paymentRequestId: string;
                                     title: string;
                                 } | {
-                                    templateId?: string;
-                                    title?: string;
-                                    recipients?: string[];
-                                    generatePDF?: boolean;
+                                    templateId: string;
+                                    title: string;
+                                    recipients: string[];
+                                    generatePDF: boolean;
                                     uiConfig: {
                                         setupPageVersion: string;
                                     };
                                 } | {
                                     buttonLabel: string;
                                     returnUrl: string;
-                                } | Record<string, never>;
+                                } | {
+                                    uiConfig?: {
+                                        setupPageVersion?: string;
+                                    };
+                                };
                                 configured: boolean;
                                 createdAt: string;
                                 updatedAt: string;
