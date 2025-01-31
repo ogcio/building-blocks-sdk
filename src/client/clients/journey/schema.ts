@@ -259,10 +259,13 @@ export interface paths {
                                         paymentRequestId: string;
                                         title: string;
                                     } | {
-                                        templateId: string;
-                                        title: string;
-                                        recipient: string;
-                                        generatePDF: boolean;
+                                        templateId?: string;
+                                        title?: string;
+                                        recipients?: string[];
+                                        generatePDF?: boolean;
+                                        uiConfig: {
+                                            setupPageVersion: string;
+                                        };
                                     } | {
                                         buttonLabel: string;
                                         returnUrl: string;
@@ -958,10 +961,13 @@ export interface paths {
                                     paymentRequestId: string;
                                     title: string;
                                 } | {
-                                    templateId: string;
-                                    title: string;
-                                    recipient: string;
-                                    generatePDF: boolean;
+                                    templateId?: string;
+                                    title?: string;
+                                    recipients?: string[];
+                                    generatePDF?: boolean;
+                                    uiConfig: {
+                                        setupPageVersion: string;
+                                    };
                                 } | {
                                     buttonLabel: string;
                                     returnUrl: string;
@@ -1050,10 +1056,13 @@ export interface paths {
                             paymentRequestId: string;
                             title: string;
                         } | {
-                            templateId: string;
-                            title: string;
-                            recipient: string;
-                            generatePDF: boolean;
+                            templateId?: string;
+                            title?: string;
+                            recipients?: string[];
+                            generatePDF?: boolean;
+                            uiConfig: {
+                                setupPageVersion: string;
+                            };
                         } | {
                             buttonLabel: string;
                             returnUrl: string;
@@ -1081,10 +1090,13 @@ export interface paths {
                                     paymentRequestId: string;
                                     title: string;
                                 } | {
-                                    templateId: string;
-                                    title: string;
-                                    recipient: string;
-                                    generatePDF: boolean;
+                                    templateId?: string;
+                                    title?: string;
+                                    recipients?: string[];
+                                    generatePDF?: boolean;
+                                    uiConfig: {
+                                        setupPageVersion: string;
+                                    };
                                 } | {
                                     buttonLabel: string;
                                     returnUrl: string;
@@ -1270,10 +1282,13 @@ export interface paths {
                             paymentRequestId: string;
                             title: string;
                         } | {
-                            templateId: string;
-                            title: string;
-                            recipient: string;
-                            generatePDF: boolean;
+                            templateId?: string;
+                            title?: string;
+                            recipients?: string[];
+                            generatePDF?: boolean;
+                            uiConfig: {
+                                setupPageVersion: string;
+                            };
                         } | {
                             buttonLabel: string;
                             returnUrl: string;
@@ -1299,10 +1314,13 @@ export interface paths {
                                     paymentRequestId: string;
                                     title: string;
                                 } | {
-                                    templateId: string;
-                                    title: string;
-                                    recipient: string;
-                                    generatePDF: boolean;
+                                    templateId?: string;
+                                    title?: string;
+                                    recipients?: string[];
+                                    generatePDF?: boolean;
+                                    uiConfig: {
+                                        setupPageVersion: string;
+                                    };
                                 } | {
                                     buttonLabel: string;
                                     returnUrl: string;
