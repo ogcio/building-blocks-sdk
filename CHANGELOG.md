@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.7](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.6...@ogcio/building-blocks-sdk@v0.2.7) (2025-02-05)
+
+
+### Features
+
+* journey submission status ([#136](https://github.com/ogcio/building-blocks-sdk/issues/136)) ([54f71ca](https://github.com/ogcio/building-blocks-sdk/commit/54f71ca8058ca527b2514e57a90283ccfa20ef3f))
+
 ## [0.2.6](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.5...@ogcio/building-blocks-sdk@v0.2.6) (2025-02-05)
 
 
