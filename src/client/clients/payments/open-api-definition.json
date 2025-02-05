@@ -1261,88 +1261,6 @@
                                     }
                                   ]
                                 },
-                                "data": {
-                                  "anyOf": [
-                                    {
-                                      "type": "object",
-                                      "properties": {
-                                        "iban": {
-                                          "type": "string"
-                                        },
-                                        "accountHolderName": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "required": [
-                                        "iban",
-                                        "accountHolderName"
-                                      ]
-                                    },
-                                    {
-                                      "type": "object",
-                                      "properties": {
-                                        "iban": {
-                                          "type": "string"
-                                        },
-                                        "accountHolderName": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "required": [
-                                        "iban",
-                                        "accountHolderName"
-                                      ]
-                                    },
-                                    {
-                                      "type": "object",
-                                      "properties": {
-                                        "livePublishableKey": {
-                                          "type": "string"
-                                        },
-                                        "liveSecretKey": {
-                                          "type": "string"
-                                        },
-                                        "webhookSigningKey": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "required": [
-                                        "livePublishableKey",
-                                        "liveSecretKey"
-                                      ]
-                                    },
-                                    {
-                                      "type": "object",
-                                      "properties": {
-                                        "merchantCode": {
-                                          "type": "string"
-                                        },
-                                        "installationId": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "required": [
-                                        "merchantCode",
-                                        "installationId"
-                                      ]
-                                    },
-                                    {
-                                      "type": "object",
-                                      "properties": {
-                                        "merchantId": {
-                                          "type": "string"
-                                        },
-                                        "sharedSecret": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "required": [
-                                        "merchantId",
-                                        "sharedSecret"
-                                      ]
-                                    }
-                                  ]
-                                },
                                 "createdAt": {
                                   "type": "string"
                                 }
@@ -1353,7 +1271,6 @@
                                 "name",
                                 "type",
                                 "status",
-                                "data",
                                 "createdAt"
                               ]
                             }
@@ -1578,6 +1495,7 @@
                     }
                   },
                   "status": {
+                    "validator": "PaymentRequestStatusValidator",
                     "anyOf": [
                       {
                         "type": "string",
@@ -1597,8 +1515,7 @@
                           "draft"
                         ]
                       }
-                    ],
-                    "validator": "PaymentRequestStatusValidator"
+                    ]
                   }
                 },
                 "required": [
@@ -1893,6 +1810,7 @@
                     }
                   },
                   "status": {
+                    "validator": "PaymentRequestStatusValidator",
                     "anyOf": [
                       {
                         "type": "string",
@@ -1912,8 +1830,7 @@
                           "draft"
                         ]
                       }
-                    ],
-                    "validator": "PaymentRequestStatusValidator"
+                    ]
                   },
                   "paymentRequestId": {
                     "type": "string"
@@ -2397,88 +2314,6 @@
                                   }
                                 ]
                               },
-                              "data": {
-                                "anyOf": [
-                                  {
-                                    "type": "object",
-                                    "properties": {
-                                      "iban": {
-                                        "type": "string"
-                                      },
-                                      "accountHolderName": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "iban",
-                                      "accountHolderName"
-                                    ]
-                                  },
-                                  {
-                                    "type": "object",
-                                    "properties": {
-                                      "iban": {
-                                        "type": "string"
-                                      },
-                                      "accountHolderName": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "iban",
-                                      "accountHolderName"
-                                    ]
-                                  },
-                                  {
-                                    "type": "object",
-                                    "properties": {
-                                      "livePublishableKey": {
-                                        "type": "string"
-                                      },
-                                      "liveSecretKey": {
-                                        "type": "string"
-                                      },
-                                      "webhookSigningKey": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "livePublishableKey",
-                                      "liveSecretKey"
-                                    ]
-                                  },
-                                  {
-                                    "type": "object",
-                                    "properties": {
-                                      "merchantCode": {
-                                        "type": "string"
-                                      },
-                                      "installationId": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "merchantCode",
-                                      "installationId"
-                                    ]
-                                  },
-                                  {
-                                    "type": "object",
-                                    "properties": {
-                                      "merchantId": {
-                                        "type": "string"
-                                      },
-                                      "sharedSecret": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "merchantId",
-                                      "sharedSecret"
-                                    ]
-                                  }
-                                ]
-                              },
                               "createdAt": {
                                 "type": "string"
                               }
@@ -2489,7 +2324,6 @@
                               "name",
                               "type",
                               "status",
-                              "data",
                               "createdAt"
                             ]
                           }
@@ -2879,65 +2713,17 @@
                                   {
                                     "type": "object",
                                     "properties": {
-                                      "iban": {
-                                        "type": "string"
-                                      },
-                                      "accountHolderName": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "iban",
-                                      "accountHolderName"
-                                    ]
-                                  },
-                                  {
-                                    "type": "object",
-                                    "properties": {
                                       "livePublishableKey": {
                                         "type": "string"
-                                      },
-                                      "liveSecretKey": {
-                                        "type": "string"
-                                      },
-                                      "webhookSigningKey": {
-                                        "type": "string"
                                       }
                                     },
                                     "required": [
-                                      "livePublishableKey",
-                                      "liveSecretKey"
+                                      "livePublishableKey"
                                     ]
                                   },
                                   {
                                     "type": "object",
-                                    "properties": {
-                                      "merchantCode": {
-                                        "type": "string"
-                                      },
-                                      "installationId": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "merchantCode",
-                                      "installationId"
-                                    ]
-                                  },
-                                  {
-                                    "type": "object",
-                                    "properties": {
-                                      "merchantId": {
-                                        "type": "string"
-                                      },
-                                      "sharedSecret": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "merchantId",
-                                      "sharedSecret"
-                                    ]
+                                    "properties": {}
                                   }
                                 ]
                               },

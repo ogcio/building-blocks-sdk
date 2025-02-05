@@ -551,23 +551,6 @@ export interface paths {
                                     name: string;
                                     type: "banktransfer" | "openbanking" | "stripe" | "realex" | "worldpay";
                                     status: "connected" | "disconnected";
-                                    data: {
-                                        iban: string;
-                                        accountHolderName: string;
-                                    } | {
-                                        iban: string;
-                                        accountHolderName: string;
-                                    } | {
-                                        livePublishableKey: string;
-                                        liveSecretKey: string;
-                                        webhookSigningKey?: string;
-                                    } | {
-                                        merchantCode: string;
-                                        installationId: string;
-                                    } | {
-                                        merchantId: string;
-                                        sharedSecret: string;
-                                    };
                                     createdAt: string;
                                 }[];
                                 status: "active" | "inactive" | "draft";
@@ -944,23 +927,6 @@ export interface paths {
                                     name: string;
                                     type: "banktransfer" | "openbanking" | "stripe" | "realex" | "worldpay";
                                     status: "connected" | "disconnected";
-                                    data: {
-                                        iban: string;
-                                        accountHolderName: string;
-                                    } | {
-                                        iban: string;
-                                        accountHolderName: string;
-                                    } | {
-                                        livePublishableKey: string;
-                                        liveSecretKey: string;
-                                        webhookSigningKey?: string;
-                                    } | {
-                                        merchantCode: string;
-                                        installationId: string;
-                                    } | {
-                                        merchantId: string;
-                                        sharedSecret: string;
-                                    };
                                     createdAt: string;
                                 }[];
                                 status: "active" | "inactive" | "draft";
@@ -1124,19 +1090,8 @@ export interface paths {
                                         iban: string;
                                         accountHolderName: string;
                                     } | {
-                                        iban: string;
-                                        accountHolderName: string;
-                                    } | {
                                         livePublishableKey: string;
-                                        liveSecretKey: string;
-                                        webhookSigningKey?: string;
-                                    } | {
-                                        merchantCode: string;
-                                        installationId: string;
-                                    } | {
-                                        merchantId: string;
-                                        sharedSecret: string;
-                                    };
+                                    } | Record<string, never>;
                                     createdAt: string;
                                 }[];
                                 status: "active" | "inactive" | "draft";
