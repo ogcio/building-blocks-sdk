@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.6](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.5...@ogcio/building-blocks-sdk@v0.2.6) (2025-02-05)
+
+
+### Bug Fixes
+
+* removed unnecessary data from APIs ([#134](https://github.com/ogcio/building-blocks-sdk/issues/134)) ([021ef3f](https://github.com/ogcio/building-blocks-sdk/commit/021ef3fc4096f0a0a1c097a5f32d105a9aa3c625))
+
 ## [0.2.5](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.4...@ogcio/building-blocks-sdk@v0.2.5) (2025-01-31)
 
 
