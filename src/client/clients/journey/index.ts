@@ -352,4 +352,24 @@ export class Journey extends BaseClient<paths> {
         (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
+
+  async updateRunStatus(
+    runId: paths["/api/v1/executor/runs/{runId}"]["patch"]["parameters"]["path"]["runId"],
+    data: paths["/api/v1/executor/runs/{runId}"]["patch"]["requestBody"]["content"]["application/json"],
+  ) {
+    throwIfEmpty(runId);
+    return this.client
+      .PATCH("/api/v1/executor/runs/{runId}", {
+        params: {
+          path: {
+            runId,
+          },
+        },
+        body: data,
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
 }
