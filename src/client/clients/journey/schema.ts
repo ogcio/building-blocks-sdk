@@ -261,19 +261,12 @@ export interface paths {
                                     } | {
                                         templateId: string;
                                         title: string;
-                                        recipients: string[];
+                                        recipient: string;
                                         generatePDF: boolean;
-                                        uiConfig: {
-                                            setupPageVersion: string;
-                                        };
                                     } | {
                                         buttonLabel: string;
                                         returnUrl: string;
-                                    } | {
-                                        uiConfig?: {
-                                            setupPageVersion?: string;
-                                        };
-                                    };
+                                    } | Record<string, never>;
                                     configured: boolean;
                                     createdAt: string;
                                     updatedAt: string;
@@ -967,19 +960,12 @@ export interface paths {
                                 } | {
                                     templateId: string;
                                     title: string;
-                                    recipients: string[];
+                                    recipient: string;
                                     generatePDF: boolean;
-                                    uiConfig: {
-                                        setupPageVersion: string;
-                                    };
                                 } | {
                                     buttonLabel: string;
                                     returnUrl: string;
-                                } | {
-                                    uiConfig?: {
-                                        setupPageVersion?: string;
-                                    };
-                                };
+                                } | Record<string, never>;
                                 configured: boolean;
                                 createdAt: string;
                                 updatedAt: string;
@@ -1066,19 +1052,12 @@ export interface paths {
                         } | {
                             templateId: string;
                             title: string;
-                            recipients: string[];
+                            recipient: string;
                             generatePDF: boolean;
-                            uiConfig: {
-                                setupPageVersion: string;
-                            };
                         } | {
                             buttonLabel: string;
                             returnUrl: string;
-                        } | {
-                            uiConfig?: {
-                                setupPageVersion?: string;
-                            };
-                        };
+                        } | Record<string, never>;
                         configured: boolean;
                         stepType: "title" | "form" | "payment" | "messaging" | "complete";
                     };
@@ -1104,19 +1083,12 @@ export interface paths {
                                 } | {
                                     templateId: string;
                                     title: string;
-                                    recipients: string[];
+                                    recipient: string;
                                     generatePDF: boolean;
-                                    uiConfig: {
-                                        setupPageVersion: string;
-                                    };
                                 } | {
                                     buttonLabel: string;
                                     returnUrl: string;
-                                } | {
-                                    uiConfig?: {
-                                        setupPageVersion?: string;
-                                    };
-                                };
+                                } | Record<string, never>;
                                 configured: boolean;
                                 createdAt: string;
                                 updatedAt: string;
@@ -1300,19 +1272,12 @@ export interface paths {
                         } | {
                             templateId: string;
                             title: string;
-                            recipients: string[];
+                            recipient: string;
                             generatePDF: boolean;
-                            uiConfig: {
-                                setupPageVersion: string;
-                            };
                         } | {
                             buttonLabel: string;
                             returnUrl: string;
-                        } | {
-                            uiConfig?: {
-                                setupPageVersion?: string;
-                            };
-                        };
+                        } | Record<string, never>;
                     };
                 };
             };
@@ -1336,19 +1301,12 @@ export interface paths {
                                 } | {
                                     templateId: string;
                                     title: string;
-                                    recipients: string[];
+                                    recipient: string;
                                     generatePDF: boolean;
-                                    uiConfig: {
-                                        setupPageVersion: string;
-                                    };
                                 } | {
                                     buttonLabel: string;
                                     returnUrl: string;
-                                } | {
-                                    uiConfig?: {
-                                        setupPageVersion?: string;
-                                    };
-                                };
+                                } | Record<string, never>;
                                 configured: boolean;
                                 createdAt: string;
                                 updatedAt: string;
@@ -1448,7 +1406,7 @@ export interface paths {
                                 id: string;
                                 userId: string;
                                 journeyId: string;
-                                status: "pending" | "failed" | "completed";
+                                status: "initiated" | "submitted" | "processing" | "completed" | "cancelled";
                                 createdAt: string;
                                 updatedAt: string;
                             }[];
@@ -1535,7 +1493,7 @@ export interface paths {
                                 id: string;
                                 userId: string;
                                 journeyId: string;
-                                status: "pending" | "failed" | "completed";
+                                status: "initiated" | "submitted" | "processing" | "completed" | "cancelled";
                                 createdAt: string;
                                 updatedAt: string;
                                 steps: {
@@ -1653,7 +1611,7 @@ export interface paths {
                                 id: string;
                                 userId: string;
                                 journeyId: string;
-                                status: "pending" | "failed" | "completed";
+                                status: "initiated" | "submitted" | "processing" | "completed" | "cancelled";
                                 createdAt: string;
                                 updatedAt: string;
                             }[];
@@ -1740,7 +1698,7 @@ export interface paths {
                                 id: string;
                                 userId: string;
                                 journeyId: string;
-                                status: "pending" | "failed" | "completed";
+                                status: "initiated" | "submitted" | "processing" | "completed" | "cancelled";
                                 createdAt: string;
                                 updatedAt: string;
                                 steps: {
@@ -1828,7 +1786,95 @@ export interface paths {
         delete?: never;
         options?: never;
         head?: never;
-        patch?: never;
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    runId: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        status: "initiated" | "submitted" | "processing" | "completed" | "cancelled";
+                    };
+                };
+            };
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                status: "initiated" | "submitted" | "processing" | "completed" | "cancelled";
+                            };
+                            metadata?: {
+                                links?: {
+                                    self: {
+                                        href?: string;
+                                    };
+                                    next?: {
+                                        href?: string;
+                                    };
+                                    prev?: {
+                                        href?: string;
+                                    };
+                                    first: {
+                                        href?: string;
+                                    };
+                                    last: {
+                                        href?: string;
+                                    };
+                                    pages: {
+                                        [key: string]: {
+                                            href?: string;
+                                        };
+                                    };
+                                };
+                                totalCount?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            code: string;
+                            detail: string;
+                            requestId: string;
+                            name: string;
+                            validation?: unknown;
+                            validationContext?: string;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            code: string;
+                            detail: string;
+                            requestId: string;
+                            name: string;
+                            validation?: unknown;
+                            validationContext?: string;
+                        };
+                    };
+                };
+            };
+        };
         trace?: never;
     };
     "/api/v1/executor/runs": {
@@ -1844,7 +1890,7 @@ export interface paths {
                     offset?: number;
                     limit?: number;
                     journeyId?: string;
-                    status?: "pending" | "failed" | "completed";
+                    status?: "initiated" | "submitted" | "processing" | "completed" | "cancelled";
                     search?: string;
                     to?: string;
                     from?: string;
@@ -1866,7 +1912,7 @@ export interface paths {
                                 id: string;
                                 userId: string;
                                 journeyId: string;
-                                status: "pending" | "failed" | "completed";
+                                status: "initiated" | "submitted" | "processing" | "completed" | "cancelled";
                                 createdAt: string;
                                 updatedAt: string;
                                 organizationId: string;
