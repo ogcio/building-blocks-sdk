@@ -51,7 +51,7 @@
         "payments:payment_request.public:read",
         "payments:transaction:*"
       ],
-      "updateDefinitions": false
+      "updateDefinitions": true
     },
     {
       "name": "scheduler",
@@ -104,7 +104,7 @@
         "integrator:step:*",
         "integrator:run:read"
       ],
-      "updateDefinitions": false
+      "updateDefinitions": true
     }
   ]
 }
