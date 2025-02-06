@@ -266,4 +266,15 @@ export class Profile extends BaseClient<paths> {
         (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
+
+  async downloadProfilesCsvTemplate() {
+    return this.client
+      .GET("/api/v1/profiles/imports/template", {
+        parseAs: "blob",
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
 }
