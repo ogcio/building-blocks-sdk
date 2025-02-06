@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.9](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.8...@ogcio/building-blocks-sdk@v0.2.9) (2025-02-06)
+
+
+### Features
+
+* **profile:** 24274 - added possibility to ask for private details ([#140](https://github.com/ogcio/building-blocks-sdk/issues/140)) ([26d9077](https://github.com/ogcio/building-blocks-sdk/commit/26d907711bfe1e8a23c4560e5280cee5ef629acf))
+
 ## [0.2.8](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.7...@ogcio/building-blocks-sdk@v0.2.8) (2025-02-05)
 
 
