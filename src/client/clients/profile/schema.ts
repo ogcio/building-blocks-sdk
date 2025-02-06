@@ -1,4 +1,104 @@
 export interface paths {
+    "/api/v1/jobs/import-profiles/{profileImportId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Executes the requested job */
+        post: {
+            parameters: {
+                query?: {
+                    insertPrivateDetails?: "true" | "false" | "0" | "1";
+                };
+                header?: never;
+                path: {
+                    profileImportId: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** @description The security token used to ensure you are allowed to execute this job */
+                        token: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Default Response */
+                202: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            status: string;
+                            profileImportId: string;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                "5XX": {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @description Code used to categorize the error */
+                            code: string;
+                            /** @description Description of the error */
+                            detail: string;
+                            /** @description Unique request id. This one will be used to troubleshoot the problems */
+                            requestId: string;
+                            /** @description Name of the error type */
+                            name: string;
+                            /** @description List of the validation errors */
+                            validation?: {
+                                fieldName: string;
+                                message: string;
+                            }[];
+                            validationContext?: string;
+                            statusCode: number;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                "4XX": {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @description Code used to categorize the error */
+                            code: string;
+                            /** @description Description of the error */
+                            detail: string;
+                            /** @description Unique request id. This one will be used to troubleshoot the problems */
+                            requestId: string;
+                            /** @description Name of the error type */
+                            name: string;
+                            /** @description List of the validation errors */
+                            validation?: {
+                                fieldName: string;
+                                message: string;
+                            }[];
+                            validationContext?: string;
+                            statusCode: number;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/profiles/": {
         parameters: {
             query?: never;
@@ -97,7 +197,6 @@ export interface paths {
                             data: {
                                 /** Format: uuid */
                                 id: string;
-                                jobId: string;
                                 organisationId?: string;
                                 status: string;
                                 source: "csv" | "json";
@@ -413,7 +512,9 @@ export interface operations {
     };
     importProfiles: {
         parameters: {
-            query?: never;
+            query?: {
+                privateDetails?: "true" | "false" | "0" | "1";
+            };
             header?: never;
             path?: never;
             cookie?: never;
@@ -422,7 +523,6 @@ export interface operations {
             content: {
                 "application/json": {
                     profiles?: {
-                        /** Format: email */
                         email: string;
                         firstName: string;
                         lastName: string;
@@ -442,7 +542,6 @@ export interface operations {
                 };
                 "multipart/form-data": {
                     profiles?: {
-                        /** Format: email */
                         email: string;
                         firstName: string;
                         lastName: string;
@@ -462,7 +561,6 @@ export interface operations {
                 };
                 "text/csv": {
                     profiles?: {
-                        /** Format: email */
                         email: string;
                         firstName: string;
                         lastName: string;
@@ -491,7 +589,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         status: string;
-                        jobId: string;
+                        profileImportId: string;
                     };
                 };
             };
@@ -583,7 +681,6 @@ export interface operations {
                             /** Format: date-time */
                             updatedAt?: string;
                             details?: {
-                                /** Format: email */
                                 email: string;
                                 firstName: string;
                                 lastName: string;
@@ -730,7 +827,6 @@ export interface operations {
                             /** Format: date-time */
                             updatedAt?: string;
                             details?: {
-                                /** Format: email */
                                 email: string;
                                 firstName: string;
                                 lastName: string;
@@ -854,7 +950,6 @@ export interface operations {
                 content: {
                     "application/json": {
                         data: {
-                            /** Format: email */
                             email: string;
                             firstName: string;
                             lastName: string;
@@ -961,6 +1056,7 @@ export interface operations {
     getProfile: {
         parameters: {
             query?: {
+                privateDetails?: "true" | "false" | "0" | "1";
                 organizationId?: string;
             };
             header?: never;
@@ -996,7 +1092,6 @@ export interface operations {
                             /** Format: date-time */
                             updatedAt?: string;
                             details?: {
-                                /** Format: email */
                                 email: string;
                                 firstName: string;
                                 lastName: string;
@@ -1160,7 +1255,6 @@ export interface operations {
                             /** Format: date-time */
                             updatedAt?: string;
                             details?: {
-                                /** Format: email */
                                 email: string;
                                 firstName: string;
                                 lastName: string;
@@ -1324,7 +1418,6 @@ export interface operations {
                             /** Format: date-time */
                             updatedAt?: string;
                             details?: {
-                                /** Format: email */
                                 email: string;
                                 firstName: string;
                                 lastName: string;
@@ -1451,56 +1544,6 @@ export interface operations {
                     };
                 };
             };
-            /** @description Default Response */
-            "4XX": {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "text/csv": {
-                        /** @description Code used to categorize the error */
-                        code: string;
-                        /** @description Description of the error */
-                        detail: string;
-                        /** @description Unique request id. This one will be used to troubleshoot the problems */
-                        requestId: string;
-                        /** @description Name of the error type */
-                        name: string;
-                        /** @description List of the validation errors */
-                        validation?: {
-                            fieldName: string;
-                            message: string;
-                        }[];
-                        validationContext?: string;
-                        statusCode: number;
-                    };
-                };
-            };
-            /** @description Default Response */
-            "5XX": {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "text/csv": {
-                        /** @description Code used to categorize the error */
-                        code: string;
-                        /** @description Description of the error */
-                        detail: string;
-                        /** @description Unique request id. This one will be used to troubleshoot the problems */
-                        requestId: string;
-                        /** @description Name of the error type */
-                        name: string;
-                        /** @description List of the validation errors */
-                        validation?: {
-                            fieldName: string;
-                            message: string;
-                        }[];
-                        validationContext?: string;
-                        statusCode: number;
-                    };
-                };
-            };
         };
     };
     logtoUserCreated: {
@@ -1532,8 +1575,9 @@ export interface operations {
                         name?: string | null;
                         avatar?: string | null;
                         customData: {
-                            jobId?: string | null;
+                            profileImportId?: string | null;
                             organizationId?: string | null;
+                            insertPrivateDetails?: boolean;
                         };
                         identities: {
                             [key: string]: {

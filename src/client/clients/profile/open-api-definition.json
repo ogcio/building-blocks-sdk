@@ -16,6 +16,203 @@
     "schemas": {}
   },
   "paths": {
+    "/api/v1/jobs/import-profiles/{profileImportId}": {
+      "post": {
+        "tags": [
+          "Jobs"
+        ],
+        "description": "Executes the requested job",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "description": "The security token used to ensure you are allowed to execute this job",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "token"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "true",
+                "false",
+                "0",
+                "1"
+              ],
+              "default": "false"
+            },
+            "in": "query",
+            "name": "insertPrivateDetails",
+            "required": false
+          },
+          {
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "in": "path",
+            "name": "profileImportId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "profileImportId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "profileImportId"
+                  ]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "description": "Code used to categorize the error",
+                      "type": "string"
+                    },
+                    "detail": {
+                      "description": "Description of the error",
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique request id. This one will be used to troubleshoot the problems",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of the error type",
+                      "type": "string"
+                    },
+                    "validation": {
+                      "description": "List of the validation errors",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "fieldName": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "fieldName",
+                          "message"
+                        ]
+                      }
+                    },
+                    "validationContext": {
+                      "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name",
+                    "statusCode"
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "description": "Code used to categorize the error",
+                      "type": "string"
+                    },
+                    "detail": {
+                      "description": "Description of the error",
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique request id. This one will be used to troubleshoot the problems",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of the error type",
+                      "type": "string"
+                    },
+                    "validation": {
+                      "description": "List of the validation errors",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "fieldName": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "fieldName",
+                          "message"
+                        ]
+                      }
+                    },
+                    "validationContext": {
+                      "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name",
+                    "statusCode"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/profiles/": {
       "get": {
         "operationId": "indexProfiles",
@@ -337,13 +534,23 @@
                       "type": "object",
                       "properties": {
                         "email": {
-                          "format": "email",
-                          "type": "string"
+                          "allOf": [
+                            {
+                              "minLength": 1,
+                              "type": "string"
+                            },
+                            {
+                              "format": "email",
+                              "type": "string"
+                            }
+                          ]
                         },
                         "firstName": {
+                          "minLength": 1,
                           "type": "string"
                         },
                         "lastName": {
+                          "minLength": 1,
                           "type": "string"
                         },
                         "city": {
@@ -393,13 +600,23 @@
                       "type": "object",
                       "properties": {
                         "email": {
-                          "format": "email",
-                          "type": "string"
+                          "allOf": [
+                            {
+                              "minLength": 1,
+                              "type": "string"
+                            },
+                            {
+                              "format": "email",
+                              "type": "string"
+                            }
+                          ]
                         },
                         "firstName": {
+                          "minLength": 1,
                           "type": "string"
                         },
                         "lastName": {
+                          "minLength": 1,
                           "type": "string"
                         },
                         "city": {
@@ -449,13 +666,23 @@
                       "type": "object",
                       "properties": {
                         "email": {
-                          "format": "email",
-                          "type": "string"
+                          "allOf": [
+                            {
+                              "minLength": 1,
+                              "type": "string"
+                            },
+                            {
+                              "format": "email",
+                              "type": "string"
+                            }
+                          ]
                         },
                         "firstName": {
+                          "minLength": 1,
                           "type": "string"
                         },
                         "lastName": {
+                          "minLength": 1,
                           "type": "string"
                         },
                         "city": {
@@ -496,6 +723,23 @@
             }
           }
         },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "true",
+                "false",
+                "0",
+                "1"
+              ],
+              "default": "false"
+            },
+            "in": "query",
+            "name": "privateDetails",
+            "required": false
+          }
+        ],
         "responses": {
           "200": {
             "description": "Default Response",
@@ -507,13 +751,13 @@
                     "status": {
                       "type": "string"
                     },
-                    "jobId": {
+                    "profileImportId": {
                       "type": "string"
                     }
                   },
                   "required": [
                     "status",
-                    "jobId"
+                    "profileImportId"
                   ]
                 }
               }
@@ -709,13 +953,23 @@
                             "type": "object",
                             "properties": {
                               "email": {
-                                "format": "email",
-                                "type": "string"
+                                "allOf": [
+                                  {
+                                    "minLength": 1,
+                                    "type": "string"
+                                  },
+                                  {
+                                    "format": "email",
+                                    "type": "string"
+                                  }
+                                ]
                               },
                               "firstName": {
+                                "minLength": 1,
                                 "type": "string"
                               },
                               "lastName": {
+                                "minLength": 1,
                                 "type": "string"
                               },
                               "city": {
@@ -1059,13 +1313,23 @@
                           "type": "object",
                           "properties": {
                             "email": {
-                              "format": "email",
-                              "type": "string"
+                              "allOf": [
+                                {
+                                  "minLength": 1,
+                                  "type": "string"
+                                },
+                                {
+                                  "format": "email",
+                                  "type": "string"
+                                }
+                              ]
                             },
                             "firstName": {
+                              "minLength": 1,
                               "type": "string"
                             },
                             "lastName": {
+                              "minLength": 1,
                               "type": "string"
                             },
                             "city": {
@@ -1392,9 +1656,6 @@
                             "format": "uuid",
                             "type": "string"
                           },
-                          "jobId": {
-                            "type": "string"
-                          },
                           "organisationId": {
                             "type": "string"
                           },
@@ -1443,7 +1704,6 @@
                         },
                         "required": [
                           "id",
-                          "jobId",
                           "status",
                           "source",
                           "createdAt",
@@ -1691,13 +1951,23 @@
                         "type": "object",
                         "properties": {
                           "email": {
-                            "format": "email",
-                            "type": "string"
+                            "allOf": [
+                              {
+                                "minLength": 1,
+                                "type": "string"
+                              },
+                              {
+                                "format": "email",
+                                "type": "string"
+                              }
+                            ]
                           },
                           "firstName": {
+                            "minLength": 1,
                             "type": "string"
                           },
                           "lastName": {
+                            "minLength": 1,
                             "type": "string"
                           },
                           "city": {
@@ -1950,6 +2220,21 @@
         "parameters": [
           {
             "schema": {
+              "type": "string",
+              "enum": [
+                "true",
+                "false",
+                "0",
+                "1"
+              ],
+              "default": "false"
+            },
+            "in": "query",
+            "name": "privateDetails",
+            "required": false
+          },
+          {
+            "schema": {
               "type": "string"
             },
             "in": "query",
@@ -2013,13 +2298,23 @@
                           "type": "object",
                           "properties": {
                             "email": {
-                              "format": "email",
-                              "type": "string"
+                              "allOf": [
+                                {
+                                  "minLength": 1,
+                                  "type": "string"
+                                },
+                                {
+                                  "format": "email",
+                                  "type": "string"
+                                }
+                              ]
                             },
                             "firstName": {
+                              "minLength": 1,
                               "type": "string"
                             },
                             "lastName": {
+                              "minLength": 1,
                               "type": "string"
                             },
                             "city": {
@@ -2387,13 +2682,23 @@
                           "type": "object",
                           "properties": {
                             "email": {
-                              "format": "email",
-                              "type": "string"
+                              "allOf": [
+                                {
+                                  "minLength": 1,
+                                  "type": "string"
+                                },
+                                {
+                                  "format": "email",
+                                  "type": "string"
+                                }
+                              ]
                             },
                             "firstName": {
+                              "minLength": 1,
                               "type": "string"
                             },
                             "lastName": {
+                              "minLength": 1,
                               "type": "string"
                             },
                             "city": {
@@ -2761,13 +3066,23 @@
                           "type": "object",
                           "properties": {
                             "email": {
-                              "format": "email",
-                              "type": "string"
+                              "allOf": [
+                                {
+                                  "minLength": 1,
+                                  "type": "string"
+                                },
+                                {
+                                  "format": "email",
+                                  "type": "string"
+                                }
+                              ]
                             },
                             "firstName": {
+                              "minLength": 1,
                               "type": "string"
                             },
                             "lastName": {
+                              "minLength": 1,
                               "type": "string"
                             },
                             "city": {
@@ -3052,126 +3367,6 @@
                 }
               }
             }
-          },
-          "4XX": {
-            "description": "Default Response",
-            "content": {
-              "text/csv": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "description": "Code used to categorize the error",
-                      "type": "string"
-                    },
-                    "detail": {
-                      "description": "Description of the error",
-                      "type": "string"
-                    },
-                    "requestId": {
-                      "description": "Unique request id. This one will be used to troubleshoot the problems",
-                      "type": "string"
-                    },
-                    "name": {
-                      "description": "Name of the error type",
-                      "type": "string"
-                    },
-                    "validation": {
-                      "description": "List of the validation errors",
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "fieldName": {
-                            "type": "string"
-                          },
-                          "message": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
-                      }
-                    },
-                    "validationContext": {
-                      "type": "string"
-                    },
-                    "statusCode": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name",
-                    "statusCode"
-                  ]
-                }
-              }
-            }
-          },
-          "5XX": {
-            "description": "Default Response",
-            "content": {
-              "text/csv": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "description": "Code used to categorize the error",
-                      "type": "string"
-                    },
-                    "detail": {
-                      "description": "Description of the error",
-                      "type": "string"
-                    },
-                    "requestId": {
-                      "description": "Unique request id. This one will be used to troubleshoot the problems",
-                      "type": "string"
-                    },
-                    "name": {
-                      "description": "Name of the error type",
-                      "type": "string"
-                    },
-                    "validation": {
-                      "description": "List of the validation errors",
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "fieldName": {
-                            "type": "string"
-                          },
-                          "message": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "fieldName",
-                          "message"
-                        ]
-                      }
-                    },
-                    "validationContext": {
-                      "type": "string"
-                    },
-                    "statusCode": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name",
-                    "statusCode"
-                  ]
-                }
-              }
-            }
           }
         }
       }
@@ -3318,7 +3513,7 @@
                       "customData": {
                         "type": "object",
                         "properties": {
-                          "jobId": {
+                          "profileImportId": {
                             "anyOf": [
                               {
                                 "type": "string"
@@ -3337,6 +3532,9 @@
                                 "type": "null"
                               }
                             ]
+                          },
+                          "insertPrivateDetails": {
+                            "type": "boolean"
                           }
                         }
                       },
