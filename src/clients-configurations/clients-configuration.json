@@ -67,19 +67,9 @@
       "openApiDefinitionFormat": "yaml",
       "citizenPermissions": [
         "profile:user.self:read",
-        "profile:user.self:write",
-        "profile:address.self:read",
-        "profile:address.self:write",
-        "profile:entitlement.self:read",
-        "profile:entitlement.self:write",
-        "profile:user:read",
-        "profile:user:*"
+        "profile:user.self:write"
       ],
-      "publicServantPermissions": [
-        "profile:user:*",
-        "profile:address:*",
-        "profile:entitlement:*"
-      ],
+      "publicServantPermissions": ["profile:user:*", "profile:user.admin:*"],
       "updateDefinitions": true
     },
     {

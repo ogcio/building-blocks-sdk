@@ -20,11 +20,14 @@ export class Profile extends BaseClient<paths> {
     return this.getProfile(profileId);
   }
 
-  async getProfile(profileId: string) {
+  async getProfile(profileId: string, privateDetails = false) {
     throwIfEmpty(profileId);
+    const query = {
+      privateDetails: (privateDetails ? "true" : "false") as "true" | "false",
+    };
     return this.client
       .GET("/api/v1/profiles/{profileId}", {
-        params: { path: { profileId } },
+        params: { path: { profileId }, query },
       })
       .then(
         (response) => formatResponse(response, this.serviceName, this.logger),
@@ -37,8 +40,10 @@ export class Profile extends BaseClient<paths> {
    */
   async createUser(
     data: NonNullable<
-      paths["/api/v1/profiles/import-profiles"]["post"]["requestBody"]
-    >["content"]["application/json"],
+      NonNullable<
+        paths["/api/v1/profiles/import-profiles"]["post"]["requestBody"]
+      >["content"]["application/json"]["profiles"]
+    >[number],
   ) {
     console.warn(
       "Warning: createUser() is deprecated. Use createProfile() instead.",
@@ -48,12 +53,19 @@ export class Profile extends BaseClient<paths> {
 
   async createProfile(
     data: NonNullable<
-      paths["/api/v1/profiles/import-profiles"]["post"]["requestBody"]
-    >["content"]["application/json"],
+      NonNullable<
+        paths["/api/v1/profiles/import-profiles"]["post"]["requestBody"]
+      >["content"]["application/json"]["profiles"]
+    >[number],
+    privateDetails = false,
   ) {
+    const query = {
+      privateDetails: (privateDetails ? "true" : "false") as "true" | "false",
+    };
     return this.client
       .POST("/api/v1/profiles/import-profiles", {
-        body: data,
+        body: { profiles: [data] },
+        params: { query },
       })
       .then(
         (response) => formatResponse(response, this.serviceName, this.logger),
@@ -210,12 +222,18 @@ export class Profile extends BaseClient<paths> {
       );
   }
 
-  async importProfiles(toImport: {
-    file?: File;
-    records?: NonNullable<
-      paths["/api/v1/profiles/import-profiles"]["post"]["requestBody"]
-    >["content"]["application/json"]["profiles"];
-  }) {
+  async importProfiles(
+    toImport: {
+      file?: File;
+      records?: NonNullable<
+        paths["/api/v1/profiles/import-profiles"]["post"]["requestBody"]
+      >["content"]["application/json"]["profiles"];
+    },
+    privateDetails = false,
+  ) {
+    const query = {
+      privateDetails: (privateDetails ? "true" : "false") as "true" | "false",
+    };
     if (toImport.file) {
       const { data, error } = await this.client.POST(
         "/api/v1/profiles/import-profiles",
@@ -223,6 +241,7 @@ export class Profile extends BaseClient<paths> {
           body: {
             file: toImport.file,
           },
+          params: { query },
           bodySerializer: (body: unknown) => {
             const parsed = body as { file?: File } | undefined;
             if (!parsed || !parsed.file) {
@@ -240,6 +259,18 @@ export class Profile extends BaseClient<paths> {
     return this.client
       .POST("/api/v1/profiles/import-profiles", {
         body: { profiles: toImport.records },
+        params: { query },
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
+
+  async downloadProfilesCsvTemplate() {
+    return this.client
+      .GET("/api/v1/profiles/imports/template", {
+        parseAs: "blob",
       })
       .then(
         (response) => formatResponse(response, this.serviceName, this.logger),
