@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.10](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.9...@ogcio/building-blocks-sdk@v0.2.10) (2025-02-07)
+
+
+### Features
+
+* add hasValidToken method ([#142](https://github.com/ogcio/building-blocks-sdk/issues/142)) ([1e7bc97](https://github.com/ogcio/building-blocks-sdk/commit/1e7bc974d6619df79b1ed21319a5413b239ae91d))
+
 ## [0.2.9](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.8...@ogcio/building-blocks-sdk@v0.2.9) (2025-02-06)
 
 
