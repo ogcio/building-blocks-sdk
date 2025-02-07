@@ -100,4 +100,8 @@ export abstract class BaseClient<T extends {}> {
   public isInitialized() {
     return this.initialized;
   }
+
+  public hasValidToken() {
+    return this.token !== undefined;
+  }
 }
