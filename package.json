@@ -21,27 +21,27 @@
     "prepare": "husky || true"
   },
   "dependencies": {
-    "@ogcio/analytics-sdk": "0.1.0-beta.10",
-    "@sinclair/typebox": "^0.34.11",
-    "commander": "^13.0.0",
+    "@ogcio/analytics-sdk": "0.1.0-beta.12",
+    "@sinclair/typebox": "^0.34.16",
+    "commander": "^13.1.0",
     "http-errors": "^2.0.0",
-    "openapi-fetch": "^0.13.3",
-    "openapi-typescript": "^7.4.4",
+    "openapi-fetch": "^0.13.4",
+    "openapi-typescript": "^7.6.1",
     "openapi-typescript-helpers": "^0.0.15",
     "safe-stable-stringify": "^2.5.0",
-    "yaml": "^2.6.1"
+    "yaml": "^2.7.0"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@commitlint/config-conventional": "^19.6.0",
+    "@commitlint/config-conventional": "^19.7.1",
     "@types/http-errors": "^2.0.4",
-    "@types/node": "^22.10.2",
-    "@vitest/coverage-istanbul": "^2.1.8",
-    "commitlint": "^19.6.1",
+    "@types/node": "^22.13.1",
+    "@vitest/coverage-istanbul": "^3.0.5",
+    "commitlint": "^19.7.1",
     "husky": "^9.1.7",
     "tsx": "^4.19.2",
-    "typescript": "^5.7.2",
-    "vitest": "^2.1.8"
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
   },
   "peerDependencies": {
     "@logto/node": "2.5.5",
