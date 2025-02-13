@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.11](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.10...@ogcio/building-blocks-sdk@v0.2.11) (2025-02-13)
+
+
+### Features
+
+* update analytics sdk and packages ([#145](https://github.com/ogcio/building-blocks-sdk/issues/145)) ([ee1fc61](https://github.com/ogcio/building-blocks-sdk/commit/ee1fc61b66e71913401cbfc593626367f4c1e6e4))
+
 ## [0.2.10](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.9...@ogcio/building-blocks-sdk@v0.2.10) (2025-02-07)
 
 
