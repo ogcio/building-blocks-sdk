@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { FeatureFlags } from "../../../../client/clients/featureFlags/index.js";
+import { generateToken } from "../../../utils.js";
 
 const enabledOrNot = {
   "not-enabled": false,
@@ -33,7 +34,7 @@ global.fetch = async () =>
 
 describe("FeatureFlags", () => {
   const baseUrl = "http://fakehost";
-  const getTokenFn = () => Promise.resolve("test-token");
+  const getTokenFn = () => Promise.resolve(generateToken(10000));
   let featureFlags: FeatureFlags;
 
   beforeEach(async () => {

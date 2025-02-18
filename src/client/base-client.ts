@@ -11,7 +11,7 @@ export abstract class BaseClient<T extends {}> {
   private tokenExpiryThresholdMs = 5000;
   protected token?: string;
   protected tokenExpiryCheckTime = Number.NEGATIVE_INFINITY;
-
+  private refreshLock: Promise<string | undefined> | undefined;
   protected getTokenFn?: TokenFunction;
   protected serviceName: SERVICE_NAME | undefined;
   protected logger?: Logger;
@@ -85,9 +85,8 @@ export abstract class BaseClient<T extends {}> {
       this.tokenExpiryCheckTime =
         this.toMilliseconds(expires) - this.tokenExpiryThresholdMs;
     } catch (err) {
-      if (this.logger) {
-        this.logger.warn(err, "failed to set tokenExpiryCheckTime");
-      }
+      this.deleteToken();
+      throw err;
     }
 
     return this.token;
@@ -111,11 +110,26 @@ export abstract class BaseClient<T extends {}> {
     return this.toMilliseconds(Date.now()) >= this.tokenExpiryCheckTime;
   }
 
-  private async refreshToken() {
-    if (!this.isTokenExpired()) {
-      return;
+  private async performRefreshToken(): Promise<string | undefined> {
+    if (this.hasValidToken()) {
+      return this.token;
     }
 
-    await this.getToken();
+    return this.getToken();
+  }
+
+  public async refreshToken(): Promise<string | undefined> {
+    if (this.refreshLock) return this.refreshLock;
+
+    if (this.hasValidToken()) return this.token;
+    let token: string | undefined;
+    try {
+      this.refreshLock = this.performRefreshToken();
+      token = await this.refreshLock;
+    } finally {
+      this.refreshLock = undefined;
+    }
+
+    return token;
   }
 }
