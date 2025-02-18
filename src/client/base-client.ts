@@ -10,8 +10,8 @@ export abstract class BaseClient<T extends {}> {
   private initialized;
   private tokenExpiryThresholdMs = 5000;
   protected token?: string;
-  protected tokenExpiryCheckTime = Number.POSITIVE_INFINITY;
-
+  protected tokenExpiryCheckTime = Number.NEGATIVE_INFINITY;
+  private refreshLock: Promise<string | undefined> | undefined;
   protected getTokenFn?: TokenFunction;
   protected serviceName: SERVICE_NAME | undefined;
   protected logger?: Logger;
@@ -41,22 +41,7 @@ export abstract class BaseClient<T extends {}> {
     this.client = createClient<T>({ baseUrl: this.baseUrl });
     const authMiddleware: Middleware = {
       onRequest: async ({ request }) => {
-        if (
-          (!this.token || Date.now() >= this.tokenExpiryCheckTime) &&
-          this.getTokenFn
-        ) {
-          this.token = await this.getTokenFn(this.serviceName as SERVICE_NAME);
-
-          try {
-            const { payload } = parseJwtToken(this.token);
-            const expires = getNumberValueFromObject(payload, "exp");
-            this.tokenExpiryCheckTime = expires - this.tokenExpiryThresholdMs;
-          } catch (err) {
-            if (this.logger) {
-              this.logger.warn(err, "failed to set tokenExpiryCheckTime");
-            }
-          }
-        }
+        await this.refreshToken();
 
         if (this.logger) {
           const clonedRequest = request.clone();
@@ -85,13 +70,23 @@ export abstract class BaseClient<T extends {}> {
 
   public deleteToken() {
     this.token = undefined;
-    this.tokenExpiryCheckTime = Number.POSITIVE_INFINITY;
+    this.tokenExpiryCheckTime = Number.NEGATIVE_INFINITY;
   }
 
   protected async getToken() {
-    if (this.getTokenFn) {
-      const token = await this.getTokenFn(this.serviceName as SERVICE_NAME);
-      this.token = token;
+    if (!this.getTokenFn) {
+      return this.token;
+    }
+
+    this.token = await this.getTokenFn(this.serviceName as SERVICE_NAME);
+    try {
+      const { payload } = parseJwtToken(this.token);
+      const expires = getNumberValueFromObject(payload, "exp");
+      this.tokenExpiryCheckTime =
+        this.toMilliseconds(expires) - this.tokenExpiryThresholdMs;
+    } catch (err) {
+      this.deleteToken();
+      throw err;
     }
 
     return this.token;
@@ -102,6 +97,38 @@ export abstract class BaseClient<T extends {}> {
   }
 
   public hasValidToken() {
-    return this.token !== undefined;
+    return this.token !== undefined && !this.isTokenExpired();
+  }
+
+  private toMilliseconds(timestamp: number) {
+    // If timestamp is in seconds (length is 10), convert to milliseconds
+    // If already in milliseconds (length is 13), return as is
+    return timestamp.toString().length === 10 ? timestamp * 1000 : timestamp;
+  }
+
+  private isTokenExpired() {
+    return this.toMilliseconds(Date.now()) >= this.tokenExpiryCheckTime;
+  }
+
+  private async performRefreshToken(): Promise<string | undefined> {
+    if (this.hasValidToken()) {
+      return this.token;
+    }
+
+    return this.getToken();
+  }
+
+  public async refreshToken(): Promise<string | undefined> {
+    if (this.refreshLock) return this.refreshLock;
+
+    let token: string | undefined;
+    try {
+      this.refreshLock = this.performRefreshToken();
+      token = await this.refreshLock;
+    } finally {
+      this.refreshLock = undefined;
+    }
+
+    return token;
   }
 }
