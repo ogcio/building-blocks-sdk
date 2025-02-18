@@ -121,7 +121,6 @@ export abstract class BaseClient<T extends {}> {
   public async refreshToken(): Promise<string | undefined> {
     if (this.refreshLock) return this.refreshLock;
 
-    if (this.hasValidToken()) return this.token;
     let token: string | undefined;
     try {
       this.refreshLock = this.performRefreshToken();
