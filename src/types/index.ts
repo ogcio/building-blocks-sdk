@@ -107,6 +107,7 @@ interface BuildingBlockSDKParams {
   services: Services;
   getTokenFn: TokenFunction;
   logger?: Logger;
+  language?: string;
 }
 
 interface BuildingBlocksSDK {

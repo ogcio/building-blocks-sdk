@@ -16,16 +16,20 @@ export abstract class BaseClient<T extends {}> {
   protected serviceName: SERVICE_NAME | undefined;
   protected logger?: Logger;
 
+  protected language?: string;
+
   protected client: ReturnType<typeof createClient<T>>;
 
   constructor({
     baseUrl,
     getTokenFn,
     logger,
+    language,
   }: {
     baseUrl: string;
     getTokenFn?: TokenFunction;
     logger?: Logger;
+    language?: string;
   }) {
     this.initialized = false;
     if (baseUrl) {
@@ -37,6 +41,7 @@ export abstract class BaseClient<T extends {}> {
       this.getTokenFn = getTokenFn;
     }
     this.logger = logger;
+    this.language = language;
     this.token = undefined;
     this.client = createClient<T>({ baseUrl: this.baseUrl });
     const authMiddleware: Middleware = {
@@ -76,6 +81,10 @@ export abstract class BaseClient<T extends {}> {
           request.headers.set("Authorization", `Bearer ${this.token}`);
         }
 
+        if (this.language) {
+          request.headers.set("Accept-Language", this.language);
+        }
+
         return request;
       },
     };
@@ -103,5 +112,9 @@ export abstract class BaseClient<T extends {}> {
 
   public hasValidToken() {
     return this.token !== undefined;
+  }
+
+  public setLanguage(language: string) {
+    this.language = language;
   }
 }

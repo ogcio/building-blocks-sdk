@@ -603,8 +603,14 @@ export interface paths {
             requestBody: {
                 content: {
                     "application/json": {
-                        title: string;
-                        description: string | null;
+                        title: {
+                            en: string;
+                            ga?: string;
+                        };
+                        description: {
+                            en: string | null;
+                            ga?: string;
+                        };
                         reference: string | null;
                         amount: number | null;
                         redirectUrl: string | null;
@@ -711,8 +717,14 @@ export interface paths {
             requestBody: {
                 content: {
                     "application/json": {
-                        title: string;
-                        description: string | null;
+                        title: {
+                            en: string;
+                            ga?: string;
+                        };
+                        description: {
+                            en: string | null;
+                            ga?: string;
+                        };
                         reference: string | null;
                         amount: number | null;
                         redirectUrl: string | null;
@@ -1044,6 +1056,118 @@ export interface paths {
                 };
             };
         };
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/requests/{requestId}/with-translations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    requestId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                paymentRequestId: string;
+                                amount?: number;
+                                reference?: string;
+                                providers: {
+                                    userId: string;
+                                    id: string;
+                                    name: string;
+                                    type: "banktransfer" | "openbanking" | "stripe" | "realex" | "worldpay";
+                                    status: "connected" | "disconnected";
+                                    createdAt: string;
+                                }[];
+                                status: "active" | "inactive" | "draft";
+                                title: {
+                                    en: string;
+                                    ga?: string;
+                                };
+                                description: {
+                                    en?: string;
+                                    ga?: string;
+                                };
+                                redirectUrl?: string;
+                                allowAmountOverride: boolean;
+                                allowCustomAmount: boolean;
+                            };
+                            metadata?: {
+                                /** @description Object containing the links to the related endpoints */
+                                links?: {
+                                    self: {
+                                        /** @description URL pointing to the request itself */
+                                        href?: string;
+                                    };
+                                    next?: {
+                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                        href?: string;
+                                    };
+                                    prev?: {
+                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                        href?: string;
+                                    };
+                                    first: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
+                                        href?: string;
+                                    };
+                                    last: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
+                                        href?: string;
+                                    };
+                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                    pages: {
+                                        [key: string]: {
+                                            href?: string;
+                                        };
+                                    };
+                                };
+                                /** @description Number representing the total number of available items */
+                                totalCount?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            code: string;
+                            detail: string;
+                            requestId: string;
+                            name: string;
+                            validation?: unknown;
+                            validationContext?: string;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
         options?: never;
         head?: never;
         patch?: never;

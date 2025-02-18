@@ -244,7 +244,7 @@ export class Journey extends BaseClient<paths> {
   }
 
   async getUserRuns() {
-    return this.client.GET("/api/v1/executor/runs/self", {}).then(
+    return this.client.GET("/api/v1/executor/runs/self").then(
       (response) => formatResponse(response, this.serviceName, this.logger),
       (reason) => formatError(reason, this.serviceName, this.logger),
     );

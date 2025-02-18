@@ -125,6 +125,24 @@ export class Payments extends BaseClient<paths> {
       );
   }
 
+  async getPaymentRequestWithTranslations(
+    requestId: paths["/api/v1/requests/{requestId}/with-translations"]["get"]["parameters"]["path"]["requestId"],
+  ) {
+    throwIfEmpty(requestId);
+    return this.client
+      .GET("/api/v1/requests/{requestId}/with-translations", {
+        params: {
+          path: {
+            requestId,
+          },
+        },
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
+
   async getPaymentRequestTransactions(
     requestId: paths["/api/v1/requests/{requestId}/transactions"]["get"]["parameters"]["path"]["requestId"],
     query: paths["/api/v1/requests/{requestId}/transactions"]["get"]["parameters"]["query"],

@@ -30,35 +30,83 @@ export type DefinedServices<T extends BuildingBlockSDKParams> = {
 
 const createService = <K extends keyof Services>(
   ServiceClass: new (
-    config: Services[K] & { getTokenFn: TokenFunction; logger?: Logger },
+    config: Services[K] & {
+      getTokenFn: TokenFunction;
+      logger?: Logger;
+      language?: string;
+    },
   ) => BuildingBlocksSDK[K],
   config: Services[K] | undefined,
   getTokenFn: TokenFunction,
   logger?: Logger,
+  language?: string,
 ): BuildingBlocksSDK[K] | undefined => {
   if (!config) return undefined;
-  return new ServiceClass({ ...config, getTokenFn, logger });
+  return new ServiceClass({ ...config, getTokenFn, logger, language });
 };
 
 export const getBuildingBlockSDK = <T extends BuildingBlockSDKParams>(
   params: T,
 ): DefinedServices<T> => {
-  const { services, getTokenFn, logger } = params;
+  const { services, getTokenFn, logger, language } = params;
 
   const sdk = {
-    analytics: createService(Analytics, services.analytics, getTokenFn, logger),
-    messaging: createService(Messaging, services.messaging, getTokenFn, logger),
-    payments: createService(Payments, services.payments, getTokenFn, logger),
-    profile: createService(Profile, services.profile, getTokenFn, logger),
-    scheduler: createService(Scheduler, services.scheduler, getTokenFn, logger),
-    upload: createService(Upload, services.upload, getTokenFn, logger),
+    analytics: createService(
+      Analytics,
+      services.analytics,
+      getTokenFn,
+      logger,
+      language,
+    ),
+    messaging: createService(
+      Messaging,
+      services.messaging,
+      getTokenFn,
+      logger,
+      language,
+    ),
+    payments: createService(
+      Payments,
+      services.payments,
+      getTokenFn,
+      logger,
+      language,
+    ),
+    profile: createService(
+      Profile,
+      services.profile,
+      getTokenFn,
+      logger,
+      language,
+    ),
+    scheduler: createService(
+      Scheduler,
+      services.scheduler,
+      getTokenFn,
+      logger,
+      language,
+    ),
+    upload: createService(
+      Upload,
+      services.upload,
+      getTokenFn,
+      logger,
+      language,
+    ),
     featureFlags: createService(
       FeatureFlags,
       services.featureFlags,
       getTokenFn,
       logger,
+      language,
     ),
-    journey: createService(Journey, services.journey, getTokenFn, logger),
+    journey: createService(
+      Journey,
+      services.journey,
+      getTokenFn,
+      logger,
+      language,
+    ),
   };
 
   // Remove undefined services

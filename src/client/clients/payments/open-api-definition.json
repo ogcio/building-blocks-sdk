@@ -1405,25 +1405,47 @@
                 "type": "object",
                 "properties": {
                   "title": {
-                    "validator": "RequiredValidator",
-                    "type": "string"
-                  },
-                  "description": {
-                    "validator": {
-                      "name": "OptionalRequiredValidator",
-                      "options": {
-                        "field": "status",
-                        "operation": "notEqual",
-                        "value": "draft"
-                      }
-                    },
-                    "anyOf": [
-                      {
+                    "type": "object",
+                    "properties": {
+                      "en": {
+                        "validator": "RequiredValidator",
                         "type": "string"
                       },
-                      {
-                        "type": "null"
+                      "ga": {
+                        "type": "string"
                       }
+                    },
+                    "required": [
+                      "en"
+                    ]
+                  },
+                  "description": {
+                    "type": "object",
+                    "properties": {
+                      "en": {
+                        "validator": {
+                          "name": "OptionalRequiredValidator",
+                          "options": {
+                            "field": "status",
+                            "operation": "notEqual",
+                            "value": "draft"
+                          }
+                        },
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "ga": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "en"
                     ]
                   },
                   "reference": {
@@ -1720,25 +1742,47 @@
                 "type": "object",
                 "properties": {
                   "title": {
-                    "validator": "RequiredValidator",
-                    "type": "string"
-                  },
-                  "description": {
-                    "validator": {
-                      "name": "OptionalRequiredValidator",
-                      "options": {
-                        "field": "status",
-                        "operation": "notEqual",
-                        "value": "draft"
-                      }
-                    },
-                    "anyOf": [
-                      {
+                    "type": "object",
+                    "properties": {
+                      "en": {
+                        "validator": "RequiredValidator",
                         "type": "string"
                       },
-                      {
-                        "type": "null"
+                      "ga": {
+                        "type": "string"
                       }
+                    },
+                    "required": [
+                      "en"
+                    ]
+                  },
+                  "description": {
+                    "type": "object",
+                    "properties": {
+                      "en": {
+                        "validator": {
+                          "name": "OptionalRequiredValidator",
+                          "options": {
+                            "field": "status",
+                            "operation": "notEqual",
+                            "value": "draft"
+                          }
+                        },
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "ga": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "en"
                     ]
                   },
                   "reference": {
@@ -2552,6 +2596,309 @@
             }
           },
           "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/requests/{requestId}/with-translations": {
+      "get": {
+        "tags": [
+          "PaymentRequests"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "requestId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "paymentRequestId": {
+                          "type": "string"
+                        },
+                        "amount": {
+                          "type": "number"
+                        },
+                        "reference": {
+                          "type": "string"
+                        },
+                        "providers": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "userId": {
+                                "type": "string"
+                              },
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "type": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "banktransfer"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "openbanking"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "stripe"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "realex"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "worldpay"
+                                    ]
+                                  }
+                                ]
+                              },
+                              "status": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "connected"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "disconnected"
+                                    ]
+                                  }
+                                ]
+                              },
+                              "createdAt": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "userId",
+                              "id",
+                              "name",
+                              "type",
+                              "status",
+                              "createdAt"
+                            ]
+                          }
+                        },
+                        "status": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "active"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "inactive"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "draft"
+                              ]
+                            }
+                          ]
+                        },
+                        "title": {
+                          "type": "object",
+                          "properties": {
+                            "en": {
+                              "type": "string"
+                            },
+                            "ga": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "en"
+                          ]
+                        },
+                        "description": {
+                          "type": "object",
+                          "properties": {
+                            "en": {
+                              "type": "string"
+                            },
+                            "ga": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "redirectUrl": {
+                          "type": "string"
+                        },
+                        "allowAmountOverride": {
+                          "type": "boolean"
+                        },
+                        "allowCustomAmount": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "paymentRequestId",
+                        "providers",
+                        "status",
+                        "title",
+                        "description",
+                        "allowAmountOverride",
+                        "allowCustomAmount"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "description": "Object containing the links to the related endpoints",
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the request itself",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "description": "It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2'",
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "description": "Number representing the total number of available items",
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
             "description": "Default Response",
             "content": {
               "application/json": {
