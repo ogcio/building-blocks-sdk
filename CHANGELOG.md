@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.12](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.11...@ogcio/building-blocks-sdk@v0.2.12) (2025-02-18)
+
+
+### Bug Fixes
+
+* check token expiration ([#148](https://github.com/ogcio/building-blocks-sdk/issues/148)) ([63b65fe](https://github.com/ogcio/building-blocks-sdk/commit/63b65fe06e3abac7ad826c8fa2d0dc3fb81798b7))
+
 ## [0.2.11](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.10...@ogcio/building-blocks-sdk@v0.2.11) (2025-02-13)
 
 
