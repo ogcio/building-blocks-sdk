@@ -282,8 +282,19 @@
                 "type": "object",
                 "properties": {
                   "title": {
-                    "validator": "RequiredValidator",
-                    "type": "string"
+                    "type": "object",
+                    "properties": {
+                      "en": {
+                        "validator": "RequiredValidator",
+                        "type": "string"
+                      },
+                      "ga": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "en"
+                    ]
                   },
                   "organizationId": {
                     "type": "string"
@@ -655,6 +666,9 @@
                                       "buttonLabel": {
                                         "type": "string"
                                       },
+                                      "buttonLabelGa": {
+                                        "type": "string"
+                                      },
                                       "returnUrl": {
                                         "type": "string"
                                       }
@@ -899,8 +913,19 @@
                 "type": "object",
                 "properties": {
                   "title": {
-                    "validator": "RequiredValidator",
-                    "type": "string"
+                    "type": "object",
+                    "properties": {
+                      "en": {
+                        "validator": "RequiredValidator",
+                        "type": "string"
+                      },
+                      "ga": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "en"
+                    ]
                   },
                   "status": {
                     "anyOf": [
@@ -1074,6 +1099,438 @@
             }
           },
           "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/journeys/{journeyId}/with-translations": {
+      "get": {
+        "tags": [
+          "Journeys"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "journeyId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "userId": {
+                          "type": "string"
+                        },
+                        "organizationId": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "active"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "draft"
+                              ]
+                            }
+                          ]
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "initialStepId": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "object",
+                          "properties": {
+                            "en": {
+                              "type": "string"
+                            },
+                            "ga": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "en"
+                          ]
+                        },
+                        "steps": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "journeyId": {
+                                "type": "string"
+                              },
+                              "stepType": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "title"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "form"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "payment"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "messaging"
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "enum": [
+                                      "complete"
+                                    ]
+                                  }
+                                ]
+                              },
+                              "stepData": {
+                                "anyOf": [
+                                  {
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "properties": {
+                                      "url": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "url"
+                                    ]
+                                  },
+                                  {
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "properties": {
+                                      "paymentRequestId": {
+                                        "type": "string"
+                                      },
+                                      "title": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "paymentRequestId",
+                                      "title"
+                                    ]
+                                  },
+                                  {
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "properties": {
+                                      "templateId": {
+                                        "type": "string"
+                                      },
+                                      "title": {
+                                        "type": "string"
+                                      },
+                                      "recipients": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "generatePDF": {
+                                        "type": "boolean"
+                                      },
+                                      "uiConfig": {
+                                        "type": "object",
+                                        "properties": {
+                                          "setupPageVersion": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "setupPageVersion"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "templateId",
+                                      "title",
+                                      "recipients",
+                                      "generatePDF",
+                                      "uiConfig"
+                                    ]
+                                  },
+                                  {
+                                    "additionalProperties": false,
+                                    "type": "object",
+                                    "properties": {
+                                      "buttonLabel": {
+                                        "type": "string"
+                                      },
+                                      "buttonLabelGa": {
+                                        "type": "string"
+                                      },
+                                      "returnUrl": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "buttonLabel",
+                                      "returnUrl"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "uiConfig": {
+                                        "type": "object",
+                                        "properties": {
+                                          "setupPageVersion": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "configured": {
+                                "type": "boolean"
+                              },
+                              "createdAt": {
+                                "type": "string"
+                              },
+                              "updatedAt": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "journeyId",
+                              "stepType",
+                              "stepData",
+                              "configured",
+                              "createdAt",
+                              "updatedAt"
+                            ]
+                          }
+                        },
+                        "connections": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "sourceStepId": {
+                                "type": "string"
+                              },
+                              "destinationStepId": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "sourceStepId",
+                              "destinationStepId"
+                            ]
+                          }
+                        },
+                        "userName": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "userId",
+                        "organizationId",
+                        "status",
+                        "createdAt",
+                        "updatedAt",
+                        "initialStepId",
+                        "title",
+                        "steps",
+                        "connections",
+                        "userName"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
             "description": "Default Response",
             "content": {
               "application/json": {
@@ -2277,6 +2734,9 @@
                                 "buttonLabel": {
                                   "type": "string"
                                 },
+                                "buttonLabelGa": {
+                                  "type": "string"
+                                },
                                 "returnUrl": {
                                   "type": "string"
                                 }
@@ -2732,6 +3192,9 @@
                           "buttonLabel": {
                             "type": "string"
                           },
+                          "buttonLabelGa": {
+                            "type": "string"
+                          },
                           "returnUrl": {
                             "type": "string"
                           }
@@ -2939,6 +3402,9 @@
                               "type": "object",
                               "properties": {
                                 "buttonLabel": {
+                                  "type": "string"
+                                },
+                                "buttonLabelGa": {
                                   "type": "string"
                                 },
                                 "returnUrl": {
@@ -3267,6 +3733,9 @@
                           "buttonLabel": {
                             "type": "string"
                           },
+                          "buttonLabelGa": {
+                            "type": "string"
+                          },
                           "returnUrl": {
                             "type": "string"
                           }
@@ -3428,6 +3897,9 @@
                               "type": "object",
                               "properties": {
                                 "buttonLabel": {
+                                  "type": "string"
+                                },
+                                "buttonLabelGa": {
                                   "type": "string"
                                 },
                                 "returnUrl": {

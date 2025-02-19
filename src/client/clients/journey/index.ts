@@ -175,6 +175,24 @@ export class Journey extends BaseClient<paths> {
       );
   }
 
+  async getJourneyByIdWithTranslations(
+    journeyId: paths["/api/v1/journeys/{journeyId}/with-translations"]["get"]["parameters"]["path"]["journeyId"],
+  ) {
+    throwIfEmpty(journeyId);
+    return this.client
+      .GET("/api/v1/journeys/{journeyId}/with-translations", {
+        params: {
+          path: {
+            journeyId,
+          },
+        },
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
+
   async getJourneys(
     query: paths["/api/v1/journeys/"]["get"]["parameters"]["query"],
   ) {

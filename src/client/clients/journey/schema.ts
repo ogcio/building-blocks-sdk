@@ -130,7 +130,10 @@ export interface paths {
             requestBody: {
                 content: {
                     "application/json": {
-                        title: string;
+                        title: {
+                            en: string;
+                            ga?: string;
+                        };
                         organizationId: string;
                         userId: string;
                     };
@@ -268,6 +271,7 @@ export interface paths {
                                         };
                                     } | {
                                         buttonLabel: string;
+                                        buttonLabelGa?: string;
                                         returnUrl: string;
                                     } | {
                                         uiConfig?: {
@@ -359,7 +363,10 @@ export interface paths {
             requestBody: {
                 content: {
                     "application/json": {
-                        title: string;
+                        title: {
+                            en: string;
+                            ga?: string;
+                        };
                         status: "active" | "draft";
                         initialStepId: string;
                     };
@@ -438,6 +445,150 @@ export interface paths {
                 };
             };
         };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/journeys/{journeyId}/with-translations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    journeyId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                id: string;
+                                userId: string;
+                                organizationId: string;
+                                status: "active" | "draft";
+                                createdAt: string;
+                                updatedAt: string;
+                                initialStepId: string;
+                                title: {
+                                    en: string;
+                                    ga?: string;
+                                };
+                                steps: {
+                                    id: string;
+                                    journeyId: string;
+                                    stepType: "title" | "form" | "payment" | "messaging" | "complete";
+                                    stepData: {
+                                        url: string;
+                                    } | {
+                                        paymentRequestId: string;
+                                        title: string;
+                                    } | {
+                                        templateId: string;
+                                        title: string;
+                                        recipients: string[];
+                                        generatePDF: boolean;
+                                        uiConfig: {
+                                            setupPageVersion: string;
+                                        };
+                                    } | {
+                                        buttonLabel: string;
+                                        buttonLabelGa?: string;
+                                        returnUrl: string;
+                                    } | {
+                                        uiConfig?: {
+                                            setupPageVersion?: string;
+                                        };
+                                    };
+                                    configured: boolean;
+                                    createdAt: string;
+                                    updatedAt: string;
+                                }[];
+                                connections: {
+                                    id: string;
+                                    sourceStepId: string;
+                                    destinationStepId: string;
+                                }[];
+                                userName: string;
+                            };
+                            metadata?: {
+                                links?: {
+                                    self: {
+                                        href?: string;
+                                    };
+                                    next?: {
+                                        href?: string;
+                                    };
+                                    prev?: {
+                                        href?: string;
+                                    };
+                                    first: {
+                                        href?: string;
+                                    };
+                                    last: {
+                                        href?: string;
+                                    };
+                                    pages: {
+                                        [key: string]: {
+                                            href?: string;
+                                        };
+                                    };
+                                };
+                                totalCount?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            code: string;
+                            detail: string;
+                            requestId: string;
+                            name: string;
+                            validation?: unknown;
+                            validationContext?: string;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            code: string;
+                            detail: string;
+                            requestId: string;
+                            name: string;
+                            validation?: unknown;
+                            validationContext?: string;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
         post?: never;
         delete?: never;
         options?: never;
@@ -974,6 +1125,7 @@ export interface paths {
                                     };
                                 } | {
                                     buttonLabel: string;
+                                    buttonLabelGa?: string;
                                     returnUrl: string;
                                 } | {
                                     uiConfig?: {
@@ -1073,6 +1225,7 @@ export interface paths {
                             };
                         } | {
                             buttonLabel: string;
+                            buttonLabelGa?: string;
                             returnUrl: string;
                         } | {
                             uiConfig?: {
@@ -1111,6 +1264,7 @@ export interface paths {
                                     };
                                 } | {
                                     buttonLabel: string;
+                                    buttonLabelGa?: string;
                                     returnUrl: string;
                                 } | {
                                     uiConfig?: {
@@ -1307,6 +1461,7 @@ export interface paths {
                             };
                         } | {
                             buttonLabel: string;
+                            buttonLabelGa?: string;
                             returnUrl: string;
                         } | {
                             uiConfig?: {
@@ -1343,6 +1498,7 @@ export interface paths {
                                     };
                                 } | {
                                     buttonLabel: string;
+                                    buttonLabelGa?: string;
                                     returnUrl: string;
                                 } | {
                                     uiConfig?: {
