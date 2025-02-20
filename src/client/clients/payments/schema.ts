@@ -541,8 +541,14 @@ export interface paths {
                         "application/json": {
                             data: {
                                 paymentRequestId: string;
-                                title: string;
-                                description?: string;
+                                title: {
+                                    en: string;
+                                    ga?: string;
+                                };
+                                description?: {
+                                    en: string;
+                                    ga?: string;
+                                };
                                 amount?: number;
                                 reference?: string;
                                 providers: {
@@ -603,8 +609,14 @@ export interface paths {
             requestBody: {
                 content: {
                     "application/json": {
-                        title: string;
-                        description: string | null;
+                        title: {
+                            en: string;
+                            ga?: string;
+                        };
+                        description: {
+                            en: string | null;
+                            ga?: string;
+                        };
                         reference: string | null;
                         amount: number | null;
                         redirectUrl: string | null;
@@ -711,8 +723,14 @@ export interface paths {
             requestBody: {
                 content: {
                     "application/json": {
-                        title: string;
-                        description: string | null;
+                        title: {
+                            en: string;
+                            ga?: string;
+                        };
+                        description: {
+                            en: string | null;
+                            ga?: string;
+                        };
                         reference: string | null;
                         amount: number | null;
                         redirectUrl: string | null;
@@ -838,8 +856,14 @@ export interface paths {
                         "application/json": {
                             data: {
                                 paymentRequestId: string;
-                                title: string;
-                                description?: string;
+                                title: {
+                                    en: string;
+                                    ga?: string;
+                                };
+                                description?: {
+                                    en: string;
+                                    ga?: string;
+                                };
                                 amount?: number;
                                 allowAmountOverride: boolean;
                                 createdAt: string;
@@ -917,8 +941,14 @@ export interface paths {
                         "application/json": {
                             data: {
                                 paymentRequestId: string;
-                                title: string;
-                                description?: string;
+                                title: {
+                                    en: string;
+                                    ga?: string;
+                                };
+                                description?: {
+                                    en: string;
+                                    ga?: string;
+                                };
                                 amount?: number;
                                 reference?: string;
                                 providers: {
@@ -1076,8 +1106,14 @@ export interface paths {
                         "application/json": {
                             data: {
                                 paymentRequestId: string;
-                                title: string;
-                                description: string;
+                                title: {
+                                    en: string;
+                                    ga?: string;
+                                };
+                                description?: {
+                                    en: string;
+                                    ga?: string;
+                                };
                                 amount: number;
                                 reference: string;
                                 providers: {
@@ -1309,7 +1345,10 @@ export interface paths {
                                 extPaymentId: string;
                                 paymentProviderId: string;
                                 updatedAt: string;
-                                title: string;
+                                title: {
+                                    en: string;
+                                    ga?: string;
+                                };
                             }[];
                             metadata?: {
                                 /** @description Object containing the links to the related endpoints */
@@ -1421,7 +1460,10 @@ export interface paths {
                                 extPaymentId: string;
                                 paymentProviderId: string;
                                 updatedAt: string;
-                                title: string;
+                                title: {
+                                    en: string;
+                                    ga?: string;
+                                };
                                 userId: string;
                                 metadata: {
                                     runId?: string;
@@ -1430,7 +1472,10 @@ export interface paths {
                                     redirectUrl?: string;
                                     amount?: string;
                                 };
-                                description: string;
+                                description: {
+                                    en: string;
+                                    ga?: string;
+                                };
                                 providerName: string;
                                 providerType: string;
                                 paymentRequestId: string;
@@ -1667,7 +1712,10 @@ export interface paths {
                                 extPaymentId: string;
                                 paymentProviderId: string;
                                 updatedAt: string;
-                                title: string;
+                                title: {
+                                    en: string;
+                                    ga?: string;
+                                };
                                 userId: string;
                                 metadata: {
                                     runId?: string;
@@ -1676,7 +1724,10 @@ export interface paths {
                                     redirectUrl?: string;
                                     amount?: string;
                                 };
-                                description: string;
+                                description: {
+                                    en: string;
+                                    ga?: string;
+                                };
                                 providerName: string;
                                 providerType: string;
                                 paymentRequestId: string;
@@ -1917,6 +1968,15 @@ export interface paths {
                                 };
                                 paymentRequestTitle?: {
                                     type?: string;
+                                    properties?: {
+                                        en?: {
+                                            type?: string;
+                                        };
+                                        ga?: {
+                                            type?: string;
+                                        };
+                                    };
+                                    required?: string[];
                                 };
                                 amount?: {
                                     minimum?: number;
@@ -2076,7 +2136,10 @@ export interface paths {
                                 userId: string;
                                 transactionId: string;
                                 paymentRequestId: string;
-                                paymentRequestTitle: string;
+                                paymentRequestTitle: {
+                                    en: string;
+                                    ga?: string;
+                                };
                                 amount: number;
                                 extReferenceCode: string;
                                 paymentMethod: string;
@@ -2619,7 +2682,10 @@ export interface paths {
                             data: {
                                 transactionId: string;
                                 status: "initiated" | "pending" | "succeeded" | "cancelled" | "cancellation_requested" | "failed" | "refunded" | "refund_failed";
-                                title: string;
+                                title: {
+                                    en: string;
+                                    ga?: string;
+                                };
                                 updatedAt: string;
                                 extPaymentId: string;
                                 amount: number;
@@ -2750,7 +2816,10 @@ export interface paths {
                                 extPaymentId: string;
                                 paymentProviderId: string;
                                 updatedAt: string;
-                                title: string;
+                                title: {
+                                    en: string;
+                                    ga?: string;
+                                };
                                 userId: string;
                                 metadata: {
                                     runId?: string;
@@ -2759,7 +2828,10 @@ export interface paths {
                                     redirectUrl?: string;
                                     amount?: string;
                                 };
-                                description: string;
+                                description: {
+                                    en: string;
+                                    ga?: string;
+                                };
                                 providerName: string;
                                 providerType: string;
                                 paymentRequestId: string;

@@ -1186,10 +1186,32 @@
                             "type": "string"
                           },
                           "title": {
-                            "type": "string"
+                            "type": "object",
+                            "properties": {
+                              "en": {
+                                "type": "string"
+                              },
+                              "ga": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "en"
+                            ]
                           },
                           "description": {
-                            "type": "string"
+                            "type": "object",
+                            "properties": {
+                              "en": {
+                                "type": "string"
+                              },
+                              "ga": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "en"
+                            ]
                           },
                           "amount": {
                             "type": "number"
@@ -1405,25 +1427,47 @@
                 "type": "object",
                 "properties": {
                   "title": {
-                    "validator": "RequiredValidator",
-                    "type": "string"
-                  },
-                  "description": {
-                    "validator": {
-                      "name": "OptionalRequiredValidator",
-                      "options": {
-                        "field": "status",
-                        "operation": "notEqual",
-                        "value": "draft"
-                      }
-                    },
-                    "anyOf": [
-                      {
+                    "type": "object",
+                    "properties": {
+                      "en": {
+                        "validator": "RequiredValidator",
                         "type": "string"
                       },
-                      {
-                        "type": "null"
+                      "ga": {
+                        "type": "string"
                       }
+                    },
+                    "required": [
+                      "en"
+                    ]
+                  },
+                  "description": {
+                    "type": "object",
+                    "properties": {
+                      "en": {
+                        "validator": {
+                          "name": "OptionalRequiredValidator",
+                          "options": {
+                            "field": "status",
+                            "operation": "notEqual",
+                            "value": "draft"
+                          }
+                        },
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "ga": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "en"
                     ]
                   },
                   "reference": {
@@ -1720,25 +1764,47 @@
                 "type": "object",
                 "properties": {
                   "title": {
-                    "validator": "RequiredValidator",
-                    "type": "string"
-                  },
-                  "description": {
-                    "validator": {
-                      "name": "OptionalRequiredValidator",
-                      "options": {
-                        "field": "status",
-                        "operation": "notEqual",
-                        "value": "draft"
-                      }
-                    },
-                    "anyOf": [
-                      {
+                    "type": "object",
+                    "properties": {
+                      "en": {
+                        "validator": "RequiredValidator",
                         "type": "string"
                       },
-                      {
-                        "type": "null"
+                      "ga": {
+                        "type": "string"
                       }
+                    },
+                    "required": [
+                      "en"
+                    ]
+                  },
+                  "description": {
+                    "type": "object",
+                    "properties": {
+                      "en": {
+                        "validator": {
+                          "name": "OptionalRequiredValidator",
+                          "options": {
+                            "field": "status",
+                            "operation": "notEqual",
+                            "value": "draft"
+                          }
+                        },
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "ga": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "en"
                     ]
                   },
                   "reference": {
@@ -2097,10 +2163,32 @@
                             "type": "string"
                           },
                           "title": {
-                            "type": "string"
+                            "type": "object",
+                            "properties": {
+                              "en": {
+                                "type": "string"
+                              },
+                              "ga": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "en"
+                            ]
                           },
                           "description": {
-                            "type": "string"
+                            "type": "object",
+                            "properties": {
+                              "en": {
+                                "type": "string"
+                              },
+                              "ga": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "en"
+                            ]
                           },
                           "amount": {
                             "type": "number"
@@ -2239,10 +2327,32 @@
                           "type": "string"
                         },
                         "title": {
-                          "type": "string"
+                          "type": "object",
+                          "properties": {
+                            "en": {
+                              "type": "string"
+                            },
+                            "ga": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "en"
+                          ]
                         },
                         "description": {
-                          "type": "string"
+                          "type": "object",
+                          "properties": {
+                            "en": {
+                              "type": "string"
+                            },
+                            "ga": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "en"
+                          ]
                         },
                         "amount": {
                           "type": "number"
@@ -2618,10 +2728,32 @@
                           "type": "string"
                         },
                         "title": {
-                          "type": "string"
+                          "type": "object",
+                          "properties": {
+                            "en": {
+                              "type": "string"
+                            },
+                            "ga": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "en"
+                          ]
                         },
                         "description": {
-                          "type": "string"
+                          "type": "object",
+                          "properties": {
+                            "en": {
+                              "type": "string"
+                            },
+                            "ga": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "en"
+                          ]
                         },
                         "amount": {
                           "type": "number"
@@ -2777,7 +2909,6 @@
                       "required": [
                         "paymentRequestId",
                         "title",
-                        "description",
                         "amount",
                         "reference",
                         "providers",
@@ -3240,7 +3371,18 @@
                             "type": "string"
                           },
                           "title": {
-                            "type": "string"
+                            "type": "object",
+                            "properties": {
+                              "en": {
+                                "type": "string"
+                              },
+                              "ga": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "en"
+                            ]
                           }
                         },
                         "required": [
@@ -3514,7 +3656,18 @@
                           "type": "string"
                         },
                         "title": {
-                          "type": "string"
+                          "type": "object",
+                          "properties": {
+                            "en": {
+                              "type": "string"
+                            },
+                            "ga": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "en"
+                          ]
                         },
                         "userId": {
                           "type": "string"
@@ -3540,7 +3693,18 @@
                           }
                         },
                         "description": {
-                          "type": "string"
+                          "type": "object",
+                          "properties": {
+                            "en": {
+                              "type": "string"
+                            },
+                            "ga": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "en"
+                          ]
                         },
                         "providerName": {
                           "type": "string"
@@ -4112,7 +4276,18 @@
                             "type": "string"
                           },
                           "title": {
-                            "type": "string"
+                            "type": "object",
+                            "properties": {
+                              "en": {
+                                "type": "string"
+                              },
+                              "ga": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "en"
+                            ]
                           },
                           "userId": {
                             "type": "string"
@@ -4138,7 +4313,18 @@
                             }
                           },
                           "description": {
-                            "type": "string"
+                            "type": "object",
+                            "properties": {
+                              "en": {
+                                "type": "string"
+                              },
+                              "ga": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "en"
+                            ]
                           },
                           "providerName": {
                             "type": "string"
@@ -4645,6 +4831,33 @@
                           "properties": {
                             "type": {
                               "type": "string"
+                            },
+                            "properties": {
+                              "type": "object",
+                              "properties": {
+                                "en": {
+                                  "type": "object",
+                                  "properties": {
+                                    "type": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "ga": {
+                                  "type": "object",
+                                  "properties": {
+                                    "type": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "required": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
                             }
                           }
                         },
@@ -4920,7 +5133,18 @@
                           "type": "string"
                         },
                         "paymentRequestTitle": {
-                          "type": "string"
+                          "type": "object",
+                          "properties": {
+                            "en": {
+                              "type": "string"
+                            },
+                            "ga": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "en"
+                          ]
                         },
                         "amount": {
                           "minimum": 1,
@@ -6126,7 +6350,18 @@
                             ]
                           },
                           "title": {
-                            "type": "string"
+                            "type": "object",
+                            "properties": {
+                              "en": {
+                                "type": "string"
+                              },
+                              "ga": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "en"
+                            ]
                           },
                           "updatedAt": {
                             "type": "string"
@@ -6444,7 +6679,18 @@
                           "type": "string"
                         },
                         "title": {
-                          "type": "string"
+                          "type": "object",
+                          "properties": {
+                            "en": {
+                              "type": "string"
+                            },
+                            "ga": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "en"
+                          ]
                         },
                         "userId": {
                           "type": "string"
@@ -6470,7 +6716,18 @@
                           }
                         },
                         "description": {
-                          "type": "string"
+                          "type": "object",
+                          "properties": {
+                            "en": {
+                              "type": "string"
+                            },
+                            "ga": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "en"
+                          ]
                         },
                         "providerName": {
                           "type": "string"
