@@ -1468,7 +1468,10 @@ export interface paths {
                                 metadata: {
                                     runId?: string;
                                     journeyId?: string;
-                                    journeyTitle?: string;
+                                    journeyTitle?: {
+                                        en: string;
+                                        ga?: string;
+                                    };
                                     redirectUrl?: string;
                                     amount?: string;
                                 };
@@ -1720,7 +1723,10 @@ export interface paths {
                                 metadata: {
                                     runId?: string;
                                     journeyId?: string;
-                                    journeyTitle?: string;
+                                    journeyTitle?: {
+                                        en: string;
+                                        ga?: string;
+                                    };
                                     redirectUrl?: string;
                                     amount?: string;
                                 };
@@ -1837,7 +1843,10 @@ export interface paths {
                         metadata: {
                             runId?: string;
                             journeyId?: string;
-                            journeyTitle?: string;
+                            journeyTitle?: {
+                                en: string;
+                                ga?: string;
+                            };
                             redirectUrl?: string;
                             amount?: string;
                         };
@@ -2824,7 +2833,10 @@ export interface paths {
                                 metadata: {
                                     runId?: string;
                                     journeyId?: string;
-                                    journeyTitle?: string;
+                                    journeyTitle?: {
+                                        en: string;
+                                        ga?: string;
+                                    };
                                     redirectUrl?: string;
                                     amount?: string;
                                 };
