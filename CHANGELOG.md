@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.13](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.12...@ogcio/building-blocks-sdk@v0.2.13) (2025-02-21)
+
+
+### Features
+
+* dynamic content translation update ([#150](https://github.com/ogcio/building-blocks-sdk/issues/150)) ([bb088f5](https://github.com/ogcio/building-blocks-sdk/commit/bb088f586c2d305e48fd117087d6ef13f8b0e413))
+
 ## [0.2.12](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.11...@ogcio/building-blocks-sdk@v0.2.12) (2025-02-18)
 
 
