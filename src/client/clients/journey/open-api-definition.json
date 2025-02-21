@@ -106,8 +106,19 @@
                             "type": "string"
                           },
                           "title": {
-                            "validator": "RequiredValidator",
-                            "type": "string"
+                            "type": "object",
+                            "properties": {
+                              "en": {
+                                "validator": "RequiredValidator",
+                                "type": "string"
+                              },
+                              "ga": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "en"
+                            ]
                           },
                           "userId": {
                             "type": "string"
@@ -282,8 +293,19 @@
                 "type": "object",
                 "properties": {
                   "title": {
-                    "validator": "RequiredValidator",
-                    "type": "string"
+                    "type": "object",
+                    "properties": {
+                      "en": {
+                        "validator": "RequiredValidator",
+                        "type": "string"
+                      },
+                      "ga": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "en"
+                    ]
                   },
                   "organizationId": {
                     "type": "string"
@@ -500,8 +522,19 @@
                           "type": "string"
                         },
                         "title": {
-                          "validator": "RequiredValidator",
-                          "type": "string"
+                          "type": "object",
+                          "properties": {
+                            "en": {
+                              "validator": "RequiredValidator",
+                              "type": "string"
+                            },
+                            "ga": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "en"
+                          ]
                         },
                         "userId": {
                           "type": "string"
@@ -653,7 +686,18 @@
                                     "type": "object",
                                     "properties": {
                                       "buttonLabel": {
-                                        "type": "string"
+                                        "type": "object",
+                                        "properties": {
+                                          "en": {
+                                            "type": "string"
+                                          },
+                                          "ga": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "en"
+                                        ]
                                       },
                                       "returnUrl": {
                                         "type": "string"
@@ -899,8 +943,19 @@
                 "type": "object",
                 "properties": {
                   "title": {
-                    "validator": "RequiredValidator",
-                    "type": "string"
+                    "type": "object",
+                    "properties": {
+                      "en": {
+                        "validator": "RequiredValidator",
+                        "type": "string"
+                      },
+                      "ga": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "en"
+                    ]
                   },
                   "status": {
                     "anyOf": [
@@ -1140,8 +1195,19 @@
                           "type": "string"
                         },
                         "title": {
-                          "validator": "RequiredValidator",
-                          "type": "string"
+                          "type": "object",
+                          "properties": {
+                            "en": {
+                              "validator": "RequiredValidator",
+                              "type": "string"
+                            },
+                            "ga": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "en"
+                          ]
                         },
                         "userId": {
                           "type": "string"
@@ -1331,7 +1397,18 @@
                           "type": "string"
                         },
                         "jounrneyTitle": {
-                          "type": "string"
+                          "type": "object",
+                          "properties": {
+                            "en": {
+                              "type": "string"
+                            },
+                            "ga": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "en"
+                          ]
                         },
                         "steps": {
                           "type": "array",
@@ -2275,7 +2352,18 @@
                               "type": "object",
                               "properties": {
                                 "buttonLabel": {
-                                  "type": "string"
+                                  "type": "object",
+                                  "properties": {
+                                    "en": {
+                                      "type": "string"
+                                    },
+                                    "ga": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "en"
+                                  ]
                                 },
                                 "returnUrl": {
                                   "type": "string"
@@ -2730,7 +2818,18 @@
                         "type": "object",
                         "properties": {
                           "buttonLabel": {
-                            "type": "string"
+                            "type": "object",
+                            "properties": {
+                              "en": {
+                                "type": "string"
+                              },
+                              "ga": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "en"
+                            ]
                           },
                           "returnUrl": {
                             "type": "string"
@@ -2939,7 +3038,18 @@
                               "type": "object",
                               "properties": {
                                 "buttonLabel": {
-                                  "type": "string"
+                                  "type": "object",
+                                  "properties": {
+                                    "en": {
+                                      "type": "string"
+                                    },
+                                    "ga": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "en"
+                                  ]
                                 },
                                 "returnUrl": {
                                   "type": "string"
@@ -3265,7 +3375,18 @@
                         "type": "object",
                         "properties": {
                           "buttonLabel": {
-                            "type": "string"
+                            "type": "object",
+                            "properties": {
+                              "en": {
+                                "type": "string"
+                              },
+                              "ga": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "en"
+                            ]
                           },
                           "returnUrl": {
                             "type": "string"
@@ -3428,7 +3549,18 @@
                               "type": "object",
                               "properties": {
                                 "buttonLabel": {
-                                  "type": "string"
+                                  "type": "object",
+                                  "properties": {
+                                    "en": {
+                                      "type": "string"
+                                    },
+                                    "ga": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "en"
+                                  ]
                                 },
                                 "returnUrl": {
                                   "type": "string"
@@ -5178,7 +5310,18 @@
                             "type": "string"
                           },
                           "journeyTitle": {
-                            "type": "string"
+                            "type": "object",
+                            "properties": {
+                              "en": {
+                                "type": "string"
+                              },
+                              "ga": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "en"
+                            ]
                           },
                           "email": {
                             "type": "string"
@@ -6156,13 +6299,35 @@
                           "type": "string"
                         },
                         "title": {
-                          "type": "string"
+                          "type": "object",
+                          "properties": {
+                            "en": {
+                              "type": "string"
+                            },
+                            "ga": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "en"
+                          ]
                         },
                         "createdAt": {
                           "type": "string"
                         },
                         "actionLabel": {
-                          "type": "string"
+                          "type": "object",
+                          "properties": {
+                            "en": {
+                              "type": "string"
+                            },
+                            "ga": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "en"
+                          ]
                         },
                         "returnUrl": {
                           "type": "string"

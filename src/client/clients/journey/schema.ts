@@ -64,7 +64,10 @@ export interface paths {
                         "application/json": {
                             data: {
                                 id: string;
-                                title: string;
+                                title: {
+                                    en: string;
+                                    ga?: string;
+                                };
                                 userId: string;
                                 organizationId: string;
                                 status: "active" | "draft";
@@ -130,7 +133,10 @@ export interface paths {
             requestBody: {
                 content: {
                     "application/json": {
-                        title: string;
+                        title: {
+                            en: string;
+                            ga?: string;
+                        };
                         organizationId: string;
                         userId: string;
                     };
@@ -242,7 +248,10 @@ export interface paths {
                         "application/json": {
                             data: {
                                 id: string;
-                                title: string;
+                                title: {
+                                    en: string;
+                                    ga?: string;
+                                };
                                 userId: string;
                                 organizationId: string;
                                 status: "active" | "draft";
@@ -267,7 +276,10 @@ export interface paths {
                                             setupPageVersion: string;
                                         };
                                     } | {
-                                        buttonLabel: string;
+                                        buttonLabel: {
+                                            en: string;
+                                            ga?: string;
+                                        };
                                         returnUrl: string;
                                     } | {
                                         uiConfig?: {
@@ -359,7 +371,10 @@ export interface paths {
             requestBody: {
                 content: {
                     "application/json": {
-                        title: string;
+                        title: {
+                            en: string;
+                            ga?: string;
+                        };
                         status: "active" | "draft";
                         initialStepId: string;
                     };
@@ -472,7 +487,10 @@ export interface paths {
                         "application/json": {
                             data: {
                                 id: string;
-                                title: string;
+                                title: {
+                                    en: string;
+                                    ga?: string;
+                                };
                                 userId: string;
                                 organizationId: string;
                                 status: "active" | "draft";
@@ -561,7 +579,10 @@ export interface paths {
                         "application/json": {
                             data: {
                                 journeyId: string;
-                                jounrneyTitle: string;
+                                jounrneyTitle: {
+                                    en: string;
+                                    ga?: string;
+                                };
                                 steps: {
                                     stepId: string;
                                     type: "title" | "form" | "payment" | "messaging" | "complete";
@@ -973,7 +994,10 @@ export interface paths {
                                         setupPageVersion: string;
                                     };
                                 } | {
-                                    buttonLabel: string;
+                                    buttonLabel: {
+                                        en: string;
+                                        ga?: string;
+                                    };
                                     returnUrl: string;
                                 } | {
                                     uiConfig?: {
@@ -1072,7 +1096,10 @@ export interface paths {
                                 setupPageVersion: string;
                             };
                         } | {
-                            buttonLabel: string;
+                            buttonLabel: {
+                                en: string;
+                                ga?: string;
+                            };
                             returnUrl: string;
                         } | {
                             uiConfig?: {
@@ -1110,7 +1137,10 @@ export interface paths {
                                         setupPageVersion: string;
                                     };
                                 } | {
-                                    buttonLabel: string;
+                                    buttonLabel: {
+                                        en: string;
+                                        ga?: string;
+                                    };
                                     returnUrl: string;
                                 } | {
                                     uiConfig?: {
@@ -1306,7 +1336,10 @@ export interface paths {
                                 setupPageVersion: string;
                             };
                         } | {
-                            buttonLabel: string;
+                            buttonLabel: {
+                                en: string;
+                                ga?: string;
+                            };
                             returnUrl: string;
                         } | {
                             uiConfig?: {
@@ -1342,7 +1375,10 @@ export interface paths {
                                         setupPageVersion: string;
                                     };
                                 } | {
-                                    buttonLabel: string;
+                                    buttonLabel: {
+                                        en: string;
+                                        ga?: string;
+                                    };
                                     returnUrl: string;
                                 } | {
                                     uiConfig?: {
@@ -1958,7 +1994,10 @@ export interface paths {
                                 createdAt: string;
                                 updatedAt: string;
                                 organizationId: string;
-                                journeyTitle: string;
+                                journeyTitle: {
+                                    en: string;
+                                    ga?: string;
+                                };
                                 email: string;
                             }[];
                             metadata?: {
@@ -2427,9 +2466,15 @@ export interface paths {
                         "application/json": {
                             data: {
                                 runId: string;
-                                title: string;
+                                title: {
+                                    en: string;
+                                    ga?: string;
+                                };
                                 createdAt: string;
-                                actionLabel: string;
+                                actionLabel: {
+                                    en: string;
+                                    ga?: string;
+                                };
                                 returnUrl: string;
                             };
                             metadata?: {
