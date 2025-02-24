@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.14](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.13...@ogcio/building-blocks-sdk@v0.2.14) (2025-02-24)
+
+
+### Bug Fixes
+
+* payments api ([#152](https://github.com/ogcio/building-blocks-sdk/issues/152)) ([bebccbf](https://github.com/ogcio/building-blocks-sdk/commit/bebccbfcf53ede59da4216f731131a1261dd06e4))
+
 ## [0.2.13](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.12...@ogcio/building-blocks-sdk@v0.2.13) (2025-02-21)
 
 
