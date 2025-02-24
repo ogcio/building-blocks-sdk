@@ -1430,7 +1430,12 @@
                     "type": "object",
                     "properties": {
                       "en": {
-                        "validator": "RequiredValidator",
+                        "validator": {
+                          "name": "RequiredValidator",
+                          "options": {
+                            "useField": "title"
+                          }
+                        },
                         "type": "string"
                       },
                       "ga": {
@@ -1448,6 +1453,7 @@
                         "validator": {
                           "name": "OptionalRequiredValidator",
                           "options": {
+                            "useField": "description",
                             "field": "status",
                             "operation": "notEqual",
                             "value": "draft"
@@ -1767,7 +1773,12 @@
                     "type": "object",
                     "properties": {
                       "en": {
-                        "validator": "RequiredValidator",
+                        "validator": {
+                          "name": "RequiredValidator",
+                          "options": {
+                            "useField": "title"
+                          }
+                        },
                         "type": "string"
                       },
                       "ga": {
@@ -1785,6 +1796,7 @@
                         "validator": {
                           "name": "OptionalRequiredValidator",
                           "options": {
+                            "useField": "description",
                             "field": "status",
                             "operation": "notEqual",
                             "value": "draft"
@@ -3682,7 +3694,18 @@
                               "type": "string"
                             },
                             "journeyTitle": {
-                              "type": "string"
+                              "type": "object",
+                              "properties": {
+                                "en": {
+                                  "type": "string"
+                                },
+                                "ga": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "en"
+                              ]
                             },
                             "redirectUrl": {
                               "type": "string"
@@ -4302,7 +4325,18 @@
                                 "type": "string"
                               },
                               "journeyTitle": {
-                                "type": "string"
+                                "type": "object",
+                                "properties": {
+                                  "en": {
+                                    "type": "string"
+                                  },
+                                  "ga": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "en"
+                                ]
                               },
                               "redirectUrl": {
                                 "type": "string"
@@ -4580,7 +4614,18 @@
                         "type": "string"
                       },
                       "journeyTitle": {
-                        "type": "string"
+                        "type": "object",
+                        "properties": {
+                          "en": {
+                            "type": "string"
+                          },
+                          "ga": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "en"
+                        ]
                       },
                       "redirectUrl": {
                         "type": "string"
@@ -6705,7 +6750,18 @@
                               "type": "string"
                             },
                             "journeyTitle": {
-                              "type": "string"
+                              "type": "object",
+                              "properties": {
+                                "en": {
+                                  "type": "string"
+                                },
+                                "ga": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "en"
+                              ]
                             },
                             "redirectUrl": {
                               "type": "string"
