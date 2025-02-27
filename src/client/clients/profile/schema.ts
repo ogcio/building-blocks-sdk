@@ -171,132 +171,7 @@ export interface paths {
             cookie?: never;
         };
         /** @description List profile imports with pagination */
-        get: {
-            parameters: {
-                query?: {
-                    organizationId?: string;
-                    source?: "csv" | "json";
-                    /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
-                    offset?: string;
-                    /** @description Indicates the maximum number (100) of items that will be returned in a single request */
-                    limit?: string;
-                };
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            data: {
-                                /** Format: uuid */
-                                id: string;
-                                organisationId?: string;
-                                status: string;
-                                source: "csv" | "json";
-                                metadata?: {
-                                    filename: string;
-                                    mimetype: string;
-                                };
-                                /** Format: date-time */
-                                createdAt: string;
-                                /** Format: date-time */
-                                updatedAt: string;
-                            }[];
-                            metadata?: {
-                                /** @description Object containing the links to the related endpoints */
-                                links?: {
-                                    self: {
-                                        /** @description URL pointing to the request itself */
-                                        href?: string;
-                                    };
-                                    next?: {
-                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    prev?: {
-                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                        href?: string;
-                                    };
-                                    first: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    last: {
-                                        /** @description URL pointing to the first page of results in a paginated response */
-                                        href?: string;
-                                    };
-                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                    pages: {
-                                        [key: string]: {
-                                            href?: string;
-                                        };
-                                    };
-                                };
-                                /** @description Number representing the total number of available items */
-                                totalCount?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "4XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                            statusCode: number;
-                        };
-                    };
-                };
-                /** @description Default Response */
-                "5XX": {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @description Code used to categorize the error */
-                            code: string;
-                            /** @description Description of the error */
-                            detail: string;
-                            /** @description Unique request id. This one will be used to troubleshoot the problems */
-                            requestId: string;
-                            /** @description Name of the error type */
-                            name: string;
-                            /** @description List of the validation errors */
-                            validation?: {
-                                fieldName: string;
-                                message: string;
-                            }[];
-                            validationContext?: string;
-                            statusCode: number;
-                        };
-                    };
-                };
-            };
-        };
+        get: operations["listProfileImports"];
         put?: never;
         post?: never;
         delete?: never;
@@ -843,6 +718,132 @@ export interface operations {
                                 preferredLanguage: "en" | "ga";
                             };
                         };
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+        };
+    };
+    listProfileImports: {
+        parameters: {
+            query?: {
+                organizationId?: string;
+                source?: "csv" | "json";
+                /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
+                offset?: string;
+                /** @description Indicates the maximum number (100) of items that will be returned in a single request */
+                limit?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                            organisationId?: string;
+                            status: string;
+                            source: "csv" | "json";
+                            metadata?: {
+                                filename: string;
+                                mimetype: string;
+                            };
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: date-time */
+                            updatedAt: string;
+                        }[];
                         metadata?: {
                             /** @description Object containing the links to the related endpoints */
                             links?: {
@@ -1584,7 +1585,7 @@ export interface operations {
                                 details: {
                                     email?: string | null;
                                     rawData: {
-                                        [key: string]: string | null | number | boolean;
+                                        [key: string]: string | null | number | boolean | (string | null | boolean | number)[];
                                     };
                                 };
                             };

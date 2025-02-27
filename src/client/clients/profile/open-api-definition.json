@@ -1582,8 +1582,9 @@
     },
     "/api/v1/profiles/imports": {
       "get": {
+        "operationId": "listProfileImports",
         "tags": [
-          "profiles"
+          "Profiles"
         ],
         "description": "List profile imports with pagination",
         "parameters": [
@@ -3571,6 +3572,25 @@
                                       },
                                       {
                                         "type": "boolean"
+                                      },
+                                      {
+                                        "type": "array",
+                                        "items": {
+                                          "anyOf": [
+                                            {
+                                              "type": "string"
+                                            },
+                                            {
+                                              "type": "null"
+                                            },
+                                            {
+                                              "type": "boolean"
+                                            },
+                                            {
+                                              "type": "number"
+                                            }
+                                          ]
+                                        }
                                       }
                                     ]
                                   }

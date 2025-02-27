@@ -277,4 +277,33 @@ export class Profile extends BaseClient<paths> {
         (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
+
+  async listProfileImports(
+    query: paths["/api/v1/profiles/imports"]["get"]["parameters"]["query"],
+  ) {
+    return this.client
+      .GET("/api/v1/profiles/imports", {
+        params: { query },
+        parseAs: "json",
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
+
+  async getProfileImport(
+    importId: paths["/api/v1/profiles/imports/{importId}"]["get"]["parameters"]["path"]["importId"],
+  ) {
+    throwIfEmpty(importId);
+    return this.client
+      .GET("/api/v1/profiles/imports/{importId}", {
+        params: { path: { importId } },
+        parseAs: "json",
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
 }
