@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.15](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.14...@ogcio/building-blocks-sdk@v0.2.15) (2025-02-27)
+
+
+### Features
+
+* bump version ([#156](https://github.com/ogcio/building-blocks-sdk/issues/156)) ([d752a5e](https://github.com/ogcio/building-blocks-sdk/commit/d752a5e55d668b7a89e492bd6630189c85987b6b))
+
 ## [0.2.14](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.13...@ogcio/building-blocks-sdk@v0.2.14) (2025-02-24)
 
 
