@@ -284,7 +284,6 @@ export class Profile extends BaseClient<paths> {
     return this.client
       .GET("/api/v1/profiles/imports", {
         params: { query },
-        parseAs: "json",
       })
       .then(
         (response) => formatResponse(response, this.serviceName, this.logger),
@@ -299,7 +298,6 @@ export class Profile extends BaseClient<paths> {
     return this.client
       .GET("/api/v1/profiles/imports/{importId}", {
         params: { path: { importId } },
-        parseAs: "json",
       })
       .then(
         (response) => formatResponse(response, this.serviceName, this.logger),
