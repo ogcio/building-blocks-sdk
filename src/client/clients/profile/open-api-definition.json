@@ -231,6 +231,33 @@
           },
           {
             "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "firstName",
+            "required": false,
+            "description": "If set, the endpoint searches for users whom contain this value in either the imported first name"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "lastName",
+            "required": false,
+            "description": "If set, the endpoint searches for users whom contain this value in either the imported last name"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "email",
+            "required": false,
+            "description": "If set, the endpoint searches for users whom contain this value in either the imported email"
+          },
+          {
+            "schema": {
               "pattern": "^[0-9][0-9]*|undefined$",
               "default": "0",
               "type": "string"
@@ -1582,9 +1609,8 @@
     },
     "/api/v1/profiles/imports": {
       "get": {
-        "operationId": "listProfileImports",
         "tags": [
-          "Profiles"
+          "profiles"
         ],
         "description": "List profile imports with pagination",
         "parameters": [
@@ -1616,6 +1642,15 @@
             "in": "query",
             "name": "source",
             "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "search",
+            "required": false,
+            "description": "If set, the endpoint searches for profile imports with this value in the metadata.filename"
           },
           {
             "schema": {
