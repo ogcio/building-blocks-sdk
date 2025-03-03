@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.16](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.15...@ogcio/building-blocks-sdk@v0.2.16) (2025-03-03)
+
+
+### Features
+
+* update profile automatic params from openapi script ([#158](https://github.com/ogcio/building-blocks-sdk/issues/158)) ([389dd37](https://github.com/ogcio/building-blocks-sdk/commit/389dd37f8e9df3b00e36bc881dd6257066ad936d))
+
 ## [0.2.15](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.14...@ogcio/building-blocks-sdk@v0.2.15) (2025-02-27)
 
 
