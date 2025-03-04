@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.17](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.16...@ogcio/building-blocks-sdk@v0.2.17) (2025-03-04)
+
+
+### Features
+
+* set language in journey api ([#161](https://github.com/ogcio/building-blocks-sdk/issues/161)) ([7f2d2a8](https://github.com/ogcio/building-blocks-sdk/commit/7f2d2a89de103bfa689535b2254e9fb27eb42ed1))
+
 ## [0.2.16](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.15...@ogcio/building-blocks-sdk@v0.2.16) (2025-03-03)
 
 
