@@ -2209,6 +2209,7 @@ export interface paths {
                     "application/json": {
                         journeyId: string;
                         runId: string;
+                        language: "en" | "ga";
                     };
                 };
             };
@@ -2332,6 +2333,7 @@ export interface paths {
                         runId: string;
                         runStepId: string;
                         token?: string;
+                        language: "en" | "ga";
                     };
                 };
             };
