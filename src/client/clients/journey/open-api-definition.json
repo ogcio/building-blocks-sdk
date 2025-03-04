@@ -5730,11 +5730,28 @@
                   },
                   "runId": {
                     "type": "string"
+                  },
+                  "language": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "en"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "ga"
+                        ]
+                      }
+                    ]
                   }
                 },
                 "required": [
                   "journeyId",
-                  "runId"
+                  "runId",
+                  "language"
                 ]
               }
             }
@@ -6004,12 +6021,29 @@
                   },
                   "token": {
                     "type": "string"
+                  },
+                  "language": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "en"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "ga"
+                        ]
+                      }
+                    ]
                   }
                 },
                 "required": [
                   "journeyId",
                   "runId",
-                  "runStepId"
+                  "runStepId",
+                  "language"
                 ]
               }
             }
