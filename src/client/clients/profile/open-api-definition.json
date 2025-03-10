@@ -1609,8 +1609,9 @@
     },
     "/api/v1/profiles/imports": {
       "get": {
+        "operationId": "listProfileImports",
         "tags": [
-          "profiles"
+          "Profiles"
         ],
         "description": "List profile imports with pagination",
         "parameters": [
@@ -1982,61 +1983,101 @@
                   "type": "object",
                   "properties": {
                     "data": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "email": {
-                            "allOf": [
-                              {
+                      "type": "object",
+                      "properties": {
+                        "organisationId": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "metadata": {
+                          "type": "object",
+                          "properties": {
+                            "filename": {
+                              "type": "string"
+                            },
+                            "mimetype": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "filename",
+                            "mimetype"
+                          ]
+                        },
+                        "details": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "email": {
+                                "allOf": [
+                                  {
+                                    "minLength": 1,
+                                    "type": "string"
+                                  },
+                                  {
+                                    "format": "email",
+                                    "type": "string"
+                                  }
+                                ]
+                              },
+                              "firstName": {
                                 "minLength": 1,
                                 "type": "string"
                               },
-                              {
-                                "format": "email",
+                              "lastName": {
+                                "minLength": 1,
+                                "type": "string"
+                              },
+                              "city": {
+                                "type": "string"
+                              },
+                              "address": {
+                                "type": "string"
+                              },
+                              "phone": {
+                                "type": "string"
+                              },
+                              "dateOfBirth": {
+                                "format": "date",
+                                "type": "string"
+                              },
+                              "ppsn": {
+                                "type": "string"
+                              },
+                              "preferredLanguage": {
+                                "type": "string",
+                                "enum": [
+                                  "en",
+                                  "ga"
+                                ],
+                                "default": "en"
+                              },
+                              "status": {
                                 "type": "string"
                               }
+                            },
+                            "required": [
+                              "email",
+                              "firstName",
+                              "lastName",
+                              "status"
                             ]
-                          },
-                          "firstName": {
-                            "minLength": 1,
-                            "type": "string"
-                          },
-                          "lastName": {
-                            "minLength": 1,
-                            "type": "string"
-                          },
-                          "city": {
-                            "type": "string"
-                          },
-                          "address": {
-                            "type": "string"
-                          },
-                          "phone": {
-                            "type": "string"
-                          },
-                          "dateOfBirth": {
-                            "format": "date",
-                            "type": "string"
-                          },
-                          "ppsn": {
-                            "type": "string"
-                          },
-                          "preferredLanguage": {
-                            "type": "string",
-                            "enum": [
-                              "en",
-                              "ga"
-                            ],
-                            "default": "en"
                           }
-                        },
-                        "required": [
-                          "email",
-                          "firstName",
-                          "lastName"
-                        ]
-                      }
+                        }
+                      },
+                      "required": [
+                        "organisationId",
+                        "status",
+                        "metadata",
+                        "details"
+                      ]
                     },
                     "metadata": {
                       "type": "object",
