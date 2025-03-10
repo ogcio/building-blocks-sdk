@@ -94,12 +94,15 @@ export class Messaging extends BaseClient<paths> {
       );
   }
 
-  async getTemplates(filter?: PaginationParams) {
+  async getTemplates(
+    filter?: paths["/api/v1/templates/"]["get"]["parameters"]["query"],
+  ) {
     return this.client
       .GET("/api/v1/templates/", {
         params: {
           query: {
             ...preparePaginationParams(filter),
+            search: filter?.search,
           },
         },
       })
