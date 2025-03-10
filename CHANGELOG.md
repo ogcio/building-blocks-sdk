@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.18](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.17...@ogcio/building-blocks-sdk@v0.2.18) (2025-03-10)
+
+
+### Features
+
+* **messaging-api:** Messaging template search query ([#163](https://github.com/ogcio/building-blocks-sdk/issues/163)) ([41366c7](https://github.com/ogcio/building-blocks-sdk/commit/41366c79046158595db277cb2e1ed7684a877adb))
+
 ## [0.2.17](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.16...@ogcio/building-blocks-sdk@v0.2.17) (2025-03-04)
 
 
