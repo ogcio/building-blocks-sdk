@@ -2534,6 +2534,15 @@
             "name": "limit",
             "required": false,
             "description": "Indicates the maximum number (100) of items that will be returned in a single request"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "search",
+            "required": false,
+            "description": "If set, filters by template name in all available languages"
           }
         ],
         "responses": {

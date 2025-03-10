@@ -1681,6 +1681,8 @@ export interface operations {
                 offset?: string;
                 /** @description Indicates the maximum number (100) of items that will be returned in a single request */
                 limit?: string;
+                /** @description If set, filters by template name in all available languages */
+                search?: string;
             };
             header?: never;
             path?: never;
