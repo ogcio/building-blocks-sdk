@@ -354,6 +354,7 @@ export class Messaging extends BaseClient<paths> {
       search?: string;
       dateFrom?: string;
       dateTo?: string;
+      status?: "delivered" | "scheduled" | "opened" | "failed";
     } & PaginationParams,
   ) {
     return this.client
@@ -363,6 +364,7 @@ export class Messaging extends BaseClient<paths> {
             search: params.search,
             dateFrom: params.dateFrom,
             dateTo: params.dateTo,
+            status: params.status,
             ...preparePaginationParams(params),
           },
         },

@@ -4042,6 +4042,21 @@
           },
           {
             "schema": {
+              "type": "string",
+              "enum": [
+                "delivered",
+                "scheduled",
+                "opened",
+                "failed"
+              ]
+            },
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "description": "If set, it will filter status for the latest occured message event"
+          },
+          {
+            "schema": {
               "pattern": "^[0-9][0-9]*|undefined$",
               "default": "0",
               "type": "string"
