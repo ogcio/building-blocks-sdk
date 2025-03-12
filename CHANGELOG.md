@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.20](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.19...@ogcio/building-blocks-sdk@v0.2.20) (2025-03-12)
+
+
+### Features
+
+* **messaging:** status query param for get message events ([cc81d77](https://github.com/ogcio/building-blocks-sdk/commit/cc81d7749def729fbf7e06bb9b06b7ae6dbd1976))
+
 ## [0.2.19](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.18...@ogcio/building-blocks-sdk@v0.2.19) (2025-03-10)
 
 
