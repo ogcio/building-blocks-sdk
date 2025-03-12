@@ -257,6 +257,8 @@ export interface paths {
                     dateFrom?: string;
                     /** @description If set, it filters the events for the messages created before the set date */
                     dateTo?: string;
+                    /** @description If set, it will filter status for the latest occured message event */
+                    status?: "delivered" | "scheduled" | "opened" | "failed";
                     /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
                     offset?: string;
                     /** @description Indicates the maximum number (100) of items that will be returned in a single request */
