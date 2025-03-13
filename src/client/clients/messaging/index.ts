@@ -350,21 +350,13 @@ export class Messaging extends BaseClient<paths> {
   }
 
   async getMessageEvents(
-    params: {
-      search?: string;
-      dateFrom?: string;
-      dateTo?: string;
-      status?: "delivered" | "scheduled" | "opened" | "failed";
-    } & PaginationParams,
+    params: paths["/api/v1/message-events/"]["get"]["parameters"]["query"],
   ) {
     return this.client
       .GET("/api/v1/message-events/", {
         params: {
           query: {
-            search: params.search,
-            dateFrom: params.dateFrom,
-            dateTo: params.dateTo,
-            status: params.status,
+            ...params,
             ...preparePaginationParams(params),
           },
         },
@@ -375,7 +367,9 @@ export class Messaging extends BaseClient<paths> {
       );
   }
 
-  async getMessageEvent(eventId: string) {
+  async getMessageEvent(
+    eventId: paths["/api/v1/message-events/{eventId}"]["get"]["parameters"]["path"]["eventId"],
+  ) {
     throwIfEmpty(eventId);
     return this.client
       .GET("/api/v1/message-events/{eventId}", {
