@@ -205,12 +205,12 @@ export interface paths {
             cookie?: never;
         };
         get: operations["getProfile"];
-        put: operations["updateProfilePut"];
+        put: operations["putProfile"];
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
-        patch: operations["updateProfilePatch"];
+        patch: operations["patchProfile"];
         trace?: never;
     };
     "/api/v1/profiles/imports/template": {
@@ -1216,7 +1216,7 @@ export interface operations {
             };
         };
     };
-    updateProfilePut: {
+    putProfile: {
         parameters: {
             query?: {
                 /** @description Organization ID owning the profile */
@@ -1229,10 +1229,10 @@ export interface operations {
             };
             cookie?: never;
         };
-        requestBody?: {
+        requestBody: {
             content: {
                 "application/json": {
-                    publicName?: string;
+                    publicName: string;
                     /** Format: email */
                     email?: string;
                     phone?: string;
@@ -1242,11 +1242,8 @@ export interface operations {
                     lastName?: string;
                     /** Format: date */
                     dateOfBirth?: string;
-                    /**
-                     * @default en
-                     * @enum {string}
-                     */
-                    preferredLanguage?: "en" | "ga";
+                    /** @enum {string} */
+                    preferredLanguage: "en" | "ga";
                 };
             };
         };
@@ -1379,7 +1376,7 @@ export interface operations {
             };
         };
     };
-    updateProfilePatch: {
+    patchProfile: {
         parameters: {
             query?: {
                 /** @description Organization ID owning the profile */
@@ -1405,11 +1402,9 @@ export interface operations {
                     lastName?: string;
                     /** Format: date */
                     dateOfBirth?: string;
-                    /**
-                     * @default en
-                     * @enum {string}
-                     */
+                    /** @enum {string} */
                     preferredLanguage?: "en" | "ga";
+                    primaryUserId?: string;
                 };
             };
         };
