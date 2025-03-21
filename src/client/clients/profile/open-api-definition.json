@@ -2642,7 +2642,7 @@
         }
       },
       "put": {
-        "operationId": "updateProfilePut",
+        "operationId": "putProfile",
         "tags": [
           "Profiles"
         ],
@@ -2684,13 +2684,17 @@
                     "enum": [
                       "en",
                       "ga"
-                    ],
-                    "default": "en"
+                    ]
                   }
-                }
+                },
+                "required": [
+                  "publicName",
+                  "preferredLanguage"
+                ]
               }
             }
-          }
+          },
+          "required": true
         },
         "parameters": [
           {
@@ -3026,7 +3030,7 @@
         }
       },
       "patch": {
-        "operationId": "updateProfilePatch",
+        "operationId": "patchProfile",
         "tags": [
           "Profiles"
         ],
@@ -3068,8 +3072,10 @@
                     "enum": [
                       "en",
                       "ga"
-                    ],
-                    "default": "en"
+                    ]
+                  },
+                  "primaryUserId": {
+                    "type": "string"
                   }
                 }
               }
