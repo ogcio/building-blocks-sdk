@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.21](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.20...@ogcio/building-blocks-sdk@v0.2.21) (2025-03-21)
+
+
+### Features
+
+* **profile-api:** updated put and patch profiles ([#173](https://github.com/ogcio/building-blocks-sdk/issues/173)) ([c1f9a41](https://github.com/ogcio/building-blocks-sdk/commit/c1f9a413d2c1872486d28a7dec2931b591ab7e3a))
+
 ## [0.2.20](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.19...@ogcio/building-blocks-sdk@v0.2.20) (2025-03-12)
 
 
