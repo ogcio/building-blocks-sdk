@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.22](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.21...@ogcio/building-blocks-sdk@v0.2.22) (2025-03-24)
+
+
+### Features
+
+* **profile-api:** add linked profiles to get profile ([#176](https://github.com/ogcio/building-blocks-sdk/issues/176)) ([3964a82](https://github.com/ogcio/building-blocks-sdk/commit/3964a821c862058197a887390c2de75a7e3f0517))
+
 ## [0.2.21](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.20...@ogcio/building-blocks-sdk@v0.2.21) (2025-03-21)
 
 
