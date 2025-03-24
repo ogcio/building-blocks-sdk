@@ -1127,6 +1127,13 @@ export interface operations {
                                  */
                                 preferredLanguage: "en" | "ga";
                             };
+                            /** @description Linked profiles that have the current profile as primary profile */
+                            linkedProfiles?: {
+                                id: string;
+                                /** Format: email */
+                                email: string;
+                                publicName: string;
+                            }[];
                         };
                         metadata?: {
                             /** @description Object containing the links to the related endpoints */
