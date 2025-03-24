@@ -1029,30 +1029,6 @@
                               "firstName",
                               "lastName"
                             ]
-                          },
-                          "linkedProfiles": {
-                            "description": "Linked profiles that have the current profile as primary profile",
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "string"
-                                },
-                                "email": {
-                                  "format": "email",
-                                  "type": "string"
-                                },
-                                "publicName": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "id",
-                                "email",
-                                "publicName"
-                              ]
-                            }
                           }
                         },
                         "required": [
@@ -1413,30 +1389,6 @@
                             "firstName",
                             "lastName"
                           ]
-                        },
-                        "linkedProfiles": {
-                          "description": "Linked profiles that have the current profile as primary profile",
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "email": {
-                                "format": "email",
-                                "type": "string"
-                              },
-                              "publicName": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "id",
-                              "email",
-                              "publicName"
-                            ]
-                          }
                         }
                       },
                       "required": [
@@ -2884,30 +2836,6 @@
                             "firstName",
                             "lastName"
                           ]
-                        },
-                        "linkedProfiles": {
-                          "description": "Linked profiles that have the current profile as primary profile",
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "email": {
-                                "format": "email",
-                                "type": "string"
-                              },
-                              "publicName": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "id",
-                              "email",
-                              "publicName"
-                            ]
-                          }
                         }
                       },
                       "required": [
@@ -3294,30 +3222,6 @@
                             "firstName",
                             "lastName"
                           ]
-                        },
-                        "linkedProfiles": {
-                          "description": "Linked profiles that have the current profile as primary profile",
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "email": {
-                                "format": "email",
-                                "type": "string"
-                              },
-                              "publicName": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "id",
-                              "email",
-                              "publicName"
-                            ]
-                          }
                         }
                       },
                       "required": [
