@@ -5542,7 +5542,7 @@
         }
       }
     },
-    "/api/v1/executor/submissionTags": {
+    "/api/v1/executor/runs/tags": {
       "get": {
         "tags": [
           "Executor"

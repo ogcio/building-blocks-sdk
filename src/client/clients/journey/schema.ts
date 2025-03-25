@@ -2076,7 +2076,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/executor/submissionTags": {
+    "/api/v1/executor/runs/tags": {
         parameters: {
             query?: never;
             header?: never;

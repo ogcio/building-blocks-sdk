@@ -373,11 +373,11 @@ export class Journey extends BaseClient<paths> {
       );
   }
 
-  async getASubmissionTags(
-    query: paths["/api/v1/executor/submissionTags"]["get"]["parameters"]["query"],
+  async getRunsTags(
+    query: paths["/api/v1/executor/runs/tags"]["get"]["parameters"]["query"],
   ) {
     return this.client
-      .GET("/api/v1/executor/submissionTags", {
+      .GET("/api/v1/executor/runs/tags", {
         params: {
           query,
         },
