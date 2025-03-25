@@ -372,4 +372,19 @@ export class Journey extends BaseClient<paths> {
         (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
+
+  async getASubmissionTags(
+    query: paths["/api/v1/executor/submissionTags"]["get"]["parameters"]["query"],
+  ) {
+    return this.client
+      .GET("/api/v1/executor/submissionTags", {
+        params: {
+          query,
+        },
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
 }

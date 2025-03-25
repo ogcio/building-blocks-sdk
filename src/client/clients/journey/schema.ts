@@ -1485,6 +1485,7 @@ export interface paths {
                                 userId: string;
                                 journeyId: string;
                                 status: "initiated" | "submitted" | "processing" | "completed" | "cancelled";
+                                tags: string[];
                                 createdAt: string;
                                 updatedAt: string;
                             }[];
@@ -1572,6 +1573,7 @@ export interface paths {
                                 userId: string;
                                 journeyId: string;
                                 status: "initiated" | "submitted" | "processing" | "completed" | "cancelled";
+                                tags: string[];
                                 createdAt: string;
                                 updatedAt: string;
                                 steps: {
@@ -1690,6 +1692,7 @@ export interface paths {
                                 userId: string;
                                 journeyId: string;
                                 status: "initiated" | "submitted" | "processing" | "completed" | "cancelled";
+                                tags: string[];
                                 createdAt: string;
                                 updatedAt: string;
                             }[];
@@ -1777,6 +1780,7 @@ export interface paths {
                                 userId: string;
                                 journeyId: string;
                                 status: "initiated" | "submitted" | "processing" | "completed" | "cancelled";
+                                tags: string[];
                                 createdAt: string;
                                 updatedAt: string;
                                 steps: {
@@ -1972,6 +1976,7 @@ export interface paths {
                     search?: string;
                     to?: string;
                     from?: string;
+                    tags?: string[] | string;
                 };
                 header?: never;
                 path?: never;
@@ -1991,6 +1996,7 @@ export interface paths {
                                 userId: string;
                                 journeyId: string;
                                 status: "initiated" | "submitted" | "processing" | "completed" | "cancelled";
+                                tags: string[];
                                 createdAt: string;
                                 updatedAt: string;
                                 organizationId: string;
@@ -2000,6 +2006,109 @@ export interface paths {
                                 };
                                 email: string;
                             }[];
+                            metadata?: {
+                                links?: {
+                                    self: {
+                                        href?: string;
+                                    };
+                                    next?: {
+                                        href?: string;
+                                    };
+                                    prev?: {
+                                        href?: string;
+                                    };
+                                    first: {
+                                        href?: string;
+                                    };
+                                    last: {
+                                        href?: string;
+                                    };
+                                    pages: {
+                                        [key: string]: {
+                                            href?: string;
+                                        };
+                                    };
+                                };
+                                totalCount?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            code: string;
+                            detail: string;
+                            requestId: string;
+                            name: string;
+                            validation?: unknown;
+                            validationContext?: string;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            code: string;
+                            detail: string;
+                            requestId: string;
+                            name: string;
+                            validation?: unknown;
+                            validationContext?: string;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/executor/submissionTags": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    journeyId?: string;
+                    status?: "initiated" | "submitted" | "processing" | "completed" | "cancelled";
+                    search?: string;
+                    to?: string;
+                    from?: string;
+                    tags?: string[] | string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                tags: string[];
+                            };
                             metadata?: {
                                 links?: {
                                     self: {
