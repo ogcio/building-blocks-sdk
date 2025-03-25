@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.23](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.22...@ogcio/building-blocks-sdk@v0.2.23) (2025-03-25)
+
+
+### Features
+
+* **26220:** journey submission tags ([#178](https://github.com/ogcio/building-blocks-sdk/issues/178)) ([1a095d1](https://github.com/ogcio/building-blocks-sdk/commit/1a095d11eca75715d0166b75be88d24a75e5b20c))
+* rename tags route ([#180](https://github.com/ogcio/building-blocks-sdk/issues/180)) ([f6b94a5](https://github.com/ogcio/building-blocks-sdk/commit/f6b94a524db12aea78a36be76930ce898d6c4013))
+
 ## [0.2.22](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.21...@ogcio/building-blocks-sdk@v0.2.22) (2025-03-24)
 
 
