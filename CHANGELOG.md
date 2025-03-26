@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.24](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.23...@ogcio/building-blocks-sdk@v0.2.24) (2025-03-26)
+
+
+### Features
+
+* **26447:** maintain selected language ([#182](https://github.com/ogcio/building-blocks-sdk/issues/182)) ([ec7a59c](https://github.com/ogcio/building-blocks-sdk/commit/ec7a59c435be410d7d2575fecdc23689ba317ddd))
+
 ## [0.2.23](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.22...@ogcio/building-blocks-sdk@v0.2.23) (2025-03-25)
 
 
