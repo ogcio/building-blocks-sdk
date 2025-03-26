@@ -1232,7 +1232,10 @@ export interface paths {
                                 amount?: string;
                                 runId: string;
                                 journeyId: string;
-                                redirectUrl: string;
+                                redirectUrls: {
+                                    en: string;
+                                    ga: string;
+                                };
                             };
                             metadata?: {
                                 /** @description Object containing the links to the related endpoints */
@@ -1472,7 +1475,10 @@ export interface paths {
                                         en: string;
                                         ga?: string;
                                     };
-                                    redirectUrl?: string;
+                                    redirectUrls?: {
+                                        en: string;
+                                        ga: string;
+                                    };
                                     amount?: string;
                                 };
                                 description: {
@@ -1727,7 +1733,10 @@ export interface paths {
                                         en: string;
                                         ga?: string;
                                     };
-                                    redirectUrl?: string;
+                                    redirectUrls?: {
+                                        en: string;
+                                        ga: string;
+                                    };
                                     amount?: string;
                                 };
                                 description: {
@@ -1847,7 +1856,10 @@ export interface paths {
                                 en: string;
                                 ga?: string;
                             };
-                            redirectUrl?: string;
+                            redirectUrls?: {
+                                en: string;
+                                ga: string;
+                            };
                             amount?: string;
                         };
                         token?: string;
@@ -2837,7 +2849,10 @@ export interface paths {
                                         en: string;
                                         ga?: string;
                                     };
-                                    redirectUrl?: string;
+                                    redirectUrls?: {
+                                        en: string;
+                                        ga: string;
+                                    };
                                     amount?: string;
                                 };
                                 description: {

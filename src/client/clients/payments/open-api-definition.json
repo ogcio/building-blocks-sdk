@@ -3096,14 +3096,26 @@
                         "journeyId": {
                           "type": "string"
                         },
-                        "redirectUrl": {
-                          "type": "string"
+                        "redirectUrls": {
+                          "type": "object",
+                          "properties": {
+                            "en": {
+                              "type": "string"
+                            },
+                            "ga": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "en",
+                            "ga"
+                          ]
                         }
                       },
                       "required": [
                         "runId",
                         "journeyId",
-                        "redirectUrl"
+                        "redirectUrls"
                       ]
                     },
                     "metadata": {
@@ -3707,8 +3719,20 @@
                                 "en"
                               ]
                             },
-                            "redirectUrl": {
-                              "type": "string"
+                            "redirectUrls": {
+                              "type": "object",
+                              "properties": {
+                                "en": {
+                                  "type": "string"
+                                },
+                                "ga": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "en",
+                                "ga"
+                              ]
                             },
                             "amount": {
                               "type": "string"
@@ -4338,8 +4362,20 @@
                                   "en"
                                 ]
                               },
-                              "redirectUrl": {
-                                "type": "string"
+                              "redirectUrls": {
+                                "type": "object",
+                                "properties": {
+                                  "en": {
+                                    "type": "string"
+                                  },
+                                  "ga": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "en",
+                                  "ga"
+                                ]
                               },
                               "amount": {
                                 "type": "string"
@@ -4627,8 +4663,20 @@
                           "en"
                         ]
                       },
-                      "redirectUrl": {
-                        "type": "string"
+                      "redirectUrls": {
+                        "type": "object",
+                        "properties": {
+                          "en": {
+                            "type": "string"
+                          },
+                          "ga": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "en",
+                          "ga"
+                        ]
                       },
                       "amount": {
                         "type": "string"
@@ -6763,8 +6811,20 @@
                                 "en"
                               ]
                             },
-                            "redirectUrl": {
-                              "type": "string"
+                            "redirectUrls": {
+                              "type": "object",
+                              "properties": {
+                                "en": {
+                                  "type": "string"
+                                },
+                                "ga": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "en",
+                                "ga"
+                              ]
                             },
                             "amount": {
                               "type": "string"
