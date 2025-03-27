@@ -720,159 +720,266 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "data": {
+                  "anyOf": [
+                    {
                       "type": "object",
                       "properties": {
-                        "subject": {
-                          "description": "Subject. This is the only part that will be seen outside of the messaging platform is security is 'confidential'",
-                          "type": "string"
-                        },
-                        "createdAt": {
-                          "description": "Creation date time",
-                          "type": "string"
-                        },
-                        "threadName": {
-                          "description": "Thread Name used to group messages",
-                          "type": "string"
-                        },
-                        "organisationId": {
-                          "description": "Organisation sender id",
-                          "type": "string"
-                        },
-                        "recipientUserId": {
-                          "description": "Unique id of the recipient",
-                          "type": "string"
-                        },
-                        "excerpt": {
-                          "description": "Brief description of the message",
-                          "type": "string"
-                        },
-                        "plainText": {
-                          "description": "Plain text version of the message",
-                          "type": "string"
-                        },
-                        "richText": {
-                          "description": "Rich text version of the message",
-                          "type": "string"
-                        },
-                        "isSeen": {
-                          "description": "True if the message has already been seen by the recipient",
-                          "type": "boolean"
-                        },
-                        "security": {
-                          "type": "string",
-                          "enum": [
-                            "confidential",
-                            "public"
-                          ],
-                          "description": "Confidentiality level of the message"
-                        },
-                        "attachments": {
-                          "description": "Ids of the related attachments",
-                          "type": "array",
-                          "items": {
-                            "format": "uuid",
-                            "type": "string"
-                          }
-                        }
-                      },
-                      "required": [
-                        "subject",
-                        "createdAt",
-                        "threadName",
-                        "organisationId",
-                        "recipientUserId",
-                        "excerpt",
-                        "plainText",
-                        "richText",
-                        "isSeen",
-                        "security",
-                        "attachments"
-                      ]
-                    },
-                    "metadata": {
-                      "type": "object",
-                      "properties": {
-                        "links": {
-                          "description": "Object containing the links to the related endpoints",
+                        "data": {
                           "type": "object",
                           "properties": {
-                            "self": {
-                              "type": "object",
-                              "properties": {
-                                "href": {
-                                  "description": "URL pointing to the request itself",
-                                  "type": "string"
-                                }
-                              }
+                            "subject": {
+                              "description": "Subject. This is the only part that will be seen outside of the messaging platform is security is 'confidential'",
+                              "type": "string"
                             },
-                            "next": {
-                              "type": "object",
-                              "properties": {
-                                "href": {
-                                  "description": "URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted",
-                                  "type": "string"
-                                }
-                              }
+                            "createdAt": {
+                              "description": "Creation date time",
+                              "type": "string"
                             },
-                            "prev": {
-                              "type": "object",
-                              "properties": {
-                                "href": {
-                                  "description": "URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted",
-                                  "type": "string"
-                                }
-                              }
+                            "threadName": {
+                              "description": "Thread Name used to group messages",
+                              "type": "string"
                             },
-                            "first": {
-                              "type": "object",
-                              "properties": {
-                                "href": {
-                                  "description": "URL pointing to the first page of results in a paginated response",
-                                  "type": "string"
-                                }
-                              }
+                            "organisationId": {
+                              "description": "Organisation sender id",
+                              "type": "string"
                             },
-                            "last": {
-                              "type": "object",
-                              "properties": {
-                                "href": {
-                                  "description": "URL pointing to the first page of results in a paginated response",
-                                  "type": "string"
-                                }
-                              }
+                            "recipientUserId": {
+                              "description": "Unique id of the recipient",
+                              "type": "string"
                             },
-                            "pages": {
-                              "description": "It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2'",
-                              "type": "object",
-                              "additionalProperties": {
-                                "type": "object",
-                                "properties": {
-                                  "href": {
-                                    "type": "string"
-                                  }
-                                }
+                            "excerpt": {
+                              "description": "Brief description of the message",
+                              "type": "string"
+                            },
+                            "plainText": {
+                              "description": "Plain text version of the message",
+                              "type": "string"
+                            },
+                            "richText": {
+                              "description": "Rich text version of the message",
+                              "type": "string"
+                            },
+                            "isSeen": {
+                              "description": "True if the message has already been seen by the recipient",
+                              "type": "boolean"
+                            },
+                            "security": {
+                              "type": "string",
+                              "enum": [
+                                "confidential",
+                                "public"
+                              ],
+                              "description": "Confidentiality level of the message"
+                            },
+                            "attachments": {
+                              "description": "Ids of the related attachments",
+                              "type": "array",
+                              "items": {
+                                "format": "uuid",
+                                "type": "string"
                               }
                             }
                           },
                           "required": [
-                            "self",
-                            "first",
-                            "last",
-                            "pages"
+                            "subject",
+                            "createdAt",
+                            "threadName",
+                            "organisationId",
+                            "recipientUserId",
+                            "excerpt",
+                            "plainText",
+                            "richText",
+                            "isSeen",
+                            "security",
+                            "attachments"
                           ]
                         },
-                        "totalCount": {
-                          "description": "Number representing the total number of available items",
-                          "type": "number"
+                        "metadata": {
+                          "type": "object",
+                          "properties": {
+                            "links": {
+                              "description": "Object containing the links to the related endpoints",
+                              "type": "object",
+                              "properties": {
+                                "self": {
+                                  "type": "object",
+                                  "properties": {
+                                    "href": {
+                                      "description": "URL pointing to the request itself",
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "next": {
+                                  "type": "object",
+                                  "properties": {
+                                    "href": {
+                                      "description": "URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted",
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "prev": {
+                                  "type": "object",
+                                  "properties": {
+                                    "href": {
+                                      "description": "URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted",
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "first": {
+                                  "type": "object",
+                                  "properties": {
+                                    "href": {
+                                      "description": "URL pointing to the first page of results in a paginated response",
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "last": {
+                                  "type": "object",
+                                  "properties": {
+                                    "href": {
+                                      "description": "URL pointing to the first page of results in a paginated response",
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "pages": {
+                                  "description": "It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2'",
+                                  "type": "object",
+                                  "additionalProperties": {
+                                    "type": "object",
+                                    "properties": {
+                                      "href": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "required": [
+                                "self",
+                                "first",
+                                "last",
+                                "pages"
+                              ]
+                            },
+                            "totalCount": {
+                              "description": "Number representing the total number of available items",
+                              "type": "number"
+                            }
+                          }
                         }
-                      }
+                      },
+                      "required": [
+                        "data"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "recipientUserId": {
+                              "description": "Unique id of the recipient",
+                              "type": "string"
+                            },
+                            "organisationId": {
+                              "description": "Organisation sender id",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "recipientUserId",
+                            "organisationId"
+                          ]
+                        },
+                        "metadata": {
+                          "type": "object",
+                          "properties": {
+                            "links": {
+                              "description": "Object containing the links to the related endpoints",
+                              "type": "object",
+                              "properties": {
+                                "self": {
+                                  "type": "object",
+                                  "properties": {
+                                    "href": {
+                                      "description": "URL pointing to the request itself",
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "next": {
+                                  "type": "object",
+                                  "properties": {
+                                    "href": {
+                                      "description": "URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted",
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "prev": {
+                                  "type": "object",
+                                  "properties": {
+                                    "href": {
+                                      "description": "URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted",
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "first": {
+                                  "type": "object",
+                                  "properties": {
+                                    "href": {
+                                      "description": "URL pointing to the first page of results in a paginated response",
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "last": {
+                                  "type": "object",
+                                  "properties": {
+                                    "href": {
+                                      "description": "URL pointing to the first page of results in a paginated response",
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "pages": {
+                                  "description": "It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2'",
+                                  "type": "object",
+                                  "additionalProperties": {
+                                    "type": "object",
+                                    "properties": {
+                                      "href": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "required": [
+                                "self",
+                                "first",
+                                "last",
+                                "pages"
+                              ]
+                            },
+                            "totalCount": {
+                              "description": "Number representing the total number of available items",
+                              "type": "number"
+                            }
+                          }
+                        }
+                      },
+                      "required": [
+                        "data"
+                      ]
                     }
-                  },
-                  "required": [
-                    "data"
                   ]
                 }
               }
