@@ -14,15 +14,12 @@
       "openApiDefinitionFormat": "yaml",
       "citizenPermissions": [
         "messaging:message.self:read",
-        "messaging:message.self:write",
-        "messaging:citizen.self:read",
-        "messaging:citizen.self:write"
+        "messaging:message.self:write"
       ],
       "publicServantPermissions": [
         "messaging:message:*",
         "messaging:provider:*",
         "messaging:template:*",
-        "messaging:citizen:*",
         "messaging:event:read"
       ],
       "updateDefinitions": true
