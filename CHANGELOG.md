@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.25](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.24...@ogcio/building-blocks-sdk@v0.2.25) (2025-03-27)
+
+
+### Features
+
+* **messaging-api:** read onboarding permission ([#184](https://github.com/ogcio/building-blocks-sdk/issues/184)) ([aefa0a6](https://github.com/ogcio/building-blocks-sdk/commit/aefa0a6895f72e6cbc8fcaefcf8de8451220f482))
+
 ## [0.2.24](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.23...@ogcio/building-blocks-sdk@v0.2.24) (2025-03-26)
 
 
