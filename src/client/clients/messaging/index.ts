@@ -15,14 +15,20 @@ export class Messaging extends BaseClient<paths> {
   protected declare client: ReturnType<typeof createClient<paths>>;
   protected serviceName = MESSAGING;
 
+  /**
+   *
+   * @param filter If no user id is set, it returns the messages for
+   * the logged in profile and for the linked accounts, if set, only
+   * for the specific profile id
+   * @returns List of delivered messages
+   */
   async getMessagesForUser(
-    userId: string,
     filter?: {
       isSeen?: boolean;
       search?: string;
+      userId?: string;
     } & PaginationParams,
   ) {
-    throwIfEmpty(userId);
     const isSeen =
       filter?.isSeen === undefined
         ? undefined
@@ -34,7 +40,7 @@ export class Messaging extends BaseClient<paths> {
         params: {
           query: {
             ...preparePaginationParams(filter),
-            recipientUserId: userId,
+            recipientUserId: filter?.userId,
             status: "delivered",
             isSeen,
             search: filter?.search,
