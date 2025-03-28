@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.26](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.25...@ogcio/building-blocks-sdk@v0.2.26) (2025-03-28)
+
+
+### Features
+
+* **messaging-api:** 22196-implement-new-get-messages-for-user ([#186](https://github.com/ogcio/building-blocks-sdk/issues/186)) ([e07c20d](https://github.com/ogcio/building-blocks-sdk/commit/e07c20d96b165b21c6cc2e807594dfef7ea55aa0))
+
 ## [0.2.25](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.24...@ogcio/building-blocks-sdk@v0.2.25) (2025-03-27)
 
 
