@@ -21,7 +21,7 @@
     "prepare": "husky || true"
   },
   "dependencies": {
-    "@ogcio/analytics-sdk": "0.1.0-beta.14",
+    "@ogcio/analytics-sdk": "0.1.0-beta.16",
     "@sinclair/typebox": "^0.34.21",
     "commander": "^13.1.0",
     "http-errors": "^2.0.0",
