@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.27](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.26...@ogcio/building-blocks-sdk@v0.2.27) (2025-04-10)
+
+
+### Features
+
+* bump openapi-fetch version ([#191](https://github.com/ogcio/building-blocks-sdk/issues/191)) ([12720fa](https://github.com/ogcio/building-blocks-sdk/commit/12720fa3e1c82b3809bcdc293bf0ae9dca742494))
+
 ## [0.2.26](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.25...@ogcio/building-blocks-sdk@v0.2.26) (2025-03-28)
 
 
