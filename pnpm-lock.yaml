@@ -12,8 +12,8 @@ importers:
         specifier: 2.5.5
         version: 2.5.5
       '@ogcio/analytics-sdk':
-        specifier: 0.1.0-beta.14
-        version: 0.1.0-beta.14
+        specifier: 0.1.0-beta.16
+        version: 0.1.0-beta.16
       '@sinclair/typebox':
         specifier: ^0.34.21
         version: 0.34.21
@@ -589,8 +589,8 @@ packages:
     resolution: {integrity: sha512-q9CRWjpHCMIh5sVyefoD1cA7PkvILqCZsnSOEUUivORLjxCO/Irmue2DprETiNgEqktDBZaM1Bi+jrarx1XdCg==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
 
-  '@ogcio/analytics-sdk@0.1.0-beta.14':
-    resolution: {integrity: sha512-gs/4HP6uenPfY6W9CrWZ4O05RDvRsJp6NB3ddQ9ZyyvrxuinrzVeiZ1LtEOtAJ7WdfByZ4XTLLi9CB1pBhI38A==}
+  '@ogcio/analytics-sdk@0.1.0-beta.16':
+    resolution: {integrity: sha512-QyJrOa8ti/KpNPqbc9lGkP8ZBmaOW3UULw6KC2LtpyxjhilyD8ynj8ntqWtOGOlKJzQg+4Qbykrhfep9A8Z5Lg==}
     engines: {node: '>=17.0.0'}
 
   '@pkgjs/parseargs@0.11.0':
@@ -1348,6 +1348,9 @@ packages:
 
   openapi-fetch@0.13.4:
     resolution: {integrity: sha512-JHX7UYjLEiHuQGCPxa3CCCIqe/nc4bTIF9c4UYVC8BegAbWoS3g4gJxKX5XcG7UtYQs2060kY6DH64KkvNZahg==}
+
+  openapi-fetch@0.13.5:
+    resolution: {integrity: sha512-AQK8T9GSKFREFlN1DBXTYsLjs7YV2tZcJ7zUWxbjMoQmj8dDSFRrzhLCbHPZWA1TMV3vACqfCxLEZcwf2wxV6Q==}
 
   openapi-typescript-helpers@0.0.15:
     resolution: {integrity: sha512-opyTPaunsklCBpTK8JGef6mfPhLSnyy5a0IN9vKtx3+4aExf+KxEqYwIy3hqkedXIB97u357uLMJsOnm3GVjsw==}
@@ -2199,9 +2202,9 @@ snapshots:
     dependencies:
       semver: 7.6.3
 
-  '@ogcio/analytics-sdk@0.1.0-beta.14':
+  '@ogcio/analytics-sdk@0.1.0-beta.16':
     dependencies:
-      openapi-fetch: 0.13.4
+      openapi-fetch: 0.13.5
       openapi-typescript-helpers: 0.0.15
 
   '@pkgjs/parseargs@0.11.0':
@@ -2955,6 +2958,10 @@ snapshots:
   node-releases@2.0.18: {}
 
   openapi-fetch@0.13.4:
+    dependencies:
+      openapi-typescript-helpers: 0.0.15
+
+  openapi-fetch@0.13.5:
     dependencies:
       openapi-typescript-helpers: 0.0.15
 
