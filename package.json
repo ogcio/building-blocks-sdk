@@ -25,7 +25,7 @@
     "@sinclair/typebox": "^0.34.21",
     "commander": "^13.1.0",
     "http-errors": "^2.0.0",
-    "openapi-fetch": "^0.13.4",
+    "openapi-fetch": "^0.13.5",
     "openapi-typescript": "^7.6.1",
     "openapi-typescript-helpers": "^0.0.15",
     "safe-stable-stringify": "^2.5.0",
