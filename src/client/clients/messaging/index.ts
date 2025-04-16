@@ -29,28 +29,22 @@ export class Messaging extends BaseClient<paths> {
       userId?: string;
     } & PaginationParams,
   ) {
-    const isSeen =
-      filter?.isSeen === undefined
-        ? undefined
-        : filter.isSeen
-          ? "true"
-          : "false";
-    return this.client
-      .GET("/api/v1/messages/", {
-        params: {
-          query: {
-            ...preparePaginationParams(filter),
-            recipientUserId: filter?.userId,
-            status: "delivered",
-            isSeen,
-            search: filter?.search,
-          },
-        },
-      })
-      .then(
-        (response) => formatResponse(response, this.serviceName, this.logger),
-        (reason) => formatError(reason, this.serviceName, this.logger),
-      );
+    const isSeen = ({ true: "true", false: "false" } as const)[
+      String(filter?.isSeen)
+    ];
+
+    const body = {
+      ...preparePaginationParams(filter),
+      recipientUserId: filter?.userId,
+      status: "delivered" as const,
+      isSeen,
+      search: filter?.search,
+    };
+
+    return this.client.POST("/api/v1/messages/search", { body }).then(
+      (response) => formatResponse(response, this.serviceName, this.logger),
+      (reason) => formatError(reason, this.serviceName, this.logger),
+    );
   }
 
   async getMessagesForOrganisation(
