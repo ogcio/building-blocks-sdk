@@ -142,6 +142,23 @@ export class Profile extends BaseClient<paths> {
       );
   }
 
+  async listProfilesPost(params: {
+    query: paths["/api/v1/profiles/"]["post"]["parameters"]["query"];
+    body: paths["/api/v1/profiles/"]["post"]["requestBody"]["content"]["application/json"];
+  }) {
+    return this.client
+      .POST("/api/v1/profiles/", {
+        params: {
+          query: params.query,
+        },
+        body: params.body,
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
+
   async importProfiles(
     toImport: {
       file?: File;
