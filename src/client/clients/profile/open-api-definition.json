@@ -59,6 +59,21 @@
           },
           {
             "schema": {
+              "type": "string",
+              "enum": [
+                "true",
+                "false",
+                "0",
+                "1"
+              ],
+              "default": "false"
+            },
+            "in": "query",
+            "name": "onlyPrivateDetails",
+            "required": false
+          },
+          {
+            "schema": {
               "format": "uuid",
               "type": "string"
             },
@@ -323,6 +338,435 @@
                           "updatedAt": {
                             "format": "date-time",
                             "type": "string"
+                          },
+                          "details": {
+                            "type": "object",
+                            "properties": {
+                              "email": {
+                                "allOf": [
+                                  {
+                                    "minLength": 1,
+                                    "type": "string"
+                                  },
+                                  {
+                                    "format": "email",
+                                    "type": "string"
+                                  }
+                                ]
+                              },
+                              "firstName": {
+                                "minLength": 1,
+                                "type": "string"
+                              },
+                              "lastName": {
+                                "minLength": 1,
+                                "type": "string"
+                              },
+                              "city": {
+                                "type": "string"
+                              },
+                              "address": {
+                                "type": "string"
+                              },
+                              "phone": {
+                                "type": "string"
+                              },
+                              "dateOfBirth": {
+                                "format": "date",
+                                "type": "string"
+                              },
+                              "ppsn": {
+                                "type": "string"
+                              },
+                              "preferredLanguage": {
+                                "type": "string",
+                                "enum": [
+                                  "en",
+                                  "ga"
+                                ],
+                                "default": "en"
+                              },
+                              "externalId": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "email",
+                              "firstName",
+                              "lastName"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "publicName",
+                          "email",
+                          "primaryUserId"
+                        ]
+                      }
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "description": "Object containing the links to the related endpoints",
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the request itself",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "description": "It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2'",
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "description": "Number representing the total number of available items",
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "description": "Code used to categorize the error",
+                      "type": "string"
+                    },
+                    "detail": {
+                      "description": "Description of the error",
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique request id. This one will be used to troubleshoot the problems",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of the error type",
+                      "type": "string"
+                    },
+                    "validation": {
+                      "description": "List of the validation errors",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "fieldName": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "fieldName",
+                          "message"
+                        ]
+                      }
+                    },
+                    "validationContext": {
+                      "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name",
+                    "statusCode"
+                  ]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "description": "Code used to categorize the error",
+                      "type": "string"
+                    },
+                    "detail": {
+                      "description": "Description of the error",
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique request id. This one will be used to troubleshoot the problems",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of the error type",
+                      "type": "string"
+                    },
+                    "validation": {
+                      "description": "List of the validation errors",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "fieldName": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "fieldName",
+                          "message"
+                        ]
+                      }
+                    },
+                    "validationContext": {
+                      "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name",
+                    "statusCode"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "searchPostProfiles",
+        "tags": [
+          "Profiles"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ppsns": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "organizationId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ppsns"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": {
+              "pattern": "^[0-9][0-9]*|undefined$",
+              "default": "0",
+              "type": "string"
+            },
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "description": "Indicates where to start fetching data or how many records to skip, defining the initial position within the list"
+          },
+          {
+            "schema": {
+              "default": "20",
+              "pattern": "^([1-9]|100)|undefined$",
+              "type": "string"
+            },
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "description": "Indicates the maximum number (100) of items that will be returned in a single request"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "publicName": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "format": "email",
+                            "type": "string"
+                          },
+                          "primaryUserId": {
+                            "type": "string"
+                          },
+                          "safeLevel": {
+                            "type": "number"
+                          },
+                          "preferredLanguage": {
+                            "type": "string",
+                            "enum": [
+                              "en",
+                              "ga"
+                            ],
+                            "default": "en"
+                          },
+                          "createdAt": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "updatedAt": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "details": {
+                            "type": "object",
+                            "properties": {
+                              "email": {
+                                "allOf": [
+                                  {
+                                    "minLength": 1,
+                                    "type": "string"
+                                  },
+                                  {
+                                    "format": "email",
+                                    "type": "string"
+                                  }
+                                ]
+                              },
+                              "firstName": {
+                                "minLength": 1,
+                                "type": "string"
+                              },
+                              "lastName": {
+                                "minLength": 1,
+                                "type": "string"
+                              },
+                              "city": {
+                                "type": "string"
+                              },
+                              "address": {
+                                "type": "string"
+                              },
+                              "phone": {
+                                "type": "string"
+                              },
+                              "dateOfBirth": {
+                                "format": "date",
+                                "type": "string"
+                              },
+                              "ppsn": {
+                                "type": "string"
+                              },
+                              "preferredLanguage": {
+                                "type": "string",
+                                "enum": [
+                                  "en",
+                                  "ga"
+                                ],
+                                "default": "en"
+                              },
+                              "externalId": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "email",
+                              "firstName",
+                              "lastName"
+                            ]
                           }
                         },
                         "required": [
@@ -603,12 +1047,33 @@
                             "ga"
                           ],
                           "default": "en"
+                        },
+                        "externalId": {
+                          "type": "string"
                         }
                       },
                       "required": [
                         "email",
                         "firstName",
                         "lastName"
+                      ]
+                    }
+                  },
+                  "ppsnOnlyProfiles": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "ppsn": {
+                          "type": "string"
+                        },
+                        "externalId": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "ppsn"
                       ]
                     }
                   },
@@ -669,12 +1134,33 @@
                             "ga"
                           ],
                           "default": "en"
+                        },
+                        "externalId": {
+                          "type": "string"
                         }
                       },
                       "required": [
                         "email",
                         "firstName",
                         "lastName"
+                      ]
+                    }
+                  },
+                  "ppsnOnlyProfiles": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "ppsn": {
+                          "type": "string"
+                        },
+                        "externalId": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "ppsn"
                       ]
                     }
                   },
@@ -735,12 +1221,33 @@
                             "ga"
                           ],
                           "default": "en"
+                        },
+                        "externalId": {
+                          "type": "string"
                         }
                       },
                       "required": [
                         "email",
                         "firstName",
                         "lastName"
+                      ]
+                    }
+                  },
+                  "ppsnOnlyProfiles": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "ppsn": {
+                          "type": "string"
+                        },
+                        "externalId": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "ppsn"
                       ]
                     }
                   },
@@ -764,6 +1271,33 @@
             },
             "in": "query",
             "name": "privateDetails",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "true",
+                "false",
+                "0",
+                "1"
+              ],
+              "default": "false"
+            },
+            "in": "query",
+            "name": "onlyPrivateDetails",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ppsn-only",
+                "full"
+              ]
+            },
+            "in": "query",
+            "name": "importType",
             "required": false
           }
         ],
@@ -1022,6 +1556,9 @@
                                   "ga"
                                 ],
                                 "default": "en"
+                              },
+                              "externalId": {
+                                "type": "string"
                               }
                             },
                             "required": [
@@ -1382,6 +1919,9 @@
                                 "ga"
                               ],
                               "default": "en"
+                            },
+                            "externalId": {
+                              "type": "string"
                             }
                           },
                           "required": [
@@ -2059,6 +2599,9 @@
                                 ],
                                 "default": "en"
                               },
+                              "externalId": {
+                                "type": "string"
+                              },
                               "status": {
                                 "type": "string"
                               }
@@ -2417,6 +2960,9 @@
                                 "ga"
                               ],
                               "default": "en"
+                            },
+                            "externalId": {
+                              "type": "string"
                             }
                           },
                           "required": [
@@ -2829,6 +3375,9 @@
                                 "ga"
                               ],
                               "default": "en"
+                            },
+                            "externalId": {
+                              "type": "string"
                             }
                           },
                           "required": [
@@ -3215,6 +3764,9 @@
                                 "ga"
                               ],
                               "default": "en"
+                            },
+                            "externalId": {
+                              "type": "string"
                             }
                           },
                           "required": [
@@ -3641,6 +4193,9 @@
                             ]
                           },
                           "insertPrivateDetails": {
+                            "type": "boolean"
+                          },
+                          "onlyPrivateDetails": {
                             "type": "boolean"
                           }
                         }

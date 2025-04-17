@@ -13,6 +13,7 @@ export interface paths {
             parameters: {
                 query?: {
                     insertPrivateDetails?: "true" | "false" | "0" | "1";
+                    onlyPrivateDetails?: "true" | "false" | "0" | "1";
                 };
                 header?: never;
                 path: {
@@ -108,7 +109,7 @@ export interface paths {
         };
         get: operations["indexProfiles"];
         put?: never;
-        post?: never;
+        post: operations["searchPostProfiles"];
         delete?: never;
         options?: never;
         head?: never;
@@ -302,6 +303,173 @@ export interface operations {
                             createdAt?: string;
                             /** Format: date-time */
                             updatedAt?: string;
+                            details?: {
+                                email: string;
+                                firstName: string;
+                                lastName: string;
+                                city?: string;
+                                address?: string;
+                                phone?: string;
+                                /** Format: date */
+                                dateOfBirth?: string;
+                                ppsn?: string;
+                                /**
+                                 * @default en
+                                 * @enum {string}
+                                 */
+                                preferredLanguage: "en" | "ga";
+                                externalId?: string;
+                            };
+                        }[];
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+        };
+    };
+    searchPostProfiles: {
+        parameters: {
+            query?: {
+                /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
+                offset?: string;
+                /** @description Indicates the maximum number (100) of items that will be returned in a single request */
+                limit?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    ppsns: string[];
+                    organizationId?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            id: string;
+                            publicName: string;
+                            /** Format: email */
+                            email: string;
+                            primaryUserId: string;
+                            safeLevel?: number;
+                            /**
+                             * @default en
+                             * @enum {string}
+                             */
+                            preferredLanguage: "en" | "ga";
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            details?: {
+                                email: string;
+                                firstName: string;
+                                lastName: string;
+                                city?: string;
+                                address?: string;
+                                phone?: string;
+                                /** Format: date */
+                                dateOfBirth?: string;
+                                ppsn?: string;
+                                /**
+                                 * @default en
+                                 * @enum {string}
+                                 */
+                                preferredLanguage: "en" | "ga";
+                                externalId?: string;
+                            };
                         }[];
                         metadata?: {
                             /** @description Object containing the links to the related endpoints */
@@ -395,6 +563,8 @@ export interface operations {
         parameters: {
             query?: {
                 privateDetails?: "true" | "false" | "0" | "1";
+                onlyPrivateDetails?: "true" | "false" | "0" | "1";
+                importType?: "ppsn-only" | "full";
             };
             header?: never;
             path?: never;
@@ -418,6 +588,11 @@ export interface operations {
                          * @enum {string}
                          */
                         preferredLanguage?: "en" | "ga";
+                        externalId?: string;
+                    }[];
+                    ppsnOnlyProfiles?: {
+                        ppsn: string;
+                        externalId?: string;
                     }[];
                     file?: unknown;
                 };
@@ -437,6 +612,11 @@ export interface operations {
                          * @enum {string}
                          */
                         preferredLanguage?: "en" | "ga";
+                        externalId?: string;
+                    }[];
+                    ppsnOnlyProfiles?: {
+                        ppsn: string;
+                        externalId?: string;
                     }[];
                     file?: unknown;
                 };
@@ -456,6 +636,11 @@ export interface operations {
                          * @enum {string}
                          */
                         preferredLanguage?: "en" | "ga";
+                        externalId?: string;
+                    }[];
+                    ppsnOnlyProfiles?: {
+                        ppsn: string;
+                        externalId?: string;
                     }[];
                     file?: unknown;
                 };
@@ -576,6 +761,7 @@ export interface operations {
                                  * @enum {string}
                                  */
                                 preferredLanguage: "en" | "ga";
+                                externalId?: string;
                             };
                         }[];
                         metadata?: {
@@ -722,6 +908,7 @@ export interface operations {
                                  * @enum {string}
                                  */
                                 preferredLanguage: "en" | "ga";
+                                externalId?: string;
                             };
                         };
                         metadata?: {
@@ -982,6 +1169,7 @@ export interface operations {
                                  * @enum {string}
                                  */
                                 preferredLanguage: "en" | "ga";
+                                externalId?: string;
                                 status: string;
                             }[];
                         };
@@ -1126,6 +1314,7 @@ export interface operations {
                                  * @enum {string}
                                  */
                                 preferredLanguage: "en" | "ga";
+                                externalId?: string;
                             };
                             /** @description Linked profiles that have the current profile as primary profile */
                             linkedProfiles?: {
@@ -1293,6 +1482,7 @@ export interface operations {
                                  * @enum {string}
                                  */
                                 preferredLanguage: "en" | "ga";
+                                externalId?: string;
                             };
                         };
                         metadata?: {
@@ -1454,6 +1644,7 @@ export interface operations {
                                  * @enum {string}
                                  */
                                 preferredLanguage: "en" | "ga";
+                                externalId?: string;
                             };
                         };
                         metadata?: {
@@ -1600,6 +1791,7 @@ export interface operations {
                             profileImportId?: string | null;
                             organizationId?: string | null;
                             insertPrivateDetails?: boolean;
+                            onlyPrivateDetails?: boolean;
                         };
                         identities: {
                             [key: string]: {
