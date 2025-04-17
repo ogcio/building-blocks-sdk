@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.28](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.27...@ogcio/building-blocks-sdk@v0.2.28) (2025-04-17)
+
+
+### Features
+
+* **profile-api:** added ppsn and organization query params in list ([#196](https://github.com/ogcio/building-blocks-sdk/issues/196)) ([0c0a70d](https://github.com/ogcio/building-blocks-sdk/commit/0c0a70de90adb41b70f34eee2b6765e9924c2fc9))
+
 ## [0.2.27](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.26...@ogcio/building-blocks-sdk@v0.2.27) (2025-04-10)
 
 
