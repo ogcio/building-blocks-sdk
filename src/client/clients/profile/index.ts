@@ -167,9 +167,15 @@ export class Profile extends BaseClient<paths> {
       >["content"]["application/json"]["profiles"];
     },
     privateDetails = false,
+    onlyPrivateDetails = false,
+    importType: "ppsn-only" | "full" = "full",
   ) {
     const query = {
       privateDetails: (privateDetails ? "true" : "false") as "true" | "false",
+      onlyPrivateDetails: (onlyPrivateDetails ? "true" : "false") as
+        | "true"
+        | "false",
+      importType,
     };
     if (toImport.file) {
       const { data, error } = await this.client.POST(

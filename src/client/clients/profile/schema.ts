@@ -13,6 +13,7 @@ export interface paths {
             parameters: {
                 query?: {
                     insertPrivateDetails?: "true" | "false" | "0" | "1";
+                    onlyPrivateDetails?: "true" | "false" | "0" | "1";
                 };
                 header?: never;
                 path: {
@@ -562,6 +563,7 @@ export interface operations {
         parameters: {
             query?: {
                 privateDetails?: "true" | "false" | "0" | "1";
+                onlyPrivateDetails?: "true" | "false" | "0" | "1";
                 importType?: "ppsn-only" | "full";
             };
             header?: never;
@@ -1789,6 +1791,7 @@ export interface operations {
                             profileImportId?: string | null;
                             organizationId?: string | null;
                             insertPrivateDetails?: boolean;
+                            onlyPrivateDetails?: boolean;
                         };
                         identities: {
                             [key: string]: {
