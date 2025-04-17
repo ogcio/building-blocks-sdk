@@ -268,10 +268,13 @@ export interface operations {
                 lastName?: string;
                 /** @description If set, the endpoint searches for users whom contain this value in either the imported email */
                 email?: string;
+                /** @description If set, the endpoint searches for users whom contain this value in either the imported ppsns */
+                ppsn?: string;
                 /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
                 offset?: string;
                 /** @description Indicates the maximum number (100) of items that will be returned in a single request */
                 limit?: string;
+                organizationId?: string;
             };
             header?: never;
             path?: never;
@@ -302,6 +305,23 @@ export interface operations {
                             createdAt?: string;
                             /** Format: date-time */
                             updatedAt?: string;
+                            details?: {
+                                email: string;
+                                firstName: string;
+                                lastName: string;
+                                city?: string;
+                                address?: string;
+                                phone?: string;
+                                /** Format: date */
+                                dateOfBirth?: string;
+                                ppsn?: string;
+                                /**
+                                 * @default en
+                                 * @enum {string}
+                                 */
+                                preferredLanguage: "en" | "ga";
+                                externalId?: string;
+                            };
                         }[];
                         metadata?: {
                             /** @description Object containing the links to the related endpoints */
@@ -395,6 +415,7 @@ export interface operations {
         parameters: {
             query?: {
                 privateDetails?: "true" | "false" | "0" | "1";
+                importType?: "ppsn-only" | "full";
             };
             header?: never;
             path?: never;
@@ -418,6 +439,11 @@ export interface operations {
                          * @enum {string}
                          */
                         preferredLanguage?: "en" | "ga";
+                        externalId?: string;
+                    }[];
+                    ppsnOnlyProfiles?: {
+                        ppsn: string;
+                        externalId?: string;
                     }[];
                     file?: unknown;
                 };
@@ -437,6 +463,11 @@ export interface operations {
                          * @enum {string}
                          */
                         preferredLanguage?: "en" | "ga";
+                        externalId?: string;
+                    }[];
+                    ppsnOnlyProfiles?: {
+                        ppsn: string;
+                        externalId?: string;
                     }[];
                     file?: unknown;
                 };
@@ -456,6 +487,11 @@ export interface operations {
                          * @enum {string}
                          */
                         preferredLanguage?: "en" | "ga";
+                        externalId?: string;
+                    }[];
+                    ppsnOnlyProfiles?: {
+                        ppsn: string;
+                        externalId?: string;
                     }[];
                     file?: unknown;
                 };
@@ -576,6 +612,7 @@ export interface operations {
                                  * @enum {string}
                                  */
                                 preferredLanguage: "en" | "ga";
+                                externalId?: string;
                             };
                         }[];
                         metadata?: {
@@ -722,6 +759,7 @@ export interface operations {
                                  * @enum {string}
                                  */
                                 preferredLanguage: "en" | "ga";
+                                externalId?: string;
                             };
                         };
                         metadata?: {
@@ -982,6 +1020,7 @@ export interface operations {
                                  * @enum {string}
                                  */
                                 preferredLanguage: "en" | "ga";
+                                externalId?: string;
                                 status: string;
                             }[];
                         };
@@ -1126,6 +1165,7 @@ export interface operations {
                                  * @enum {string}
                                  */
                                 preferredLanguage: "en" | "ga";
+                                externalId?: string;
                             };
                             /** @description Linked profiles that have the current profile as primary profile */
                             linkedProfiles?: {
@@ -1293,6 +1333,7 @@ export interface operations {
                                  * @enum {string}
                                  */
                                 preferredLanguage: "en" | "ga";
+                                externalId?: string;
                             };
                         };
                         metadata?: {
@@ -1454,6 +1495,7 @@ export interface operations {
                                  * @enum {string}
                                  */
                                 preferredLanguage: "en" | "ga";
+                                externalId?: string;
                             };
                         };
                         metadata?: {
