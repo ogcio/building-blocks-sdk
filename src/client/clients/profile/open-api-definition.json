@@ -273,6 +273,22 @@
           },
           {
             "schema": {
+              "type": "string",
+              "enum": [
+                "true",
+                "false",
+                "0",
+                "1"
+              ],
+              "default": "false"
+            },
+            "in": "query",
+            "name": "privateDetails",
+            "required": false,
+            "description": "If true and super admin permissions are available, it returns users with private details."
+          },
+          {
+            "schema": {
               "pattern": "^[0-9][0-9]*|undefined$",
               "default": "0",
               "type": "string"

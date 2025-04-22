@@ -269,6 +269,8 @@ export interface operations {
                 lastName?: string;
                 /** @description If set, the endpoint searches for users whom contain this value in either the imported email */
                 email?: string;
+                /** @description If true and super admin permissions are available, it returns users with private details. */
+                privateDetails?: "true" | "false" | "0" | "1";
                 /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
                 offset?: string;
                 /** @description Indicates the maximum number (100) of items that will be returned in a single request */
