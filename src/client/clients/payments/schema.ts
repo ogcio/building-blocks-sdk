@@ -1549,7 +1549,97 @@ export interface paths {
         };
         put?: never;
         post?: never;
-        delete?: never;
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    transactionId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                success: boolean;
+                            };
+                            metadata?: {
+                                /** @description Object containing the links to the related endpoints */
+                                links?: {
+                                    self: {
+                                        /** @description URL pointing to the request itself */
+                                        href?: string;
+                                    };
+                                    next?: {
+                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                        href?: string;
+                                    };
+                                    prev?: {
+                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                        href?: string;
+                                    };
+                                    first: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
+                                        href?: string;
+                                    };
+                                    last: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
+                                        href?: string;
+                                    };
+                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                    pages: {
+                                        [key: string]: {
+                                            href?: string;
+                                        };
+                                    };
+                                };
+                                /** @description Number representing the total number of available items */
+                                totalCount?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            code: string;
+                            detail: string;
+                            requestId: string;
+                            name: string;
+                            validation?: unknown;
+                            validationContext?: string;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            code: string;
+                            detail: string;
+                            requestId: string;
+                            name: string;
+                            validation?: unknown;
+                            validationContext?: string;
+                        };
+                    };
+                };
+            };
+        };
         options?: never;
         head?: never;
         patch: {
