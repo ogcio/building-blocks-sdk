@@ -382,6 +382,23 @@ export class Payments extends BaseClient<paths> {
       );
   }
 
+  async deleteTransaction(
+    transactionId: paths["/api/v1/transactions/{transactionId}"]["delete"]["parameters"]["path"]["transactionId"],
+  ) {
+    return this.client
+      .DELETE("/api/v1/transactions/{transactionId}", {
+        params: {
+          path: {
+            transactionId,
+          },
+        },
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
+
   /**
    * Citizen
    */
