@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.29](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.28...@ogcio/building-blocks-sdk@v0.2.29) (2025-04-22)
+
+
+### Features
+
+* **profile-api:** added privateDetails query param to list ([#198](https://github.com/ogcio/building-blocks-sdk/issues/198)) ([6cd9b72](https://github.com/ogcio/building-blocks-sdk/commit/6cd9b72ab4d5e24abcb9ae252c4fd36a49639be1))
+
 ## [0.2.28](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.27...@ogcio/building-blocks-sdk@v0.2.28) (2025-04-17)
 
 
