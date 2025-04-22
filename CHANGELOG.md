@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.30](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.29...@ogcio/building-blocks-sdk@v0.2.30) (2025-04-22)
+
+
+### Features
+
+* **25295:** delete payment transaction api call ([#200](https://github.com/ogcio/building-blocks-sdk/issues/200)) ([15a11ff](https://github.com/ogcio/building-blocks-sdk/commit/15a11ff875555390f53adee01b5e36cd10b7e9d7))
+
 ## [0.2.29](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.28...@ogcio/building-blocks-sdk@v0.2.29) (2025-04-22)
 
 
