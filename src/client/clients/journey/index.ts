@@ -387,4 +387,22 @@ export class Journey extends BaseClient<paths> {
         (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
+
+  async deleteRun(
+    runId: paths["/api/v1/executor/runs/{runId}"]["delete"]["parameters"]["path"]["runId"],
+  ) {
+    throwIfEmpty(runId);
+    return this.client
+      .DELETE("/api/v1/executor/runs/{runId}", {
+        params: {
+          path: {
+            runId,
+          },
+        },
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
 }
