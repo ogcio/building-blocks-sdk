@@ -210,6 +210,32 @@ export class Profile extends BaseClient<paths> {
       );
   }
 
+  async importPPSNOnlyProfiles(
+    ppsnOnlyProfiles: NonNullable<
+      paths["/api/v1/profiles/import-profiles"]["post"]["requestBody"]
+    >["content"]["application/json"]["ppsnOnlyProfiles"],
+    privateDetails = false,
+    onlyPrivateDetails = false,
+  ) {
+    const query = {
+      privateDetails: (privateDetails ? "true" : "false") as "true" | "false",
+      onlyPrivateDetails: (onlyPrivateDetails ? "true" : "false") as
+        | "true"
+        | "false",
+      importType: "ppsn-only" as const,
+    };
+
+    return this.client
+      .POST("/api/v1/profiles/import-profiles", {
+        body: { ppsnOnlyProfiles },
+        params: { query },
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
+
   async downloadProfilesCsvTemplate() {
     return this.client
       .GET("/api/v1/profiles/imports/template", {
