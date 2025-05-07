@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.32](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.31...@ogcio/building-blocks-sdk@v0.2.32) (2025-05-07)
+
+
+### Features
+
+* **profile-api:** add importPPSNOnlyProfiles method ([#205](https://github.com/ogcio/building-blocks-sdk/issues/205)) ([ce78e66](https://github.com/ogcio/building-blocks-sdk/commit/ce78e66c274cdce7da1a6600e109a0e2687f0e65))
+
 ## [0.2.31](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.30...@ogcio/building-blocks-sdk@v0.2.31) (2025-04-25)
 
 
