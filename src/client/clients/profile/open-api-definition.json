@@ -1086,6 +1086,10 @@
                         },
                         "externalId": {
                           "type": "string"
+                        },
+                        "dateOfBirth": {
+                          "format": "date",
+                          "type": "string"
                         }
                       },
                       "required": [
@@ -1173,6 +1177,10 @@
                         },
                         "externalId": {
                           "type": "string"
+                        },
+                        "dateOfBirth": {
+                          "format": "date",
+                          "type": "string"
                         }
                       },
                       "required": [
@@ -1259,6 +1267,10 @@
                           "type": "string"
                         },
                         "externalId": {
+                          "type": "string"
+                        },
+                        "dateOfBirth": {
+                          "format": "date",
                           "type": "string"
                         }
                       },

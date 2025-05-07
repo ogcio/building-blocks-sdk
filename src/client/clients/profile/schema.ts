@@ -595,6 +595,8 @@ export interface operations {
                     ppsnOnlyProfiles?: {
                         ppsn: string;
                         externalId?: string;
+                        /** Format: date */
+                        dateOfBirth?: string;
                     }[];
                     file?: unknown;
                 };
@@ -619,6 +621,8 @@ export interface operations {
                     ppsnOnlyProfiles?: {
                         ppsn: string;
                         externalId?: string;
+                        /** Format: date */
+                        dateOfBirth?: string;
                     }[];
                     file?: unknown;
                 };
@@ -643,6 +647,8 @@ export interface operations {
                     ppsnOnlyProfiles?: {
                         ppsn: string;
                         externalId?: string;
+                        /** Format: date */
+                        dateOfBirth?: string;
                     }[];
                     file?: unknown;
                 };
