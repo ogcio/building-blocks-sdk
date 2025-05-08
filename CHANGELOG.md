@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.33](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.32...@ogcio/building-blocks-sdk@v0.2.33) (2025-05-08)
+
+
+### Features
+
+* release trigger ([#208](https://github.com/ogcio/building-blocks-sdk/issues/208)) ([9a4c254](https://github.com/ogcio/building-blocks-sdk/commit/9a4c254f20505af6aaf53a0c3880d3eb29830777))
+
 ## [0.2.32](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.31...@ogcio/building-blocks-sdk@v0.2.32) (2025-05-07)
 
 
