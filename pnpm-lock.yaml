@@ -12,8 +12,8 @@ importers:
         specifier: 2.5.5
         version: 2.5.5
       '@ogcio/analytics-sdk':
-        specifier: 0.1.0-beta.16
-        version: 0.1.0-beta.16
+        specifier: 0.1.0-beta.17
+        version: 0.1.0-beta.17
       '@sinclair/typebox':
         specifier: ^0.34.21
         version: 0.34.21
@@ -589,8 +589,8 @@ packages:
     resolution: {integrity: sha512-q9CRWjpHCMIh5sVyefoD1cA7PkvILqCZsnSOEUUivORLjxCO/Irmue2DprETiNgEqktDBZaM1Bi+jrarx1XdCg==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
 
-  '@ogcio/analytics-sdk@0.1.0-beta.16':
-    resolution: {integrity: sha512-QyJrOa8ti/KpNPqbc9lGkP8ZBmaOW3UULw6KC2LtpyxjhilyD8ynj8ntqWtOGOlKJzQg+4Qbykrhfep9A8Z5Lg==}
+  '@ogcio/analytics-sdk@0.1.0-beta.17':
+    resolution: {integrity: sha512-ZCrb6InenetGR2/tTpm0fqNXH8SPcz+bBvVnyJUcA1YjooZwLxVlQWZuWYR1JnQWe2IdiJfbz9EjQ3hGnJGh7Q==}
     engines: {node: '>=17.0.0'}
 
   '@pkgjs/parseargs@0.11.0':
@@ -2199,7 +2199,7 @@ snapshots:
     dependencies:
       semver: 7.6.3
 
-  '@ogcio/analytics-sdk@0.1.0-beta.16':
+  '@ogcio/analytics-sdk@0.1.0-beta.17':
     dependencies:
       openapi-fetch: 0.13.5
       openapi-typescript-helpers: 0.0.15
