@@ -37,8 +37,43 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            status: string;
-                            profileImportId: string;
+                            data: {
+                                status: string;
+                                profileImportId: string;
+                            };
+                            metadata?: {
+                                /** @description Object containing the links to the related endpoints */
+                                links?: {
+                                    self: {
+                                        /** @description URL pointing to the request itself */
+                                        href?: string;
+                                    };
+                                    next?: {
+                                        /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                        href?: string;
+                                    };
+                                    prev?: {
+                                        /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                        href?: string;
+                                    };
+                                    first: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
+                                        href?: string;
+                                    };
+                                    last: {
+                                        /** @description URL pointing to the first page of results in a paginated response */
+                                        href?: string;
+                                    };
+                                    /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                    pages: {
+                                        [key: string]: {
+                                            href?: string;
+                                        };
+                                    };
+                                };
+                                /** @description Number representing the total number of available items */
+                                totalCount?: number;
+                            };
                         };
                     };
                 };
@@ -662,8 +697,43 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        status: string;
-                        profileImportId: string;
+                        data: {
+                            status: string;
+                            profileImportId: string;
+                        };
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
                     };
                 };
             };
