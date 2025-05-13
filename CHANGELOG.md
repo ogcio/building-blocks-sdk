@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.34](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.33...@ogcio/building-blocks-sdk@v0.2.34) (2025-05-13)
+
+
+### Features
+
+* updated schemas ([#213](https://github.com/ogcio/building-blocks-sdk/issues/213)) ([3f9c41e](https://github.com/ogcio/building-blocks-sdk/commit/3f9c41ea87a02d9fda3b7e00a8f5092dd03e8ba3))
+
 ## [0.2.33](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.32...@ogcio/building-blocks-sdk@v0.2.33) (2025-05-08)
 
 
