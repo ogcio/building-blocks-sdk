@@ -1,5 +1,11 @@
 import createClient, { type Middleware } from "openapi-fetch";
-import type { Logger, SERVICE_NAME, TokenFunction } from "../types/index.js";
+import {
+  AccessTokenError,
+  type GenericError,
+  type Logger,
+  type SERVICE_NAME,
+  type TokenFunction,
+} from "../types/index.js";
 import {
   getNumberValueFromObject,
   parseJwtToken,
@@ -41,7 +47,13 @@ export abstract class BaseClient<T extends {}> {
     this.client = createClient<T>({ baseUrl: this.baseUrl });
     const authMiddleware: Middleware = {
       onRequest: async ({ request }) => {
-        await this.refreshToken();
+        try {
+          await this.refreshToken();
+        } catch (err) {
+          if ((err as unknown as GenericError).name === "SyntaxError") {
+            throw new AccessTokenError();
+          }
+        }
 
         if (this.logger) {
           const clonedRequest = request.clone();

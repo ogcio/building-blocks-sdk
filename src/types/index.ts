@@ -160,3 +160,14 @@ export type {
   M2MParams,
   M2MTokenFnConfig,
 };
+
+export type GenericError = {
+  name: string;
+};
+
+export class AccessTokenError extends Error {
+  constructor(message = "Invalid access token") {
+    super(message);
+    this.name = "AccessTokenError";
+  }
+}
