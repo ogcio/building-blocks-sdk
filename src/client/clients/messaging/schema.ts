@@ -17,6 +17,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/messages/search": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Returns all the messages for the requested organisation or the requested recipient */
+        post: operations["ListMessagesPost"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/messages/{messageId}": {
         parameters: {
             query?: never;
@@ -259,6 +276,8 @@ export interface paths {
                     dateTo?: string;
                     /** @description If set, it will filter status for the latest occured message event */
                     status?: "delivered" | "scheduled" | "opened" | "failed";
+                    /** @description If set, search for events related to the message id */
+                    messageId?: string;
                     /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
                     offset?: string;
                     /** @description Indicates the maximum number (100) of items that will be returned in a single request */
@@ -942,6 +961,150 @@ export interface operations {
                              */
                             id: string;
                         };
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+        };
+    };
+    ListMessagesPost: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    status?: "delivered";
+                    /** @enum {string} */
+                    isSeen?: "true" | "false" | "0" | "1";
+                    search?: string;
+                    /** @description Either recipientUserId and organisationId are mandatory */
+                    recipientUserId?: string;
+                    /** @description Either recipientUserId and organisationId are mandatory */
+                    organisationId?: string;
+                    /**
+                     * @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list
+                     * @default 0
+                     */
+                    offset?: string;
+                    /**
+                     * @description Indicates the maximum number (100) of items that will be returned in a single request
+                     * @default 20
+                     */
+                    limit?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** @description Unique Id of the message */
+                            id: string;
+                            /** @description Subject */
+                            subject: string;
+                            /** @description Creation date time */
+                            createdAt: string;
+                            /** @description Thread Name used to group messages */
+                            threadName: string;
+                            /** @description Organisation sender id */
+                            organisationId: string;
+                            /** @description Unique id of the recipient */
+                            recipientUserId: string;
+                            /** @description Number of attachments */
+                            attachmentsCount: number;
+                        }[];
                         metadata?: {
                             /** @description Object containing the links to the related endpoints */
                             links?: {

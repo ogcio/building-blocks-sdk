@@ -74,6 +74,22 @@
           },
           {
             "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "batchIndex",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "totalBatches",
+            "required": false
+          },
+          {
+            "schema": {
               "format": "uuid",
               "type": "string"
             },

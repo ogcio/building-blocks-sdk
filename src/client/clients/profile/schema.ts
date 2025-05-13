@@ -14,6 +14,8 @@ export interface paths {
                 query?: {
                     insertPrivateDetails?: "true" | "false" | "0" | "1";
                     onlyPrivateDetails?: "true" | "false" | "0" | "1";
+                    batchIndex?: string;
+                    totalBatches?: string;
                 };
                 header?: never;
                 path: {

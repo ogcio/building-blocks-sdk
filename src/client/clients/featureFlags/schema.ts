@@ -387,6 +387,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/admin/metrics/traffic-search": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get aggregated traffic data for a given time period.
+         * @description Gets traffic usage data for the selected period, either aggregated by day or by month.
+         */
+        get: operations["getTrafficDataUsageForPeriod"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/admin/metrics/traffic/{period}": {
         parameters: {
             query?: never;
@@ -396,9 +416,50 @@ export interface paths {
         };
         /**
          * Gets traffic usage data for selected period
-         * @description Gets traffic usage data numbers per API for a period given by the parameter
+         * @deprecated
+         * @description Gets traffic usage data numbers per API for a period given by the parameter. This endpoint is deprecated. Use /traffic-search instead.
          */
         get: operations["getTrafficUsageDataForPeriod"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin/metrics/connection": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get aggregated metered connections for a given time period.
+         * @description Gets metered connections count for the selected period, either aggregated by day or by month.
+         */
+        get: operations["getConnectionsForPeriod"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin/metrics/request": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get aggregated metered requests for a given time period.
+         * @description Gets metered requests count for the selected period, either aggregated by day or by month.
+         */
+        get: operations["getRequestsForPeriod"];
         put?: never;
         post?: never;
         delete?: never;
@@ -663,7 +724,7 @@ export interface paths {
         put?: never;
         /**
          * Validates password
-         * @description Verifies that the password adheres to the [Unleash password guidelines](https://docs.getunleash.io/reference/deploy/securing-unleash#password-requirements)
+         * @description Verifies that the password adheres to the [Unleash password guidelines](https://docs.getunleash.io/using-unleash/deploy/configuring-unleash#securing-unleash)
          */
         post: operations["validatePassword"];
         delete?: never;
@@ -795,48 +856,6 @@ export interface paths {
          *     When a feature flag type's expected lifetime is changed, this will also cause any feature flags of this type to be reevaluated for potential staleness.
          */
         put: operations["updateFeatureTypeLifetime"];
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/admin/archive/features": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get archived features
-         * @deprecated
-         * @description Retrieve a list of all [archived feature flags](https://docs.getunleash.io/reference/feature-toggles#archive-a-feature-flag).
-         */
-        get: operations["getArchivedFeatures"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/admin/archive/features/{projectId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get archived features in project
-         * @deprecated
-         * @description Retrieves a list of archived features that belong to the provided project.
-         */
-        get: operations["getArchivedFeaturesByProjectId"];
-        put?: never;
         post?: never;
         delete?: never;
         options?: never;
@@ -1100,6 +1119,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/admin/metrics/unknown-flags": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get latest reported unknown flag names
+         * @description Returns a list of unknown flag names reported in the last 24 hours, if any. Maximum of 10.
+         */
+        get: operations["getUnknownFlags"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/admin/metrics/applications/{appName}": {
         parameters: {
             query?: never;
@@ -1176,8 +1215,8 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Get application environment instances
-         * @description Returns an overview of the instances for the given `appName` and `environment` that receive traffic.
+         * Get application environment instances (Last 24h)
+         * @description Returns an overview of the instances for the given `appName` and `environment` that have received traffic in the last 24 hours.
          */
         get: operations["getApplicationEnvironmentInstances"];
         put?: never;
@@ -1337,13 +1376,13 @@ export interface paths {
         };
         /**
          * Get all personal access tokens (PATs) for the current user.
-         * @description Returns all of the [personal access tokens](https://docs.getunleash.io/how-to/how-to-create-personal-access-tokens) (PATs) belonging to the current user.
+         * @description Returns all of the [personal access tokens](https://docs.getunleash.io/reference/api-tokens-and-client-keys#personal-access-tokens) (PATs) belonging to the current user.
          */
         get: operations["getPats"];
         put?: never;
         /**
          * Create a new personal access token (PAT) for the current user.
-         * @description Creates a new [personal access token](https://docs.getunleash.io/how-to/how-to-create-personal-access-tokens) (PAT) belonging to the current user.
+         * @description Creates a new [personal access token](https://docs.getunleash.io/reference/api-tokens-and-client-keys#personal-access-tokens (PAT) belonging to the current user.
          */
         post: operations["createPat"];
         delete?: never;
@@ -1364,7 +1403,7 @@ export interface paths {
         post?: never;
         /**
          * Delete a personal access token (PAT) for the current user.
-         * @description Deletes a [personal access token](https://docs.getunleash.io/how-to/how-to-create-personal-access-tokens) (PAT) belonging to the current user.
+         * @description Deletes a [personal access token](https://docs.getunleash.io/reference/api-tokens-and-client-keys#personal-access-tokens) (PAT) belonging to the current user.
          */
         delete: operations["deletePat"];
         options?: never;
@@ -1387,7 +1426,8 @@ export interface paths {
         put?: never;
         /**
          * Set UI configuration
-         * @description Sets the UI configuration for this Unleash instance.
+         * @deprecated
+         * @description Deprecated. Use `./cors` instead. Sets the UI configuration for this Unleash instance.
          */
         post: operations["setUiConfig"];
         delete?: never;
@@ -2122,6 +2162,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/admin/user-admin/scim-users": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Delete all SCIM users
+         * @description Deletes all users managed by SCIM
+         */
+        delete: operations["deleteScimUsers"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/admin/feedback": {
         parameters: {
             query?: never;
@@ -2841,7 +2901,7 @@ export interface paths {
         };
         /**
          * Get api tokens for project.
-         * @description Returns the [project API tokens](https://docs.getunleash.io/how-to/how-to-create-project-api-tokens) that have been created for this project.
+         * @description Returns the project-specific [API tokens](https://docs.getunleash.io/reference/api-tokens) that have been created for this project.
          */
         get: operations["getProjectApiTokens"];
         put?: never;
@@ -3050,6 +3110,70 @@ export interface paths {
          * @description This will set the feature as uncompleted.
          */
         post: operations["uncomplete"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin/projects/{projectId}/features/{featureName}/link": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Create a feature link
+         * @description Create a new link for a feature.
+         */
+        post: operations["createFeatureLink"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin/projects/{projectId}/features/{featureName}/link/{linkId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Update a feature link
+         * @description Update an existing feature link.
+         */
+        put: operations["updateFeatureLink"];
+        post?: never;
+        /**
+         * Delete a feature link
+         * @description Delete a feature link by id.
+         */
+        delete: operations["deleteFeatureLink"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin/lifecycle/count": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get all features lifecycle stage count
+         * @description Information about the number of features in each lifecycle stage.
+         */
+        get: operations["getFeatureLifecycleStageCount"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -3629,26 +3753,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/client/delta": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get partial updates (SDK)
-         * @description Initially returns the full set of feature flags available to the provided API key. When called again with the returned etag, only returns the flags that have changed
-         */
-        get: operations["getDelta"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/api/client/features/{featureName}": {
         parameters: {
             query?: never;
@@ -3762,7 +3866,11 @@ export interface paths {
          */
         get: operations["getFrontendFeatures"];
         put?: never;
-        post?: never;
+        /**
+         * Retrieve enabled feature flags for the provided context, using POST.
+         * @description This endpoint returns the list of feature flags that the frontend API evaluates to enabled for the given context, using POST. Context values are provided as a `context` property in the request body. If the Frontend API is disabled 404 is returned.
+         */
+        post: operations["getFrontendApiFeaturesWithPost"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4625,7 +4733,7 @@ export interface components {
                  * @description An IP address identifying the instance of the application running the SDK
                  * @example 192.168.0.1
                  */
-                clientIp?: string;
+                clientIp?: string | null;
                 /**
                  * Format: date-time
                  * @description The last time the application environment instance was seen
@@ -4673,6 +4781,20 @@ export interface components {
              *     ]
              */
             sdks: string[];
+            /**
+             * @description Frontend SDKs used in the application environment
+             * @example [
+             *       "unleash-client-js:3.7.5"
+             *     ]
+             */
+            frontendSdks: string[];
+            /**
+             * @description Backend SDKs used in the application environment
+             * @example [
+             *       "unleash-client-node:5.4.0"
+             *     ]
+             */
+            backendSdks: string[];
             /**
              * Format: date-time
              * @description The last time the application environment was seen
@@ -4783,87 +4905,6 @@ export interface components {
             /** @description The list of applications that have connected to this Unleash instance. */
             applications: components["schemas"]["applicationSchema"][];
         };
-        /** @description An archived project feature flag definition */
-        archivedFeatureSchema: {
-            /**
-             * @description Unique feature name
-             * @example disable-comments
-             */
-            name: string;
-            /**
-             * @description Type of the flag e.g. experiment, kill-switch, release, operational, permission
-             * @example kill-switch
-             */
-            type?: string;
-            /**
-             * @description Detailed description of the feature
-             * @example Controls disabling of the comments section in case of an incident
-             */
-            description?: string | null;
-            /**
-             * @description Name of the project the feature belongs to
-             * @example dx-squad
-             */
-            project: string;
-            /**
-             * @description `true` if the feature is stale based on the age and feature type, otherwise `false`.
-             * @example false
-             */
-            stale?: boolean;
-            /**
-             * @description `true` if the impression data collection is enabled for the feature, otherwise `false`.
-             * @example false
-             */
-            impressionData?: boolean;
-            /**
-             * Format: date-time
-             * @description The date the feature was created
-             * @example 2023-01-28T15:21:39.975Z
-             */
-            createdAt?: string;
-            /**
-             * Format: date-time
-             * @description The date the feature was archived
-             * @example 2023-01-29T15:21:39.975Z
-             */
-            archivedAt?: string;
-            /**
-             * Format: date-time
-             * @deprecated
-             * @description The date when metrics where last collected for the feature. This field was deprecated in v5, use the one in featureEnvironmentSchema
-             * @example 2023-01-28T16:21:39.975Z
-             */
-            lastSeenAt?: string | null;
-            /**
-             * @deprecated
-             * @description The list of environments where the feature can be used
-             */
-            environments?: {
-                /**
-                 * @description The name of the environment
-                 * @example my-dev-env
-                 */
-                name?: string;
-                /**
-                 * Format: date-time
-                 * @description The date when metrics where last collected for the feature environment
-                 * @example 2023-01-28T16:21:39.975Z
-                 */
-                lastSeenAt?: string | null;
-                /**
-                 * @description `true` if the feature is enabled for the environment, otherwise `false`.
-                 * @example true
-                 */
-                enabled?: boolean;
-            }[];
-        };
-        /** @description A list of archived features */
-        archivedFeaturesSchema: {
-            /** @description The version of the feature's schema */
-            version: number;
-            /** @description A list of features */
-            features: components["schemas"]["archivedFeatureSchema"][];
-        };
         /** @description A list of feature flag names for batch operations */
         batchFeaturesSchema: {
             /**
@@ -4950,10 +4991,24 @@ export interface components {
              */
             strategies?: string[];
             /**
+             * @description The list of projects used in the application
+             * @example [
+             *       "projectA",
+             *       "projectB"
+             *     ]
+             */
+            projects?: string[];
+            /**
              * @description The version the sdk is running. Typically <client>:<version>
              * @example unleash-client-java:8.0.0
              */
             sdkVersion?: string;
+            /**
+             * @description The sdk type
+             * @example backend
+             * @enum {string|null}
+             */
+            sdkType?: "frontend" | "backend" | null;
         };
         /** @description The feature list used for bulk toggle operations */
         bulkToggleFeaturesSchema: {
@@ -5088,14 +5143,35 @@ export interface components {
         };
         /** @description Schema for delta updates of feature configurations. */
         clientFeaturesDeltaSchema: {
-            /** @description A list of updated feature configurations. */
-            updated: components["schemas"]["clientFeatureSchema"][];
-            /** @description The revision ID of the delta update. */
-            revisionId: number;
-            /** @description A list of feature names that were removed. */
-            removed: string[];
-            /** @description A list of [Segments](https://docs.getunleash.io/reference/segments) configured for this Unleash instance */
-            segments?: components["schemas"]["clientSegmentSchema"][];
+            /** @description A list of delta events. */
+            events: ({
+                eventId: number;
+                /** @enum {string} */
+                type: "feature-updated";
+                feature: components["schemas"]["clientFeatureSchema"];
+            } | {
+                eventId: number;
+                /** @enum {string} */
+                type: "feature-removed";
+                featureName: string;
+                project: string;
+            } | {
+                eventId: number;
+                /** @enum {string} */
+                type: "segment-updated";
+                segment: components["schemas"]["clientSegmentSchema"];
+            } | {
+                eventId: number;
+                /** @enum {string} */
+                type: "segment-removed";
+                segmentId: number;
+            } | {
+                eventId: number;
+                /** @enum {string} */
+                type: "hydration";
+                features: components["schemas"]["clientFeatureSchema"][];
+                segments: components["schemas"]["clientSegmentSchema"][];
+            })[];
         };
         /** @description Query parameters active for a client features request */
         clientFeaturesQuerySchema: {
@@ -5631,7 +5707,7 @@ export interface components {
             pattern: string | null;
             /**
              * @description An example of a feature name that matches the pattern. Must itself match the pattern supplied.
-             * @example dx.feature1.1-135
+             * @example dx.feature.1-135
              */
             example?: string | null;
             /**
@@ -5786,7 +5862,7 @@ export interface components {
              */
             password: string;
         };
-        /** @description Describes the properties required to create a [personal access token](https://docs.getunleash.io/how-to/how-to-create-personal-access-tokens), or PAT. PATs are automatically scoped to the authenticated user. */
+        /** @description Describes the properties required to create a [personal access token](https://docs.getunleash.io/reference/api-tokens-and-client-keys#personal-access-tokens), or PAT. PATs are automatically scoped to the authenticated user. */
         createPatSchema: {
             /**
              * @description The PAT's description.
@@ -5901,6 +5977,11 @@ export interface components {
              * @example simple
              */
             type: string;
+            /**
+             * @description The hexadecimal color code for the tag type.
+             * @example #FFFFFF
+             */
+            color?: string | null;
         };
         /** @description An Unleash user after creation */
         createUserResponseSchema: {
@@ -6139,7 +6220,7 @@ export interface components {
              * @example feature-created
              * @enum {string}
              */
-            type?: "application-created" | "feature-created" | "feature-deleted" | "feature-updated" | "feature-metadata-updated" | "feature-variants-updated" | "feature-environment-variants-updated" | "feature-project-change" | "feature-archived" | "feature-revived" | "feature-import" | "feature-tagged" | "feature-tag-import" | "feature-strategy-update" | "feature-strategy-add" | "feature-strategy-remove" | "feature-type-updated" | "feature-completed" | "feature-uncompleted" | "strategy-order-changed" | "drop-feature-tags" | "feature-untagged" | "feature-stale-on" | "feature-stale-off" | "drop-features" | "feature-environment-enabled" | "feature-environment-disabled" | "strategy-created" | "strategy-deleted" | "strategy-deprecated" | "strategy-reactivated" | "strategy-updated" | "strategy-import" | "drop-strategies" | "context-field-created" | "context-field-updated" | "context-field-deleted" | "project-access-added" | "project-access-user-roles-updated" | "project-access-group-roles-updated" | "project-access-user-roles-deleted" | "project-access-group-roles-deleted" | "project-access-updated" | "project-created" | "project-updated" | "project-deleted" | "project-archived" | "project-revived" | "project-import" | "project-user-added" | "project-user-removed" | "project-user-role-changed" | "project-group-role-changed" | "project-group-added" | "project-group-removed" | "role-created" | "role-updated" | "role-deleted" | "drop-projects" | "tag-created" | "tag-deleted" | "tag-import" | "drop-tags" | "tag-type-created" | "tag-type-deleted" | "tag-type-updated" | "tag-type-import" | "drop-tag-types" | "addon-config-created" | "addon-config-updated" | "addon-config-deleted" | "db-pool-update" | "user-created" | "user-updated" | "user-deleted" | "drop-environments" | "environment-import" | "environment-created" | "environment-updated" | "environment-deleted" | "segment-created" | "segment-updated" | "segment-deleted" | "group-created" | "group-updated" | "group-deleted" | "group-user-added" | "group-user-removed" | "setting-created" | "setting-updated" | "setting-deleted" | "client-metrics" | "client-register" | "pat-created" | "pat-deleted" | "public-signup-token-created" | "public-signup-token-user-added" | "public-signup-token-updated" | "change-request-created" | "change-request-discarded" | "change-added" | "change-discarded" | "change-edited" | "change-request-rejected" | "change-request-approved" | "change-request-approval-added" | "change-request-cancelled" | "change-request-sent-to-review" | "change-request-schedule-suspended" | "change-request-applied" | "change-request-scheduled" | "change-request-scheduled-application-success" | "change-request-scheduled-application-failure" | "change-request-configuration-updated" | "api-token-created" | "api-token-updated" | "api-token-deleted" | "feature-favorited" | "feature-unfavorited" | "project-favorited" | "project-unfavorited" | "features-exported" | "features-imported" | "service-account-created" | "service-account-deleted" | "service-account-updated" | "feature-potentially-stale-on" | "feature-dependency-added" | "feature-dependency-removed" | "feature-dependencies-removed" | "banner-created" | "banner-updated" | "banner-deleted" | "project-environment-added" | "project-environment-removed" | "default-strategy-updated" | "segment-import" | "signal-endpoint-created" | "signal-endpoint-updated" | "signal-endpoint-deleted" | "signal-endpoint-token-created" | "signal-endpoint-token-updated" | "signal-endpoint-token-deleted" | "actions-created" | "actions-updated" | "actions-deleted" | "release-plan-template-created" | "release-plan-template-updated" | "release-plan-template-deleted" | "release-plan-added" | "release-plan-removed" | "release-plan-milestone-started" | "user-preference-updated";
+            type?: "application-created" | "feature-created" | "feature-deleted" | "feature-updated" | "feature-metadata-updated" | "feature-variants-updated" | "feature-environment-variants-updated" | "feature-project-change" | "feature-archived" | "feature-revived" | "feature-import" | "feature-tagged" | "feature-tag-import" | "feature-strategy-update" | "feature-strategy-add" | "feature-strategy-remove" | "feature-type-updated" | "feature-completed" | "feature-uncompleted" | "feature-link-added" | "feature-link-removed" | "feature-link-updated" | "strategy-order-changed" | "drop-feature-tags" | "feature-untagged" | "feature-stale-on" | "feature-stale-off" | "drop-features" | "feature-environment-enabled" | "feature-environment-disabled" | "strategy-created" | "strategy-deleted" | "strategy-deprecated" | "strategy-reactivated" | "strategy-updated" | "strategy-import" | "drop-strategies" | "context-field-created" | "context-field-updated" | "context-field-deleted" | "project-access-added" | "project-access-user-roles-updated" | "project-access-group-roles-updated" | "project-access-user-roles-deleted" | "project-access-group-roles-deleted" | "project-access-updated" | "project-created" | "project-updated" | "project-deleted" | "project-archived" | "project-revived" | "project-import" | "project-user-added" | "project-user-removed" | "project-user-role-changed" | "project-group-role-changed" | "project-group-added" | "project-group-removed" | "role-created" | "role-updated" | "role-deleted" | "drop-projects" | "tag-created" | "tag-deleted" | "tag-import" | "drop-tags" | "tag-type-created" | "tag-type-deleted" | "tag-type-updated" | "tag-type-import" | "drop-tag-types" | "addon-config-created" | "addon-config-updated" | "addon-config-deleted" | "db-pool-update" | "user-created" | "user-updated" | "user-deleted" | "drop-environments" | "environment-import" | "environment-created" | "environment-updated" | "environment-deleted" | "segment-created" | "segment-updated" | "segment-deleted" | "group-created" | "group-updated" | "group-deleted" | "group-user-added" | "group-user-removed" | "setting-created" | "setting-updated" | "setting-deleted" | "client-metrics" | "client-register" | "pat-created" | "pat-deleted" | "public-signup-token-created" | "public-signup-token-user-added" | "public-signup-token-updated" | "change-request-created" | "change-request-discarded" | "change-added" | "change-discarded" | "change-edited" | "change-request-rejected" | "change-request-approved" | "change-request-approval-added" | "change-request-cancelled" | "change-request-sent-to-review" | "change-request-schedule-suspended" | "change-request-applied" | "change-request-scheduled" | "change-request-scheduled-application-success" | "change-request-scheduled-application-failure" | "change-request-configuration-updated" | "api-token-created" | "api-token-updated" | "api-token-deleted" | "feature-favorited" | "feature-unfavorited" | "project-favorited" | "project-unfavorited" | "features-exported" | "features-imported" | "service-account-created" | "service-account-deleted" | "service-account-updated" | "feature-potentially-stale-on" | "feature-dependency-added" | "feature-dependency-removed" | "feature-dependencies-removed" | "banner-created" | "banner-updated" | "banner-deleted" | "project-environment-added" | "project-environment-removed" | "default-strategy-updated" | "segment-import" | "signal-endpoint-created" | "signal-endpoint-updated" | "signal-endpoint-deleted" | "signal-endpoint-token-created" | "signal-endpoint-token-updated" | "signal-endpoint-token-deleted" | "actions-created" | "actions-updated" | "actions-deleted" | "release-plan-template-created" | "release-plan-template-updated" | "release-plan-template-deleted" | "release-plan-template-archived" | "release-plan-added" | "release-plan-removed" | "release-plan-milestone-started" | "user-preference-updated" | "scim-users-deleted" | "scim-groups-deleted";
             /**
              * @description Find events by project ID (case-sensitive).
              * @example default
@@ -6175,7 +6256,7 @@ export interface components {
             /** @description The average number of days it takes a feature flag to get into production */
             timeToProduction: number;
         };
-        /** @description A representation of a client token, limiting access to [CLIENT](https://docs.getunleash.io/reference/api-tokens-and-client-keys#client-tokens) (used by serverside SDKs) or [FRONTEND](https://docs.getunleash.io/reference/api-tokens-and-client-keys#front-end-tokens) (used by proxy SDKs) */
+        /** @description A representation of a client token, limiting access to [CLIENT](https://docs.getunleash.io/reference/api-tokens-and-client-keys#client-tokens) (used by serverside SDKs) or [FRONTEND](https://docs.getunleash.io/reference/api-tokens-and-client-keys#frontend-tokens) (used by proxy SDKs) */
         edgeTokenSchema: {
             /**
              * @description The list of projects this token has access to. If the token has access to specific projects they will be listed here. If the token has access to all projects it will be represented as [`*`]
@@ -6186,7 +6267,7 @@ export interface components {
              */
             projects: string[];
             /**
-             * @description The [API token](https://docs.getunleash.io/reference/api-tokens-and-client-keys#api-tokens)'s **type**. Unleash supports three different types of API tokens ([ADMIN](https://docs.getunleash.io/reference/api-tokens-and-client-keys#admin-tokens), [CLIENT](https://docs.getunleash.io/reference/api-tokens-and-client-keys#client-tokens), [FRONTEND](https://docs.getunleash.io/reference/api-tokens-and-client-keys#front-end-tokens)). They all have varying access, so when validating a token it's important to know what kind you're dealing with
+             * @description The [API token](https://docs.getunleash.io/reference/api-tokens-and-client-keys)'s **type**. Unleash supports three different types of API tokens ([ADMIN](https://docs.getunleash.io/reference/api-tokens-and-client-keys#admin-tokens), [CLIENT](https://docs.getunleash.io/reference/api-tokens-and-client-keys#client-tokens), [FRONTEND](https://docs.getunleash.io/reference/api-tokens-and-client-keys#frontend-tokens)). They all have varying access, so when validating a token it's important to know what kind you're dealing with
              * @example client
              * @enum {string}
              */
@@ -6244,6 +6325,16 @@ export interface components {
             projectEnabledToggleCount?: number;
             /** @description The strategy configuration to add when enabling a feature environment by default */
             defaultStrategy?: components["schemas"]["createFeatureStrategySchema"];
+            /**
+             * @description Indicates whether the environment can be enabled for feature flags in the project
+             * @example true
+             */
+            visible?: boolean;
+            /**
+             * @description Experimental field. The number of approvals required before a change request can be applied in this environment.
+             * @example 3
+             */
+            requiredApprovals?: number | null;
         };
         /** @description A definition of the project environment */
         environmentSchema: {
@@ -6287,6 +6378,11 @@ export interface components {
              * @example 10
              */
             enabledToggleCount?: number | null;
+            /**
+             * @description Experimental field. The number of approvals required before a change request can be applied in this environment.
+             * @example 3
+             */
+            requiredApprovals?: number | null;
         };
         /** @description Environments defined for a given project */
         environmentsProjectSchema: {
@@ -6336,7 +6432,7 @@ export interface components {
              * @example feature-created
              * @enum {string}
              */
-            type: "application-created" | "feature-created" | "feature-deleted" | "feature-updated" | "feature-metadata-updated" | "feature-variants-updated" | "feature-environment-variants-updated" | "feature-project-change" | "feature-archived" | "feature-revived" | "feature-import" | "feature-tagged" | "feature-tag-import" | "feature-strategy-update" | "feature-strategy-add" | "feature-strategy-remove" | "feature-type-updated" | "feature-completed" | "feature-uncompleted" | "strategy-order-changed" | "drop-feature-tags" | "feature-untagged" | "feature-stale-on" | "feature-stale-off" | "drop-features" | "feature-environment-enabled" | "feature-environment-disabled" | "strategy-created" | "strategy-deleted" | "strategy-deprecated" | "strategy-reactivated" | "strategy-updated" | "strategy-import" | "drop-strategies" | "context-field-created" | "context-field-updated" | "context-field-deleted" | "project-access-added" | "project-access-user-roles-updated" | "project-access-group-roles-updated" | "project-access-user-roles-deleted" | "project-access-group-roles-deleted" | "project-access-updated" | "project-created" | "project-updated" | "project-deleted" | "project-archived" | "project-revived" | "project-import" | "project-user-added" | "project-user-removed" | "project-user-role-changed" | "project-group-role-changed" | "project-group-added" | "project-group-removed" | "role-created" | "role-updated" | "role-deleted" | "drop-projects" | "tag-created" | "tag-deleted" | "tag-import" | "drop-tags" | "tag-type-created" | "tag-type-deleted" | "tag-type-updated" | "tag-type-import" | "drop-tag-types" | "addon-config-created" | "addon-config-updated" | "addon-config-deleted" | "db-pool-update" | "user-created" | "user-updated" | "user-deleted" | "drop-environments" | "environment-import" | "environment-created" | "environment-updated" | "environment-deleted" | "segment-created" | "segment-updated" | "segment-deleted" | "group-created" | "group-updated" | "group-deleted" | "group-user-added" | "group-user-removed" | "setting-created" | "setting-updated" | "setting-deleted" | "client-metrics" | "client-register" | "pat-created" | "pat-deleted" | "public-signup-token-created" | "public-signup-token-user-added" | "public-signup-token-updated" | "change-request-created" | "change-request-discarded" | "change-added" | "change-discarded" | "change-edited" | "change-request-rejected" | "change-request-approved" | "change-request-approval-added" | "change-request-cancelled" | "change-request-sent-to-review" | "change-request-schedule-suspended" | "change-request-applied" | "change-request-scheduled" | "change-request-scheduled-application-success" | "change-request-scheduled-application-failure" | "change-request-configuration-updated" | "api-token-created" | "api-token-updated" | "api-token-deleted" | "feature-favorited" | "feature-unfavorited" | "project-favorited" | "project-unfavorited" | "features-exported" | "features-imported" | "service-account-created" | "service-account-deleted" | "service-account-updated" | "feature-potentially-stale-on" | "feature-dependency-added" | "feature-dependency-removed" | "feature-dependencies-removed" | "banner-created" | "banner-updated" | "banner-deleted" | "project-environment-added" | "project-environment-removed" | "default-strategy-updated" | "segment-import" | "signal-endpoint-created" | "signal-endpoint-updated" | "signal-endpoint-deleted" | "signal-endpoint-token-created" | "signal-endpoint-token-updated" | "signal-endpoint-token-deleted" | "actions-created" | "actions-updated" | "actions-deleted" | "release-plan-template-created" | "release-plan-template-updated" | "release-plan-template-deleted" | "release-plan-added" | "release-plan-removed" | "release-plan-milestone-started" | "user-preference-updated";
+            type: "application-created" | "feature-created" | "feature-deleted" | "feature-updated" | "feature-metadata-updated" | "feature-variants-updated" | "feature-environment-variants-updated" | "feature-project-change" | "feature-archived" | "feature-revived" | "feature-import" | "feature-tagged" | "feature-tag-import" | "feature-strategy-update" | "feature-strategy-add" | "feature-strategy-remove" | "feature-type-updated" | "feature-completed" | "feature-uncompleted" | "feature-link-added" | "feature-link-removed" | "feature-link-updated" | "strategy-order-changed" | "drop-feature-tags" | "feature-untagged" | "feature-stale-on" | "feature-stale-off" | "drop-features" | "feature-environment-enabled" | "feature-environment-disabled" | "strategy-created" | "strategy-deleted" | "strategy-deprecated" | "strategy-reactivated" | "strategy-updated" | "strategy-import" | "drop-strategies" | "context-field-created" | "context-field-updated" | "context-field-deleted" | "project-access-added" | "project-access-user-roles-updated" | "project-access-group-roles-updated" | "project-access-user-roles-deleted" | "project-access-group-roles-deleted" | "project-access-updated" | "project-created" | "project-updated" | "project-deleted" | "project-archived" | "project-revived" | "project-import" | "project-user-added" | "project-user-removed" | "project-user-role-changed" | "project-group-role-changed" | "project-group-added" | "project-group-removed" | "role-created" | "role-updated" | "role-deleted" | "drop-projects" | "tag-created" | "tag-deleted" | "tag-import" | "drop-tags" | "tag-type-created" | "tag-type-deleted" | "tag-type-updated" | "tag-type-import" | "drop-tag-types" | "addon-config-created" | "addon-config-updated" | "addon-config-deleted" | "db-pool-update" | "user-created" | "user-updated" | "user-deleted" | "drop-environments" | "environment-import" | "environment-created" | "environment-updated" | "environment-deleted" | "segment-created" | "segment-updated" | "segment-deleted" | "group-created" | "group-updated" | "group-deleted" | "group-user-added" | "group-user-removed" | "setting-created" | "setting-updated" | "setting-deleted" | "client-metrics" | "client-register" | "pat-created" | "pat-deleted" | "public-signup-token-created" | "public-signup-token-user-added" | "public-signup-token-updated" | "change-request-created" | "change-request-discarded" | "change-added" | "change-discarded" | "change-edited" | "change-request-rejected" | "change-request-approved" | "change-request-approval-added" | "change-request-cancelled" | "change-request-sent-to-review" | "change-request-schedule-suspended" | "change-request-applied" | "change-request-scheduled" | "change-request-scheduled-application-success" | "change-request-scheduled-application-failure" | "change-request-configuration-updated" | "api-token-created" | "api-token-updated" | "api-token-deleted" | "feature-favorited" | "feature-unfavorited" | "project-favorited" | "project-unfavorited" | "features-exported" | "features-imported" | "service-account-created" | "service-account-deleted" | "service-account-updated" | "feature-potentially-stale-on" | "feature-dependency-added" | "feature-dependency-removed" | "feature-dependencies-removed" | "banner-created" | "banner-updated" | "banner-deleted" | "project-environment-added" | "project-environment-removed" | "default-strategy-updated" | "segment-import" | "signal-endpoint-created" | "signal-endpoint-updated" | "signal-endpoint-deleted" | "signal-endpoint-token-created" | "signal-endpoint-token-updated" | "signal-endpoint-token-deleted" | "actions-created" | "actions-updated" | "actions-deleted" | "release-plan-template-created" | "release-plan-template-updated" | "release-plan-template-deleted" | "release-plan-template-archived" | "release-plan-added" | "release-plan-removed" | "release-plan-milestone-started" | "user-preference-updated" | "scim-users-deleted" | "scim-groups-deleted";
             /**
              * @description Which user created this event
              * @example johndoe
@@ -6398,6 +6494,11 @@ export interface components {
             label?: string | null;
             /** @description A markdown-formatted summary of the event. */
             summary?: string | null;
+            /**
+             * @description The IP address of the user that created the event. Only available in Enterprise.
+             * @example 192.168.1.1
+             */
+            ip?: string | null;
         };
         /** @description A list of events that have been registered by the system */
         eventSearchResponseSchema: {
@@ -6594,6 +6695,8 @@ export interface components {
             tagTypes: components["schemas"]["tagTypeSchema"][];
             /** @description A list of all the dependencies for features in `features` list. */
             dependencies?: components["schemas"]["featureDependenciesSchema"][];
+            /** @description A list of links for features in `features` list. */
+            links?: components["schemas"]["featureLinksSchema"][];
         };
         /** @description Feature dependency connection between a child feature and its dependencies */
         featureDependenciesSchema: {
@@ -6687,6 +6790,23 @@ export interface components {
             strategies?: components["schemas"]["featureStrategySchema"][];
             /** @description A list of variants for the feature environment */
             variants?: components["schemas"]["variantSchema"][];
+            /** @description Experimental. A list of change request identifiers for actionable change requests that are not Cancelled, Rejected or Approved. */
+            changeRequestIds?: number[];
+            /**
+             * @description Experimental: The name of the currently active release plan milestone
+             * @example Phase One
+             */
+            milestoneName?: string;
+            /**
+             * @description Experimental: The zero-indexed order of currently active milestone in the list of all release plan milestones
+             * @example 0
+             */
+            milestoneOrder?: number;
+            /**
+             * @description Experimental: The total number of milestones in the feature environment release plan
+             * @example 0
+             */
+            totalMilestones?: number;
             /**
              * Format: date-time
              * @description The date when metrics where last collected for the feature environment
@@ -6733,6 +6853,34 @@ export interface components {
              */
             statusValue?: string;
         };
+        /** @description A number features in each of the lifecycle stages */
+        featureLifecycleCountSchema: {
+            /**
+             * @description Number of features in the initial stage
+             * @example 1
+             */
+            initial: number;
+            /**
+             * @description Number of features in the pre-live stage
+             * @example 1
+             */
+            preLive: number;
+            /**
+             * @description Number of features in the live stage
+             * @example 1
+             */
+            live: number;
+            /**
+             * @description Number of features in the completed stage
+             * @example 1
+             */
+            completed: number;
+            /**
+             * @description Number of features in the archived stage
+             * @example 1
+             */
+            archived: number;
+        };
         /** @description A list of lifecycle stages for a given feature */
         featureLifecycleSchema: {
             /**
@@ -6753,6 +6901,29 @@ export interface components {
              */
             enteredStageAt: string;
         }[];
+        /** @description The link to any URL related to the feature */
+        featureLinkSchema: {
+            /**
+             * @description The URL the feature is linked to
+             * @example https://github.com/search?q=cleanupReminder&type=code
+             */
+            url: string;
+            /**
+             * @description The description of the link
+             * @example Github cleanup
+             */
+            title?: string | null;
+        };
+        /** @description A list of links for a feature */
+        featureLinksSchema: {
+            /**
+             * @description The name of the child feature.
+             * @example child_feature
+             */
+            feature: string;
+            /** @description List of feature links */
+            links: components["schemas"]["featureLinkSchema"][];
+        };
         /** @description A batch of feature metrics */
         featureMetricsSchema: {
             /** @description The version of this schema */
@@ -6916,6 +7087,24 @@ export interface components {
                     imageUrl: string;
                 }[];
             };
+            /** @description The list of links. This is an experimental field and may change. */
+            links?: {
+                /**
+                 * @description The id of the link
+                 * @example 01JTJNCJ5XVP2KPJFA03YRBZCA
+                 */
+                id: string;
+                /**
+                 * @description The URL the feature is linked to
+                 * @example https://github.com/search?q=cleanupReminder&type=code
+                 */
+                url: string;
+                /**
+                 * @description The description of the link
+                 * @example Github cleanup
+                 */
+                title?: string | null;
+            }[];
         };
         /** @description A detailed description of the feature environment */
         featureSearchEnvironmentSchema: {
@@ -6955,6 +7144,23 @@ export interface components {
             strategies?: components["schemas"]["featureStrategySchema"][];
             /** @description A list of variants for the feature environment */
             variants?: components["schemas"]["variantSchema"][];
+            /** @description Experimental. A list of change request identifiers for actionable change requests that are not Cancelled, Rejected or Approved. */
+            changeRequestIds?: number[];
+            /**
+             * @description Experimental: The name of the currently active release plan milestone
+             * @example Phase One
+             */
+            milestoneName?: string;
+            /**
+             * @description Experimental: The zero-indexed order of currently active milestone in the list of all release plan milestones
+             * @example 0
+             */
+            milestoneOrder?: number;
+            /**
+             * @description Experimental: The total number of milestones in the feature environment release plan
+             * @example 0
+             */
+            totalMilestones?: number;
             /**
              * Format: date-time
              * @description The date when metrics where last collected for the feature environment
@@ -7442,6 +7648,57 @@ export interface components {
                  */
                 featureEnabled?: boolean;
             };
+        };
+        /** @description The Unleash frontend API POST request body. */
+        frontendApiFeaturesPostSchema: {
+            /** @description The Unleash context. */
+            context?: {
+                /**
+                 * @description The name of the application.
+                 * @example My cool application.
+                 */
+                appName?: string;
+                /**
+                 * Format: date-time
+                 * @description A DateTime (or similar) data class instance or a string in an RFC3339-compatible format. Defaults to the current time if not set by the user.
+                 * @example 2022-07-05T12:56:41+02:00
+                 */
+                currentTime?: string;
+                /**
+                 * @deprecated
+                 * @description The environment the app is running in.
+                 */
+                environment?: string;
+                /**
+                 * @description Additional Unleash context properties
+                 * @example {
+                 *       "customContextField": "this is one!",
+                 *       "otherCustomField": "3"
+                 *     }
+                 */
+                properties?: {
+                    [key: string]: string;
+                };
+                /**
+                 * @description The app's IP address
+                 * @example 192.168.1.1
+                 */
+                remoteAddress?: string;
+                /**
+                 * @description An identifier for the current session
+                 * @example b65e7b23-fec0-4814-a129-0e9861ef18fc
+                 */
+                sessionId?: string;
+                /**
+                 * @description An identifier for the current user
+                 * @example username@provider.com
+                 */
+                userId?: string;
+            } & {
+                [key: string]: unknown;
+            };
+        } & {
+            [key: string]: unknown;
         };
         /** @description Frontend SDK features list */
         frontendApiFeaturesSchema: {
@@ -8179,7 +8436,7 @@ export interface components {
              */
             confirmPassword?: string;
         };
-        /** @description Describes a [personal access token](https://docs.getunleash.io/how-to/how-to-create-personal-access-tokens), or PAT. PATs are automatically scoped to the authenticated user. */
+        /** @description Describes a [personal access token](https://docs.getunleash.io/reference/api-tokens-and-client-keys#personal-access-tokens), or PAT. PATs are automatically scoped to the authenticated user. */
         patSchema: {
             /**
              * @description The PAT's ID. PAT IDs are incrementing integers. In other words, a more recently created PAT will always have a higher ID than an older one.
@@ -8246,7 +8503,7 @@ export interface components {
         };
         /** @description A list of patches */
         patchesSchema: components["schemas"]["patchSchema"][];
-        /** @description Contains a collection of [personal access tokens](https://docs.getunleash.io/how-to/how-to-create-personal-access-tokens), or PATs. PATs are automatically scoped to the authenticated user. */
+        /** @description Contains a collection of [personal access tokens](https://docs.getunleash.io/reference/api-tokens-and-client-keys#personal-access-tokens), or PATs. PATs are automatically scoped to the authenticated user. */
         patsSchema: {
             /** @description A collection of PATs. */
             pats?: components["schemas"]["patSchema"][];
@@ -8977,6 +9234,19 @@ export interface components {
                 change: number;
             };
         };
+        /** @description A template for a link that can be automatically added to new feature flags. */
+        projectLinkTemplateSchema: {
+            /**
+             * @description The title of the link.
+             * @example Code search
+             */
+            title?: string | null;
+            /**
+             * @description The URL to use as a template. Can contain {{project}} or {{feature}} as placeholders.
+             * @example https://github.com/search?type=code&q=repo%3AUnleash%2F{{project}}+{{feature}}
+             */
+            urlTemplate: string;
+        };
         /** @description A high-level overview of a project. It contains information such as project statistics, the name of the project, what members and what features it contains, etc. */
         projectOverviewSchema: {
             /** @description Project statistics */
@@ -9013,6 +9283,8 @@ export interface components {
              */
             featureLimit?: number | null;
             featureNaming?: components["schemas"]["createFeatureNamingPatternSchema"];
+            /** @description A list of templates for links that will be automatically added to new feature flags. */
+            linkTemplates?: components["schemas"]["projectLinkTemplateSchema"][];
             /**
              * @description The number of members this project has
              * @example 4
@@ -9998,6 +10270,11 @@ export interface components {
              * @example simple
              */
             type: string;
+            /**
+             * @description The hexadecimal color code for the tag type.
+             * @example #FFFFFF
+             */
+            color?: string | null;
         };
         /** @description A tag type. */
         tagTypeSchema: {
@@ -10016,6 +10293,11 @@ export interface components {
              * @example not-really-used
              */
             icon?: string | null;
+            /**
+             * @description The hexadecimal color code for the tag type.
+             * @example #FFFFFF
+             */
+            color?: string | null;
         };
         /** @description A list of tag types with a version number representing the schema used to model the tag types. */
         tagTypesSchema: {
@@ -10204,10 +10486,10 @@ export interface components {
              */
             resourceLimits?: components["schemas"]["resourceLimitsSchema"];
             /**
-             * @description Whether to enable the Unleash network view or not.
+             * @description Whether a Prometheus API is available.
              * @example true
              */
-            networkViewEnabled?: boolean;
+            prometheusAPIAvailable?: boolean;
             /**
              * @description The list of origins that the front-end API should accept requests from.
              * @example [
@@ -10268,6 +10550,35 @@ export interface components {
              * @example 10
              */
             maxSessionsCount?: number;
+            /** @description The context object used to configure the Unleash instance. */
+            unleashContext?: Record<string, never>;
+        };
+        /** @description An unknown flag that has been reported by the system */
+        unknownFlagSchema: {
+            /**
+             * @description The name of the unknown flag.
+             * @example my-unknown-flag
+             */
+            name: string;
+            /** @description Details about the application that reported the unknown flag. */
+            reportedBy: {
+                /**
+                 * @description The name of the application that reported the unknown flag.
+                 * @example my-app
+                 */
+                appName: string;
+                /**
+                 * Format: date-time
+                 * @description The date and time when the unknown flag was reported.
+                 * @example 2023-10-01T12:00:00Z
+                 */
+                seenAt: string;
+            }[];
+        };
+        /** @description A list of unknown flags that have been reported by the system */
+        unknownFlagsResponseSchema: {
+            /** @description The list of recently reported unknown flags. */
+            unknownFlags: components["schemas"]["unknownFlagSchema"][];
         };
         /** @description An object with fields to updated for a given API token. */
         updateApiTokenSchema: {
@@ -10439,6 +10750,11 @@ export interface components {
              * @example not-really-used
              */
             icon?: string;
+            /**
+             * @description The hexadecimal color code for the tag type.
+             * @example #FFFFFF
+             */
+            color?: string;
         };
         /**
          * @description Represents a set of changes to a feature's tags, such as adding or removing tags.
@@ -10497,6 +10813,171 @@ export interface components {
             project?: string | null;
             /** @description The list of constraints that make up this segment */
             constraints: components["schemas"]["constraintSchema"][];
+        };
+        /** @description Describes the access overview (list of permissions and metadata) for a user. */
+        userAccessOverviewSchema: {
+            /** @description The access overview (list of permissions) for the user */
+            overview: {
+                /** @description The list of root permissions */
+                root: {
+                    /**
+                     * @description The ID of the permission
+                     * @example 1
+                     */
+                    id: number;
+                    /**
+                     * @description The name of the permission
+                     * @example CREATE_FEATURE_STRATEGY
+                     */
+                    name: string;
+                    /**
+                     * @description The display name of the permission
+                     * @example Create activation strategies
+                     */
+                    displayName: string;
+                    /**
+                     * @description The type of the permission
+                     * @example environment
+                     */
+                    type: string;
+                    /**
+                     * @description The environment that the permission applies to
+                     * @example dev
+                     */
+                    environment?: string | null;
+                    /**
+                     * @description Whether the user has this permission
+                     * @example true
+                     */
+                    hasPermission: boolean;
+                }[];
+                /** @description The list of project permissions */
+                project: {
+                    /**
+                     * @description The ID of the permission
+                     * @example 1
+                     */
+                    id: number;
+                    /**
+                     * @description The name of the permission
+                     * @example CREATE_FEATURE_STRATEGY
+                     */
+                    name: string;
+                    /**
+                     * @description The display name of the permission
+                     * @example Create activation strategies
+                     */
+                    displayName: string;
+                    /**
+                     * @description The type of the permission
+                     * @example environment
+                     */
+                    type: string;
+                    /**
+                     * @description The environment that the permission applies to
+                     * @example dev
+                     */
+                    environment?: string | null;
+                    /**
+                     * @description Whether the user has this permission
+                     * @example true
+                     */
+                    hasPermission: boolean;
+                }[];
+                /** @description The list of environment permissions */
+                environment: {
+                    /**
+                     * @description The ID of the permission
+                     * @example 1
+                     */
+                    id: number;
+                    /**
+                     * @description The name of the permission
+                     * @example CREATE_FEATURE_STRATEGY
+                     */
+                    name: string;
+                    /**
+                     * @description The display name of the permission
+                     * @example Create activation strategies
+                     */
+                    displayName: string;
+                    /**
+                     * @description The type of the permission
+                     * @example environment
+                     */
+                    type: string;
+                    /**
+                     * @description The environment that the permission applies to
+                     * @example dev
+                     */
+                    environment?: string | null;
+                    /**
+                     * @description Whether the user has this permission
+                     * @example true
+                     */
+                    hasPermission: boolean;
+                }[];
+            };
+            /** @description The user that this access overview is for */
+            user: components["schemas"]["userSchema"];
+            /** @description The name of the root role that this user has */
+            rootRole: components["schemas"]["roleSchema"];
+            /** @description The list of project roles that this user has in the selected project */
+            projectRoles: {
+                /**
+                 * @description The role id
+                 * @example 9
+                 */
+                id: number;
+                /**
+                 * @description A role can either be a global root role (applies to all projects) or a project role
+                 * @example root
+                 */
+                type: string;
+                /**
+                 * @description The name of the role
+                 * @example Editor
+                 */
+                name: string;
+                /**
+                 * @description A more detailed description of the role and what use it's intended for
+                 * @example Users with the editor role have access to most features in Unleash but can not manage users and roles in the global scope. Editors will be added as project owners when creating projects and get superuser rights within the context of these projects. Users with the editor role will also get access to most permissions on the default project by default.
+                 */
+                description?: string;
+                /**
+                 * @description What project the role belongs to
+                 * @example default
+                 */
+                project?: string | null;
+                /** @description The permissions that this role has */
+                permissions: {
+                    /**
+                     * @description The ID of the permission
+                     * @example 1
+                     */
+                    id: number;
+                    /**
+                     * @description The name of the permission
+                     * @example CREATE_FEATURE_STRATEGY
+                     */
+                    name: string;
+                    /**
+                     * @description The display name of the permission
+                     * @example Create activation strategies
+                     */
+                    displayName: string;
+                    /**
+                     * @description The type of the permission
+                     * @example environment
+                     */
+                    type: string;
+                    /**
+                     * @description The environment that the permission applies to
+                     * @example dev
+                     */
+                    environment?: string | null;
+                }[];
+            }[];
         };
         /** @description An Unleash user */
         userSchema: {
@@ -10657,7 +11138,7 @@ export interface components {
              */
             projectId?: string | null;
         };
-        /** @description Used to validate passwords obeying [Unleash password guidelines](https://docs.getunleash.io/reference/deploy/securing-unleash#password-requirements) */
+        /** @description Used to validate passwords obeying [Unleash password guidelines](https://docs.getunleash.io/using-unleash/deploy/configuring-unleash#securing-unleash) */
         validatePasswordSchema: {
             /**
              * @description The password to validate
@@ -10796,6 +11277,12 @@ export interface components {
              * @example 0d652a82-43db-4144-8e02-864b0b030710
              */
             instanceId?: string;
+            /**
+             * Format: date-time
+             * @description The date and time of when this Unleash instance version was built
+             * @example 2023-06-30T11:41:00.123Z
+             */
+            buildDate?: string | null;
         };
         /** @description Data related to actionable change requests in a project. */
         actionableChangeRequestsSchema: {
@@ -10828,7 +11315,7 @@ export interface components {
              * @description Which environment this permission applies to
              * @example development
              */
-            environment?: string;
+            environment?: string | null;
         };
         /** @description What kind of permissions are available */
         adminPermissionsSchema: {
@@ -10897,6 +11384,11 @@ export interface components {
             enabled?: boolean;
             /** @description Defines where in the list of environments to place this environment. The list uses an ascending sort, so lower numbers are shown first. You can change this value later. */
             sortOrder?: number;
+            /**
+             * @description Experimental field. The number of approvals required before a change request can be applied in this environment.
+             * @example 3
+             */
+            requiredApprovals?: number | null;
         };
         /** @description Data used to create a new [project](https://docs.getunleash.io/reference/projects). */
         createProjectSchema: {
@@ -10930,7 +11422,7 @@ export interface components {
              */
             defaultStickiness: string;
             /**
-             * @description A list of environments that should be enabled for this project. When provided, the list must contain at least one environment. If this property is missing, Unleash will default to enabling all non-deprecated environments for the project.
+             * @description A list of environments that should be enabled for this project. If this property is missing, Unleash will default to enabling all non-deprecated environments for the project. An empty list will result in no environment enabled for the project.
              * @example [
              *       "production",
              *       "development"
@@ -11797,6 +12289,61 @@ export interface components {
              * @enum {string}
              */
             action: "deleteDependency";
+        } | {
+            /**
+             * @description The name of the feature that this change applies to.
+             * @example my-best-feature
+             */
+            feature: string;
+            /**
+             * @description The name of this action.
+             * @enum {string}
+             */
+            action: "addReleasePlan";
+            payload: components["schemas"]["releasePlanTemplateIdSchema"];
+        } | {
+            /**
+             * @description The name of the feature that this change applies to.
+             * @example my-best-feature
+             */
+            feature: string;
+            /**
+             * @description The name of this action.
+             * @enum {string}
+             */
+            action: "startMilestone";
+            /** @description The ID of the release plan and which of its milestones to start. */
+            payload: {
+                /**
+                 * @description The ID of the milestone to start. This ID is an ulid
+                 * @example 01JB9GGTGQYEQ9D40R17T3YVW3
+                 */
+                milestoneId: string;
+                /**
+                 * @description The ID of the release plan. This ID is an ulid
+                 * @example 01JB9GGTGQYEQ9D40R17T3YVW3
+                 */
+                planId: string;
+            };
+        } | {
+            /**
+             * @description The name of the feature that this change applies to.
+             * @example my-best-feature
+             */
+            feature: string;
+            /**
+             * @description The name of this action.
+             * @enum {string}
+             */
+            action: "deleteReleasePlan";
+            /** @description The Id of the release plan to remove. */
+            payload: {
+                /**
+                 * @description The Id of the release plan. This id is an ulid
+                 * @example 01JB9GGTGQYEQ9D40R17T3YVW3
+                 */
+                planId: string;
+            };
         };
         /** @description Either a single change or a list of changes to create a change request from. */
         changeRequestOneOrManyCreateSchema: {
@@ -11945,6 +12492,61 @@ export interface components {
              * @enum {string}
              */
             action: "deleteDependency";
+        } | {
+            /**
+             * @description The name of the feature that this change applies to.
+             * @example my-best-feature
+             */
+            feature: string;
+            /**
+             * @description The name of this action.
+             * @enum {string}
+             */
+            action: "addReleasePlan";
+            payload: components["schemas"]["releasePlanTemplateIdSchema"];
+        } | {
+            /**
+             * @description The name of the feature that this change applies to.
+             * @example my-best-feature
+             */
+            feature: string;
+            /**
+             * @description The name of this action.
+             * @enum {string}
+             */
+            action: "startMilestone";
+            /** @description The ID of the release plan and which of its milestones to start. */
+            payload: {
+                /**
+                 * @description The ID of the milestone to start. This ID is an ulid
+                 * @example 01JB9GGTGQYEQ9D40R17T3YVW3
+                 */
+                milestoneId: string;
+                /**
+                 * @description The ID of the release plan. This ID is an ulid
+                 * @example 01JB9GGTGQYEQ9D40R17T3YVW3
+                 */
+                planId: string;
+            };
+        } | {
+            /**
+             * @description The name of the feature that this change applies to.
+             * @example my-best-feature
+             */
+            feature: string;
+            /**
+             * @description The name of this action.
+             * @enum {string}
+             */
+            action: "deleteReleasePlan";
+            /** @description The Id of the release plan to remove. */
+            payload: {
+                /**
+                 * @description The Id of the release plan. This id is an ulid
+                 * @example 01JB9GGTGQYEQ9D40R17T3YVW3
+                 */
+                planId: string;
+            };
         } | components["schemas"]["changeRequestCreateSchema"][];
         /** @description A feature and all its suggested changes. */
         changeRequestFeatureSchema: {
@@ -12088,6 +12690,61 @@ export interface components {
              * @enum {string}
              */
             action: "deleteDependency";
+        } | {
+            /**
+             * @description The name of the feature that this change applies to.
+             * @example my-best-feature
+             */
+            feature: string;
+            /**
+             * @description The name of this action.
+             * @enum {string}
+             */
+            action: "addReleasePlan";
+            payload: components["schemas"]["releasePlanTemplateIdSchema"];
+        } | {
+            /**
+             * @description The name of the feature that this change applies to.
+             * @example my-best-feature
+             */
+            feature: string;
+            /**
+             * @description The name of this action.
+             * @enum {string}
+             */
+            action: "startMilestone";
+            /** @description The ID of the release plan and which of its milestones to start. */
+            payload: {
+                /**
+                 * @description The ID of the milestone to start. This ID is an ulid
+                 * @example 01JB9GGTGQYEQ9D40R17T3YVW3
+                 */
+                milestoneId: string;
+                /**
+                 * @description The ID of the release plan. This ID is an ulid
+                 * @example 01JB9GGTGQYEQ9D40R17T3YVW3
+                 */
+                planId: string;
+            };
+        } | {
+            /**
+             * @description The name of the feature that this change applies to.
+             * @example my-best-feature
+             */
+            feature: string;
+            /**
+             * @description The name of this action.
+             * @enum {string}
+             */
+            action: "deleteReleasePlan";
+            /** @description The Id of the release plan to remove. */
+            payload: {
+                /**
+                 * @description The Id of the release plan. This id is an ulid
+                 * @example 01JB9GGTGQYEQ9D40R17T3YVW3
+                 */
+                planId: string;
+            };
         };
         /** @description Data used to create a [change request](https://docs.getunleash.io/reference/change-requests) for a single segment change. */
         changeRequestCreateSegmentSchema: {
@@ -12714,6 +13371,11 @@ export interface components {
             type?: string;
             /** @description Changes the sort order of this environment. */
             sortOrder?: number;
+            /**
+             * @description Experimental field. The number of approvals required before a change request can be applied in this environment.
+             * @example 3
+             */
+            requiredApprovals?: number | null;
         };
         /** @description Data used to update a [project](https://docs.getunleash.io/reference/projects) */
         updateProjectSchema: {
@@ -13480,9 +14142,17 @@ export interface components {
         /** @description A model representing a license response. */
         licenseReadSchema: {
             /** @description The actual license token. */
-            token: string;
+            token?: string;
+            /** @description Whether the license is valid or not. */
+            isValid: boolean;
             /** @description Name of the customer that owns the license. This is the name of the company that purchased the license. */
             customer?: string;
+            /** @description Type of license. */
+            type?: string;
+            /** @description Name of the Unleash instance where this license is valid. */
+            instanceName?: string;
+            /** @description Identifier of the Unleash instance where this license is valid. */
+            instanceId?: string;
             /** @description Name of plan that the license is for. */
             plan?: string;
             /** @description Number of seats in the license. */
@@ -13493,6 +14163,12 @@ export interface components {
              * @example 2023-07-31T13:33:02Z
              */
             expireAt?: string;
+            /**
+             * Format: date-time
+             * @description Date when the license was issued.
+             * @example 2023-07-31T13:33:02Z
+             */
+            issuedAt?: string;
         };
         /** @description A model representing a license check response. */
         licenseCheckSchema: {
@@ -13503,6 +14179,12 @@ export interface components {
              * @example Your license expired 3 days ago
              */
             message?: string;
+            /**
+             * @description Type of messages, whether it is an informative or a warning
+             * @example info
+             * @enum {string}
+             */
+            messageType?: "info" | "warning" | "error";
         };
         /** @description A schema representing a single licensed user data point. */
         licensedUserSchema: {
@@ -14263,6 +14945,35 @@ export interface components {
              */
             apiPath: string;
         };
+        /** @description Contains the recorded data usage for each API path, segmented by month and type of traffic */
+        trafficUsageApiMonthlyDataSchema: {
+            /** @description An array containing each month in the selected range that has data usage recorded */
+            months: {
+                /**
+                 * @description The month this data usage is recorded for
+                 * @example 2023-04
+                 */
+                month: string;
+                /** @description Contains the recorded data usage for each type of traffic group */
+                trafficTypes: {
+                    /**
+                     * @description The traffic group
+                     * @example successful-requests
+                     */
+                    group: string;
+                    /**
+                     * @description The number of requests
+                     * @example 100
+                     */
+                    count: number;
+                }[];
+            }[];
+            /**
+             * @description The path of the API that the recorded data usage is for
+             * @example /api/client/features
+             */
+            apiPath: string;
+        };
         /** @description Contains the recorded data usage for each API path, segmented by day and type of traffic */
         trafficUsageDataSegmentedSchema: {
             /**
@@ -14272,6 +14983,149 @@ export interface components {
             period: string;
             /** @description Contains the recorded daily data usage for each API path */
             apiData: components["schemas"]["trafficUsageApiDataSchema"][];
+        };
+        /** @description Contains the recorded data usage for each API path, segmented by day/month and type of traffic */
+        trafficUsageDataSegmentedCombinedSchema: {
+            /**
+             * @description Whether the data is aggregated by month or by day.
+             * @example monthly
+             * @enum {string}
+             */
+            grouping: "monthly" | "daily";
+            /** @description The date range there is data for. The range is inclusive and goes from the start of the `from` date to the end of the `to` date */
+            dateRange: {
+                /**
+                 * Format: date
+                 * @description The start of the dateRange
+                 * @example 2023-04-01
+                 */
+                from: string;
+                /**
+                 * Format: date
+                 * @description The end of the dateRange
+                 * @example 2023-04-30
+                 */
+                to: string;
+            };
+            /** @description Contains the recorded daily/monthly data usage for each API path */
+            apiData: {
+                /**
+                 * @description The API path
+                 * @example /api/client
+                 */
+                apiPath: string;
+                /** @description The recorded data points for the API path */
+                dataPoints: {
+                    /**
+                     * @description The date of the data point. Formatted as a full date (e.g. 2023-04-01) if the data is aggregated by day or as a month (e.g. 2023-04) if the data is aggregated by month.
+                     * @example 2023-04-01
+                     */
+                    period: string;
+                    /** @description The recorded traffic types for the data point */
+                    trafficTypes: {
+                        /**
+                         * @description The type of traffic
+                         * @example successful-requests
+                         */
+                        group: string;
+                        /**
+                         * @description The number of requests
+                         * @example 42
+                         */
+                        count: number;
+                    }[];
+                }[];
+            }[];
+        };
+        /** @description Contains the recorded metered groups connections segmented by day/month */
+        meteredConnectionsSchema: {
+            /**
+             * @description Whether the data is aggregated by month or by day.
+             * @example monthly
+             * @enum {string}
+             */
+            grouping: "monthly" | "daily";
+            /** @description The date range there is data for. The range is inclusive and goes from the start of the `from` date to the end of the `to` date */
+            dateRange: {
+                /**
+                 * Format: date
+                 * @description The start of the dateRange
+                 * @example 2023-04-01
+                 */
+                from: string;
+                /**
+                 * Format: date
+                 * @description The end of the dateRange
+                 * @example 2023-04-30
+                 */
+                to: string;
+            };
+            /** @description Contains the recorded daily/monthly connections for each metered group */
+            apiData: {
+                /**
+                 * @description The metered group representing charging unit in the organization using Unleash
+                 * @example default
+                 */
+                meteredGroup: string;
+                /** @description The recorded data points for the metered group */
+                dataPoints: {
+                    /**
+                     * @description The date of the data point. Formatted as a full date (e.g. 2023-04-01) if the data is aggregated by day or as a month (e.g. 2023-04) if the data is aggregated by month.
+                     * @example 2023-04-01
+                     */
+                    period: string;
+                    /**
+                     * @description Number of connections. 1 connection = 7200 backend SDK requests per day
+                     * @example 10.5
+                     */
+                    connections: number;
+                }[];
+            }[];
+        };
+        /** @description Contains the recorded metered groups requests segmented by day/month */
+        meteredRequestsSchema: {
+            /**
+             * @description Whether the data is aggregated by month or by day.
+             * @example monthly
+             * @enum {string}
+             */
+            grouping: "monthly" | "daily";
+            /** @description The date range there is data for. The range is inclusive and goes from the start of the `from` date to the end of the `to` date */
+            dateRange: {
+                /**
+                 * Format: date
+                 * @description The start of the dateRange
+                 * @example 2023-04-01
+                 */
+                from: string;
+                /**
+                 * Format: date
+                 * @description The end of the dateRange
+                 * @example 2023-04-30
+                 */
+                to: string;
+            };
+            /** @description Contains the recorded daily/monthly requests for each metered group */
+            apiData: {
+                /**
+                 * @description The metered group representing charging unit in the organization using Unleash
+                 * @example default
+                 */
+                meteredGroup: string;
+                /** @description The recorded data points for the metered group */
+                dataPoints: {
+                    /**
+                     * @description The date of the data point. Formatted as a full date (e.g. 2023-04-01) if the data is aggregated by day or as a month (e.g. 2023-04) if the data is aggregated by month.
+                     * @example 2023-04-01
+                     */
+                    period: string;
+                    /**
+                     * @description Number of requests
+                     * @example 1200
+                     */
+                    requests: number;
+                }[];
+            }[];
         };
         /** @description An object describing settings for SCIM provisioning. */
         scimSettingsSchema: {
@@ -14648,6 +15502,12 @@ export interface components {
             createdAt: string;
             /** @description A list of the milestones in this release template. */
             milestones?: components["schemas"]["releasePlanMilestoneSchema"][];
+            /**
+             * Format: date-time
+             * @description The date and time that the release template was archived.
+             * @example 2022-01-01T00:00:00Z
+             */
+            archivedAt?: string | null;
         };
         /** @description Schema representing the creation of a release plan milestone. */
         releasePlanMilestoneSchema: {
@@ -14931,6 +15791,158 @@ export interface components {
              */
             templateId: string;
         };
+        /** @description Represents traffic data for a single endpoint in Edge */
+        edgeEndpointTrafficSchema: {
+            /** @description Number of 20x requests */
+            requests200?: number;
+            /** @description Number of 30x requests */
+            requests304?: number;
+        };
+        /** @description Represents Edge instance observability data. */
+        edgeInstanceDataSchema: {
+            /**
+             * @description The ID of the Edge process, typically a ULID. Newly generated for each restart of the instance.
+             * @example 01ARZ3NDEKTSV4RRFFQ69G5FAV
+             */
+            identifier: string;
+            /**
+             * @description The name of the application, configured by the user, typically persistent across restarts of Edge.
+             * @example unleash-edge-us-east-1
+             */
+            appName: string;
+            /**
+             * @description Which region the Edge instance is running in. Set to AWS_REGION by default (if present).
+             * @example us-east-1
+             */
+            region?: string | null;
+            /**
+             * @description Which version (semver) of Edge is the Edge instance running.
+             * @example 19.6.3
+             */
+            edgeVersion: string;
+            processMetrics?: components["schemas"]["edgeProcessMetricsSchema"];
+            /**
+             * Format: date-time
+             * @description RFC3339 timestamp for when the Edge instance was started.
+             */
+            started: string;
+            traffic: components["schemas"]["edgeInstanceTrafficSchema"];
+            latencyUpstream: components["schemas"]["edgeUpstreamLatencySchema"];
+            /** @description How many streaming clients are connected to the Edge instance. */
+            connectedStreamingClients: number;
+            /** @description A list of Edge instances connected to the Edge instance. */
+            connectedEdges: components["schemas"]["edgeInstanceDataSchema"][];
+            /** @description Requests made to edge's endpoints since last report. Meant to be used for billing purposes. */
+            requestsSinceLastReport?: components["schemas"]["edgeRequestStatsSchema"];
+            /** @description Connection consumption data since last report, including features and metrics consumption. Used for long-lived backend SDKs with backend controlled number of instances. */
+            connectionConsumptionSinceLastReport?: components["schemas"]["connectionConsumptionSchema"];
+            /** @description Request consumption data since last report, grouped by metered group. User for frontend SDKs with unpredictable and potentially large number of user devices running those SDKs. */
+            requestConsumptionSinceLastReport?: components["schemas"]["requestConsumptionSchema"];
+        };
+        /** @description Represents requests to the Edge instance (/api/client/features, /api/frontend, etc.) */
+        edgeInstanceTrafficSchema: {
+            /** @description A map containing GET requests. */
+            get: {
+                [key: string]: components["schemas"]["edgeLatencyMetricsSchema"];
+            };
+            /** @description A map containing POST requests. */
+            post: {
+                [key: string]: components["schemas"]["edgeLatencyMetricsSchema"];
+            };
+            /** @description A map containing requests that were denied. */
+            accessDenied: {
+                [key: string]: components["schemas"]["edgeLatencyMetricsSchema"];
+            };
+            /** @description A map containing requests that had cached responses. */
+            cachedResponses: {
+                [key: string]: components["schemas"]["edgeLatencyMetricsSchema"];
+            };
+        };
+        /** @description Representing latency for an Edge operation. */
+        edgeLatencyMetricsSchema: {
+            /** @description Average time per request in milliseconds. */
+            avg: number;
+            /** @description Total number of requests made. */
+            count: number;
+            /**
+             * @description 99% of requests finished within this amount of milliseconds.
+             * @example 34.5
+             */
+            p99: number;
+        };
+        /** @description Represents Edge instance resource usage data. */
+        edgeProcessMetricsSchema: {
+            /**
+             * @description CPU usage, in seconds, since start of process.
+             * @example 54.54
+             */
+            cpuUsage: number;
+            /**
+             * @description Current process_resident_memory (in bytes) usage.
+             * @example 34000432
+             */
+            memoryUsage: number;
+        };
+        /** @description Represents Edge traffic data. */
+        edgeRequestStatsSchema: {
+            /** @description 20x and 30x requests to the client features endpoint */
+            "/api/client/features"?: components["schemas"]["edgeEndpointTrafficSchema"];
+            /** @description Traffic to the frontend endpoint */
+            "/api/frontend"?: components["schemas"]["edgeEndpointTrafficSchema"];
+            /** @description Traffic to the proxy endpoint (proxy endpoint is deprecated, use /api/frontend instead) */
+            "/api/proxy"?: components["schemas"]["edgeEndpointTrafficSchema"];
+            /** @description Traffic to Edge Metrics (from SDKs) */
+            "/api/client/metrics"?: components["schemas"]["edgeEndpointTrafficSchema"];
+            /** @description Traffic to Edge Metrics (from other Edge instances) */
+            "/api/client/metrics/bulk"?: components["schemas"]["edgeEndpointTrafficSchema"];
+            /** @description Traffic to Edge Metrics (from other Edge instances) */
+            "/api/client/metrics/edge"?: components["schemas"]["edgeEndpointTrafficSchema"];
+        };
+        /** @description Latencies for upstream actions from Edge (downloading/syncing new features, uploading metrics, uploading instance data) */
+        edgeUpstreamLatencySchema: {
+            features: components["schemas"]["edgeLatencyMetricsSchema"];
+            metrics: components["schemas"]["edgeLatencyMetricsSchema"];
+            edge: components["schemas"]["edgeLatencyMetricsSchema"];
+        };
+        connectionConsumptionSchema: {
+            /** @description Feature consumption data points */
+            features: components["schemas"]["meteredGroupConsumptionSchema"][];
+            /** @description Metrics consumption data points */
+            metrics: components["schemas"]["meteredGroupConsumptionSchema"][];
+        };
+        consumptionDataPointSchema: {
+            /**
+             * @description Time interval in milliseconds [start, end].
+             * @example [
+             *       0,
+             *       15000
+             *     ]
+             */
+            interval: number[];
+            /** @description Number of requests in this interval */
+            requests: number;
+        };
+        meteredGroupConsumptionSchema: {
+            /**
+             * @description Name of the metered group
+             * @example default
+             */
+            meteredGroup: string;
+            /** @description Array of consumption data points */
+            dataPoints: components["schemas"]["consumptionDataPointSchema"][];
+        };
+        requestConsumptionSchema: {
+            /**
+             * @description Name of the metered group
+             * @example default
+             */
+            meteredGroup: string;
+            /**
+             * @description Total number of requests for this metered group
+             * @example 10000
+             */
+            requests: number;
+        }[];
     };
     responses: never;
     parameters: never;
@@ -17596,6 +18608,33 @@ export interface operations {
             };
         };
     };
+    getTrafficDataUsageForPeriod: {
+        parameters: {
+            query: {
+                /** @description Whether to aggregate the data by month or by day */
+                grouping: "daily" | "monthly";
+                /** @description The starting date of the traffic data usage search in IS:yyyy-MM-dd format */
+                from: string;
+                /** @description The starting date of the traffic data usage search in IS:yyyy-MM-dd format */
+                to: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description trafficUsageDataSegmentedCombinedSchema */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["trafficUsageDataSegmentedCombinedSchema"];
+                };
+            };
+        };
+    };
     getTrafficUsageDataForPeriod: {
         parameters: {
             query?: never;
@@ -17614,6 +18653,60 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["trafficUsageDataSegmentedSchema"];
+                };
+            };
+        };
+    };
+    getConnectionsForPeriod: {
+        parameters: {
+            query: {
+                /** @description Whether to aggregate the data by month or by day */
+                grouping: "daily" | "monthly";
+                /** @description The starting date of the traffic data usage search in IS:yyyy-MM-dd format */
+                from: string;
+                /** @description The starting date of the traffic data usage search in IS:yyyy-MM-dd format */
+                to: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description meteredConnectionsSchema */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["meteredConnectionsSchema"];
+                };
+            };
+        };
+    };
+    getRequestsForPeriod: {
+        parameters: {
+            query: {
+                /** @description Whether to aggregate the data by month or by day */
+                grouping: "daily" | "monthly";
+                /** @description The starting date of the traffic data usage search in IS:yyyy-MM-dd format */
+                from: string;
+                /** @description The starting date of the traffic data usage search in IS:yyyy-MM-dd format */
+                to: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description meteredRequestsSchema */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["meteredRequestsSchema"];
                 };
             };
         };
@@ -19203,148 +20296,6 @@ export interface operations {
             };
         };
     };
-    getArchivedFeatures: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description archivedFeaturesSchema */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["archivedFeaturesSchema"];
-                };
-            };
-            /** @description Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`. */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example AuthenticationRequired
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at /auth/simple/login.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description The provided user credentials are valid, but the user does not have the necessary permissions to perform this operation */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example NoAccessError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You need the "UPDATE_ADDON" permission to perform this action in the "development" environment.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-        };
-    };
-    getArchivedFeaturesByProjectId: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                projectId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description archivedFeaturesSchema */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["archivedFeaturesSchema"];
-                };
-            };
-            /** @description Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`. */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example AuthenticationRequired
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at /auth/simple/login.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description The provided user credentials are valid, but the user does not have the necessary permissions to perform this operation */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example NoAccessError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You need the "UPDATE_ADDON" permission to perform this action in the "development" environment.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-        };
-    };
     deleteFeature: {
         parameters: {
             query?: never;
@@ -20525,6 +21476,26 @@ export interface operations {
                          */
                         message?: string;
                     };
+                };
+            };
+        };
+    };
+    getUnknownFlags: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description unknownFlagsResponseSchema */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["unknownFlagsResponseSchema"];
                 };
             };
         };
@@ -24852,12 +25823,14 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description This response has no body. */
+            /** @description #/components/schemas/userAccessOverviewSchema */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["userAccessOverviewSchema"];
+                };
             };
             /** @description Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`. */
             401: {
@@ -25321,6 +26294,74 @@ export interface operations {
                         /**
                          * @description A description of what went wrong.
                          * @example Could not find the addon with ID "12345".
+                         */
+                        message?: string;
+                    };
+                };
+            };
+        };
+    };
+    deleteScimUsers: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description This response has no body. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`. */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example AuthenticationRequired
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at /auth/simple/login.
+                         */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description The provided user credentials are valid, but the user does not have the necessary permissions to perform this operation */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example NoAccessError
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example You need the "UPDATE_ADDON" permission to perform this action in the "development" environment.
                          */
                         message?: string;
                     };
@@ -31500,6 +32541,476 @@ export interface operations {
             };
         };
     };
+    createFeatureLink: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                projectId: string;
+                featureName: string;
+            };
+            cookie?: never;
+        };
+        /** @description featureLinkSchema */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["featureLinkSchema"];
+            };
+        };
+        responses: {
+            /** @description This response has no body. */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The request data does not match what we expect. */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example ValidationError
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example The request payload you provided doesn't conform to the schema. The .parameters property should be object. You sent [].
+                         */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`. */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example AuthenticationRequired
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at /auth/simple/login.
+                         */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description The provided user credentials are valid, but the user does not have the necessary permissions to perform this operation */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example NoAccessError
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example You need the "UPDATE_ADDON" permission to perform this action in the "development" environment.
+                         */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description The operation does not support request payloads of the provided type. Please ensure that you're using one of the listed payload types and that you have specified the right content type in the "content-type" header. */
+            415: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example ContentTypeerror
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example We do not accept the content-type you provided (application/xml). Try using one of the content-types we do accept instead (application/json) and make sure the body is in the corresponding format.
+                         */
+                        message?: string;
+                    };
+                };
+            };
+        };
+    };
+    updateFeatureLink: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                projectId: string;
+                featureName: string;
+                linkId: string;
+            };
+            cookie?: never;
+        };
+        /** @description featureLinkSchema */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["featureLinkSchema"];
+            };
+        };
+        responses: {
+            /** @description This response has no body. */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The request data does not match what we expect. */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example ValidationError
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example The request payload you provided doesn't conform to the schema. The .parameters property should be object. You sent [].
+                         */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`. */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example AuthenticationRequired
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at /auth/simple/login.
+                         */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description The provided user credentials are valid, but the user does not have the necessary permissions to perform this operation */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example NoAccessError
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example You need the "UPDATE_ADDON" permission to perform this action in the "development" environment.
+                         */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description The requested resource was not found. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example NotFoundError
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example Could not find the addon with ID "12345".
+                         */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description The operation does not support request payloads of the provided type. Please ensure that you're using one of the listed payload types and that you have specified the right content type in the "content-type" header. */
+            415: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example ContentTypeerror
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example We do not accept the content-type you provided (application/xml). Try using one of the content-types we do accept instead (application/json) and make sure the body is in the corresponding format.
+                         */
+                        message?: string;
+                    };
+                };
+            };
+        };
+    };
+    deleteFeatureLink: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                projectId: string;
+                featureName: string;
+                linkId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description This response has no body. */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`. */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example AuthenticationRequired
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at /auth/simple/login.
+                         */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description The provided user credentials are valid, but the user does not have the necessary permissions to perform this operation */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example NoAccessError
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example You need the "UPDATE_ADDON" permission to perform this action in the "development" environment.
+                         */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description The requested resource was not found. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example NotFoundError
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example Could not find the addon with ID "12345".
+                         */
+                        message?: string;
+                    };
+                };
+            };
+        };
+    };
+    getFeatureLifecycleStageCount: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description featureLifecycleCountSchema */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["featureLifecycleCountSchema"];
+                };
+            };
+            /** @description Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`. */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example AuthenticationRequired
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at /auth/simple/login.
+                         */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description The provided user credentials are valid, but the user does not have the necessary permissions to perform this operation */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example NoAccessError
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example You need the "UPDATE_ADDON" permission to perform this action in the "development" environment.
+                         */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description The requested resource was not found. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example NotFoundError
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example Could not find the addon with ID "12345".
+                         */
+                        message?: string;
+                    };
+                };
+            };
+        };
+    };
     getPersonalDashboard: {
         parameters: {
             query?: never;
@@ -34066,6 +35577,8 @@ export interface operations {
                 project?: string;
                 /** @description The state of the feature active/stale. The state can be specified with an operator. The supported operators are IS, IS_NOT, IS_ANY_OF, IS_NONE_OF. */
                 state?: string;
+                /** @description The lifecycle stage of the feature. The stagee can be specified with an operator. The supported operators are IS, IS_NOT, IS_ANY_OF, IS_NONE_OF. */
+                lifecycle?: string;
                 /** @description The feature flag type to filter by. The type can be specified with an operator. The supported operators are IS, IS_NOT, IS_ANY_OF, IS_NONE_OF. */
                 type?: string;
                 /** @description The feature flag creator to filter by. The creators can be specified with an operator. The supported operators are IS, IS_NOT, IS_ANY_OF, IS_NONE_OF. */
@@ -34291,26 +35804,6 @@ export interface operations {
                          */
                         message?: string;
                     };
-                };
-            };
-        };
-    };
-    getDelta: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description clientFeaturesDeltaSchema */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["clientFeaturesDeltaSchema"];
                 };
             };
         };
@@ -34541,6 +36034,81 @@ export interface operations {
             cookie?: never;
         };
         requestBody?: never;
+        responses: {
+            /** @description frontendApiFeaturesSchema */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["frontendApiFeaturesSchema"];
+                };
+            };
+            /** @description Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`. */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example AuthenticationRequired
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at /auth/simple/login.
+                         */
+                        message?: string;
+                    };
+                };
+            };
+            /** @description The requested resource was not found. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example NotFoundError
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example Could not find the addon with ID "12345".
+                         */
+                        message?: string;
+                    };
+                };
+            };
+        };
+    };
+    getFrontendApiFeaturesWithPost: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description frontendApiFeaturesPostSchema */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["frontendApiFeaturesPostSchema"];
+            };
+        };
         responses: {
             /** @description frontendApiFeaturesSchema */
             200: {
