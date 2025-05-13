@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.35](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.34...@ogcio/building-blocks-sdk@v0.2.35) (2025-05-13)
+
+
+### Bug Fixes
+
+* handle invalid grant error ([#212](https://github.com/ogcio/building-blocks-sdk/issues/212)) ([607eab5](https://github.com/ogcio/building-blocks-sdk/commit/607eab5186371faee1467beb4d87d4ffc49bd2ab))
+
 ## [0.2.34](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.33...@ogcio/building-blocks-sdk@v0.2.34) (2025-05-13)
 
 
