@@ -931,11 +931,11 @@ export interface operations {
                         /** @description Subject. This is the only part that will be seen outside of the messaging platform is security is 'confidential' */
                         subject: string;
                         /** @description Brief description of the message */
-                        excerpt: string;
+                        excerpt?: string;
                         /** @description Plain text version of the message */
                         plainText: string;
-                        /** @description Rich text version of the message */
-                        richText: string;
+                        /** @description Rich text (html) version of the message */
+                        richText?: string;
                         /**
                          * @description Language used to send the message
                          * @enum {string}

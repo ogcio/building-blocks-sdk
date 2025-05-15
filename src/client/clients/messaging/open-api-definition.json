@@ -415,7 +415,6 @@
                       },
                       "excerpt": {
                         "description": "Brief description of the message",
-                        "minLength": 1,
                         "type": "string"
                       },
                       "plainText": {
@@ -424,8 +423,7 @@
                         "type": "string"
                       },
                       "richText": {
-                        "description": "Rich text version of the message",
-                        "minLength": 1,
+                        "description": "Rich text (html) version of the message",
                         "type": "string"
                       },
                       "language": {
@@ -439,9 +437,7 @@
                     },
                     "required": [
                       "subject",
-                      "excerpt",
                       "plainText",
-                      "richText",
                       "language"
                     ]
                   },
