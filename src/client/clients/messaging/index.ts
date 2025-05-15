@@ -168,13 +168,18 @@ export class Messaging extends BaseClient<paths> {
     // No null | undefined at this point
     const interpolator = this.newInterpolator(vars as Record<string, string>);
 
+    const values = [message.subject, message.plainText];
+
+    if (message.excerpt) {
+      values.push(message.excerpt);
+    }
+
+    if (message.richText) {
+      values.push(message.richText);
+    }
+
     const textVariables = new Set<string>();
-    for (const text of [
-      message.subject,
-      message.excerpt,
-      message.richText,
-      message.plainText,
-    ]) {
+    for (const text of values) {
       (text.match(/[^{{]+(?=}})/g) || []).forEach(
         textVariables.add,
         textVariables,
@@ -198,8 +203,12 @@ export class Messaging extends BaseClient<paths> {
     return {
       threadName: message.threadName,
       subject: keys.reduce(interpolator, message.subject),
-      excerpt: keys.reduce(interpolator, message.excerpt),
-      richText: keys.reduce(interpolator, message.richText),
+      excerpt: message.excerpt
+        ? keys.reduce(interpolator, message.excerpt)
+        : undefined,
+      richText: message.richText
+        ? keys.reduce(interpolator, message.richText)
+        : undefined,
       plainText: keys.reduce(interpolator, message.plainText),
       language: message.language,
     };
