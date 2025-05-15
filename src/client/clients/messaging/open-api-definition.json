@@ -1100,9 +1100,7 @@
                             "threadName",
                             "organisationId",
                             "recipientUserId",
-                            "excerpt",
                             "plainText",
-                            "richText",
                             "isSeen",
                             "security",
                             "attachments"
@@ -3261,7 +3259,6 @@
                         },
                         "excerpt": {
                           "description": "Brief description of the template content",
-                          "minLength": 1,
                           "type": "string"
                         },
                         "plainText": {
@@ -3271,7 +3268,6 @@
                         },
                         "richText": {
                           "description": "Rich text version of the template",
-                          "minLength": 1,
                           "type": "string"
                         }
                       },
@@ -3279,9 +3275,7 @@
                         "templateName",
                         "language",
                         "subject",
-                        "excerpt",
-                        "plainText",
-                        "richText"
+                        "plainText"
                       ]
                     }
                   },
@@ -3594,7 +3588,6 @@
                               },
                               "excerpt": {
                                 "description": "Brief description of the template content",
-                                "minLength": 1,
                                 "type": "string"
                               },
                               "plainText": {
@@ -3604,7 +3597,6 @@
                               },
                               "richText": {
                                 "description": "Rich text version of the template",
-                                "minLength": 1,
                                 "type": "string"
                               }
                             },
@@ -3612,9 +3604,7 @@
                               "templateName",
                               "language",
                               "subject",
-                              "excerpt",
-                              "plainText",
-                              "richText"
+                              "plainText"
                             ]
                           }
                         },
@@ -3889,7 +3879,6 @@
                         },
                         "excerpt": {
                           "description": "Brief description of the template content",
-                          "minLength": 1,
                           "type": "string"
                         },
                         "plainText": {
@@ -3899,7 +3888,6 @@
                         },
                         "richText": {
                           "description": "Rich text version of the template",
-                          "minLength": 1,
                           "type": "string"
                         }
                       },
@@ -3907,9 +3895,7 @@
                         "templateName",
                         "language",
                         "subject",
-                        "excerpt",
-                        "plainText",
-                        "richText"
+                        "plainText"
                       ]
                     }
                   },
@@ -4909,8 +4895,6 @@
                                   "receiverUserId",
                                   "subject",
                                   "language",
-                                  "excerpt",
-                                  "richText",
                                   "plainText",
                                   "threadName",
                                   "transports",
