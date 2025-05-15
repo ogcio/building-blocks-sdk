@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.36](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.35...@ogcio/building-blocks-sdk@v0.2.36) (2025-05-15)
+
+
+### Features
+
+* sync message sdk for api update ([#216](https://github.com/ogcio/building-blocks-sdk/issues/216)) ([4eb195f](https://github.com/ogcio/building-blocks-sdk/commit/4eb195f16a019fe1fc87821a2d25de80ff8be00c))
+
 ## [0.2.35](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.34...@ogcio/building-blocks-sdk@v0.2.35) (2025-05-13)
 
 
