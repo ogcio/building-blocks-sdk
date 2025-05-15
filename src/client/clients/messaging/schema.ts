@@ -464,9 +464,9 @@ export interface paths {
                                     /** @description Language of the related message */
                                     language: string;
                                     /** @description Excerpt of the related message */
-                                    excerpt: string;
+                                    excerpt?: string;
                                     /** @description Rich text content of the related message */
-                                    richText: string;
+                                    richText?: string;
                                     /** @description Plain text context of the related message */
                                     plainText: string;
                                     /** @description Thread name of the related message */
@@ -931,11 +931,11 @@ export interface operations {
                         /** @description Subject. This is the only part that will be seen outside of the messaging platform is security is 'confidential' */
                         subject: string;
                         /** @description Brief description of the message */
-                        excerpt: string;
+                        excerpt?: string;
                         /** @description Plain text version of the message */
                         plainText: string;
-                        /** @description Rich text version of the message */
-                        richText: string;
+                        /** @description Rich text (html) version of the message */
+                        richText?: string;
                         /**
                          * @description Language used to send the message
                          * @enum {string}
@@ -1224,11 +1224,11 @@ export interface operations {
                             /** @description Unique id of the recipient */
                             recipientUserId: string;
                             /** @description Brief description of the message */
-                            excerpt: string;
+                            excerpt?: string;
                             /** @description Plain text version of the message */
                             plainText: string;
                             /** @description Rich text version of the message */
-                            richText: string;
+                            richText?: string;
                             /** @description True if the message has already been seen by the recipient */
                             isSeen: boolean;
                             /**
@@ -2027,11 +2027,11 @@ export interface operations {
                         /** @description Subject of the template */
                         subject: string;
                         /** @description Brief description of the template content */
-                        excerpt: string;
+                        excerpt?: string;
                         /** @description Plain text version of the template */
                         plainText: string;
                         /** @description Rich text version of the template */
-                        richText: string;
+                        richText?: string;
                     }[];
                     /** @description List of the variables that are needed to be filled to create a message using this template */
                     variables?: {
@@ -2170,11 +2170,11 @@ export interface operations {
                                 /** @description Subject of the template */
                                 subject: string;
                                 /** @description Brief description of the template content */
-                                excerpt: string;
+                                excerpt?: string;
                                 /** @description Plain text version of the template */
                                 plainText: string;
                                 /** @description Rich text version of the template */
-                                richText: string;
+                                richText?: string;
                             }[];
                             fields: {
                                 fieldName: string;
@@ -2293,11 +2293,11 @@ export interface operations {
                         /** @description Subject of the template */
                         subject: string;
                         /** @description Brief description of the template content */
-                        excerpt: string;
+                        excerpt?: string;
                         /** @description Plain text version of the template */
                         plainText: string;
                         /** @description Rich text version of the template */
-                        richText: string;
+                        richText?: string;
                     }[];
                     /** @description List of the variables that are needed to be filled to create a message using this template */
                     variables?: {
