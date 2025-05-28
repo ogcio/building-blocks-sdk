@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.37](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.36...@ogcio/building-blocks-sdk@v0.2.37) (2025-05-28)
+
+
+### Features
+
+* bump analytics sdk ([#218](https://github.com/ogcio/building-blocks-sdk/issues/218)) ([7f8bc49](https://github.com/ogcio/building-blocks-sdk/commit/7f8bc49833e838d40efa6fa7148ad3f4b7b88511))
+
 ## [0.2.36](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.35...@ogcio/building-blocks-sdk@v0.2.36) (2025-05-15)
 
 
