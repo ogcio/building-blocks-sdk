@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.38](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.37...@ogcio/building-blocks-sdk@v0.2.38) (2025-05-28)
+
+
+### Features
+
+* payments extend transaction metadata ([#220](https://github.com/ogcio/building-blocks-sdk/issues/220)) ([0d7d1e1](https://github.com/ogcio/building-blocks-sdk/commit/0d7d1e1cb3b3541f8128ba36cd67758b1f0f71ec))
+
 ## [0.2.37](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.36...@ogcio/building-blocks-sdk@v0.2.37) (2025-05-28)
 
 
