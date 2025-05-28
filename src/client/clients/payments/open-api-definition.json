@@ -3736,6 +3736,17 @@
                             },
                             "amount": {
                               "type": "string"
+                            },
+                            "providerData": {
+                              "type": "object",
+                              "properties": {
+                                "chargeId": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "chargeId"
+                              ]
                             }
                           }
                         },
@@ -4565,6 +4576,17 @@
                               },
                               "amount": {
                                 "type": "string"
+                              },
+                              "providerData": {
+                                "type": "object",
+                                "properties": {
+                                  "chargeId": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "chargeId"
+                                ]
                               }
                             }
                           },
@@ -4866,6 +4888,17 @@
                       },
                       "amount": {
                         "type": "string"
+                      },
+                      "providerData": {
+                        "type": "object",
+                        "properties": {
+                          "chargeId": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "chargeId"
+                        ]
                       }
                     }
                   },
@@ -7014,6 +7047,17 @@
                             },
                             "amount": {
                               "type": "string"
+                            },
+                            "providerData": {
+                              "type": "object",
+                              "properties": {
+                                "chargeId": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "chargeId"
+                              ]
                             }
                           }
                         },
