@@ -1480,6 +1480,9 @@ export interface paths {
                                         ga: string;
                                     };
                                     amount?: string;
+                                    providerData?: {
+                                        chargeId: string;
+                                    };
                                 };
                                 description: {
                                     en: string;
@@ -1828,6 +1831,9 @@ export interface paths {
                                         ga: string;
                                     };
                                     amount?: string;
+                                    providerData?: {
+                                        chargeId: string;
+                                    };
                                 };
                                 description: {
                                     en: string;
@@ -1951,6 +1957,9 @@ export interface paths {
                                 ga: string;
                             };
                             amount?: string;
+                            providerData?: {
+                                chargeId: string;
+                            };
                         };
                         token?: string;
                     };
@@ -2944,6 +2953,9 @@ export interface paths {
                                         ga: string;
                                     };
                                     amount?: string;
+                                    providerData?: {
+                                        chargeId: string;
+                                    };
                                 };
                                 description: {
                                     en: string;
