@@ -1800,6 +1800,11 @@ export interface paths {
                                 }[];
                                 organizationId: string;
                                 email: string;
+                                journeyTitle: {
+                                    en: string;
+                                    ga?: string;
+                                };
+                                formId: string;
                             };
                             metadata?: {
                                 links?: {

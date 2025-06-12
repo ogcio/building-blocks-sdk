@@ -4747,6 +4747,23 @@
                         },
                         "email": {
                           "type": "string"
+                        },
+                        "journeyTitle": {
+                          "type": "object",
+                          "properties": {
+                            "en": {
+                              "type": "string"
+                            },
+                            "ga": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "en"
+                          ]
+                        },
+                        "formId": {
+                          "type": "string"
                         }
                       },
                       "required": [
@@ -4759,7 +4776,9 @@
                         "updatedAt",
                         "steps",
                         "organizationId",
-                        "email"
+                        "email",
+                        "journeyTitle",
+                        "formId"
                       ]
                     },
                     "metadata": {
