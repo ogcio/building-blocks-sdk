@@ -50,6 +50,28 @@ export function preparePaginationParams(paginationParams?: PaginationParams): {
   return output;
 }
 
+export function redactFields(outputData: unknown, keysToRemove: string[]) {
+  let redactedData: Record<string, unknown> | Record<string, unknown>[] = {};
+  if (Array.isArray(outputData)) {
+    redactedData = [];
+    for (const data of outputData) {
+      if (data && typeof data === "object") {
+        redactedData.push(
+          Object.fromEntries(
+            Object.entries(data).filter(([key]) => !keysToRemove.includes(key)),
+          ),
+        );
+      }
+    }
+  } else if (outputData && typeof outputData === "object") {
+    redactedData = Object.fromEntries(
+      Object.entries(outputData).filter(([key]) => !keysToRemove.includes(key)),
+    );
+  }
+
+  return redactedData;
+}
+
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export function formatResponse<G extends Record<string | number, any>, O>(
   response: FetchResponse<G, O, "application/json">,
@@ -75,7 +97,10 @@ export function formatResponse<G extends Record<string | number, any>, O>(
     if (containsMetadata) {
       outputMetadata = containsMetadata[1];
     }
-    outputData = containsData ? containsData[1] : response.data;
+    outputData = redactFields(containsData ? containsData[1] : response.data, [
+      "receiverFullName",
+      "subject",
+    ]);
   }
 
   const formattedResponse = {
