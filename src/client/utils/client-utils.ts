@@ -121,9 +121,12 @@ export function formatResponse<G extends Record<string | number, any>, O>(
   } as unknown as DataResponseValue<G, O>;
 
   logger?.trace(
-   { 
-   formattedResponse : redactFields(formattedResponse, ["receiverFullName", "subject"]) 
-   },
+    {
+      formattedResponse: redactFields(formattedResponse, [
+        "receiverFullName",
+        "subject",
+      ]),
+    },
     `${serviceName} - Formatted response`,
   );
 
