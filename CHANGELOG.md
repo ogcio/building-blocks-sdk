@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.39](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.38...@ogcio/building-blocks-sdk@v0.2.39) (2025-06-24)
+
+
+### Bug Fixes
+
+* AB[#29456](https://github.com/ogcio/building-blocks-sdk/issues/29456) redact PII fields from formatted response logger ([#223](https://github.com/ogcio/building-blocks-sdk/issues/223)) ([3447aa6](https://github.com/ogcio/building-blocks-sdk/commit/3447aa624258b28176c6d2debbdbef908b70e64f))
+
 ## [0.2.38](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.37...@ogcio/building-blocks-sdk@v0.2.38) (2025-05-28)
 
 
