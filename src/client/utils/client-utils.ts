@@ -97,10 +97,7 @@ export function formatResponse<G extends Record<string | number, any>, O>(
     if (containsMetadata) {
       outputMetadata = containsMetadata[1];
     }
-    outputData = redactFields(containsData ? containsData[1] : response.data, [
-      "receiverFullName",
-      "subject",
-    ]);
+    outputData = containsData ? containsData[1] : response.data;
   }
 
   const formattedResponse = {
@@ -109,7 +106,10 @@ export function formatResponse<G extends Record<string | number, any>, O>(
     error: response.error,
   } as unknown as DataResponseValue<G, O>;
 
-  logger?.trace({ formattedResponse }, `${serviceName} - Formatted response`);
+  logger?.trace(
+    redactFields(formattedResponse, ["receiverFullName", "subject"]),
+    `${serviceName} - Formatted response`,
+  );
 
   return formattedResponse;
 }
