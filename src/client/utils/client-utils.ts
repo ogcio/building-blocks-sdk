@@ -72,7 +72,7 @@ export function redactFields(data: unknown, keysToRemove: string[]) {
       if (d && typeof d === "object") {
         redactedData.push(
           Object.fromEntries(
-            Object.entries(data).filter(([key]) => !keysToRemove.includes(key)),
+            Object.entries(d).filter(([key]) => !keysToRemove.includes(key)),
           ),
         );
       }
