@@ -50,42 +50,6 @@ export function preparePaginationParams(paginationParams?: PaginationParams): {
   return output;
 }
 
-/**
- * Performs shallow redaction of specified fields from the input data.
- *
- * Behavior:
- * - If `data` is an object, returns a new object with keys in `keysToRemove` removed (shallow only).
- * - If `data` is an array, returns a new array where:
- *    - Each element that is an object has keys in `keysToRemove` removed.
- *    - Non-object elements are omitted from the output array.
- * - For all other types (including null/undefined), returns an empty object.
- *
- * @param {unknown} data - The input data to redact fields from. Can be an object, array, or any other type.
- * @param {string[]} keysToRemove - Array of keys to be removed from the object(s).
- * @returns {Record<string, unknown> | Record<string, unknown>[]} The redacted data: a new object or array of objects without the specified keys, or an empty object.
- */
-export function redactFields(data: unknown, keysToRemove: string[]) {
-  let redactedData: Record<string, unknown> | Record<string, unknown>[] = {};
-  if (Array.isArray(data)) {
-    redactedData = [];
-    for (const d of data) {
-      if (d && typeof d === "object") {
-        redactedData.push(
-          Object.fromEntries(
-            Object.entries(d).filter(([key]) => !keysToRemove.includes(key)),
-          ),
-        );
-      }
-    }
-  } else if (data && typeof data === "object") {
-    redactedData = Object.fromEntries(
-      Object.entries(data).filter(([key]) => !keysToRemove.includes(key)),
-    );
-  }
-
-  return redactedData;
-}
-
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export function formatResponse<G extends Record<string | number, any>, O>(
   response: FetchResponse<G, O, "application/json">,
@@ -122,10 +86,7 @@ export function formatResponse<G extends Record<string | number, any>, O>(
 
   logger?.trace(
     {
-      formattedResponse: redactFields(formattedResponse, [
-        "receiverFullName",
-        "subject",
-      ]),
+      formattedResponse,
     },
     `${serviceName} - Formatted response`,
   );
