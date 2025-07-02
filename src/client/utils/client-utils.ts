@@ -63,8 +63,16 @@ export function formatResponse<G extends Record<string | number, any>, O>(
     logger?.trace(`${serviceName} - Undefined response`);
     return {} as DataResponseValue<G, O>;
   }
-
-  logger?.trace({ rawResponse: response }, `${serviceName} - Raw response`);
+  // Log response format without leaking data
+  const toLogResponse = {
+    data: response.data ? "Is set" : "Not set",
+    error: response.error ? "Is set" : "Not set",
+    response: response.response ? "Is set" : "Not set",
+  };
+  logger?.trace(
+    { responseFormat: toLogResponse },
+    `${serviceName} - Raw response`,
+  );
   if (response.data) {
     const dataEntries = Object.entries(response.data);
     // by docs the body should contain a "data"
@@ -84,9 +92,15 @@ export function formatResponse<G extends Record<string | number, any>, O>(
     error: response.error,
   } as unknown as DataResponseValue<G, O>;
 
+  // Log response format without leaking data
+  const toLogFormattedResponse = {
+    data: formattedResponse.data ? "Is set" : "Not set",
+    metadata: formattedResponse.metadata ? "Is set" : "Not set",
+    error: formattedResponse.error ? "Is set" : "Not set",
+  };
   logger?.trace(
     {
-      formattedResponse,
+      responseFormat: toLogFormattedResponse,
     },
     `${serviceName} - Formatted response`,
   );
