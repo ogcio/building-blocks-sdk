@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.40](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.39...@ogcio/building-blocks-sdk@v0.2.40) (2025-07-02)
+
+
+### Bug Fixes
+
+* removed response logging AB[#29456](https://github.com/ogcio/building-blocks-sdk/issues/29456) ([#227](https://github.com/ogcio/building-blocks-sdk/issues/227)) ([7ae885b](https://github.com/ogcio/building-blocks-sdk/commit/7ae885b1bbe5c3bd50fd470d58e37aa748c141df))
+
 ## [0.2.39](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.38...@ogcio/building-blocks-sdk@v0.2.39) (2025-06-24)
 
 
