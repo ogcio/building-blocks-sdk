@@ -64,7 +64,10 @@ export abstract class BaseClient<T extends {}> {
             requestBody = clonedRequest.body;
           }
           this.logger.trace(
-            { body: requestBody, url: clonedRequest.url },
+            {
+              body: requestBody ? "Is set" : "Not set",
+              url: clonedRequest.url,
+            },
             `${this.serviceName} - executing request`,
           );
         }
