@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.41](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.40...@ogcio/building-blocks-sdk@v0.2.41) (2025-07-04)
+
+
+### Features
+
+* remove integration reference from create transaction body ([#229](https://github.com/ogcio/building-blocks-sdk/issues/229)) ([a1b1630](https://github.com/ogcio/building-blocks-sdk/commit/a1b163013871cd6069cec5dce1713f2de4cc5b2c))
+
 ## [0.2.40](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.39...@ogcio/building-blocks-sdk@v0.2.40) (2025-07-02)
 
 
