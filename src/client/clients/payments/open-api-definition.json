@@ -27,6 +27,15 @@
         }
       }
     },
+    "/version": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
     "/api/v1/providers/": {
       "post": {
         "tags": [
@@ -4837,9 +4846,6 @@
                   "extPaymentId": {
                     "type": "string"
                   },
-                  "integrationReference": {
-                    "type": "string"
-                  },
                   "amount": {
                     "minimum": 1,
                     "maximum": 1000000,
@@ -4909,7 +4915,6 @@
                 "required": [
                   "paymentRequestId",
                   "extPaymentId",
-                  "integrationReference",
                   "amount",
                   "paymentProviderId",
                   "metadata"
@@ -8655,6 +8660,67 @@
         ],
         "responses": {
           "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tester/resource-cleanup": {
+      "delete": {
+        "tags": [
+          "Tester"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "ok"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
             "description": "Default Response",
             "content": {
               "application/json": {
