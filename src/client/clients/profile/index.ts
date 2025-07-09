@@ -273,4 +273,13 @@ export class Profile extends BaseClient<paths> {
         (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
+
+  async getOrganisation(
+    organisationId: paths["/api/v1/organisations/{organisationId}"]["get"]["parameters"]["path"]["organisationId"],
+  ) {
+    throwIfEmpty(organisationId);
+    return this.client.GET("/api/v1/organisations/{organisationId}", {
+      params: { path: { organisationId } },
+    });
+  }
 }
