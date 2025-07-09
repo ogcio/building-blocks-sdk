@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.42](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.41...@ogcio/building-blocks-sdk@v0.2.42) (2025-07-09)
+
+
+### Features
+
+* add getOrganisation method on profile-api ([9b5b951](https://github.com/ogcio/building-blocks-sdk/commit/9b5b9513f4bed3d461d1b2da2e5c26de39a005e2))
+* add getOrganisation method on profile-api ([#231](https://github.com/ogcio/building-blocks-sdk/issues/231)) ([9b5b951](https://github.com/ogcio/building-blocks-sdk/commit/9b5b9513f4bed3d461d1b2da2e5c26de39a005e2))
+
 ## [0.2.41](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.40...@ogcio/building-blocks-sdk@v0.2.41) (2025-07-04)
 
 
