@@ -618,12 +618,12 @@
                                     "additionalProperties": false,
                                     "type": "object",
                                     "properties": {
-                                      "url": {
+                                      "formId": {
                                         "type": "string"
                                       }
                                     },
                                     "required": [
-                                      "url"
+                                      "formId"
                                     ]
                                   },
                                   {
@@ -2284,12 +2284,12 @@
                               "additionalProperties": false,
                               "type": "object",
                               "properties": {
-                                "url": {
+                                "formId": {
                                   "type": "string"
                                 }
                               },
                               "required": [
-                                "url"
+                                "formId"
                               ]
                             },
                             {
@@ -2750,12 +2750,12 @@
                         "additionalProperties": false,
                         "type": "object",
                         "properties": {
-                          "url": {
+                          "formId": {
                             "type": "string"
                           }
                         },
                         "required": [
-                          "url"
+                          "formId"
                         ]
                       },
                       {
@@ -2970,12 +2970,12 @@
                               "additionalProperties": false,
                               "type": "object",
                               "properties": {
-                                "url": {
+                                "formId": {
                                   "type": "string"
                                 }
                               },
                               "required": [
-                                "url"
+                                "formId"
                               ]
                             },
                             {
@@ -3307,12 +3307,12 @@
                         "additionalProperties": false,
                         "type": "object",
                         "properties": {
-                          "url": {
+                          "formId": {
                             "type": "string"
                           }
                         },
                         "required": [
-                          "url"
+                          "formId"
                         ]
                       },
                       {
@@ -3481,12 +3481,12 @@
                               "additionalProperties": false,
                               "type": "object",
                               "properties": {
-                                "url": {
+                                "formId": {
                                   "type": "string"
                                 }
                               },
                               "required": [
-                                "url"
+                                "formId"
                               ]
                             },
                             {
@@ -4744,9 +4744,6 @@
                         },
                         "organizationId": {
                           "type": "string"
-                        },
-                        "email": {
-                          "type": "string"
                         }
                       },
                       "required": [
@@ -4758,8 +4755,7 @@
                         "createdAt",
                         "updatedAt",
                         "steps",
-                        "organizationId",
-                        "email"
+                        "organizationId"
                       ]
                     },
                     "metadata": {
@@ -5555,9 +5551,6 @@
                             "required": [
                               "en"
                             ]
-                          },
-                          "email": {
-                            "type": "string"
                           }
                         },
                         "required": [
@@ -5569,8 +5562,7 @@
                           "createdAt",
                           "updatedAt",
                           "organizationId",
-                          "journeyTitle",
-                          "email"
+                          "journeyTitle"
                         ]
                       }
                     },
