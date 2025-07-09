@@ -263,7 +263,7 @@ export interface paths {
                                     journeyId: string;
                                     stepType: "title" | "form" | "payment" | "messaging" | "complete";
                                     stepData: {
-                                        url: string;
+                                        formId: string;
                                     } | {
                                         paymentRequestId: string;
                                         title: string;
@@ -981,7 +981,7 @@ export interface paths {
                                 journeyId: string;
                                 stepType: "title" | "form" | "payment" | "messaging" | "complete";
                                 stepData: {
-                                    url: string;
+                                    formId: string;
                                 } | {
                                     paymentRequestId: string;
                                     title: string;
@@ -1083,7 +1083,7 @@ export interface paths {
                 content: {
                     "application/json": {
                         stepData: {
-                            url: string;
+                            formId: string;
                         } | {
                             paymentRequestId: string;
                             title: string;
@@ -1124,7 +1124,7 @@ export interface paths {
                                 journeyId: string;
                                 stepType: "title" | "form" | "payment" | "messaging" | "complete";
                                 stepData: {
-                                    url: string;
+                                    formId: string;
                                 } | {
                                     paymentRequestId: string;
                                     title: string;
@@ -1323,7 +1323,7 @@ export interface paths {
                         stepType: "title" | "form" | "payment" | "messaging" | "complete";
                         configured: boolean;
                         stepData: {
-                            url: string;
+                            formId: string;
                         } | {
                             paymentRequestId: string;
                             title: string;
@@ -1362,7 +1362,7 @@ export interface paths {
                                 journeyId: string;
                                 stepType: "title" | "form" | "payment" | "messaging" | "complete";
                                 stepData: {
-                                    url: string;
+                                    formId: string;
                                 } | {
                                     paymentRequestId: string;
                                     title: string;
@@ -1799,7 +1799,6 @@ export interface paths {
                                     updatedAt: string;
                                 }[];
                                 organizationId: string;
-                                email: string;
                             };
                             metadata?: {
                                 links?: {
@@ -2086,7 +2085,6 @@ export interface paths {
                                     en: string;
                                     ga?: string;
                                 };
-                                email: string;
                             }[];
                             metadata?: {
                                 links?: {
