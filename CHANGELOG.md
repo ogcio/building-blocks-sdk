@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.43](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.42...@ogcio/building-blocks-sdk@v0.2.43) (2025-07-09)
+
+
+### Features
+
+* **29802:** change form step data ([#235](https://github.com/ogcio/building-blocks-sdk/issues/235)) ([fb338a8](https://github.com/ogcio/building-blocks-sdk/commit/fb338a8458ff51a5616b0d03be6c7eda0de58d12))
+
 ## [0.2.42](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.41...@ogcio/building-blocks-sdk@v0.2.42) (2025-07-09)
 
 
