@@ -1524,10 +1524,6 @@ export interface paths {
                                 providerName: string;
                                 providerType: string;
                                 paymentRequestId: string;
-                                userInfo: {
-                                    name: string;
-                                    email: string;
-                                };
                             };
                             metadata?: {
                                 /** @description Object containing the links to the related endpoints */
@@ -2503,8 +2499,6 @@ export interface paths {
                                 notes?: string;
                                 createdAt: string;
                                 updatedAt: string;
-                                username: string;
-                                email: string;
                                 organizationId: string;
                             };
                             metadata?: {
@@ -3314,7 +3308,7 @@ export interface paths {
                     limit?: number;
                     resource?: string;
                     action?: string;
-                    user?: string;
+                    userId?: string;
                     from?: string;
                     to?: string;
                 };
