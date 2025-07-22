@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.45](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.44...@ogcio/building-blocks-sdk@v0.2.45) (2025-07-22)
+
+
+### Features
+
+* payments refund user fix ([#239](https://github.com/ogcio/building-blocks-sdk/issues/239)) ([01e21b8](https://github.com/ogcio/building-blocks-sdk/commit/01e21b810d9cbf6aeaea04bf507e4bdeced961af))
+
 ## [0.2.44](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.43...@ogcio/building-blocks-sdk@v0.2.44) (2025-07-22)
 
 
