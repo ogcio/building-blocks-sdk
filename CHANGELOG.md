@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.44](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.43...@ogcio/building-blocks-sdk@v0.2.44) (2025-07-22)
+
+
+### Features
+
+* payments - remove user info ([#237](https://github.com/ogcio/building-blocks-sdk/issues/237)) ([5d82f00](https://github.com/ogcio/building-blocks-sdk/commit/5d82f00af613e7626fa02c4995dd07cef4e8008c))
+
 ## [0.2.43](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.42...@ogcio/building-blocks-sdk@v0.2.43) (2025-07-09)
 
 
