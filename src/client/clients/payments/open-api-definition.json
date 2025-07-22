@@ -3781,21 +3781,6 @@
                         },
                         "paymentRequestId": {
                           "type": "string"
-                        },
-                        "userInfo": {
-                          "type": "object",
-                          "properties": {
-                            "name": {
-                              "type": "string"
-                            },
-                            "email": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "name",
-                            "email"
-                          ]
                         }
                       },
                       "required": [
@@ -3811,8 +3796,7 @@
                         "description",
                         "providerName",
                         "providerType",
-                        "paymentRequestId",
-                        "userInfo"
+                        "paymentRequestId"
                       ]
                     },
                     "metadata": {
@@ -6166,12 +6150,6 @@
                         "updatedAt": {
                           "type": "string"
                         },
-                        "username": {
-                          "type": "string"
-                        },
-                        "email": {
-                          "type": "string"
-                        },
                         "organizationId": {
                           "type": "string"
                         }
@@ -6185,8 +6163,6 @@
                         "reason",
                         "createdAt",
                         "updatedAt",
-                        "username",
-                        "email",
                         "organizationId"
                       ]
                     },
@@ -7792,7 +7768,7 @@
               "type": "string"
             },
             "in": "query",
-            "name": "user",
+            "name": "userId",
             "required": false
           },
           {
