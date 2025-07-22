@@ -2499,6 +2499,7 @@ export interface paths {
                                 notes?: string;
                                 createdAt: string;
                                 updatedAt: string;
+                                username: string;
                                 organizationId: string;
                             };
                             metadata?: {

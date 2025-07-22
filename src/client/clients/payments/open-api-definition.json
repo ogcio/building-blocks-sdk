@@ -6150,6 +6150,9 @@
                         "updatedAt": {
                           "type": "string"
                         },
+                        "username": {
+                          "type": "string"
+                        },
                         "organizationId": {
                           "type": "string"
                         }
@@ -6163,6 +6166,7 @@
                         "reason",
                         "createdAt",
                         "updatedAt",
+                        "username",
                         "organizationId"
                       ]
                     },
