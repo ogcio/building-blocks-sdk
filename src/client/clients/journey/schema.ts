@@ -74,6 +74,7 @@ export interface paths {
                                 initialStepId: string;
                                 createdAt: string;
                                 updatedAt: string;
+                                allowedAuthMethods: string[];
                                 userName: string;
                             }[];
                             metadata?: {
@@ -137,6 +138,7 @@ export interface paths {
                             en: string;
                             ga?: string;
                         };
+                        allowedAuthMethods: string[];
                         organizationId: string;
                         userId: string;
                     };
@@ -258,6 +260,7 @@ export interface paths {
                                 createdAt: string;
                                 updatedAt: string;
                                 initialStepId: string;
+                                allowedAuthMethods: string[];
                                 steps: {
                                     id: string;
                                     journeyId: string;
@@ -497,6 +500,7 @@ export interface paths {
                                 initialStepId: string;
                                 createdAt: string;
                                 updatedAt: string;
+                                allowedAuthMethods: string[];
                             };
                             metadata?: {
                                 links?: {
@@ -1488,6 +1492,7 @@ export interface paths {
                                 tags: string[];
                                 createdAt: string;
                                 updatedAt: string;
+                                choosenAuthMethod: string;
                             }[];
                             metadata?: {
                                 links?: {
@@ -1591,6 +1596,7 @@ export interface paths {
                                     createdAt: string;
                                     updatedAt: string;
                                 }[];
+                                choosenAuthMethod: string;
                             };
                             metadata?: {
                                 links?: {
@@ -1695,6 +1701,7 @@ export interface paths {
                                 tags: string[];
                                 createdAt: string;
                                 updatedAt: string;
+                                choosenAuthMethod: string;
                             }[];
                             metadata?: {
                                 links?: {
@@ -1798,6 +1805,7 @@ export interface paths {
                                     createdAt: string;
                                     updatedAt: string;
                                 }[];
+                                choosenAuthMethod: string;
                                 organizationId: string;
                             };
                             metadata?: {
@@ -2080,6 +2088,7 @@ export interface paths {
                                 tags: string[];
                                 createdAt: string;
                                 updatedAt: string;
+                                choosenAuthMethod: string;
                                 organizationId: string;
                                 journeyTitle: {
                                     en: string;
@@ -2279,6 +2288,7 @@ export interface paths {
                 content: {
                     "application/json": {
                         journeyId: string;
+                        choosenAuthMethod: string;
                     };
                 };
             };

@@ -151,6 +151,12 @@
                           "updatedAt": {
                             "type": "string"
                           },
+                          "allowedAuthMethods": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
                           "userName": {
                             "type": "string"
                           }
@@ -164,6 +170,7 @@
                           "initialStepId",
                           "createdAt",
                           "updatedAt",
+                          "allowedAuthMethods",
                           "userName"
                         ]
                       }
@@ -307,6 +314,12 @@
                       "en"
                     ]
                   },
+                  "allowedAuthMethods": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
                   "organizationId": {
                     "type": "string"
                   },
@@ -316,6 +329,7 @@
                 },
                 "required": [
                   "title",
+                  "allowedAuthMethods",
                   "organizationId",
                   "userId"
                 ]
@@ -567,6 +581,12 @@
                         "initialStepId": {
                           "type": "string"
                         },
+                        "allowedAuthMethods": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
                         "steps": {
                           "type": "array",
                           "items": {
@@ -779,6 +799,7 @@
                         "createdAt",
                         "updatedAt",
                         "initialStepId",
+                        "allowedAuthMethods",
                         "steps",
                         "connections",
                         "userName"
@@ -1239,6 +1260,12 @@
                         },
                         "updatedAt": {
                           "type": "string"
+                        },
+                        "allowedAuthMethods": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
                         }
                       },
                       "required": [
@@ -1249,7 +1276,8 @@
                         "status",
                         "initialStepId",
                         "createdAt",
-                        "updatedAt"
+                        "updatedAt",
+                        "allowedAuthMethods"
                       ]
                     },
                     "metadata": {
@@ -3827,6 +3855,9 @@
                           },
                           "updatedAt": {
                             "type": "string"
+                          },
+                          "choosenAuthMethod": {
+                            "type": "string"
                           }
                         },
                         "required": [
@@ -3836,7 +3867,8 @@
                           "status",
                           "tags",
                           "createdAt",
-                          "updatedAt"
+                          "updatedAt",
+                          "choosenAuthMethod"
                         ]
                       }
                     },
@@ -4162,6 +4194,9 @@
                               "updatedAt"
                             ]
                           }
+                        },
+                        "choosenAuthMethod": {
+                          "type": "string"
                         }
                       },
                       "required": [
@@ -4172,7 +4207,8 @@
                         "tags",
                         "createdAt",
                         "updatedAt",
-                        "steps"
+                        "steps",
+                        "choosenAuthMethod"
                       ]
                     },
                     "metadata": {
@@ -4406,6 +4442,9 @@
                           },
                           "updatedAt": {
                             "type": "string"
+                          },
+                          "choosenAuthMethod": {
+                            "type": "string"
                           }
                         },
                         "required": [
@@ -4415,7 +4454,8 @@
                           "status",
                           "tags",
                           "createdAt",
-                          "updatedAt"
+                          "updatedAt",
+                          "choosenAuthMethod"
                         ]
                       }
                     },
@@ -4742,6 +4782,9 @@
                             ]
                           }
                         },
+                        "choosenAuthMethod": {
+                          "type": "string"
+                        },
                         "organizationId": {
                           "type": "string"
                         }
@@ -4755,6 +4798,7 @@
                         "createdAt",
                         "updatedAt",
                         "steps",
+                        "choosenAuthMethod",
                         "organizationId"
                       ]
                     },
@@ -5535,6 +5579,9 @@
                           "updatedAt": {
                             "type": "string"
                           },
+                          "choosenAuthMethod": {
+                            "type": "string"
+                          },
                           "organizationId": {
                             "type": "string"
                           },
@@ -5561,6 +5608,7 @@
                           "tags",
                           "createdAt",
                           "updatedAt",
+                          "choosenAuthMethod",
                           "organizationId",
                           "journeyTitle"
                         ]
@@ -5995,10 +6043,14 @@
                 "properties": {
                   "journeyId": {
                     "type": "string"
+                  },
+                  "choosenAuthMethod": {
+                    "type": "string"
                   }
                 },
                 "required": [
-                  "journeyId"
+                  "journeyId",
+                  "choosenAuthMethod"
                 ]
               }
             }
