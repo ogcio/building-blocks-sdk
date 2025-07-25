@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.46](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.45...@ogcio/building-blocks-sdk@v0.2.46) (2025-07-25)
+
+
+### Features
+
+* **30068:** add allowed auth method to journey api ([#241](https://github.com/ogcio/building-blocks-sdk/issues/241)) ([07098de](https://github.com/ogcio/building-blocks-sdk/commit/07098deea903f7572f88988d759d01d7de2322df))
+
 ## [0.2.45](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.44...@ogcio/building-blocks-sdk@v0.2.45) (2025-07-22)
 
 
