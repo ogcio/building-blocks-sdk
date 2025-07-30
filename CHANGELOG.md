@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.47](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.46...@ogcio/building-blocks-sdk@v0.2.47) (2025-07-30)
+
+
+### Features
+
+* remove choosen signin method from create run call ([#243](https://github.com/ogcio/building-blocks-sdk/issues/243)) ([259ebb2](https://github.com/ogcio/building-blocks-sdk/commit/259ebb297a84fc9da7c12cb2d91c94e6a0dcc6d5))
+
 ## [0.2.46](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.45...@ogcio/building-blocks-sdk@v0.2.46) (2025-07-25)
 
 
