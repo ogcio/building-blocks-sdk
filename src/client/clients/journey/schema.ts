@@ -2288,7 +2288,6 @@ export interface paths {
                 content: {
                     "application/json": {
                         journeyId: string;
-                        choosenAuthMethod: string;
                     };
                 };
             };
