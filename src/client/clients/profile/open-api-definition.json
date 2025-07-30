@@ -347,7 +347,10 @@
                 "type": "object",
                 "properties": {
                   "subject": {
-                    "type": "string"
+                    "type": "string",
+                    "enum": [
+                      "messaging"
+                    ]
                   },
                   "status": {
                     "anyOf": [

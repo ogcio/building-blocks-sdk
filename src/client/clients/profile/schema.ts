@@ -457,7 +457,8 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": {
-                    subject: string;
+                    /** @enum {string} */
+                    subject: "messaging";
                     status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
                 };
             };
