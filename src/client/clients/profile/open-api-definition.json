@@ -16,6 +16,1157 @@
     "schemas": {}
   },
   "paths": {
+    "/api/v1/citizens/consents/": {
+      "get": {
+        "operationId": "citizenListConsents",
+        "tags": [
+          "CitizenConsents"
+        ],
+        "description": "List the consents for a user, sorted by descendant submission date",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "subject",
+            "required": true,
+            "description": "Service for which list consents"
+          },
+          {
+            "schema": {
+              "pattern": "^[0-9][0-9]*|undefined$",
+              "default": "0",
+              "type": "string"
+            },
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "description": "Indicates where to start fetching data or how many records to skip, defining the initial position within the list"
+          },
+          {
+            "schema": {
+              "default": "20",
+              "pattern": "^([1-9]|100)|undefined$",
+              "type": "string"
+            },
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "description": "Indicates the maximum number (100) of items that will be returned in a single request"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "profileId": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "pending"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "undefined"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "pre-approved"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "opted-out"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "opted-in"
+                                ]
+                              }
+                            ]
+                          },
+                          "subject": {
+                            "type": "string"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "profileId",
+                          "status",
+                          "subject",
+                          "createdAt"
+                        ]
+                      }
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "description": "Object containing the links to the related endpoints",
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the request itself",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "description": "It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2'",
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "description": "Number representing the total number of available items",
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "description": "Code used to categorize the error",
+                      "type": "string"
+                    },
+                    "detail": {
+                      "description": "Description of the error",
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique request id. This one will be used to troubleshoot the problems",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of the error type",
+                      "type": "string"
+                    },
+                    "validation": {
+                      "description": "List of the validation errors",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "fieldName": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "fieldName",
+                          "message"
+                        ]
+                      }
+                    },
+                    "validationContext": {
+                      "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name",
+                    "statusCode"
+                  ]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "description": "Code used to categorize the error",
+                      "type": "string"
+                    },
+                    "detail": {
+                      "description": "Description of the error",
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique request id. This one will be used to troubleshoot the problems",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of the error type",
+                      "type": "string"
+                    },
+                    "validation": {
+                      "description": "List of the validation errors",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "fieldName": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "fieldName",
+                          "message"
+                        ]
+                      }
+                    },
+                    "validationContext": {
+                      "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name",
+                    "statusCode"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "citizenSubmitConsent",
+        "tags": [
+          "CitizenConsents"
+        ],
+        "description": "Submit a consent for the logged in user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "subject": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "pending"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "undefined"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "pre-approved"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "opted-out"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "opted-in"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "subject",
+                  "status"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "description": "Code used to categorize the error",
+                      "type": "string"
+                    },
+                    "detail": {
+                      "description": "Description of the error",
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique request id. This one will be used to troubleshoot the problems",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of the error type",
+                      "type": "string"
+                    },
+                    "validation": {
+                      "description": "List of the validation errors",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "fieldName": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "fieldName",
+                          "message"
+                        ]
+                      }
+                    },
+                    "validationContext": {
+                      "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name",
+                    "statusCode"
+                  ]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "description": "Code used to categorize the error",
+                      "type": "string"
+                    },
+                    "detail": {
+                      "description": "Description of the error",
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique request id. This one will be used to troubleshoot the problems",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of the error type",
+                      "type": "string"
+                    },
+                    "validation": {
+                      "description": "List of the validation errors",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "fieldName": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "fieldName",
+                          "message"
+                        ]
+                      }
+                    },
+                    "validationContext": {
+                      "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name",
+                    "statusCode"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/citizens/consents/latest": {
+      "get": {
+        "operationId": "citizenLatestConsent",
+        "tags": [
+          "CitizenConsents"
+        ],
+        "description": "Get the latest consent for a user",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "messaging"
+              ]
+            },
+            "in": "query",
+            "name": "subject",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "format": "uuid",
+                          "type": "string"
+                        },
+                        "profileId": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "pending"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "undefined"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "pre-approved"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "opted-out"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "opted-in"
+                              ]
+                            }
+                          ]
+                        },
+                        "subject": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "profileId",
+                        "status",
+                        "subject",
+                        "createdAt"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "description": "Object containing the links to the related endpoints",
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the request itself",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "description": "It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2'",
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "description": "Number representing the total number of available items",
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "description": "Code used to categorize the error",
+                      "type": "string"
+                    },
+                    "detail": {
+                      "description": "Description of the error",
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique request id. This one will be used to troubleshoot the problems",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of the error type",
+                      "type": "string"
+                    },
+                    "validation": {
+                      "description": "List of the validation errors",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "fieldName": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "fieldName",
+                          "message"
+                        ]
+                      }
+                    },
+                    "validationContext": {
+                      "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name",
+                    "statusCode"
+                  ]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "description": "Code used to categorize the error",
+                      "type": "string"
+                    },
+                    "detail": {
+                      "description": "Description of the error",
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique request id. This one will be used to troubleshoot the problems",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of the error type",
+                      "type": "string"
+                    },
+                    "validation": {
+                      "description": "List of the validation errors",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "fieldName": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "fieldName",
+                          "message"
+                        ]
+                      }
+                    },
+                    "validationContext": {
+                      "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name",
+                    "statusCode"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/organisations/consents/": {
+      "get": {
+        "operationId": "organisationListConsents",
+        "tags": [
+          "OrganisationConsents"
+        ],
+        "description": "List the last submission for each related user",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "subject",
+            "required": false,
+            "description": "Service for which list consents"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "profileId",
+            "required": false,
+            "description": "User for whom list the consents"
+          },
+          {
+            "schema": {
+              "pattern": "^[0-9][0-9]*|undefined$",
+              "default": "0",
+              "type": "string"
+            },
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "description": "Indicates where to start fetching data or how many records to skip, defining the initial position within the list"
+          },
+          {
+            "schema": {
+              "default": "20",
+              "pattern": "^([1-9]|100)|undefined$",
+              "type": "string"
+            },
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "description": "Indicates the maximum number (100) of items that will be returned in a single request"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "profileId": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "pending"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "undefined"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "pre-approved"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "opted-out"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "opted-in"
+                                ]
+                              }
+                            ]
+                          },
+                          "subject": {
+                            "type": "string"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "profileId",
+                          "status",
+                          "subject",
+                          "createdAt"
+                        ]
+                      }
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "description": "Object containing the links to the related endpoints",
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the request itself",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "description": "It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2'",
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "description": "Number representing the total number of available items",
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "description": "Code used to categorize the error",
+                      "type": "string"
+                    },
+                    "detail": {
+                      "description": "Description of the error",
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique request id. This one will be used to troubleshoot the problems",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of the error type",
+                      "type": "string"
+                    },
+                    "validation": {
+                      "description": "List of the validation errors",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "fieldName": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "fieldName",
+                          "message"
+                        ]
+                      }
+                    },
+                    "validationContext": {
+                      "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name",
+                    "statusCode"
+                  ]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "description": "Code used to categorize the error",
+                      "type": "string"
+                    },
+                    "detail": {
+                      "description": "Description of the error",
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique request id. This one will be used to troubleshoot the problems",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of the error type",
+                      "type": "string"
+                    },
+                    "validation": {
+                      "description": "List of the validation errors",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "fieldName": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "fieldName",
+                          "message"
+                        ]
+                      }
+                    },
+                    "validationContext": {
+                      "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name",
+                    "statusCode"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/jobs/import-profiles/{profileImportId}": {
       "post": {
         "tags": [
@@ -648,6 +1799,55 @@
                             "format": "date-time",
                             "type": "string"
                           },
+                          "consentStatuses": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "messaging": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "enum": [
+                                          "pending"
+                                        ]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": [
+                                          "undefined"
+                                        ]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": [
+                                          "pre-approved"
+                                        ]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": [
+                                          "opted-out"
+                                        ]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": [
+                                          "opted-in"
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "messaging"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
                           "details": {
                             "type": "object",
                             "properties": {
@@ -1019,6 +2219,55 @@
                           "updatedAt": {
                             "format": "date-time",
                             "type": "string"
+                          },
+                          "consentStatuses": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "messaging": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "enum": [
+                                          "pending"
+                                        ]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": [
+                                          "undefined"
+                                        ]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": [
+                                          "pre-approved"
+                                        ]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": [
+                                          "opted-out"
+                                        ]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": [
+                                          "opted-in"
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "messaging"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
                           },
                           "details": {
                             "type": "object",
@@ -1831,6 +3080,55 @@
                             "format": "date-time",
                             "type": "string"
                           },
+                          "consentStatuses": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "messaging": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "enum": [
+                                          "pending"
+                                        ]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": [
+                                          "undefined"
+                                        ]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": [
+                                          "pre-approved"
+                                        ]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": [
+                                          "opted-out"
+                                        ]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": [
+                                          "opted-in"
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "messaging"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
                           "details": {
                             "type": "object",
                             "properties": {
@@ -2193,6 +3491,55 @@
                         "updatedAt": {
                           "format": "date-time",
                           "type": "string"
+                        },
+                        "consentStatuses": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "messaging": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string",
+                                      "enum": [
+                                        "pending"
+                                      ]
+                                    },
+                                    {
+                                      "type": "string",
+                                      "enum": [
+                                        "undefined"
+                                      ]
+                                    },
+                                    {
+                                      "type": "string",
+                                      "enum": [
+                                        "pre-approved"
+                                      ]
+                                    },
+                                    {
+                                      "type": "string",
+                                      "enum": [
+                                        "opted-out"
+                                      ]
+                                    },
+                                    {
+                                      "type": "string",
+                                      "enum": [
+                                        "opted-in"
+                                      ]
+                                    }
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "messaging"
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
                         },
                         "details": {
                           "type": "object",
@@ -3235,6 +4582,55 @@
                           "format": "date-time",
                           "type": "string"
                         },
+                        "consentStatuses": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "messaging": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string",
+                                      "enum": [
+                                        "pending"
+                                      ]
+                                    },
+                                    {
+                                      "type": "string",
+                                      "enum": [
+                                        "undefined"
+                                      ]
+                                    },
+                                    {
+                                      "type": "string",
+                                      "enum": [
+                                        "pre-approved"
+                                      ]
+                                    },
+                                    {
+                                      "type": "string",
+                                      "enum": [
+                                        "opted-out"
+                                      ]
+                                    },
+                                    {
+                                      "type": "string",
+                                      "enum": [
+                                        "opted-in"
+                                      ]
+                                    }
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "messaging"
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
                         "details": {
                           "type": "object",
                           "properties": {
@@ -3650,6 +5046,55 @@
                           "format": "date-time",
                           "type": "string"
                         },
+                        "consentStatuses": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "messaging": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string",
+                                      "enum": [
+                                        "pending"
+                                      ]
+                                    },
+                                    {
+                                      "type": "string",
+                                      "enum": [
+                                        "undefined"
+                                      ]
+                                    },
+                                    {
+                                      "type": "string",
+                                      "enum": [
+                                        "pre-approved"
+                                      ]
+                                    },
+                                    {
+                                      "type": "string",
+                                      "enum": [
+                                        "opted-out"
+                                      ]
+                                    },
+                                    {
+                                      "type": "string",
+                                      "enum": [
+                                        "opted-in"
+                                      ]
+                                    }
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "messaging"
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
                         "details": {
                           "type": "object",
                           "properties": {
@@ -4038,6 +5483,55 @@
                         "updatedAt": {
                           "format": "date-time",
                           "type": "string"
+                        },
+                        "consentStatuses": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "messaging": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string",
+                                      "enum": [
+                                        "pending"
+                                      ]
+                                    },
+                                    {
+                                      "type": "string",
+                                      "enum": [
+                                        "undefined"
+                                      ]
+                                    },
+                                    {
+                                      "type": "string",
+                                      "enum": [
+                                        "pre-approved"
+                                      ]
+                                    },
+                                    {
+                                      "type": "string",
+                                      "enum": [
+                                        "opted-out"
+                                      ]
+                                    },
+                                    {
+                                      "type": "string",
+                                      "enum": [
+                                        "opted-in"
+                                      ]
+                                    }
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "messaging"
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
                         },
                         "details": {
                           "type": "object",

@@ -22,7 +22,7 @@
         "messaging:template:*",
         "messaging:event:read"
       ],
-      "updateDefinitions": true
+      "updateDefinitions": false
     },
     {
       "name": "upload",
@@ -30,7 +30,7 @@
       "openApiDefinitionFormat": "yaml",
       "citizenPermissions": ["upload:file.self:write", "upload:file.self:read"],
       "publicServantPermissions": ["upload:file:*", "profile:user:read"],
-      "updateDefinitions": true
+      "updateDefinitions": false
     },
     {
       "name": "payments",
@@ -48,7 +48,7 @@
         "payments:payment_request.public:read",
         "payments:transaction:*"
       ],
-      "updateDefinitions": true
+      "updateDefinitions": false
     },
     {
       "name": "scheduler",
@@ -56,11 +56,11 @@
       "openApiDefinitionFormat": "yaml",
       "citizenPermissions": ["scheduler:jobs:write"],
       "publicServantPermissions": ["scheduler:jobs:write"],
-      "updateDefinitions": true
+      "updateDefinitions": false
     },
     {
       "name": "profile",
-      "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/govie-services-profile/refs/heads/dev/apps/profile-api/openapi-definition.yml",
+      "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/govie-services-profile/refs/heads/feat/30123-consent-management/apps/profile-api/openapi-definition.yml",
       "openApiDefinitionFormat": "yaml",
       "citizenPermissions": [
         "profile:user.self:read",
@@ -75,7 +75,7 @@
       "openApiDefinitionFormat": "json",
       "citizenPermissions": [],
       "publicServantPermissions": [],
-      "updateDefinitions": true
+      "updateDefinitions": false
     },
     {
       "name": "journey",
@@ -91,7 +91,7 @@
         "integrator:step:*",
         "integrator:run:read"
       ],
-      "updateDefinitions": true
+      "updateDefinitions": false
     }
   ]
 }
