@@ -26,12 +26,14 @@
         "parameters": [
           {
             "schema": {
-              "type": "string"
+              "type": "string",
+              "enum": [
+                "messaging"
+              ]
             },
             "in": "query",
             "name": "subject",
-            "required": true,
-            "description": "Service for which list consents"
+            "required": true
           },
           {
             "schema": {

@@ -331,8 +331,7 @@ export interface operations {
     citizenListConsents: {
         parameters: {
             query: {
-                /** @description Service for which list consents */
-                subject: string;
+                subject: "messaging";
                 /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
                 offset?: string;
                 /** @description Indicates the maximum number (100) of items that will be returned in a single request */
