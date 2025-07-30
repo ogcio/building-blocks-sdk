@@ -6043,14 +6043,10 @@
                 "properties": {
                   "journeyId": {
                     "type": "string"
-                  },
-                  "choosenAuthMethod": {
-                    "type": "string"
                   }
                 },
                 "required": [
-                  "journeyId",
-                  "choosenAuthMethod"
+                  "journeyId"
                 ]
               }
             }
