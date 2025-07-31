@@ -10,7 +10,7 @@
     },
     {
       "name": "messaging",
-      "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/life-events/refs/heads/dev/apps/messaging-api/openapi-definition.yml",
+      "openApiDefinitionUrl": "https://messaging-api.dev.services.gov.ie/docs/yaml",
       "openApiDefinitionFormat": "yaml",
       "citizenPermissions": [
         "messaging:message.self:read",

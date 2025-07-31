@@ -14,7 +14,9 @@ export interface paths {
         put?: never;
         /**
          * Create project
-         * @description Create a new [Unleash project](https://docs.getunleash.io/reference/projects).
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     Create a new [Unleash project](https://docs.getunleash.io/reference/projects).
          */
         post: operations["createProject"];
         delete?: never;
@@ -34,7 +36,9 @@ export interface paths {
         put?: never;
         /**
          * Validate project ID
-         * @description Validate a project ID against Unleash's rules
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     Validate a project ID against Unleash's rules
          */
         post: operations["validateProject"];
         delete?: never;
@@ -50,21 +54,20 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /**
-         * Get an overview of a project. (deprecated)
-         * @deprecated
-         * @description This endpoint returns an overview of the specified projects stats, project health, number of members, which environments are configured, and the features in the project.
-         */
-        get: operations["getDeprecatedProjectOverview"];
+        get?: never;
         /**
          * Update project
-         * @description Update a project with new configuration. Any fields not provided are ignored.
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     Update a project with new configuration. Any fields not provided are ignored.
          */
         put: operations["updateProject"];
         post?: never;
         /**
          * Delete project
-         * @description Permanently delete the provided project. All feature flags in the project must be archived before you can delete it. This permanently deletes the project and its archived flags. It can not be undone.
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     Permanently delete the provided project. All feature flags in the project must be archived before you can delete it. This permanently deletes the project and its archived flags. It can not be undone.
          */
         delete: operations["deleteProject"];
         options?: never;
@@ -82,7 +85,9 @@ export interface paths {
         get?: never;
         /**
          * Update project enterprise settings
-         * @description Update project enterprise settings with new values. Any fields not provided are ignored.
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     Update project enterprise settings with new values. Any fields not provided are ignored.
          */
         put: operations["updateProjectEnterpriseSettings"];
         post?: never;
@@ -103,7 +108,9 @@ export interface paths {
         put?: never;
         /**
          * Archive project
-         * @description Archive the provided project. All feature flags in the project must be archived before you can archive the project.
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     Archive the provided project. All feature flags in the project must be archived before you can archive the project.
          */
         post: operations["archiveProject"];
         delete?: never;
@@ -123,30 +130,11 @@ export interface paths {
         put?: never;
         /**
          * Revive project
-         * @description Revive the specified project from the archive.
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     Revive the specified project from the archive.
          */
         post: operations["reviveProject"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/admin/projects/{projectId}/users": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get users in project
-         * @deprecated
-         * @description Get users belonging to a project together with their roles as well as a list of roles available to the project. This endpoint is deprecated. Use `/:projectId/access` instead.
-         */
-        get: operations["getProjectUsers"];
-        put?: never;
-        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -162,17 +150,23 @@ export interface paths {
         };
         /**
          * Get users and groups in project
-         * @description Get all groups, users and their roles, and available roles for the given project.
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     Get all groups, users and their roles, and available roles for the given project.
          */
         get: operations["getProjectAccess"];
         /**
          * Set users and groups to roles in the current project
-         * @description Sets all groups, users and their roles for the given project, overriding any existing configuration.
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     Sets all groups, users and their roles for the given project, overriding any existing configuration.
          */
         put: operations["setProjectAccess"];
         /**
          * Configure project access
-         * @description Configure project access for groups and single users. The provided users and groups will be given the roles specified in the payload.
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     Configure project access for groups and single users. The provided users and groups will be given the roles specified in the payload.
          */
         post: operations["addAccessToProject"];
         delete?: never;
@@ -190,43 +184,14 @@ export interface paths {
         };
         /**
          * Get project-role mappings
-         * @description For the provided role, retrieves a list of projects that use this role. For each project it also contains information about how the role used in that project, such as how many users, groups, or service accounts that use the role.
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     For the provided role, retrieves a list of projects that use this role. For each project it also contains information about how the role used in that project, such as how many users, groups, or service accounts that use the role.
          */
         get: operations["getRoleProjectAccess"];
         put?: never;
         post?: never;
         delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/admin/projects/{projectId}/users/{userId}/roles/{roleId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        /**
-         * Update user's project role
-         * @deprecated
-         * @description Replaces the given user's project role with the provided role. The user must already be a memeber of the project. This endpoint is deprecated. Use `/:projectId/users/:userId/roles` instead.
-         */
-        put: operations["changeRoleForUser"];
-        /**
-         * Add user to project
-         * @deprecated
-         * @description Adds the specified user to a project with the provided role. This endpoint is deprecated. Use `/:projectId/access` instead.
-         */
-        post: operations["addRoleToUser"];
-        /**
-         * Removes role from user
-         * @deprecated
-         * @description Remove the specified project role from the specified user. This endpoint is deprecated. Use `/:projectId/users/:userId/roles` instead.
-         */
-        delete: operations["removeRoleForUser"];
         options?: never;
         head?: never;
         patch?: never;
@@ -242,13 +207,17 @@ export interface paths {
         get?: never;
         /**
          * Sets roles for user
-         * @description Sets the roles a user has in the project.
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     Sets the roles a user has in the project.
          */
         put: operations["setRolesForUser"];
         post?: never;
         /**
          * Remove project access for a user
-         * @description Removes project access for a user by removing all of its roles for the project.
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     Removes project access for a user by removing all of its roles for the project.
          */
         delete: operations["removeUserAccess"];
         options?: never;
@@ -266,62 +235,19 @@ export interface paths {
         get?: never;
         /**
          * Sets roles for group
-         * @description Sets the roles a group has in the project.
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     Sets the roles a group has in the project.
          */
         put: operations["setRolesForGroup"];
         post?: never;
         /**
          * Remove project access for a group
-         * @description Removes project access for a group by removing all of its roles for the project.
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     Removes project access for a group by removing all of its roles for the project.
          */
         delete: operations["removeGroupAccess"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/admin/projects/{projectId}/groups/{groupId}/roles/{roleId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        /**
-         * Update group's project role
-         * @deprecated
-         * @description Updates the permissions that the group has within the given project. This endpoint is deprecated. Use `/:projectId/users/:userId/roles` instead.
-         */
-        put: operations["changeRoleForGroup"];
-        post?: never;
-        /**
-         * Remove project group role
-         * @deprecated
-         * @description Removes a project role from a group. This endpoint is deprecated. Use `/:projectId/groups/:groupId/roles` instead.
-         */
-        delete: operations["removeRoleFromGroup"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/admin/projects/{projectId}/role/{roleId}/access": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Configure project role access
-         * @deprecated
-         * @description Configure project access for groups and single users. The provided users and groups will be given the role specified in the URL parameters. This endpoint is deprecated. Use `/:projectId/access` instead.
-         */
-        post: operations["addRoleAccessToProject"];
-        delete?: never;
         options?: never;
         head?: never;
         patch?: never;
@@ -338,7 +264,9 @@ export interface paths {
         put?: never;
         /**
          * Move feature to project
-         * @description Moves the specified feature to the new project in the request schema. Requires you to have permissions to move the feature flag in both projects. Features that are included in any active change requests can not be moved.
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     Moves the specified feature to the new project in the request schema. Requires you to have permissions to move the feature flag in both projects. Features that are included in any active change requests can not be moved.
          */
         post: operations["changeProject"];
         delete?: never;
@@ -356,7 +284,9 @@ export interface paths {
         };
         /**
          * Gets available permissions
-         * @description Returns a list of available permissions
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     Returns a list of available permissions
          */
         get: operations["getPermissions"];
         put?: never;
@@ -376,7 +306,9 @@ export interface paths {
         };
         /**
          * Gets usage data
-         * @description Gets usage data per app/endpoint from a prometheus compatible metrics endpoint
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     Gets usage data per app/endpoint from a prometheus compatible metrics endpoint
          */
         get: operations["getRequestsPerSecond"];
         put?: never;
@@ -387,7 +319,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/admin/metrics/traffic-search": {
+    "/api/admin/metrics/traffic": {
         parameters: {
             query?: never;
             header?: never;
@@ -396,30 +328,11 @@ export interface paths {
         };
         /**
          * Get aggregated traffic data for a given time period.
-         * @description Gets traffic usage data for the selected period, either aggregated by day or by month.
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     Gets traffic usage data for the selected period, either aggregated by day or by month.
          */
         get: operations["getTrafficDataUsageForPeriod"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/admin/metrics/traffic/{period}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Gets traffic usage data for selected period
-         * @deprecated
-         * @description Gets traffic usage data numbers per API for a period given by the parameter. This endpoint is deprecated. Use /traffic-search instead.
-         */
-        get: operations["getTrafficUsageDataForPeriod"];
         put?: never;
         post?: never;
         delete?: never;
@@ -437,7 +350,9 @@ export interface paths {
         };
         /**
          * Get aggregated metered connections for a given time period.
-         * @description Gets metered connections count for the selected period, either aggregated by day or by month.
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     Gets metered connections count for the selected period, either aggregated by day or by month.
          */
         get: operations["getConnectionsForPeriod"];
         put?: never;
@@ -457,7 +372,9 @@ export interface paths {
         };
         /**
          * Get aggregated metered requests for a given time period.
-         * @description Gets metered requests count for the selected period, either aggregated by day or by month.
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     Gets metered requests count for the selected period, either aggregated by day or by month.
          */
         get: operations["getRequestsForPeriod"];
         put?: never;
@@ -477,7 +394,9 @@ export interface paths {
         };
         /**
          * Retrieves a list of notifications
-         * @description A user may get relevant notifications from the projects they are a member of
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     A user may get relevant notifications from the projects they are a member of
          */
         get: operations["getNotifications"];
         put?: never;
@@ -499,9 +418,35 @@ export interface paths {
         put?: never;
         /**
          * Mark notifications as read
-         * @description Allow to select which notifications were read and saving a read date
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     Allow to select which notifications were read and saving a read date
          */
         post: operations["markNotificationsAsRead"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin/insights/lifecycle": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get lifecycle trends
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     ![Beta](/demo/openapi-static/Beta.svg) This is a beta endpoint and it may change or be removed in the future.
+         *
+         *     Gets lifecycle trends information showing feature flag progression across development, production, and cleanup stages.
+         */
+        get: operations["getLifecycleTrends"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -517,7 +462,9 @@ export interface paths {
         };
         /**
          * Get instance information
-         * @description Gets high level information about the usage of this Unleash instance, including user, project, and flag information.
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     Gets high level information about the usage of this Unleash instance, including user, project, and flag information.
          */
         get: operations["getInstanceInsights"];
         put?: never;
@@ -538,36 +485,19 @@ export interface paths {
         get?: never;
         /**
          * Subscribe to email subscription
-         * @description Subscribe to email subscription e.g. monthly productivity report. By default everyone is subscribed. This API is mostly used by hosted Unleash.
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     Subscribe to email subscription e.g. monthly productivity report. By default everyone is subscribed. This API is mostly used by hosted Unleash.
          */
         put: operations["subscribeEmailSubscription"];
         post?: never;
         /**
          * Unsubscribe from email subscription
-         * @description Unsubscribe from email subscription e.g. monthly productivity report. This API is mostly used by hosted Unleash.
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     Unsubscribe from email subscription e.g. monthly productivity report. This API is mostly used by hosted Unleash.
          */
         delete: operations["unsubscribeEmailSubscription"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/admin/dashboard/executive": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get instance information
-         * @deprecated
-         * @description Gets high level information about the usage of this Unleash instance, including user, project, and flag information. This endpoint is deprecated and will be removed in a future minor version. Please use `/api/admin/insights` instead.
-         */
-        get: operations["deprecatedGetInstanceInsights"];
-        put?: never;
-        post?: never;
-        delete?: never;
         options?: never;
         head?: never;
         patch?: never;
@@ -582,7 +512,9 @@ export interface paths {
         };
         /**
          * Retrieves all licensed users data.
-         * @description Fetches an array of licensed users with date and count.
+         * @description ![Unleash Enterprise](/demo/openapi-static/Enterprise.svg) **Enterprise feature**
+         *
+         *     Fetches an array of licensed users with date and count.
          */
         get: operations["getAllLicensedUsers"];
         put?: never;
@@ -918,8 +850,7 @@ export interface paths {
         put?: never;
         /**
          * Create a strategy
-         * @deprecated
-         * @description Creates a custom strategy type based on the supplied data. Custom strategies are deprecated and should not be used. Prefer using built in strategies with constraints instead.
+         * @description Creates a custom strategy type based on the supplied data.
          */
         post: operations["createStrategy"];
         delete?: never;
@@ -1005,6 +936,7 @@ export interface paths {
         };
         /**
          * Get the most recent events from the Unleash instance or all events related to a project.
+         * @deprecated
          * @description Returns **the last 100** events from the Unleash instance when called without a query parameter. When called with a `project` parameter, returns **all events** for the specified project.
          *
          *     If the provided project does not exist, the list of events will be empty.
@@ -1027,32 +959,12 @@ export interface paths {
         };
         /**
          * Get all events related to a specific feature flag.
+         * @deprecated
          * @description Returns all events related to the specified feature flag. If the feature flag does not exist, the list of events will be empty.
          */
         get: operations["getEventsForToggle"];
         put?: never;
         post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/admin/events/search": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Search for events (deprecated)
-         * @deprecated
-         * @description Allows searching for events matching the search criteria in the request body
-         */
-        post: operations["deprecatedSearchEvents"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1128,7 +1040,7 @@ export interface paths {
         };
         /**
          * Get latest reported unknown flag names
-         * @description Returns a list of unknown flag names reported in the last 24 hours, if any. Maximum of 10.
+         * @description Returns a list of unknown flag reports from the last 7 days, if any. Maximum of 1000.
          */
         get: operations["getUnknownFlags"];
         put?: never;
@@ -1287,6 +1199,46 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/admin/custom-metrics": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get stored custom metrics
+         * @description Retrieves the stored custom metrics data.
+         */
+        get: operations["getCustomMetrics"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/admin/custom-metrics/prometheus": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get metrics in Prometheus format
+         * @description Exposes all custom metrics in Prometheus text format for scraping.
+         */
+        get: operations["getPrometheusMetrics"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/admin/user": {
         parameters: {
             query?: never;
@@ -1424,12 +1376,7 @@ export interface paths {
          */
         get: operations["getUiConfig"];
         put?: never;
-        /**
-         * Set UI configuration
-         * @deprecated
-         * @description Deprecated. Use `./cors` instead. Sets the UI configuration for this Unleash instance.
-         */
-        post: operations["setUiConfig"];
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -1579,7 +1526,7 @@ export interface paths {
         put?: never;
         /**
          * Validate a context field
-         * @description Check whether the provided data can be used to create a context field. If the data is not valid, ...?
+         * @description Check whether the provided data can be used to create a context field. If the data is not valid, returns a 400 status code with the reason why it is not valid.
          */
         post: operations["validate"];
         delete?: never;
@@ -2251,6 +2198,7 @@ export interface paths {
         };
         /**
          * Get an overview project dora metrics.
+         * @deprecated
          * @description This endpoint returns an overview of the specified dora metrics
          */
         get: operations["getProjectDora"];
@@ -2799,44 +2747,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/admin/projects/{projectId}/features/{featureName}/variants": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Retrieve variants for a feature (deprecated)
-         * @deprecated
-         * @description (deprecated from 4.21) Retrieve the variants for the specified feature. From Unleash 4.21 onwards, this endpoint will attempt to choose a [production-type environment](https://docs.getunleash.io/reference/environments) as the source of truth. If more than one production environment is found, the first one will be used.
-         */
-        get: operations["getFeatureVariants"];
-        /**
-         * Create (overwrite) variants for a feature flag in all environments
-         * @description This overwrites the current variants for the feature specified in the :featureName parameter in all environments.
-         *
-         *     The backend will validate the input for the following invariants
-         *
-         *     * If there are variants, there needs to be at least one variant with `weightType: variable`
-         *     * The sum of the weights of variants with `weightType: fix` must be strictly less than 1000 (< 1000)
-         *
-         *     The backend will also distribute remaining weight up to 1000 after adding the variants with `weightType: fix` together amongst the variants of `weightType: variable`
-         */
-        put: operations["overwriteFeatureVariants"];
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /**
-         * Apply a patch to a feature's variants (in all environments).
-         * @description Apply a list of patches patch to the specified feature's variants. The patch objects should conform to the [JSON-patch format (RFC 6902)](https://www.rfc-editor.org/rfc/rfc6902).
-         *
-         *     ⚠️ **Warning**: This method is not atomic. If something fails in the middle of applying the patch, you can be left with a half-applied patch. We recommend that you instead [patch variants on a per-environment basis](/docs/reference/api/unleash/patch-environments-feature-variants.api.mdx), which **is** an atomic operation.
-         */
-        patch: operations["patchFeatureVariants"];
-        trace?: never;
-    };
     "/api/admin/projects/{projectId}/features/{featureName}/environments/{environment}/variants": {
         parameters: {
             query?: never;
@@ -2856,6 +2766,7 @@ export interface paths {
          *     The backend will validate the input for the following invariants:
          *
          *     * If there are variants, there needs to be at least one variant with `weightType: variable`
+         *
          *     * The sum of the weights of variants with `weightType: fix` must be strictly less than 1000 (< 1000)
          *
          *     The backend will also distribute remaining weight up to 1000 after adding the variants with `weightType: fix` together amongst the variants of `weightType: variable`
@@ -3025,6 +2936,7 @@ export interface paths {
         };
         /**
          * Get an overview of a project insights.
+         * @deprecated
          * @description This endpoint returns insights into the specified projects stats, health, lead time for changes, feature types used, members and change requests.
          */
         get: operations["getProjectInsights"];
@@ -3457,7 +3369,6 @@ export interface paths {
         };
         /**
          * Instance usage statistics
-         * @deprecated
          * @description Provides statistics about various features of Unleash to allow for reporting of usage for self-hosted customers. The response contains data such as the number of users, groups, features, strategies, versions, etc.
          */
         get: operations["getInstanceAdminStats"];
@@ -3833,6 +3744,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/client/metrics/custom": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Send custom metrics
+         * @description This operation accepts custom metrics from clients. These metrics will be exposed via Prometheus in Unleash.
+         */
+        post: operations["clientCustomMetrics"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/client/register": {
         parameters: {
             query?: never;
@@ -4196,17 +4127,17 @@ export interface components {
             installation?: {
                 /**
                  * @description A URL to where the addon configuration should redirect to install addons of this type.
-                 * @example https://unleash-slack-app.vercel.app/install
+                 * @example https://app-for-slack.getunleash.io/install
                  */
                 url: string;
                 /**
                  * @description The title of the installation configuration. This will be displayed to the user when installing addons of this type.
-                 * @example Slack App installation
+                 * @example App for Slack installation
                  */
                 title?: string;
                 /**
                  * @description The help text of the installation configuration. This will be displayed to the user when installing addons of this type.
-                 * @example Clicking the Install button will send you to Slack to initiate the installation procedure for the Unleash Slack app for your workspace
+                 * @example Clicking the Install button will send you to Slack to initiate the installation procedure for the Unleash App for Slack for your workspace
                  */
                 helpText?: string;
             };
@@ -4220,7 +4151,7 @@ export interface components {
                 type: "success" | "info" | "warning" | "error";
                 /**
                  * @description The text of the alert. This is what will be displayed to the user.
-                 * @example Please ensure you have the Unleash Slack App installed in your Slack workspace if you haven't installed it already. If you want the Unleash Slack App bot to post messages to private channels, you'll need to invite it to those channels.
+                 * @example Please ensure you have the Unleash App for Slack installed in your Slack workspace if you haven't installed it already. If you want the Unleash App for Slack bot to post messages to private channels, you'll need to invite it to those channels.
                  */
                 text: string;
             }[];
@@ -4652,12 +4583,6 @@ export interface components {
              */
             secret: string;
             /**
-             * @deprecated
-             * @description This property was deprecated in Unleash v5. Prefer the `tokenName` property instead.
-             * @example a-name
-             */
-            username?: string;
-            /**
              * @description A unique name for this particular token
              * @example some-user
              */
@@ -4669,15 +4594,16 @@ export interface components {
              */
             type: "client" | "admin" | "frontend";
             /**
-             * @description The environment the token has access to. `*` if it has access to all environments.
+             * @description The environment the token has access to.
+             * @default development
              * @example development
              */
-            environment?: string;
+            environment: string;
             /**
              * @description The project this token belongs to.
              * @example developerexperience
              */
-            project: string;
+            project?: string;
             /**
              * @description The list of projects this token has access to. If the token has access to specific projects they will be listed here. If the token has access to all projects it will be represented as `[*]`
              * @example [
@@ -4940,8 +4866,10 @@ export interface components {
             applications: components["schemas"]["bulkRegistrationSchema"][];
             /** @description a list of client usage metrics registered by downstream providers. (Typically Unleash Edge) */
             metrics: components["schemas"]["clientMetricsEnvSchema"][];
+            /** @description a list of custom impact metrics registered by downstream providers. (Typically Unleash Edge) */
+            impactMetrics?: components["schemas"]["impactMetricsSchema"][];
         };
-        /** @description An application registration. Defines the format POSTed by our server-side SDKs when they're starting up */
+        /** @description An application registration. Defines the format POSTed by our backend SDKs when they're starting up */
         bulkRegistrationSchema: {
             /**
              * @description A list of applications this app registration has been registered through. If connected directly to Unleash, this is an empty list.
@@ -5209,7 +5137,7 @@ export interface components {
              */
             inlineSegmentConstraints?: boolean;
         };
-        /** @description Configuration data for server-side SDKs for evaluating feature flags. */
+        /** @description Configuration data for backend SDKs for evaluating feature flags. */
         clientFeaturesSchema: {
             /**
              * @description A version number for the format used in the response. Most Unleash instances now return version 2, which includes segments as a separate array
@@ -5503,41 +5431,6 @@ export interface components {
              */
             expiresAt?: string;
             /**
-             * @description An admin token. Must be the string "admin" (not case sensitive).
-             * @example admin
-             */
-            type: string;
-            /**
-             * @description The name of the token.
-             * @example token-64522
-             */
-            tokenName: string;
-        } | {
-            /**
-             * Format: date-time
-             * @description The time when this token should expire.
-             * @example 2023-07-04T11:26:24+02:00
-             */
-            expiresAt?: string;
-            /**
-             * @description An admin token. Must be the string "admin" (not case sensitive).
-             * @example admin
-             */
-            type: string;
-            /**
-             * @deprecated
-             * @description The name of the token. This property was deprecated in v5. Use `tokenName` instead.
-             * @example token-64523
-             */
-            username: string;
-        } | {
-            /**
-             * Format: date-time
-             * @description The time when this token should expire.
-             * @example 2023-07-04T11:26:24+02:00
-             */
-            expiresAt?: string;
-            /**
              * @description A client or frontend token. Must be one of the strings "client" or "frontend" (not case sensitive).
              * @example frontend
              */
@@ -5565,55 +5458,9 @@ export interface components {
              * @example token-64522
              */
             tokenName: string;
-        } | {
-            /**
-             * Format: date-time
-             * @description The time when this token should expire.
-             * @example 2023-07-04T11:26:24+02:00
-             */
-            expiresAt?: string;
-            /**
-             * @description A client or frontend token. Must be one of the strings "client" or "frontend" (not case sensitive).
-             * @example frontend
-             */
-            type: string;
-            /**
-             * @description The environment that the token should be valid for. Defaults to "default"
-             * @example development
-             */
-            environment?: string;
-            /**
-             * @description The project that the token should be valid for. Defaults to "*" meaning every project. This property is mutually incompatible with the `projects` property. If you specify one, you cannot specify the other.
-             * @example project-851
-             */
-            project?: string;
-            /**
-             * @description A list of projects that the token should be valid for. This property is mutually incompatible with the `project` property. If you specify one, you cannot specify the other.
-             * @example [
-             *       "project-851",
-             *       "project-852"
-             *     ]
-             */
-            projects?: string[];
-            /**
-             * @deprecated
-             * @description The name of the token. This property was deprecated in v5. Use `tokenName` instead.
-             * @example token-64523
-             */
-            username: string;
         };
         /** @description Reported application information from Unleash SDKs */
         createApplicationSchema: {
-            /**
-             * @description Name of the application
-             * @example accounting
-             */
-            appName?: string;
-            /**
-             * @description Which SDK and version the application reporting uses. Typically represented as `<identifier>:<version>`
-             * @example unleash-client-java:8.0.0
-             */
-            sdkVersion?: string;
             /**
              * @description Which [strategies](https://docs.getunleash.io/topics/the-anatomy-of-unleash#activation-strategies) the application has loaded. Useful when trying to figure out if your [custom strategy](https://docs.getunleash.io/reference/custom-activation-strategies) has been loaded in the SDK
              * @example [
@@ -5876,6 +5723,31 @@ export interface components {
              */
             expiresAt: string;
         };
+        /** @description The schema for creating a project API token. This schema is used to create a new project API token. */
+        createProjectApiTokenSchema: {
+            /**
+             * @description A client or frontend token. Must be one of the strings "client" or "frontend" (not case sensitive).
+             * @example frontend
+             */
+            type: string;
+            /**
+             * @description The environment that the token should be valid for. Defaults to "default".
+             * @default default
+             * @example development
+             */
+            environment: string;
+            /**
+             * Format: date-time
+             * @description The date and time when the token should expire. The date should be in ISO 8601 format.
+             * @example 2023-10-01T00:00:00Z
+             */
+            expiresAt?: string;
+            /**
+             * @description A unique name for this particular token
+             * @example some-user
+             */
+            tokenName: string;
+        };
         /** @description The data required to create a strategy type. Refer to the docs on [custom strategy types](https://docs.getunleash.io/reference/custom-activation-strategies) for more information. */
         createStrategySchema: {
             /**
@@ -5991,12 +5863,6 @@ export interface components {
              */
             id: number;
             /**
-             * @deprecated
-             * @description Deprecated in v5. Used internally to know which operations the user should be allowed to perform
-             * @example true
-             */
-            isAPI?: boolean;
-            /**
              * @description Name of the user
              * @example User
              */
@@ -6048,8 +5914,9 @@ export interface components {
             /**
              * @description A user is either an actual User or a Service Account
              * @example User
+             * @enum {string}
              */
-            accountType?: string;
+            accountType?: "User" | "Service Account";
             /** @description Deprecated */
             permissions?: string[];
             /**
@@ -6098,6 +5965,34 @@ export interface components {
              */
             sendEmail?: boolean;
         };
+        /** @description A custom metric with name, value and optional labels */
+        customMetricSchema: {
+            /**
+             * @description Name of the custom metric
+             * @example http_responses_total
+             */
+            name: string;
+            /**
+             * @description Value of the custom metric
+             * @example 1
+             */
+            value: number;
+            /**
+             * @description Labels to categorize the metric
+             * @example {
+             *       "status": "200",
+             *       "method": "GET"
+             *     }
+             */
+            labels?: {
+                [key: string]: string;
+            };
+        };
+        /** @description A collection of custom metrics */
+        customMetricsSchema: {
+            /** @description Array of custom metrics */
+            metrics: components["schemas"]["customMetricSchema"][];
+        };
         /** @description A representation of a date. Either as a date-time string or as a UNIX timestamp. */
         dateSchema: string | number;
         /** @description `true` when any dependencies exist, `false` when no dependencies exist. */
@@ -6123,132 +6018,6 @@ export interface components {
              */
             variants?: string[];
         };
-        /** @description A high-level overview of a project. It contains information such as project statistics, the name of the project, what members and what features it contains, etc. */
-        deprecatedProjectOverviewSchema: {
-            /** @description Project statistics */
-            stats?: components["schemas"]["projectStatsSchema"];
-            /**
-             * @description The schema version used to describe the project overview
-             * @example 1
-             */
-            version: number;
-            /**
-             * @description The name of this project
-             * @example dx-squad
-             */
-            name: string;
-            /**
-             * @description Additional information about the project
-             * @example DX squad feature release
-             */
-            description?: string | null;
-            /**
-             * @description A default stickiness for the project affecting the default stickiness value for variants and Gradual Rollout strategy
-             * @example userId
-             */
-            defaultStickiness?: string;
-            /**
-             * @description The project's [collaboration mode](https://docs.getunleash.io/reference/project-collaboration-mode). Determines whether non-project members can submit change requests or not.
-             * @example open
-             * @enum {string}
-             */
-            mode?: "open" | "protected" | "private";
-            /**
-             * @description A limit on the number of features allowed in the project. Null if no limit.
-             * @example 100
-             */
-            featureLimit?: number | null;
-            featureNaming?: components["schemas"]["createFeatureNamingPatternSchema"];
-            /**
-             * @description The number of members this project has
-             * @example 4
-             */
-            members?: number;
-            /**
-             * @description An indicator of the [project's health](https://docs.getunleash.io/reference/technical-debt#project-status) on a scale from 0 to 100
-             * @example 50
-             */
-            health?: number;
-            /**
-             * @description The environments that are enabled for this project
-             * @example [
-             *       {
-             *         "environment": "development"
-             *       },
-             *       {
-             *         "environment": "production",
-             *         "defaultStrategy": {
-             *           "name": "flexibleRollout",
-             *           "constraints": [],
-             *           "parameters": {
-             *             "rollout": "50",
-             *             "stickiness": "customAppName",
-             *             "groupId": "stickytoggle"
-             *           }
-             *         }
-             *       }
-             *     ]
-             */
-            environments?: components["schemas"]["projectEnvironmentSchema"][];
-            /** @description The full list of features in this project (excluding archived features) */
-            features?: components["schemas"]["featureSchema"][];
-            /**
-             * Format: date-time
-             * @description When the project was last updated.
-             * @example 2023-02-10T08:36:35.262Z
-             */
-            updatedAt?: string | null;
-            /**
-             * Format: date-time
-             * @description When the project was created.
-             * @example 2023-02-10T08:36:35.262Z
-             */
-            createdAt?: string | null;
-            /**
-             * @description `true` if the project was favorited, otherwise `false`.
-             * @example true
-             */
-            favorite?: boolean;
-        };
-        /** @description
-         *             Search for events by type, project, feature, free-text query,
-         *             or a combination thereof. Pass an empty object to fetch all events.
-         *          */
-        deprecatedSearchEventsSchema: {
-            /**
-             * @description Find events by event type (case-sensitive).
-             * @example feature-created
-             * @enum {string}
-             */
-            type?: "application-created" | "feature-created" | "feature-deleted" | "feature-updated" | "feature-metadata-updated" | "feature-variants-updated" | "feature-environment-variants-updated" | "feature-project-change" | "feature-archived" | "feature-revived" | "feature-import" | "feature-tagged" | "feature-tag-import" | "feature-strategy-update" | "feature-strategy-add" | "feature-strategy-remove" | "feature-type-updated" | "feature-completed" | "feature-uncompleted" | "feature-link-added" | "feature-link-removed" | "feature-link-updated" | "strategy-order-changed" | "drop-feature-tags" | "feature-untagged" | "feature-stale-on" | "feature-stale-off" | "drop-features" | "feature-environment-enabled" | "feature-environment-disabled" | "strategy-created" | "strategy-deleted" | "strategy-deprecated" | "strategy-reactivated" | "strategy-updated" | "strategy-import" | "drop-strategies" | "context-field-created" | "context-field-updated" | "context-field-deleted" | "project-access-added" | "project-access-user-roles-updated" | "project-access-group-roles-updated" | "project-access-user-roles-deleted" | "project-access-group-roles-deleted" | "project-access-updated" | "project-created" | "project-updated" | "project-deleted" | "project-archived" | "project-revived" | "project-import" | "project-user-added" | "project-user-removed" | "project-user-role-changed" | "project-group-role-changed" | "project-group-added" | "project-group-removed" | "role-created" | "role-updated" | "role-deleted" | "drop-projects" | "tag-created" | "tag-deleted" | "tag-import" | "drop-tags" | "tag-type-created" | "tag-type-deleted" | "tag-type-updated" | "tag-type-import" | "drop-tag-types" | "addon-config-created" | "addon-config-updated" | "addon-config-deleted" | "db-pool-update" | "user-created" | "user-updated" | "user-deleted" | "drop-environments" | "environment-import" | "environment-created" | "environment-updated" | "environment-deleted" | "segment-created" | "segment-updated" | "segment-deleted" | "group-created" | "group-updated" | "group-deleted" | "group-user-added" | "group-user-removed" | "setting-created" | "setting-updated" | "setting-deleted" | "client-metrics" | "client-register" | "pat-created" | "pat-deleted" | "public-signup-token-created" | "public-signup-token-user-added" | "public-signup-token-updated" | "change-request-created" | "change-request-discarded" | "change-added" | "change-discarded" | "change-edited" | "change-request-rejected" | "change-request-approved" | "change-request-approval-added" | "change-request-cancelled" | "change-request-sent-to-review" | "change-request-schedule-suspended" | "change-request-applied" | "change-request-scheduled" | "change-request-scheduled-application-success" | "change-request-scheduled-application-failure" | "change-request-configuration-updated" | "api-token-created" | "api-token-updated" | "api-token-deleted" | "feature-favorited" | "feature-unfavorited" | "project-favorited" | "project-unfavorited" | "features-exported" | "features-imported" | "service-account-created" | "service-account-deleted" | "service-account-updated" | "feature-potentially-stale-on" | "feature-dependency-added" | "feature-dependency-removed" | "feature-dependencies-removed" | "banner-created" | "banner-updated" | "banner-deleted" | "project-environment-added" | "project-environment-removed" | "default-strategy-updated" | "segment-import" | "signal-endpoint-created" | "signal-endpoint-updated" | "signal-endpoint-deleted" | "signal-endpoint-token-created" | "signal-endpoint-token-updated" | "signal-endpoint-token-deleted" | "actions-created" | "actions-updated" | "actions-deleted" | "release-plan-template-created" | "release-plan-template-updated" | "release-plan-template-deleted" | "release-plan-template-archived" | "release-plan-added" | "release-plan-removed" | "release-plan-milestone-started" | "user-preference-updated" | "scim-users-deleted" | "scim-groups-deleted";
-            /**
-             * @description Find events by project ID (case-sensitive).
-             * @example default
-             */
-            project?: string;
-            /**
-             * @description Find events by feature flag name (case-sensitive).
-             * @example my.first.flag
-             */
-            feature?: string;
-            /**
-             * @description Find events by a free-text search query. The query will be matched against the event type, the username or email that created the event (if any), and the event data payload (if any).
-             * @example admin@example.com
-             */
-            query?: string;
-            /**
-             * @description The maximum amount of events to return in the search result
-             * @default 100
-             * @example 50
-             */
-            limit: number;
-            /**
-             * @description Which event id to start listing from
-             * @default 0
-             * @example 100
-             */
-            offset: number;
-        };
         /** @description The representation of a dora time to production feature metric */
         doraFeaturesSchema: {
             /** @description The name of a feature flag */
@@ -6256,7 +6025,7 @@ export interface components {
             /** @description The average number of days it takes a feature flag to get into production */
             timeToProduction: number;
         };
-        /** @description A representation of a client token, limiting access to [CLIENT](https://docs.getunleash.io/reference/api-tokens-and-client-keys#client-tokens) (used by serverside SDKs) or [FRONTEND](https://docs.getunleash.io/reference/api-tokens-and-client-keys#frontend-tokens) (used by proxy SDKs) */
+        /** @description A representation of a client token, limiting access to [CLIENT](https://docs.getunleash.io/reference/api-tokens-and-client-keys#backend-tokens) (used by serverside SDKs) or [FRONTEND](https://docs.getunleash.io/reference/api-tokens-and-client-keys#frontend-tokens) (used by proxy SDKs) */
         edgeTokenSchema: {
             /**
              * @description The list of projects this token has access to. If the token has access to specific projects they will be listed here. If the token has access to all projects it will be represented as [`*`]
@@ -6267,7 +6036,7 @@ export interface components {
              */
             projects: string[];
             /**
-             * @description The [API token](https://docs.getunleash.io/reference/api-tokens-and-client-keys)'s **type**. Unleash supports three different types of API tokens ([ADMIN](https://docs.getunleash.io/reference/api-tokens-and-client-keys#admin-tokens), [CLIENT](https://docs.getunleash.io/reference/api-tokens-and-client-keys#client-tokens), [FRONTEND](https://docs.getunleash.io/reference/api-tokens-and-client-keys#frontend-tokens)). They all have varying access, so when validating a token it's important to know what kind you're dealing with
+             * @description The [API token](https://docs.getunleash.io/reference/api-tokens-and-client-keys)'s **type**. Unleash supports three different types of API tokens ([ADMIN](https://docs.getunleash.io/reference/api-tokens-and-client-keys#admin-tokens), [CLIENT](https://docs.getunleash.io/reference/api-tokens-and-client-keys#backend-tokens), [FRONTEND](https://docs.getunleash.io/reference/api-tokens-and-client-keys#frontend-tokens)). They all have varying access, so when validating a token it's important to know what kind you're dealing with
              * @example client
              * @enum {string}
              */
@@ -6324,7 +6093,7 @@ export interface components {
              */
             projectEnabledToggleCount?: number;
             /** @description The strategy configuration to add when enabling a feature environment by default */
-            defaultStrategy?: components["schemas"]["createFeatureStrategySchema"];
+            defaultStrategy?: components["schemas"]["featureStrategySchema"];
             /**
              * @description Indicates whether the environment can be enabled for feature flags in the project
              * @example true
@@ -6432,7 +6201,7 @@ export interface components {
              * @example feature-created
              * @enum {string}
              */
-            type: "application-created" | "feature-created" | "feature-deleted" | "feature-updated" | "feature-metadata-updated" | "feature-variants-updated" | "feature-environment-variants-updated" | "feature-project-change" | "feature-archived" | "feature-revived" | "feature-import" | "feature-tagged" | "feature-tag-import" | "feature-strategy-update" | "feature-strategy-add" | "feature-strategy-remove" | "feature-type-updated" | "feature-completed" | "feature-uncompleted" | "feature-link-added" | "feature-link-removed" | "feature-link-updated" | "strategy-order-changed" | "drop-feature-tags" | "feature-untagged" | "feature-stale-on" | "feature-stale-off" | "drop-features" | "feature-environment-enabled" | "feature-environment-disabled" | "strategy-created" | "strategy-deleted" | "strategy-deprecated" | "strategy-reactivated" | "strategy-updated" | "strategy-import" | "drop-strategies" | "context-field-created" | "context-field-updated" | "context-field-deleted" | "project-access-added" | "project-access-user-roles-updated" | "project-access-group-roles-updated" | "project-access-user-roles-deleted" | "project-access-group-roles-deleted" | "project-access-updated" | "project-created" | "project-updated" | "project-deleted" | "project-archived" | "project-revived" | "project-import" | "project-user-added" | "project-user-removed" | "project-user-role-changed" | "project-group-role-changed" | "project-group-added" | "project-group-removed" | "role-created" | "role-updated" | "role-deleted" | "drop-projects" | "tag-created" | "tag-deleted" | "tag-import" | "drop-tags" | "tag-type-created" | "tag-type-deleted" | "tag-type-updated" | "tag-type-import" | "drop-tag-types" | "addon-config-created" | "addon-config-updated" | "addon-config-deleted" | "db-pool-update" | "user-created" | "user-updated" | "user-deleted" | "drop-environments" | "environment-import" | "environment-created" | "environment-updated" | "environment-deleted" | "segment-created" | "segment-updated" | "segment-deleted" | "group-created" | "group-updated" | "group-deleted" | "group-user-added" | "group-user-removed" | "setting-created" | "setting-updated" | "setting-deleted" | "client-metrics" | "client-register" | "pat-created" | "pat-deleted" | "public-signup-token-created" | "public-signup-token-user-added" | "public-signup-token-updated" | "change-request-created" | "change-request-discarded" | "change-added" | "change-discarded" | "change-edited" | "change-request-rejected" | "change-request-approved" | "change-request-approval-added" | "change-request-cancelled" | "change-request-sent-to-review" | "change-request-schedule-suspended" | "change-request-applied" | "change-request-scheduled" | "change-request-scheduled-application-success" | "change-request-scheduled-application-failure" | "change-request-configuration-updated" | "api-token-created" | "api-token-updated" | "api-token-deleted" | "feature-favorited" | "feature-unfavorited" | "project-favorited" | "project-unfavorited" | "features-exported" | "features-imported" | "service-account-created" | "service-account-deleted" | "service-account-updated" | "feature-potentially-stale-on" | "feature-dependency-added" | "feature-dependency-removed" | "feature-dependencies-removed" | "banner-created" | "banner-updated" | "banner-deleted" | "project-environment-added" | "project-environment-removed" | "default-strategy-updated" | "segment-import" | "signal-endpoint-created" | "signal-endpoint-updated" | "signal-endpoint-deleted" | "signal-endpoint-token-created" | "signal-endpoint-token-updated" | "signal-endpoint-token-deleted" | "actions-created" | "actions-updated" | "actions-deleted" | "release-plan-template-created" | "release-plan-template-updated" | "release-plan-template-deleted" | "release-plan-template-archived" | "release-plan-added" | "release-plan-removed" | "release-plan-milestone-started" | "user-preference-updated" | "scim-users-deleted" | "scim-groups-deleted";
+            type: "application-created" | "feature-created" | "feature-deleted" | "feature-updated" | "feature-metadata-updated" | "feature-variants-updated" | "feature-environment-variants-updated" | "feature-project-change" | "feature-archived" | "feature-revived" | "feature-import" | "feature-tagged" | "feature-tag-import" | "feature-strategy-update" | "feature-strategy-add" | "feature-strategy-remove" | "feature-type-updated" | "feature-completed" | "feature-uncompleted" | "feature-link-added" | "feature-link-removed" | "feature-link-updated" | "strategy-order-changed" | "drop-feature-tags" | "feature-untagged" | "feature-stale-on" | "feature-stale-off" | "drop-features" | "feature-environment-enabled" | "feature-environment-disabled" | "strategy-created" | "strategy-deleted" | "strategy-deprecated" | "strategy-reactivated" | "strategy-updated" | "strategy-import" | "drop-strategies" | "context-field-created" | "context-field-updated" | "context-field-deleted" | "project-access-added" | "project-access-user-roles-updated" | "project-access-group-roles-updated" | "project-access-user-roles-deleted" | "project-access-group-roles-deleted" | "project-access-updated" | "project-created" | "project-updated" | "project-deleted" | "project-archived" | "project-revived" | "project-import" | "project-user-added" | "project-user-removed" | "project-user-role-changed" | "project-group-added" | "role-created" | "role-updated" | "role-deleted" | "drop-projects" | "tag-created" | "tag-deleted" | "tag-import" | "drop-tags" | "tag-type-created" | "tag-type-deleted" | "tag-type-updated" | "tag-type-import" | "drop-tag-types" | "addon-config-created" | "addon-config-updated" | "addon-config-deleted" | "db-pool-update" | "user-created" | "user-updated" | "user-deleted" | "drop-environments" | "environment-import" | "environment-created" | "environment-updated" | "environment-deleted" | "segment-created" | "segment-updated" | "segment-deleted" | "group-created" | "group-updated" | "group-deleted" | "group-user-added" | "group-user-removed" | "setting-created" | "setting-updated" | "setting-deleted" | "client-metrics" | "client-register" | "pat-created" | "pat-deleted" | "public-signup-token-created" | "public-signup-token-user-added" | "public-signup-token-updated" | "change-request-created" | "change-request-discarded" | "change-added" | "change-discarded" | "change-edited" | "change-request-rejected" | "change-request-approved" | "change-request-approval-added" | "change-request-cancelled" | "change-request-sent-to-review" | "change-request-schedule-suspended" | "change-request-applied" | "change-request-scheduled" | "change-request-scheduled-application-success" | "change-request-scheduled-application-failure" | "change-request-configuration-updated" | "api-token-created" | "api-token-updated" | "api-token-deleted" | "feature-favorited" | "feature-unfavorited" | "project-favorited" | "project-unfavorited" | "features-exported" | "features-imported" | "service-account-created" | "service-account-deleted" | "service-account-updated" | "feature-potentially-stale-on" | "feature-dependency-added" | "feature-dependency-removed" | "feature-dependencies-removed" | "banner-created" | "banner-updated" | "banner-deleted" | "project-environment-added" | "project-environment-removed" | "default-strategy-updated" | "segment-import" | "signal-endpoint-created" | "signal-endpoint-updated" | "signal-endpoint-deleted" | "signal-endpoint-token-created" | "signal-endpoint-token-updated" | "signal-endpoint-token-deleted" | "actions-created" | "actions-updated" | "actions-deleted" | "release-plan-template-created" | "release-plan-template-updated" | "release-plan-template-deleted" | "release-plan-template-archived" | "release-plan-added" | "release-plan-removed" | "release-plan-milestone-started" | "user-preference-updated" | "scim-users-deleted" | "scim-groups-deleted" | "cdn-token-created" | "change-request-requested-approvers-updated";
             /**
              * @description Which user created this event
              * @example johndoe
@@ -6499,6 +6268,16 @@ export interface components {
              * @example 192.168.1.1
              */
             ip?: string | null;
+            /**
+             * @description The type of transaction group this event belongs to, if applicable.
+             * @example change-request
+             */
+            groupType?: string;
+            /**
+             * @description The unique identifier for the transaction group this event belongs to, if applicable.
+             * @example 01HQVX5K8P9EXAMPLE123456
+             */
+            groupId?: string;
         };
         /** @description A list of events that have been registered by the system */
         eventSearchResponseSchema: {
@@ -7790,7 +7569,7 @@ export interface components {
         /** @description Used by service orchestrators to decide whether this Unleash instance should be marked as healthy or unhealthy */
         healthCheckSchema: {
             /**
-             * @description The state this Unleash instance is in. GOOD if everything is ok, BAD if the instance should be restarted
+             * @description The state this Unleash instance is in. GOOD if the server is up and running. It never returns BAD, if the server is unhealthy you will get an unsuccessful http response.
              * @example GOOD
              * @enum {string}
              */
@@ -7835,10 +7614,16 @@ export interface components {
              */
             members: number;
             /**
-             * @description The overall [health rating](https://docs.getunleash.io/reference/technical-debt#project-status) of the project.
+             * @deprecated
+             * @description Use `technicalDebt` instead.
              * @example 95
              */
             health: number;
+            /**
+             * @description An indicator of the [project's technical debt](https://docs.getunleash.io/reference/technical-debt#project-status) on a scale from 0 to 100
+             * @example 25
+             */
+            technicalDebt: number;
             /** @description An array containing the names of all the environments configured for the project. */
             environments: components["schemas"]["projectEnvironmentSchema"][];
             /** @description An array containing an overview of all the features of the project and their individual status */
@@ -7903,10 +7688,16 @@ export interface components {
              */
             members: number;
             /**
-             * @description The overall [health rating](https://docs.getunleash.io/reference/technical-debt#project-status) of the project.
+             * @deprecated
+             * @description Use `technicalDebt` instead.
              * @example 95
              */
             health: number;
+            /**
+             * @description An indicator of the [project's technical debt](https://docs.getunleash.io/reference/technical-debt#project-status) on a scale from 0 to 100
+             * @example 25
+             */
+            technicalDebt: number;
             /** @description An array containing the names of all the environments configured for the project. */
             environments: components["schemas"]["projectEnvironmentSchema"][];
             /** @description An array containing an overview of all the features of the project and their individual status */
@@ -7965,6 +7756,43 @@ export interface components {
              *     ]
              */
             ids: number[];
+        };
+        /** @description Used for reporting impact metrics from SDKs */
+        impactMetricsSchema: {
+            /**
+             * @description Name of the impact metric
+             * @example my-counter
+             */
+            name: string;
+            /**
+             * @description Human-readable description of what the metric measures
+             * @example Counts the number of operations
+             */
+            help: string;
+            /**
+             * @description Type of the metric
+             * @example counter
+             * @enum {string}
+             */
+            type: "counter" | "gauge";
+            /** @description Samples of the metric */
+            samples: {
+                /**
+                 * @description The value of the metric sample
+                 * @example 10
+                 */
+                value: number;
+                /**
+                 * @description Optional labels for the metric sample
+                 * @example {
+                 *       "application": "my-app",
+                 *       "environment": "production"
+                 *     }
+                 */
+                labels?: {
+                    [key: string]: string;
+                };
+            }[];
         };
         /** @description The result of the export operation for a project and environment, used at import */
         importTogglesSchema: {
@@ -8561,10 +8389,16 @@ export interface components {
                  */
                 potentiallyStaleFlags: number;
                 /**
-                 * @description The project's current health score
+                 * @deprecated
+                 * @description Use `technicalDebt` instead.
                  * @example 80
                  */
                 health: number;
+                /**
+                 * @description An indicator of the [project's technical debt](https://docs.getunleash.io/reference/technical-debt#project-status) on a scale from 0 to 100
+                 * @example 25
+                 */
+                technicalDebt: number;
             };
             /** @description The current onboarding status of the project. */
             onboardingStatus: {
@@ -8707,10 +8541,16 @@ export interface components {
                  */
                 name: string;
                 /**
-                 * @description An indicator of the [project's health](https://docs.getunleash.io/reference/technical-debt#project-status) on a scale from 0 to 100
+                 * @deprecated
+                 * @description Use `technicalDebt` instead.
                  * @example 50
                  */
                 health: number;
+                /**
+                 * @description An indicator of the [project's technical debt](https://docs.getunleash.io/reference/technical-debt#project-status) on a scale from 0 to 100
+                 * @example 25
+                 */
+                technicalDebt: number;
                 /**
                  * @description The number of members this project has
                  * @example 4
@@ -9193,11 +9033,37 @@ export interface components {
         projectInsightsSchema: {
             /** @description Project statistics */
             stats: components["schemas"]["projectStatsSchema"];
-            /** @description Health summary of the project */
+            /**
+             * @deprecated
+             * @description Use `technicalDebt` instead. Summary of the project health
+             */
             health: {
                 /**
-                 * @description An indicator of the [project's health](https://docs.getunleash.io/reference/technical-debt#project-status) on a scale from 0 to 100
+                 * @description An indicator of the [project's technical debt](https://docs.getunleash.io/reference/technical-debt#project-status) on a scale from 0 to 100
                  * @example 95
+                 */
+                rating: number;
+                /**
+                 * @description The number of active feature flags.
+                 * @example 12
+                 */
+                activeCount: number;
+                /**
+                 * @description The number of potentially stale feature flags.
+                 * @example 5
+                 */
+                potentiallyStaleCount: number;
+                /**
+                 * @description The number of stale feature flags.
+                 * @example 10
+                 */
+                staleCount: number;
+            };
+            /** @description Summary of the projects technical debt */
+            technicalDebt: {
+                /**
+                 * @description An indicator of the [project's technical debt](https://docs.getunleash.io/reference/technical-debt#project-status) on a scale from 0 to 100
+                 * @example 25
                  */
                 rating: number;
                 /**
@@ -9291,10 +9157,16 @@ export interface components {
              */
             members?: number;
             /**
-             * @description An indicator of the [project's health](https://docs.getunleash.io/reference/technical-debt#project-status) on a scale from 0 to 100
+             * @deprecated
+             * @description Use `technicalDebt` instead.
              * @example 50
              */
             health?: number;
+            /**
+             * @description An indicator of the [project's technical debt](https://docs.getunleash.io/reference/technical-debt#project-status) on a scale from 0 to 100
+             * @example 25
+             */
+            technicalDebt?: number;
             /**
              * @description The environments that are enabled for this project
              * @example [
@@ -9380,10 +9252,16 @@ export interface components {
              */
             description?: string | null;
             /**
-             * @description An indicator of the [project's health](https://docs.getunleash.io/reference/technical-debt#project-status) on a scale from 0 to 100
+             * @deprecated
+             * @description Use `technicalDebt` instead.
              * @example 50
              */
             health?: number;
+            /**
+             * @description An indicator of the [project's technical debt](https://docs.getunleash.io/reference/technical-debt#project-status) on a scale from 0 to 100
+             * @example 25
+             */
+            technicalDebt?: number;
             /**
              * @description The number of features this project has
              * @example 10
@@ -9533,6 +9411,14 @@ export interface components {
             activityCountByDate: components["schemas"]["projectActivitySchema"];
             /** @description Information about the project's health rating */
             health: {
+                /**
+                 * @description The project's current health score, based on the ratio of healthy flags to stale and potentially stale flags.
+                 * @example 100
+                 */
+                current: number;
+            };
+            /** @description Information about the project's health rating */
+            technicalDebt: {
                 /**
                  * @description The project's current health score, based on the ratio of healthy flags to stale and potentially stale flags.
                  * @example 100
@@ -9851,7 +9737,7 @@ export interface components {
              */
             environments: number;
             /**
-             * @description The maximum number of SDK and admin API tokens you can have at the same time. This limit applies only to server-side and client-side SDK tokens and to admin tokens. Personal access tokens are not subject to this limit. The limit applies to the total number of tokens across all projects in your organization.
+             * @description The maximum number of SDK and admin API tokens you can have at the same time. This limit applies only to backend and frontend SDK tokens and to admin tokens. Personal access tokens are not subject to this limit. The limit applies to the total number of tokens across all projects in your organization.
              * @example 2000
              */
             apiTokens: number;
@@ -10121,19 +10007,6 @@ export interface components {
              */
             sortOrder: number;
         }[];
-        /** @description Unleash configuration settings affect the admin UI. */
-        setUiConfigSchema: {
-            /** @description Settings related to the front-end API. */
-            frontendSettings?: {
-                /**
-                 * @description The list of origins that the front-end API should accept requests from.
-                 * @example [
-                 *       "*"
-                 *     ]
-                 */
-                frontendApiOrigins: string[];
-            };
-        };
         /** @description A map of object IDs and their corresponding sort orders. */
         sortOrderSchema: {
             [key: string]: number;
@@ -10452,18 +10325,6 @@ export interface components {
              */
             maintenanceMode?: boolean;
             /**
-             * @deprecated
-             * @description The maximum number of values that can be used in a single segment.
-             * @example 1000
-             */
-            segmentValuesLimit?: number;
-            /**
-             * @deprecated
-             * @description The maximum number of segments that can be applied to a single strategy.
-             * @example 5
-             */
-            strategySegmentsLimit?: number;
-            /**
              * @description A map of resource names and their limits.
              * @example {
              *       "segmentValues": 10,
@@ -10560,20 +10421,22 @@ export interface components {
              * @example my-unknown-flag
              */
             name: string;
-            /** @description Details about the application that reported the unknown flag. */
-            reportedBy: {
-                /**
-                 * @description The name of the application that reported the unknown flag.
-                 * @example my-app
-                 */
-                appName: string;
-                /**
-                 * Format: date-time
-                 * @description The date and time when the unknown flag was reported.
-                 * @example 2023-10-01T12:00:00Z
-                 */
-                seenAt: string;
-            }[];
+            /**
+             * @description The name of the application that reported the unknown flag.
+             * @example my-app
+             */
+            appName: string;
+            /**
+             * Format: date-time
+             * @description The date and time when the unknown flag was reported.
+             * @example 2023-10-01T12:00:00Z
+             */
+            seenAt: string;
+            /**
+             * @description The environment in which the unknown flag was reported.
+             * @example production
+             */
+            environment: string;
         };
         /** @description A list of unknown flags that have been reported by the system */
         unknownFlagsResponseSchema: {
@@ -10987,12 +10850,6 @@ export interface components {
              */
             id: number;
             /**
-             * @deprecated
-             * @description Deprecated in v5. Used internally to know which operations the user should be allowed to perform
-             * @example true
-             */
-            isAPI?: boolean;
-            /**
              * @description Name of the user
              * @example User
              */
@@ -11047,8 +10904,9 @@ export interface components {
             /**
              * @description A user is either an actual User or a Service Account
              * @example User
+             * @enum {string}
              */
-            accountType?: string;
+            accountType?: "User" | "Service Account";
             /** @description Deprecated */
             permissions?: string[];
             /**
@@ -11752,25 +11610,6 @@ export interface components {
             groups: number[];
             /** @description A list of user IDs */
             users: number[];
-        };
-        /** @description An object containing a collection of users and a collection of groups. */
-        projectAddRoleAccessSchema: {
-            /** @description A list of groups IDs */
-            groups: {
-                /**
-                 * @description A group ID
-                 * @example 5
-                 */
-                id: number;
-            }[];
-            /** @description A list of user IDs */
-            users: {
-                /**
-                 * @description A user ID
-                 * @example 5
-                 */
-                id: number;
-            }[];
         };
         /** @description Details about the newly created project. */
         projectCreatedSchema: {
@@ -12889,7 +12728,7 @@ export interface components {
              */
             conflict?: string;
             /** @description The data required to perform this action. */
-            payload: string | boolean | Record<string, never> | number | components["schemas"]["setStrategySortOrderSchema"];
+            payload?: string | boolean | Record<string, never> | number | components["schemas"]["setStrategySortOrderSchema"];
             /** @description The user who created this change. */
             createdBy?: {
                 /** @description The user's username. */
@@ -12906,6 +12745,16 @@ export interface components {
              * @example 2023-07-31T13:22:03+02:00
              */
             createdAt?: string;
+            /** @description Information about scheduled change requests that would casue conflicts with this change if applied. */
+            scheduleConflicts?: {
+                /** @description The list of scheduled change requests that would cause conflict with this change. */
+                changeRequests: {
+                    /** @description The ID of the change request. */
+                    id: number;
+                    /** @description The title of the change request, if any. Only present if there is a title. */
+                    title?: string;
+                }[];
+            };
         };
         /** @description A change request segment change, containing info about the type of segment change and the specific changes. */
         changeRequestSegmentChangeSchema: {
@@ -12942,11 +12791,26 @@ export interface components {
              * @example 2023-07-31T13:22:03+02:00
              */
             createdAt?: string;
+            /** @description Information about scheduled change requests that would casue conflicts with this change if applied. */
+            scheduleConflicts?: {
+                /** @description The list of scheduled change requests that would cause conflict with this change. */
+                changeRequests: {
+                    /** @description The ID of the change request. */
+                    id: number;
+                    /** @description The title of the change request, if any. Only present if there is a title. */
+                    title?: string;
+                }[];
+            };
             /**
              * @description The current name of the segment
              * @example beta-users
              */
             name: string;
+        };
+        /** @description Data used to update a [change request](https://docs.getunleash.io/reference/change-requests)'s requested approvers. */
+        changeRequestSetApproversSchema: {
+            /** @description An array of user ids to request approval from. This will replace the current approvers. */
+            reviewers: number[];
         };
         /** @description A description of a default change that will be applied with the change request to prevent invalid states.
          *
@@ -13038,6 +12902,17 @@ export interface components {
              */
             createdAt: string;
             /**
+             * @description A mapping of each state this change request has entered to the most recent time when it entered that state. If a change request has entered the same state multiple times, only the most recent timestamp will be included.
+             * @example {
+             *       "Draft": "2023-07-31T13:33:02Z",
+             *       "In review": "2023-08-01T10:15:30Z",
+             *       "Approved": "2023-08-02T09:01:00Z"
+             *     }
+             */
+            stateTimestamps?: {
+                [key: string]: string;
+            };
+            /**
              * @description The current state of the change request.
              * @enum {string}
              */
@@ -13094,6 +12969,17 @@ export interface components {
              * @example 2023-07-31T13:33:02Z
              */
             createdAt: string;
+            /**
+             * @description A mapping of each state this change request has entered to the most recent time when it entered that state. If a change request has entered the same state multiple times, only the most recent timestamp will be included.
+             * @example {
+             *       "Draft": "2023-07-31T13:33:02Z",
+             *       "In review": "2023-08-01T10:15:30Z",
+             *       "Approved": "2023-08-02T09:01:00Z"
+             *     }
+             */
+            stateTimestamps?: {
+                [key: string]: string;
+            };
             /**
              * @description The current state of the change request.
              * @enum {string}
@@ -13198,6 +13084,17 @@ export interface components {
              */
             createdAt: string;
             /**
+             * @description A mapping of each state this change request has entered to the most recent time when it entered that state. If a change request has entered the same state multiple times, only the most recent timestamp will be included.
+             * @example {
+             *       "Draft": "2023-07-31T13:33:02Z",
+             *       "In review": "2023-08-01T10:15:30Z",
+             *       "Approved": "2023-08-02T09:01:00Z"
+             *     }
+             */
+            stateTimestamps?: {
+                [key: string]: string;
+            };
+            /**
              * @description The current state of the change request.
              * @enum {string}
              */
@@ -13264,6 +13161,17 @@ export interface components {
              * @example 2023-07-31T13:33:02Z
              */
             createdAt: string;
+            /**
+             * @description A mapping of each state this change request has entered to the most recent time when it entered that state. If a change request has entered the same state multiple times, only the most recent timestamp will be included.
+             * @example {
+             *       "Draft": "2023-07-31T13:33:02Z",
+             *       "In review": "2023-08-01T10:15:30Z",
+             *       "Approved": "2023-08-02T09:01:00Z"
+             *     }
+             */
+            stateTimestamps?: {
+                [key: string]: string;
+            };
             /**
              * @description The current state of the change request.
              * @enum {string}
@@ -14515,10 +14423,16 @@ export interface components {
                  */
                 project: string;
                 /**
-                 * @description An indicator of the [project's health](https://docs.getunleash.io/reference/technical-debt#health-rating) on a scale from 0 to 100
+                 * @deprecated
+                 * @description Use `technicalDebt` instead.
                  * @example 50
                  */
                 health: number;
+                /**
+                 * @description An indicator of the [project's technical debt](https://docs.getunleash.io/reference/technical-debt) on a scale from 0 to 100
+                 * @example 20
+                 */
+                technicalDebt?: number;
                 /**
                  * @description The average time from when a feature was created to when it was enabled in the "production" environment during the current window
                  * @example 10
@@ -14629,6 +14543,155 @@ export interface components {
                  */
                 totalUpdates: number;
             }[];
+            /** @description Weekly count of new flags entering production */
+            lifecycleTrends: {
+                /**
+                 * @description Year and week in a given year for which the stats were calculated
+                 * @example 2024-15
+                 */
+                week: string;
+                /**
+                 * Format: date-time
+                 * @description A UTC date when the stats were captured. Time is the very end of a given week.
+                 * @example 2024-04-12T23:59:59.999Z
+                 */
+                date: string;
+                /**
+                 * @description Number of flags that entered production during this week
+                 * @example 5
+                 */
+                newProductionFlags: number;
+                /**
+                 * @description Project id that the flags belong to
+                 * @example default
+                 */
+                project: string;
+            }[];
+            /** @description Weekly count of created vs archived flags by project and flag type */
+            creationArchiveTrends: {
+                /**
+                 * @description Year and week in a given year for which the stats were calculated
+                 * @example 2024-15
+                 */
+                week: string;
+                /**
+                 * Format: date-time
+                 * @description A UTC date when the stats were captured. Time is the very end of a given week.
+                 * @example 2024-04-12T23:59:59.999Z
+                 */
+                date: string;
+                /**
+                 * @description Project id that the flags belong to
+                 * @example default
+                 */
+                project: string;
+                /**
+                 * @description Count of newly created flags by flag type
+                 * @example {
+                 *       "experiment": 5,
+                 *       "release": 2,
+                 *       "operational": 1
+                 *     }
+                 */
+                createdFlags: {
+                    [key: string]: number;
+                };
+                /**
+                 * @description Total count of archived flags during this week
+                 * @example 3
+                 */
+                archivedFlags: number;
+            }[];
+        };
+        /** @description Aggregated view of feature flag lifecycle trends across environments */
+        lifecycleTrendsSchema: {
+            /** @description Aggregated view of feature flag lifecycle across environments */
+            lifecycleTrends: {
+                develop: {
+                    /** @example 35 */
+                    totalFlags: number;
+                    /** @example 28 */
+                    medianDaysInCurrentStage: number;
+                    /** @example 25 */
+                    medianDaysHistorically: number;
+                    categories: {
+                        experimental: {
+                            /** @example 15 */
+                            flagsOlderThanWeek: number;
+                            /** @example 13 */
+                            newFlagsThisWeek: number;
+                        };
+                        release: {
+                            /** @example 13 */
+                            flagsOlderThanWeek: number;
+                            /** @example 0 */
+                            newFlagsThisWeek: number;
+                        };
+                        permanent: {
+                            /** @example 7 */
+                            flagsOlderThanWeek: number;
+                            /** @example 0 */
+                            newFlagsThisWeek: number;
+                        };
+                    };
+                };
+                production: {
+                    /** @example 10 */
+                    totalFlags: number;
+                    /** @example 14 */
+                    medianDaysInCurrentStage: number;
+                    /** @example 12 */
+                    medianDaysHistorically: number;
+                    categories: {
+                        experimental: {
+                            /** @example 2 */
+                            flagsOlderThanWeek: number;
+                            /** @example 5 */
+                            newFlagsThisWeek: number;
+                        };
+                        release: {
+                            /** @example 2 */
+                            flagsOlderThanWeek: number;
+                            /** @example 1 */
+                            newFlagsThisWeek: number;
+                        };
+                        permanent: {
+                            /** @example 3 */
+                            flagsOlderThanWeek: number;
+                            /** @example 0 */
+                            newFlagsThisWeek: number;
+                        };
+                    };
+                };
+                cleanup: {
+                    /** @example 5 */
+                    totalFlags: number;
+                    /** @example 16 */
+                    medianDaysInCurrentStage: number;
+                    /** @example 18 */
+                    medianDaysHistorically: number;
+                    categories: {
+                        experimental: {
+                            /** @example 0 */
+                            flagsOlderThanWeek: number;
+                            /** @example 3 */
+                            newFlagsThisWeek: number;
+                        };
+                        release: {
+                            /** @example 0 */
+                            flagsOlderThanWeek: number;
+                            /** @example 1 */
+                            newFlagsThisWeek: number;
+                        };
+                        permanent: {
+                            /** @example 1 */
+                            flagsOlderThanWeek: number;
+                            /** @example 0 */
+                            newFlagsThisWeek: number;
+                        };
+                    };
+                };
+            };
         };
         /** @description An object describing a signal originated from a signal endpoint. */
         signalEndpointSignalSchema: {
@@ -14973,16 +15036,6 @@ export interface components {
              * @example /api/client/features
              */
             apiPath: string;
-        };
-        /** @description Contains the recorded data usage for each API path, segmented by day and type of traffic */
-        trafficUsageDataSegmentedSchema: {
-            /**
-             * @description The year-month period for which the data usage is counted
-             * @example 2023-04
-             */
-            period: string;
-            /** @description Contains the recorded daily data usage for each API path */
-            apiData: components["schemas"]["trafficUsageApiDataSchema"][];
         };
         /** @description Contains the recorded data usage for each API path, segmented by day/month and type of traffic */
         trafficUsageDataSegmentedCombinedSchema: {
@@ -15943,6 +15996,68 @@ export interface components {
              */
             requests: number;
         }[];
+        /** @description The data required to create an CDN API token. */
+        cdnApiTokenSchema: {
+            /**
+             * @description The name of the token.
+             * @example token-64522
+             */
+            tokenName: string;
+            /**
+             * @description The project that the token should be valid for. Defaults to "*" meaning every project.
+             * @example project-851
+             */
+            project?: string;
+            /**
+             * @description The environment that the token should be valid for.
+             * @example development
+             */
+            environment: string;
+            /**
+             * Format: date-time
+             * @description The time when this token should expire.
+             * @example 2023-07-04T11:26:24+02:00
+             */
+            expiresAt?: string | null;
+        };
+        /** @description List of CDN tokens. */
+        cdnApiTokensSchema: {
+            /** @description List of tokens for CDN */
+            tokens?: components["schemas"]["cdnApiTokenSchema"][];
+        };
+        /** @description Information about a user available to review a change request */
+        changeRequestReviewerSchema: {
+            /**
+             * @description Id of the user available to review
+             * @example 23
+             */
+            id: number;
+            /**
+             * @description The email of the approving user
+             * @example email@example.com
+             */
+            email: string;
+            /**
+             * @description The username of the approving user
+             * @example unleash-user
+             */
+            username?: string | null;
+            /**
+             * @description The name of the approving user
+             * @example Reviewer Approver
+             */
+            name?: string | null;
+            /**
+             * Format: uri
+             * @description The URL where the user's image can be found.
+             */
+            imageUrl?: string | null;
+        };
+        /** @description A list of users available to review a change request. */
+        changeRequestAvailableReviewersSchema: {
+            /** @description a list of reviewers */
+            reviewers: components["schemas"]["changeRequestReviewerSchema"][];
+        };
     };
     responses: never;
     parameters: never;
@@ -16267,103 +16382,6 @@ export interface operations {
                         /**
                          * @description A description of what went wrong.
                          * @example We do not accept the content-type you provided (application/xml). Try using one of the content-types we do accept instead (application/json) and make sure the body is in the corresponding format.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-        };
-    };
-    getDeprecatedProjectOverview: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                projectId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description deprecatedProjectOverviewSchema */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["deprecatedProjectOverviewSchema"];
-                };
-            };
-            /** @description Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`. */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example AuthenticationRequired
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at /auth/simple/login.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description The provided user credentials are valid, but the user does not have the necessary permissions to perform this operation */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example NoAccessError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You need the "UPDATE_ADDON" permission to perform this action in the "development" environment.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description The requested resource was not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example NotFoundError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example Could not find the addon with ID "12345".
                          */
                         message?: string;
                     };
@@ -16956,78 +16974,6 @@ export interface operations {
             };
         };
     };
-    getProjectUsers: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                projectId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description projectUsersSchema */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["projectUsersSchema"];
-                };
-            };
-            /** @description Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`. */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example AuthenticationRequired
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at /auth/simple/login.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description The provided user credentials are valid, but the user does not have the necessary permissions to perform this operation */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example NoAccessError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You need the "UPDATE_ADDON" permission to perform this action in the "development" environment.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-        };
-    };
     getProjectAccess: {
         parameters: {
             query?: never;
@@ -17390,297 +17336,6 @@ export interface operations {
                         /**
                          * @description A description of what went wrong.
                          * @example You need the "UPDATE_ADDON" permission to perform this action in the "development" environment.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-        };
-    };
-    changeRoleForUser: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                projectId: string;
-                userId: string;
-                roleId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description This response has no body. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`. */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example AuthenticationRequired
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at /auth/simple/login.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description The provided user credentials are valid, but the user does not have the necessary permissions to perform this operation */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example NoAccessError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You need the "UPDATE_ADDON" permission to perform this action in the "development" environment.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description The requested resource was not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example NotFoundError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example Could not find the addon with ID "12345".
-                         */
-                        message?: string;
-                    };
-                };
-            };
-        };
-    };
-    addRoleToUser: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                projectId: string;
-                userId: string;
-                roleId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description This response has no body. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`. */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example AuthenticationRequired
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at /auth/simple/login.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description The provided user credentials are valid, but the user does not have the necessary permissions to perform this operation */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example NoAccessError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You need the "UPDATE_ADDON" permission to perform this action in the "development" environment.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description The requested resource was not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example NotFoundError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example Could not find the addon with ID "12345".
-                         */
-                        message?: string;
-                    };
-                };
-            };
-        };
-    };
-    removeRoleForUser: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                projectId: string;
-                userId: string;
-                roleId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description This response has no body. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`. */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example AuthenticationRequired
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at /auth/simple/login.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description The provided user credentials are valid, but the user does not have the necessary permissions to perform this operation */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example NoAccessError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You need the "UPDATE_ADDON" permission to perform this action in the "development" environment.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description The requested resource was not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example NotFoundError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example Could not find the addon with ID "12345".
                          */
                         message?: string;
                     };
@@ -18072,351 +17727,6 @@ export interface operations {
             };
         };
     };
-    changeRoleForGroup: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                projectId: string;
-                groupId: string;
-                roleId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description This response has no body. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`. */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example AuthenticationRequired
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at /auth/simple/login.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description The provided user credentials are valid, but the user does not have the necessary permissions to perform this operation */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example NoAccessError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You need the "UPDATE_ADDON" permission to perform this action in the "development" environment.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description The requested resource was not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example NotFoundError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example Could not find the addon with ID "12345".
-                         */
-                        message?: string;
-                    };
-                };
-            };
-        };
-    };
-    removeRoleFromGroup: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                projectId: string;
-                groupId: string;
-                roleId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description This response has no body. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`. */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example AuthenticationRequired
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at /auth/simple/login.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description The provided user credentials are valid, but the user does not have the necessary permissions to perform this operation */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example NoAccessError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You need the "UPDATE_ADDON" permission to perform this action in the "development" environment.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description The requested resource was not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example NotFoundError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example Could not find the addon with ID "12345".
-                         */
-                        message?: string;
-                    };
-                };
-            };
-        };
-    };
-    addRoleAccessToProject: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                projectId: string;
-                roleId: string;
-            };
-            cookie?: never;
-        };
-        /** @description projectAddRoleAccessSchema */
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["projectAddRoleAccessSchema"];
-            };
-        };
-        responses: {
-            /** @description This response has no body. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description The request data does not match what we expect. */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example ValidationError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example The request payload you provided doesn't conform to the schema. The .parameters property should be object. You sent [].
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`. */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example AuthenticationRequired
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at /auth/simple/login.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description The provided user credentials are valid, but the user does not have the necessary permissions to perform this operation */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example NoAccessError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You need the "UPDATE_ADDON" permission to perform this action in the "development" environment.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description The requested resource was not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example NotFoundError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example Could not find the addon with ID "12345".
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description The operation does not support request payloads of the provided type. Please ensure that you're using one of the listed payload types and that you have specified the right content type in the "content-type" header. */
-            415: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example ContentTypeerror
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example We do not accept the content-type you provided (application/xml). Try using one of the content-types we do accept instead (application/json) and make sure the body is in the corresponding format.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-        };
-    };
     changeProject: {
         parameters: {
             query?: never;
@@ -18635,28 +17945,6 @@ export interface operations {
             };
         };
     };
-    getTrafficUsageDataForPeriod: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                period: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description trafficUsageDataSegmentedSchema */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["trafficUsageDataSegmentedSchema"];
-                };
-            };
-        };
-    };
     getConnectionsForPeriod: {
         parameters: {
             query: {
@@ -18751,6 +18039,29 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+        };
+    };
+    getLifecycleTrends: {
+        parameters: {
+            query?: {
+                /** @description Comma-separated list of project IDs to filter lifecycle trends */
+                projects?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description lifecycleTrendsSchema */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["lifecycleTrendsSchema"];
+                };
             };
         };
     };
@@ -18915,26 +18226,6 @@ export interface operations {
                          */
                         message?: string;
                     };
-                };
-            };
-        };
-    };
-    deprecatedGetInstanceInsights: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description instanceInsightsSchema */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["instanceInsightsSchema"];
                 };
             };
         };
@@ -21210,31 +20501,6 @@ export interface operations {
             };
         };
     };
-    deprecatedSearchEvents: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** @description deprecatedSearchEventsSchema */
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["deprecatedSearchEventsSchema"];
-            };
-        };
-        responses: {
-            /** @description eventsSchema */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["eventsSchema"];
-                };
-            };
-        };
-    };
     getEventCreators: {
         parameters: {
             query?: never;
@@ -22082,6 +21348,44 @@ export interface operations {
             };
         };
     };
+    getCustomMetrics: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description This response has no body. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    getPrometheusMetrics: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Prometheus formatted metrics */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "text/plain": string;
+                };
+            };
+        };
+    };
     getMe: {
         parameters: {
             query?: never;
@@ -22592,29 +21896,6 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["uiConfigSchema"];
                 };
-            };
-        };
-    };
-    setUiConfig: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** @description setUiConfigSchema */
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["setUiConfigSchema"];
-            };
-        };
-        responses: {
-            /** @description This response has no body. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
             };
         };
     };
@@ -30464,360 +29745,6 @@ export interface operations {
             };
         };
     };
-    getFeatureVariants: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                projectId: string;
-                featureName: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description featureVariantsSchema */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["featureVariantsSchema"];
-                };
-            };
-            /** @description Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`. */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example AuthenticationRequired
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at /auth/simple/login.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description The provided user credentials are valid, but the user does not have the necessary permissions to perform this operation */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example NoAccessError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You need the "UPDATE_ADDON" permission to perform this action in the "development" environment.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description The requested resource was not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example NotFoundError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example Could not find the addon with ID "12345".
-                         */
-                        message?: string;
-                    };
-                };
-            };
-        };
-    };
-    overwriteFeatureVariants: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                projectId: string;
-                featureName: string;
-            };
-            cookie?: never;
-        };
-        /** @description variantsSchema */
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["variantsSchema"];
-            };
-        };
-        responses: {
-            /** @description featureVariantsSchema */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["featureVariantsSchema"];
-                };
-            };
-            /** @description The request data does not match what we expect. */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example ValidationError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example The request payload you provided doesn't conform to the schema. The .parameters property should be object. You sent [].
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`. */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example AuthenticationRequired
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at /auth/simple/login.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description The provided user credentials are valid, but the user does not have the necessary permissions to perform this operation */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example NoAccessError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You need the "UPDATE_ADDON" permission to perform this action in the "development" environment.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description The requested resource was not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example NotFoundError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example Could not find the addon with ID "12345".
-                         */
-                        message?: string;
-                    };
-                };
-            };
-        };
-    };
-    patchFeatureVariants: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                projectId: string;
-                featureName: string;
-            };
-            cookie?: never;
-        };
-        /** @description patchesSchema */
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["patchesSchema"];
-            };
-        };
-        responses: {
-            /** @description featureVariantsSchema */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["featureVariantsSchema"];
-                };
-            };
-            /** @description The request data does not match what we expect. */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example ValidationError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example The request payload you provided doesn't conform to the schema. The .parameters property should be object. You sent [].
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description Authorization information is missing or invalid. Provide a valid API token as the `authorization` header, e.g. `authorization:*.*.my-admin-token`. */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example AuthenticationRequired
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at /auth/simple/login.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description The provided user credentials are valid, but the user does not have the necessary permissions to perform this operation */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example NoAccessError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example You need the "UPDATE_ADDON" permission to perform this action in the "development" environment.
-                         */
-                        message?: string;
-                    };
-                };
-            };
-            /** @description The requested resource was not found. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The ID of the error instance
-                         * @example 9c40958a-daac-400e-98fb-3bb438567008
-                         */
-                        id?: string;
-                        /**
-                         * @description The name of the error kind
-                         * @example NotFoundError
-                         */
-                        name?: string;
-                        /**
-                         * @description A description of what went wrong.
-                         * @example Could not find the addon with ID "12345".
-                         */
-                        message?: string;
-                    };
-                };
-            };
-        };
-    };
     getEnvironmentFeatureVariants: {
         parameters: {
             query?: never;
@@ -31359,10 +30286,10 @@ export interface operations {
             };
             cookie?: never;
         };
-        /** @description createApiTokenSchema */
+        /** @description createProjectApiTokenSchema */
         requestBody: {
             content: {
-                "application/json": components["schemas"]["createApiTokenSchema"];
+                "application/json": components["schemas"]["createProjectApiTokenSchema"];
             };
         };
         responses: {
@@ -35701,6 +34628,10 @@ export interface operations {
             query?: {
                 /** @description Find events by a free-text search query. The query will be matched against the event data payload (if any). */
                 query?: string;
+                /** @description Filter by event ID using supported operators: IS, IS_ANY_OF. */
+                id?: string;
+                /** @description Filter by group ID using supported operators: IS, IS_ANY_OF. */
+                groupId?: string;
                 /** @description Filter by feature name using supported operators: IS, IS_ANY_OF */
                 feature?: string;
                 /** @description Filter by projects ID using supported operators: IS, IS_ANY_OF. */
@@ -35717,6 +34648,8 @@ export interface operations {
                 offset?: string;
                 /** @description The number of feature environments to return in a page. By default it is set to 50. The maximum is 1000. */
                 limit?: string;
+                /** @description Filter by environment name using supported operators: IS, IS_ANY_OF. */
+                environment?: string;
             };
             header?: never;
             path?: never;
@@ -35996,6 +34929,54 @@ export interface operations {
                         /**
                          * @description A description of what went wrong.
                          * @example We do not accept the content-type you provided (application/xml). Try using one of the content-types we do accept instead (application/json) and make sure the body is in the corresponding format.
+                         */
+                        message?: string;
+                    };
+                };
+            };
+        };
+    };
+    clientCustomMetrics: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description customMetricsSchema */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["customMetricsSchema"];
+            };
+        };
+        responses: {
+            /** @description This response has no body. */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The request data does not match what we expect. */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The ID of the error instance
+                         * @example 9c40958a-daac-400e-98fb-3bb438567008
+                         */
+                        id?: string;
+                        /**
+                         * @description The name of the error kind
+                         * @example ValidationError
+                         */
+                        name?: string;
+                        /**
+                         * @description A description of what went wrong.
+                         * @example The request payload you provided doesn't conform to the schema. The .parameters property should be object. You sent [].
                          */
                         message?: string;
                     };

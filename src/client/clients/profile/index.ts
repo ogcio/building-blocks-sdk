@@ -1,16 +1,31 @@
 import createError from "http-errors";
 import type createClient from "openapi-fetch";
-import { PROFILE } from "../../../types/index.js";
+import {
+  type Logger,
+  PROFILE,
+  type TokenFunction,
+} from "../../../types/index.js";
 import { BaseClient } from "../../base-client.js";
 import {
   formatError,
   formatResponse,
   throwIfEmpty,
 } from "../../utils/client-utils.js";
+import { ProfileCitizen } from "./citizen.js";
 import type { paths } from "./schema.js";
 export class Profile extends BaseClient<paths> {
   protected declare client: ReturnType<typeof createClient<paths>>;
   protected serviceName = PROFILE;
+  public readonly citizen: ProfileCitizen;
+
+  constructor(params: {
+    baseUrl: string;
+    getTokenFn?: TokenFunction;
+    logger?: Logger;
+  }) {
+    super(params);
+    this.citizen = new ProfileCitizen(this.client);
+  }
 
   async getProfile(profileId: string, privateDetails = false) {
     throwIfEmpty(profileId);

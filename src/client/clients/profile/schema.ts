@@ -1,4 +1,56 @@
 export interface paths {
+    "/api/v1/citizens/consents/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description List the consents for a user, sorted by descending submission date */
+        get: operations["citizenListConsents"];
+        put?: never;
+        /** @description Submit a consent for the logged in user */
+        post: operations["citizenSubmitConsent"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/citizens/consents/latest": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Get the latest consent for a user */
+        get: operations["citizenLatestConsent"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organisations/consents/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description List the last submission for each related user */
+        get: operations["organisationListConsents"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/jobs/import-profiles/{profileImportId}": {
         parameters: {
             query?: never;
@@ -276,6 +328,441 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    citizenListConsents: {
+        parameters: {
+            query: {
+                subject: "messaging";
+                /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
+                offset?: string;
+                /** @description Indicates the maximum number (100) of items that will be returned in a single request */
+                limit?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                            profileId: string;
+                            status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                            subject: string;
+                            createdAt: string;
+                        }[];
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+        };
+    };
+    citizenSubmitConsent: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    subject: "messaging";
+                    status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            id: string;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+        };
+    };
+    citizenLatestConsent: {
+        parameters: {
+            query: {
+                subject: "messaging";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                            profileId: string;
+                            status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                            subject: string;
+                            createdAt: string;
+                        };
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+        };
+    };
+    organisationListConsents: {
+        parameters: {
+            query?: {
+                /** @description Service for which list consents */
+                subject?: string;
+                /** @description User for whom list the consents */
+                profileId?: string;
+                /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
+                offset?: string;
+                /** @description Indicates the maximum number (100) of items that will be returned in a single request */
+                limit?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                            profileId: string;
+                            status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                            subject: string;
+                            createdAt: string;
+                        }[];
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+        };
+    };
     getOrganisation: {
         parameters: {
             query?: never;
@@ -441,6 +928,9 @@ export interface operations {
                             createdAt?: string;
                             /** Format: date-time */
                             updatedAt?: string;
+                            consentStatuses?: {
+                                messaging: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                            } | null;
                             details?: {
                                 email: string;
                                 firstName: string;
@@ -591,6 +1081,9 @@ export interface operations {
                             createdAt?: string;
                             /** Format: date-time */
                             updatedAt?: string;
+                            consentStatuses?: {
+                                messaging: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                            } | null;
                             details?: {
                                 email: string;
                                 firstName: string;
@@ -890,6 +1383,9 @@ export interface operations {
                             createdAt?: string;
                             /** Format: date-time */
                             updatedAt?: string;
+                            consentStatuses?: {
+                                messaging: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                            } | null;
                             details?: {
                                 email: string;
                                 firstName: string;
@@ -1037,6 +1533,9 @@ export interface operations {
                             createdAt?: string;
                             /** Format: date-time */
                             updatedAt?: string;
+                            consentStatuses?: {
+                                messaging: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                            } | null;
                             details?: {
                                 email: string;
                                 firstName: string;
@@ -1443,6 +1942,9 @@ export interface operations {
                             createdAt?: string;
                             /** Format: date-time */
                             updatedAt?: string;
+                            consentStatuses?: {
+                                messaging: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                            } | null;
                             details?: {
                                 email: string;
                                 firstName: string;
@@ -1611,6 +2113,9 @@ export interface operations {
                             createdAt?: string;
                             /** Format: date-time */
                             updatedAt?: string;
+                            consentStatuses?: {
+                                messaging: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                            } | null;
                             details?: {
                                 email: string;
                                 firstName: string;
@@ -1773,6 +2278,9 @@ export interface operations {
                             createdAt?: string;
                             /** Format: date-time */
                             updatedAt?: string;
+                            consentStatuses?: {
+                                messaging: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                            } | null;
                             details?: {
                                 email: string;
                                 firstName: string;

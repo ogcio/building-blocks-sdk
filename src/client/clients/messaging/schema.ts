@@ -470,7 +470,7 @@ export interface paths {
                                     /** @description Plain text context of the related message */
                                     plainText: string;
                                     /** @description Thread name of the related message */
-                                    threadName: string;
+                                    threadName?: string;
                                     /** @description Selected transports to send the message */
                                     transports: string[];
                                     /**
@@ -804,8 +804,7 @@ export interface operations {
                             subject: string;
                             /** @description Creation date time */
                             createdAt: string;
-                            /** @description Thread Name used to group messages */
-                            threadName: string;
+                            threadName: string | null;
                             /** @description Organisation sender id */
                             organisationId: string;
                             /** @description Unique id of the recipient */
@@ -1096,8 +1095,7 @@ export interface operations {
                             subject: string;
                             /** @description Creation date time */
                             createdAt: string;
-                            /** @description Thread Name used to group messages */
-                            threadName: string;
+                            threadName: string | null;
                             /** @description Organisation sender id */
                             organisationId: string;
                             /** @description Unique id of the recipient */
@@ -1217,18 +1215,15 @@ export interface operations {
                             subject: string;
                             /** @description Creation date time */
                             createdAt: string;
-                            /** @description Thread Name used to group messages */
-                            threadName: string;
+                            threadName: string | null;
                             /** @description Organisation sender id */
                             organisationId: string;
                             /** @description Unique id of the recipient */
                             recipientUserId: string;
-                            /** @description Brief description of the message */
-                            excerpt?: string;
+                            excerpt: string | null;
                             /** @description Plain text version of the message */
                             plainText: string;
-                            /** @description Rich text version of the message */
-                            richText?: string;
+                            richText: string | null;
                             /** @description True if the message has already been seen by the recipient */
                             isSeen: boolean;
                             /**

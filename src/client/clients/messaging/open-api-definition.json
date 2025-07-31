@@ -124,8 +124,15 @@
                             "type": "string"
                           },
                           "threadName": {
-                            "description": "Thread Name used to group messages",
-                            "type": "string"
+                            "anyOf": [
+                              {
+                                "description": "Thread Name used to group messages",
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
                           },
                           "organisationId": {
                             "description": "Organisation sender id",
@@ -773,8 +780,15 @@
                             "type": "string"
                           },
                           "threadName": {
-                            "description": "Thread Name used to group messages",
-                            "type": "string"
+                            "anyOf": [
+                              {
+                                "description": "Thread Name used to group messages",
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
                           },
                           "organisationId": {
                             "description": "Organisation sender id",
@@ -1050,8 +1064,15 @@
                               "type": "string"
                             },
                             "threadName": {
-                              "description": "Thread Name used to group messages",
-                              "type": "string"
+                              "anyOf": [
+                                {
+                                  "description": "Thread Name used to group messages",
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
                             },
                             "organisationId": {
                               "description": "Organisation sender id",
@@ -1062,16 +1083,30 @@
                               "type": "string"
                             },
                             "excerpt": {
-                              "description": "Brief description of the message",
-                              "type": "string"
+                              "anyOf": [
+                                {
+                                  "description": "Brief description of the message",
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
                             },
                             "plainText": {
                               "description": "Plain text version of the message",
                               "type": "string"
                             },
                             "richText": {
-                              "description": "Rich text version of the message",
-                              "type": "string"
+                              "anyOf": [
+                                {
+                                  "description": "Rich text version of the message",
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
                             },
                             "isSeen": {
                               "description": "True if the message has already been seen by the recipient",
@@ -1100,7 +1135,9 @@
                             "threadName",
                             "organisationId",
                             "recipientUserId",
+                            "excerpt",
                             "plainText",
+                            "richText",
                             "isSeen",
                             "security",
                             "attachments"
@@ -4896,7 +4933,6 @@
                                   "subject",
                                   "language",
                                   "plainText",
-                                  "threadName",
                                   "transports",
                                   "scheduledAt",
                                   "organisationName",
