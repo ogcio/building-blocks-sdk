@@ -6,7 +6,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description List the consents for a user, sorted by descendant submission date */
+        /** @description List the consents for a user, sorted by descending submission date */
         get: operations["citizenListConsents"];
         put?: never;
         /** @description Submit a consent for the logged in user */

@@ -22,7 +22,7 @@
         "tags": [
           "CitizenConsents"
         ],
-        "description": "List the consents for a user, sorted by descendant submission date",
+        "description": "List the consents for a user, sorted by descending submission date",
         "parameters": [
           {
             "schema": {
