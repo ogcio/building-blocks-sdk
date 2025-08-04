@@ -1592,6 +1592,10 @@ export interface paths {
                                         amount?: number;
                                     } | {
                                         transactionId: string;
+                                        amount: number;
+                                        description: string;
+                                        date: string;
+                                        provider: string;
                                     } | Record<string, never>;
                                     createdAt: string;
                                     updatedAt: string;
@@ -1801,6 +1805,10 @@ export interface paths {
                                         amount?: number;
                                     } | {
                                         transactionId: string;
+                                        amount: number;
+                                        description: string;
+                                        date: string;
+                                        provider: string;
                                     } | Record<string, never>;
                                     createdAt: string;
                                     updatedAt: string;
