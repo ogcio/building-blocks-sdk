@@ -4165,10 +4165,26 @@
                                     "properties": {
                                       "transactionId": {
                                         "type": "string"
+                                      },
+                                      "amount": {
+                                        "type": "number"
+                                      },
+                                      "description": {
+                                        "type": "string"
+                                      },
+                                      "date": {
+                                        "type": "string"
+                                      },
+                                      "provider": {
+                                        "type": "string"
                                       }
                                     },
                                     "required": [
-                                      "transactionId"
+                                      "transactionId",
+                                      "amount",
+                                      "description",
+                                      "date",
+                                      "provider"
                                     ]
                                   },
                                   {
@@ -4752,10 +4768,26 @@
                                     "properties": {
                                       "transactionId": {
                                         "type": "string"
+                                      },
+                                      "amount": {
+                                        "type": "number"
+                                      },
+                                      "description": {
+                                        "type": "string"
+                                      },
+                                      "date": {
+                                        "type": "string"
+                                      },
+                                      "provider": {
+                                        "type": "string"
                                       }
                                     },
                                     "required": [
-                                      "transactionId"
+                                      "transactionId",
+                                      "amount",
+                                      "description",
+                                      "date",
+                                      "provider"
                                     ]
                                   },
                                   {
