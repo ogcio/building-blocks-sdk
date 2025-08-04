@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.49](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.48...@ogcio/building-blocks-sdk@v0.2.49) (2025-08-04)
+
+
+### Features
+
+* payments step schema update ([#247](https://github.com/ogcio/building-blocks-sdk/issues/247)) ([a81e28d](https://github.com/ogcio/building-blocks-sdk/commit/a81e28d4444eb14bf6abf59415c652d666bc729b))
+
 ## [0.2.48](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.47...@ogcio/building-blocks-sdk@v0.2.48) (2025-07-31)
 
 
