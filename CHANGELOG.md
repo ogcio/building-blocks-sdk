@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.50](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.49...@ogcio/building-blocks-sdk@v0.2.50) (2025-08-05)
+
+
+### Features
+
+* AB[#30123](https://github.com/ogcio/building-blocks-sdk/issues/30123) consent statement ([#249](https://github.com/ogcio/building-blocks-sdk/issues/249)) ([c8e64b4](https://github.com/ogcio/building-blocks-sdk/commit/c8e64b45d03f6a2e6d3055fc07068ff1458b5d7e))
+
 ## [0.2.49](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.48...@ogcio/building-blocks-sdk@v0.2.49) (2025-08-04)
 
 
