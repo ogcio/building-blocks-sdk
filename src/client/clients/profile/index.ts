@@ -12,11 +12,13 @@ import {
   throwIfEmpty,
 } from "../../utils/client-utils.js";
 import { ProfileCitizen } from "./citizen.js";
+import { ProfileOrganisation } from "./organisation.js";
 import type { paths } from "./schema.js";
 export class Profile extends BaseClient<paths> {
   protected declare client: ReturnType<typeof createClient<paths>>;
   protected serviceName = PROFILE;
   public readonly citizen: ProfileCitizen;
+  public readonly organisation: ProfileOrganisation;
 
   constructor(params: {
     baseUrl: string;
@@ -25,6 +27,7 @@ export class Profile extends BaseClient<paths> {
   }) {
     super(params);
     this.citizen = new ProfileCitizen(this.client);
+    this.organisation = new ProfileOrganisation(this.client);
   }
 
   async getProfile(profileId: string, privateDetails = false) {

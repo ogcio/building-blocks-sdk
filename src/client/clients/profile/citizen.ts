@@ -31,4 +31,12 @@ export class ProfileCitizen {
       params: { query },
     });
   }
+
+  async getLatestConsentStatement(
+    query: paths["/api/v1/citizens/consent-statements/latest"]["get"]["parameters"]["query"],
+  ) {
+    return this.client.GET("/api/v1/citizens/consent-statements/latest", {
+      params: { query },
+    });
+  }
 }

@@ -1,4 +1,21 @@
 export interface paths {
+    "/api/v1/citizens/consent-statements/latest": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Get the latest statement for a subject */
+        get: operations["citizenLatestStatement"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/organisations/consent-statements/latest": {
         parameters: {
             query?: never;
@@ -362,6 +379,159 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    citizenLatestStatement: {
+        parameters: {
+            query: {
+                subject: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                            subject: string;
+                            version: number;
+                            /** Format: date-time */
+                            createdAt: string;
+                        } & {
+                            translations: {
+                                en: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** Format: uuid */
+                                    consentStatementId: string;
+                                    language: "en" | "ga";
+                                    bodyTop: string[];
+                                    bodyList: string[];
+                                    bodyBottom: string[];
+                                    bodySmall: string[];
+                                    bodyLinks: {
+                                        [key: string]: string;
+                                    };
+                                    bodyFooter: string | null;
+                                    title: string;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                };
+                                ga: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** Format: uuid */
+                                    consentStatementId: string;
+                                    language: "en" | "ga";
+                                    bodyTop: string[];
+                                    bodyList: string[];
+                                    bodyBottom: string[];
+                                    bodySmall: string[];
+                                    bodyLinks: {
+                                        [key: string]: string;
+                                    };
+                                    bodyFooter: string | null;
+                                    title: string;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                };
+                            };
+                        };
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+        };
+    };
     organizationLatestStatement: {
         parameters: {
             query: {
