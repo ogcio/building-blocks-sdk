@@ -1293,9 +1293,11 @@ export interface operations {
                             translations: {
                                 en: {
                                     name: string;
+                                    shortName: string;
                                 };
                                 ga: {
                                     name: string;
+                                    shortName: string;
                                 };
                             };
                         };
