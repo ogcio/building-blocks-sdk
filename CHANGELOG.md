@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.51](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.50...@ogcio/building-blocks-sdk@v0.2.51) (2025-08-19)
+
+
+### Features
+
+* **profile:** 30440 - add short name in organizations ([#251](https://github.com/ogcio/building-blocks-sdk/issues/251)) ([9276897](https://github.com/ogcio/building-blocks-sdk/commit/92768977f9810767645ba0c58176dcf74c92a816))
+
 ## [0.2.50](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.49...@ogcio/building-blocks-sdk@v0.2.50) (2025-08-05)
 
 
