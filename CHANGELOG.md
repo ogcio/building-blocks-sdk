@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.52](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.51...@ogcio/building-blocks-sdk@v0.2.52) (2025-09-05)
+
+
+### Features
+
+* **profile:** manage consent ([#253](https://github.com/ogcio/building-blocks-sdk/issues/253)) ([be9ead4](https://github.com/ogcio/building-blocks-sdk/commit/be9ead454a331596e68e983258a22c86579501bf))
+
 ## [0.2.51](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.50...@ogcio/building-blocks-sdk@v0.2.51) (2025-08-19)
 
 
