@@ -26,8 +26,16 @@ export class Profile extends BaseClient<paths> {
     logger?: Logger;
   }) {
     super(params);
-    this.citizen = new ProfileCitizen(this.client);
-    this.organisation = new ProfileOrganisation(this.client);
+    this.citizen = new ProfileCitizen(
+      this.client,
+      this.serviceName,
+      this.logger,
+    );
+    this.organisation = new ProfileOrganisation(
+      this.client,
+      this.serviceName,
+      this.logger,
+    );
   }
 
   async getProfile(profileId: string, privateDetails = false) {
@@ -218,7 +226,7 @@ export class Profile extends BaseClient<paths> {
     }
 
     return this.client
-      .POST("/api/v1/profiles/import-profiles", {
+      .POST("/api/v1/profiles/imports/", {
         body: { profiles: toImport.records },
         params: { query },
       })
@@ -266,10 +274,10 @@ export class Profile extends BaseClient<paths> {
   }
 
   async listProfileImports(
-    query: paths["/api/v1/profiles/imports"]["get"]["parameters"]["query"],
+    query: paths["/api/v1/profiles/imports/"]["get"]["parameters"]["query"],
   ) {
     return this.client
-      .GET("/api/v1/profiles/imports", {
+      .GET("/api/v1/profiles/imports/", {
         params: { query },
       })
       .then(

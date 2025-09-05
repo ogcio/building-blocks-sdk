@@ -1,13 +1,13 @@
 export interface paths {
-    "/api/v1/citizens/consent-statements/latest": {
+    "/api/v1/citizens/consent-statements/current": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** @description Get the latest statement for a subject */
-        get: operations["citizenLatestStatement"];
+        /** @description Get the current statement for a subject */
+        get: operations["citizenCurrentStatement"];
         put?: never;
         post?: never;
         delete?: never;
@@ -16,15 +16,32 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/organisations/consent-statements/latest": {
+    "/api/v1/citizens/consent-statements/{id}": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** @description Get the latest Statement for a subject */
-        get: operations["organizationLatestStatement"];
+        /** @description Get a statement by id */
+        get: operations["citizenGetStatement"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organisations/consent-statements/current": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Get the current Statement for a subject */
+        get: operations["organizationCurrentStatement"];
         put?: never;
         post?: never;
         delete?: never;
@@ -40,7 +57,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get?: never;
+        /** @description List all statements for a subject */
+        get: operations["organizationListStatements"];
         put?: never;
         /** @description Create Statement for a subject */
         post: operations["organizationCreateStatement"];
@@ -48,6 +66,41 @@ export interface paths {
         options?: never;
         head?: never;
         patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organisations/consent-statements/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Get get a statement by id */
+        get: operations["organizationGetStatement"];
+        /** @description Update statement */
+        put: operations["organizationUpdateStatement"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organisations/consent-statements/{id}/disable": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** @description Disable a consent statement (User Admin only) */
+        patch: operations["organizationDisableStatement"];
         trace?: never;
     };
     "/api/v1/citizens/consents/": {
@@ -60,8 +113,8 @@ export interface paths {
         /** @description List the consents for a user, sorted by descending submission date */
         get: operations["citizenListConsents"];
         put?: never;
-        /** @description Submit a consent for the logged in user */
-        post: operations["citizenSubmitConsent"];
+        /** @description Submit consents for the logged in user */
+        post: operations["citizenSubmitConsents"];
         delete?: never;
         options?: never;
         head?: never;
@@ -92,8 +145,25 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description List the last submission for each related user */
+        /** @description List the submission for the selected user */
         get: operations["organisationListConsents"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organisations/consents/latest": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description List the latest submission for the selected subject. Will return the ones for the specific profile, if set */
+        get: operations["organisationListLatestConsents"];
         put?: never;
         post?: never;
         delete?: never;
@@ -237,22 +307,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/profiles/import-profiles": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["importProfiles"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/api/v1/profiles/select-profiles": {
         parameters: {
             query?: never;
@@ -285,7 +339,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/profiles/imports": {
+    "/api/v1/profiles/{profileId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getProfile"];
+        put: operations["putProfile"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["patchProfile"];
+        trace?: never;
+    };
+    "/api/v1/profiles/import-profiles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @deprecated */
+        post: operations["importProfilesOld"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/profiles/imports/": {
         parameters: {
             query?: never;
             header?: never;
@@ -295,7 +382,7 @@ export interface paths {
         /** @description List profile imports with pagination */
         get: operations["listProfileImports"];
         put?: never;
-        post?: never;
+        post: operations["importProfiles"];
         delete?: never;
         options?: never;
         head?: never;
@@ -317,22 +404,6 @@ export interface paths {
         options?: never;
         head?: never;
         patch?: never;
-        trace?: never;
-    };
-    "/api/v1/profiles/{profileId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["getProfile"];
-        put: operations["putProfile"];
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch: operations["patchProfile"];
         trace?: never;
     };
     "/api/v1/profiles/imports/template": {
@@ -379,13 +450,158 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    citizenLatestStatement: {
+    citizenCurrentStatement: {
         parameters: {
             query: {
                 subject: string;
             };
             header?: never;
             path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: ({
+                            /** Format: uuid */
+                            id: string;
+                            subject: string;
+                            version: number;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: date-time */
+                            publishDate: string;
+                            isEnabled: boolean;
+                            createdBy: string;
+                        } & {
+                            translations: {
+                                en: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** Format: uuid */
+                                    consentStatementId: string;
+                                    description: string | null;
+                                    disclaimer: string | null;
+                                    title: string;
+                                    language: "en" | "ga";
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                };
+                                ga: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** Format: uuid */
+                                    consentStatementId: string;
+                                    description: string | null;
+                                    disclaimer: string | null;
+                                    title: string;
+                                    language: "en" | "ga";
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                };
+                            };
+                        })[];
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+        };
+    };
+    citizenGetStatement: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
             cookie?: never;
         };
         requestBody?: never;
@@ -404,6 +620,10 @@ export interface operations {
                             version: number;
                             /** Format: date-time */
                             createdAt: string;
+                            /** Format: date-time */
+                            publishDate: string;
+                            isEnabled: boolean;
+                            createdBy: string;
                         } & {
                             translations: {
                                 en: {
@@ -411,16 +631,10 @@ export interface operations {
                                     id: string;
                                     /** Format: uuid */
                                     consentStatementId: string;
-                                    language: "en" | "ga";
-                                    bodyTop: string[];
-                                    bodyList: string[];
-                                    bodyBottom: string[];
-                                    bodySmall: string[];
-                                    bodyLinks: {
-                                        [key: string]: string;
-                                    };
-                                    bodyFooter: string | null;
+                                    description: string | null;
+                                    disclaimer: string | null;
                                     title: string;
+                                    language: "en" | "ga";
                                     /** Format: date-time */
                                     createdAt: string;
                                 };
@@ -429,16 +643,10 @@ export interface operations {
                                     id: string;
                                     /** Format: uuid */
                                     consentStatementId: string;
-                                    language: "en" | "ga";
-                                    bodyTop: string[];
-                                    bodyList: string[];
-                                    bodyBottom: string[];
-                                    bodySmall: string[];
-                                    bodyLinks: {
-                                        [key: string]: string;
-                                    };
-                                    bodyFooter: string | null;
+                                    description: string | null;
+                                    disclaimer: string | null;
                                     title: string;
+                                    language: "en" | "ga";
                                     /** Format: date-time */
                                     createdAt: string;
                                 };
@@ -532,10 +740,160 @@ export interface operations {
             };
         };
     };
-    organizationLatestStatement: {
+    organizationCurrentStatement: {
         parameters: {
             query: {
                 subject: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: ({
+                            /** Format: uuid */
+                            id: string;
+                            subject: string;
+                            version: number;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: date-time */
+                            publishDate: string;
+                            isEnabled: boolean;
+                            createdBy: string;
+                        } & {
+                            translations: {
+                                en: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** Format: uuid */
+                                    consentStatementId: string;
+                                    description: string | null;
+                                    disclaimer: string | null;
+                                    title: string;
+                                    language: "en" | "ga";
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                };
+                                ga: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** Format: uuid */
+                                    consentStatementId: string;
+                                    description: string | null;
+                                    disclaimer: string | null;
+                                    title: string;
+                                    language: "en" | "ga";
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                };
+                            };
+                        })[];
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+        };
+    };
+    organizationListStatements: {
+        parameters: {
+            query?: {
+                subject?: string;
+                isEnabled?: "true" | "false" | "0" | "1";
+                /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
+                offset?: string;
+                /** @description Indicates the maximum number (100) of items that will be returned in a single request */
+                limit?: string;
             };
             header?: never;
             path?: never;
@@ -557,46 +915,11 @@ export interface operations {
                             version: number;
                             /** Format: date-time */
                             createdAt: string;
-                        } & {
-                            translations: {
-                                en: {
-                                    /** Format: uuid */
-                                    id: string;
-                                    /** Format: uuid */
-                                    consentStatementId: string;
-                                    language: "en" | "ga";
-                                    bodyTop: string[];
-                                    bodyList: string[];
-                                    bodyBottom: string[];
-                                    bodySmall: string[];
-                                    bodyLinks: {
-                                        [key: string]: string;
-                                    };
-                                    bodyFooter: string | null;
-                                    title: string;
-                                    /** Format: date-time */
-                                    createdAt: string;
-                                };
-                                ga: {
-                                    /** Format: uuid */
-                                    id: string;
-                                    /** Format: uuid */
-                                    consentStatementId: string;
-                                    language: "en" | "ga";
-                                    bodyTop: string[];
-                                    bodyList: string[];
-                                    bodyBottom: string[];
-                                    bodySmall: string[];
-                                    bodyLinks: {
-                                        [key: string]: string;
-                                    };
-                                    bodyFooter: string | null;
-                                    title: string;
-                                    /** Format: date-time */
-                                    createdAt: string;
-                                };
-                            };
-                        };
+                            /** Format: date-time */
+                            publishDate: string;
+                            isEnabled: boolean;
+                            createdBy: string;
+                        }[];
                         metadata?: {
                             /** @description Object containing the links to the related endpoints */
                             links?: {
@@ -695,31 +1018,20 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": {
-                    consent: {
-                        subject: string;
-                        version: number;
-                    };
+                    subject: string;
+                    /** Format: date-time */
+                    publishDate: string;
+                    /** @enum {string} */
+                    isEnabled: "true" | "false" | "0" | "1";
                     translations: {
                         en: {
-                            bodyTop: string[];
-                            bodyList: string[];
-                            bodyBottom: string[];
-                            bodySmall: string[];
-                            bodyLinks: {
-                                [key: string]: string;
-                            };
-                            bodyFooter: string | null;
+                            description: string | null;
+                            disclaimer: string | null;
                             title: string;
                         };
                         ga: {
-                            bodyTop: string[];
-                            bodyList: string[];
-                            bodyBottom: string[];
-                            bodySmall: string[];
-                            bodyLinks: {
-                                [key: string]: string;
-                            };
-                            bodyFooter: string | null;
+                            description: string | null;
+                            disclaimer: string | null;
                             title: string;
                         };
                     };
@@ -776,6 +1088,453 @@ export interface operations {
             };
             /** @description Default Response */
             "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+        };
+    };
+    organizationGetStatement: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                            subject: string;
+                            version: number;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: date-time */
+                            publishDate: string;
+                            isEnabled: boolean;
+                            createdBy: string;
+                        } & {
+                            translations: {
+                                en: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** Format: uuid */
+                                    consentStatementId: string;
+                                    description: string | null;
+                                    disclaimer: string | null;
+                                    title: string;
+                                    language: "en" | "ga";
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                };
+                                ga: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** Format: uuid */
+                                    consentStatementId: string;
+                                    description: string | null;
+                                    disclaimer: string | null;
+                                    title: string;
+                                    language: "en" | "ga";
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                };
+                            };
+                        };
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+        };
+    };
+    organizationUpdateStatement: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    subject: string;
+                    /** Format: date-time */
+                    publishDate: string;
+                    /** @enum {string} */
+                    isEnabled: "true" | "false" | "0" | "1";
+                    translations: {
+                        en: {
+                            description: string | null;
+                            disclaimer: string | null;
+                            title: string;
+                        };
+                        ga: {
+                            description: string | null;
+                            disclaimer: string | null;
+                            title: string;
+                        };
+                    };
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                        };
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+        };
+    };
+    organizationDisableStatement: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                            subject: string;
+                            version: number;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: date-time */
+                            publishDate: string;
+                            isEnabled: boolean;
+                            createdBy: string;
+                        } & {
+                            translations: {
+                                en: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** Format: uuid */
+                                    consentStatementId: string;
+                                    description: string | null;
+                                    disclaimer: string | null;
+                                    title: string;
+                                    language: "en" | "ga";
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                };
+                                ga: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** Format: uuid */
+                                    consentStatementId: string;
+                                    description: string | null;
+                                    disclaimer: string | null;
+                                    title: string;
+                                    language: "en" | "ga";
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                };
+                            };
+                        };
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            404: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -829,7 +1588,7 @@ export interface operations {
     citizenListConsents: {
         parameters: {
             query: {
-                subject: "messaging";
+                subject: string;
                 /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
                 offset?: string;
                 /** @description Indicates the maximum number (100) of items that will be returned in a single request */
@@ -857,6 +1616,13 @@ export interface operations {
                             createdAt: string;
                             /** Format: uuid */
                             consentStatementId: string;
+                            consentStatement: {
+                                version: number;
+                            };
+                            cascadeReason?: string | null;
+                            cascadeSourceProfileId?: string | null;
+                            sourceProfileEmail?: string | null;
+                            targetProfileEmail?: string | null;
                         }[];
                         metadata?: {
                             /** @description Object containing the links to the related endpoints */
@@ -946,7 +1712,7 @@ export interface operations {
             };
         };
     };
-    citizenSubmitConsent: {
+    citizenSubmitConsents: {
         parameters: {
             query?: never;
             header?: never;
@@ -956,25 +1722,57 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": {
-                    /** @enum {string} */
-                    subject: "messaging";
-                    status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
-                    /** Format: uuid */
-                    consentStatementId: string;
+                    consents: {
+                        subject: string;
+                        status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                        /** Format: uuid */
+                        consentStatementId: string;
+                    }[];
                 };
             };
         };
         responses: {
             /** @description Default Response */
-            200: {
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
                     "application/json": {
                         data: {
+                            /** Format: uuid */
                             id: string;
-                        };
+                            subject: string;
+                            status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                            /** Format: date-time */
+                            submittedAt: string;
+                            /** Format: uuid */
+                            consentStatementId: string;
+                            statementVersion: number;
+                            isLatestStatement: boolean;
+                        }[];
+                        errors?: {
+                            subject: string;
+                            /** Format: uuid */
+                            consentStatementId: string;
+                            errors: string[];
+                        }[];
+                    };
+                };
+            };
+            /** @description Default Response */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        errors: {
+                            subject: string;
+                            /** Format: uuid */
+                            consentStatementId: string;
+                            errors: string[];
+                        }[];
                     };
                 };
             };
@@ -1033,7 +1831,7 @@ export interface operations {
     citizenLatestConsent: {
         parameters: {
             query: {
-                subject: "messaging";
+                subject: string;
             };
             header?: never;
             path?: never;
@@ -1148,9 +1946,139 @@ export interface operations {
     };
     organisationListConsents: {
         parameters: {
-            query?: {
+            query: {
                 /** @description Service for which list consents */
-                subject?: string;
+                subject: string;
+                /** @description User for whom list the consents */
+                profileId: string;
+                /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
+                offset?: string;
+                /** @description Indicates the maximum number (100) of items that will be returned in a single request */
+                limit?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                            profileId: string;
+                            status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                            subject: string;
+                            createdAt: string;
+                            /** Format: uuid */
+                            consentStatementId: string;
+                            consentStatement: {
+                                version: number;
+                            };
+                            cascadeReason?: string | null;
+                            cascadeSourceProfileId?: string | null;
+                            sourceProfileEmail?: string | null;
+                            targetProfileEmail?: string | null;
+                        }[];
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+        };
+    };
+    organisationListLatestConsents: {
+        parameters: {
+            query: {
+                /** @description Service for which list consents */
+                subject: string;
                 /** @description User for whom list the consents */
                 profileId?: string;
                 /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
@@ -1180,6 +2108,13 @@ export interface operations {
                             createdAt: string;
                             /** Format: uuid */
                             consentStatementId: string;
+                            consentStatement: {
+                                version: number;
+                            };
+                            cascadeReason?: string | null;
+                            cascadeSourceProfileId?: string | null;
+                            sourceProfileEmail?: string | null;
+                            targetProfileEmail?: string | null;
                         }[];
                         metadata?: {
                             /** @description Object containing the links to the related endpoints */
@@ -1402,6 +2337,8 @@ export interface operations {
                 email?: string;
                 /** @description If true and super admin permissions are available, it returns users with private details. */
                 privateDetails?: "true" | "false" | "0" | "1";
+                /** @description Write subjects split by comma, if set will return consent statuses for those subjects, otherwise consent statuses will be null */
+                consentSubjects?: string;
                 /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
                 offset?: string;
                 /** @description Indicates the maximum number (100) of items that will be returned in a single request */
@@ -1437,7 +2374,18 @@ export interface operations {
                             /** Format: date-time */
                             updatedAt?: string;
                             consentStatuses?: {
-                                messaging: {
+                                [key: string]: {
+                                    subject: string;
+                                    status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                                    /** Format: date-time */
+                                    submittedAt?: string;
+                                    /** Format: uuid */
+                                    statementId?: string;
+                                    statementVersion?: number;
+                                    isLatestStatement?: boolean;
+                                };
+                            } | {
+                                [key: string]: {
                                     status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
                                     /** Format: uuid */
                                     consent_statement_id: string;
@@ -1594,7 +2542,18 @@ export interface operations {
                             /** Format: date-time */
                             updatedAt?: string;
                             consentStatuses?: {
-                                messaging: {
+                                [key: string]: {
+                                    subject: string;
+                                    status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                                    /** Format: date-time */
+                                    submittedAt?: string;
+                                    /** Format: uuid */
+                                    statementId?: string;
+                                    statementVersion?: number;
+                                    isLatestStatement?: boolean;
+                                };
+                            } | {
+                                [key: string]: {
                                     status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
                                     /** Format: uuid */
                                     consent_statement_id: string;
@@ -1617,6 +2576,1150 @@ export interface operations {
                                 preferredLanguage: "en" | "ga";
                                 externalId?: string;
                             };
+                        }[];
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+        };
+    };
+    selectProfiles: {
+        parameters: {
+            query: {
+                /** @description Comma-separated list of profile IDs */
+                ids: string;
+                /** @description Write subjects split by comma, if set will return consent statuses for those subjects, otherwise consent statuses will be null */
+                consentSubjects?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            id: string;
+                            publicName: string;
+                            /** Format: email */
+                            email: string;
+                            primaryUserId: string;
+                            safeLevel?: number;
+                            /**
+                             * @default en
+                             * @enum {string}
+                             */
+                            preferredLanguage: "en" | "ga";
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            consentStatuses?: {
+                                [key: string]: {
+                                    subject: string;
+                                    status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                                    /** Format: date-time */
+                                    submittedAt?: string;
+                                    /** Format: uuid */
+                                    statementId?: string;
+                                    statementVersion?: number;
+                                    isLatestStatement?: boolean;
+                                };
+                            } | {
+                                [key: string]: {
+                                    status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                                    /** Format: uuid */
+                                    consent_statement_id: string;
+                                };
+                            } | null;
+                            details?: {
+                                email: string;
+                                firstName: string;
+                                lastName: string;
+                                city?: string;
+                                address?: string;
+                                phone?: string;
+                                /** Format: date */
+                                dateOfBirth?: string;
+                                ppsn?: string;
+                                /**
+                                 * @default en
+                                 * @enum {string}
+                                 */
+                                preferredLanguage: "en" | "ga";
+                                externalId?: string;
+                            };
+                        }[];
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+        };
+    };
+    findProfile: {
+        parameters: {
+            query?: {
+                /** @description Email address to search for */
+                email?: string;
+                /** @description First name to search for */
+                firstName?: string;
+                /** @description Last name to search for */
+                lastName?: string;
+                /** @description Phone number to search for */
+                phone?: string;
+                /** @description Write subjects split by comma, if set will return consent statuses for those subjects, otherwise consent statuses will be null */
+                consentSubjects?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            id: string;
+                            publicName: string;
+                            /** Format: email */
+                            email: string;
+                            primaryUserId: string;
+                            safeLevel?: number;
+                            /**
+                             * @default en
+                             * @enum {string}
+                             */
+                            preferredLanguage: "en" | "ga";
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            consentStatuses?: {
+                                [key: string]: {
+                                    subject: string;
+                                    status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                                    /** Format: date-time */
+                                    submittedAt?: string;
+                                    /** Format: uuid */
+                                    statementId?: string;
+                                    statementVersion?: number;
+                                    isLatestStatement?: boolean;
+                                };
+                            } | {
+                                [key: string]: {
+                                    status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                                    /** Format: uuid */
+                                    consent_statement_id: string;
+                                };
+                            } | null;
+                            details?: {
+                                email: string;
+                                firstName: string;
+                                lastName: string;
+                                city?: string;
+                                address?: string;
+                                phone?: string;
+                                /** Format: date */
+                                dateOfBirth?: string;
+                                ppsn?: string;
+                                /**
+                                 * @default en
+                                 * @enum {string}
+                                 */
+                                preferredLanguage: "en" | "ga";
+                                externalId?: string;
+                            };
+                        };
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+        };
+    };
+    getProfile: {
+        parameters: {
+            query?: {
+                privateDetails?: "true" | "false" | "0" | "1";
+                organizationId?: string;
+                /** @description Comma-separated list of consent categories to retrieve status for. */
+                consentSubjects?: string;
+            };
+            header?: never;
+            path: {
+                /** @description ID of the profile to retrieve */
+                profileId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            id: string;
+                            publicName: string;
+                            /** Format: email */
+                            email: string;
+                            primaryUserId: string;
+                            safeLevel?: number;
+                            /**
+                             * @default en
+                             * @enum {string}
+                             */
+                            preferredLanguage: "en" | "ga";
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            consentStatuses?: {
+                                [key: string]: {
+                                    subject: string;
+                                    status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                                    /** Format: date-time */
+                                    submittedAt?: string;
+                                    /** Format: uuid */
+                                    statementId?: string;
+                                    statementVersion?: number;
+                                    isLatestStatement?: boolean;
+                                };
+                            } | {
+                                [key: string]: {
+                                    status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                                    /** Format: uuid */
+                                    consent_statement_id: string;
+                                };
+                            } | null;
+                            details?: {
+                                email: string;
+                                firstName: string;
+                                lastName: string;
+                                city?: string;
+                                address?: string;
+                                phone?: string;
+                                /** Format: date */
+                                dateOfBirth?: string;
+                                ppsn?: string;
+                                /**
+                                 * @default en
+                                 * @enum {string}
+                                 */
+                                preferredLanguage: "en" | "ga";
+                                externalId?: string;
+                            };
+                            /** @description Linked profiles that have the current profile as primary profile */
+                            linkedProfiles?: {
+                                id: string;
+                                /** Format: email */
+                                email: string;
+                                publicName: string;
+                            }[];
+                        };
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+        };
+    };
+    putProfile: {
+        parameters: {
+            query?: {
+                /** @description Organization ID owning the profile */
+                organizationId?: string;
+            };
+            header?: never;
+            path: {
+                /** @description ID of the profile to update */
+                profileId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    publicName: string;
+                    /** Format: email */
+                    email?: string;
+                    phone?: string;
+                    address?: string;
+                    city?: string;
+                    firstName?: string;
+                    lastName?: string;
+                    /** Format: date */
+                    dateOfBirth?: string;
+                    /** @enum {string} */
+                    preferredLanguage: "en" | "ga";
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            id: string;
+                            publicName: string;
+                            /** Format: email */
+                            email: string;
+                            primaryUserId: string;
+                            safeLevel?: number;
+                            /**
+                             * @default en
+                             * @enum {string}
+                             */
+                            preferredLanguage: "en" | "ga";
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            consentStatuses?: {
+                                [key: string]: {
+                                    subject: string;
+                                    status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                                    /** Format: date-time */
+                                    submittedAt?: string;
+                                    /** Format: uuid */
+                                    statementId?: string;
+                                    statementVersion?: number;
+                                    isLatestStatement?: boolean;
+                                };
+                            } | {
+                                [key: string]: {
+                                    status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                                    /** Format: uuid */
+                                    consent_statement_id: string;
+                                };
+                            } | null;
+                            details?: {
+                                email: string;
+                                firstName: string;
+                                lastName: string;
+                                city?: string;
+                                address?: string;
+                                phone?: string;
+                                /** Format: date */
+                                dateOfBirth?: string;
+                                ppsn?: string;
+                                /**
+                                 * @default en
+                                 * @enum {string}
+                                 */
+                                preferredLanguage: "en" | "ga";
+                                externalId?: string;
+                            };
+                        };
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+        };
+    };
+    patchProfile: {
+        parameters: {
+            query?: {
+                /** @description Organization ID owning the profile */
+                organizationId?: string;
+            };
+            header?: never;
+            path: {
+                /** @description ID of the profile to update */
+                profileId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": {
+                    publicName?: string;
+                    /** Format: email */
+                    email?: string;
+                    phone?: string;
+                    address?: string;
+                    city?: string;
+                    firstName?: string;
+                    lastName?: string;
+                    /** Format: date */
+                    dateOfBirth?: string;
+                    /** @enum {string} */
+                    preferredLanguage?: "en" | "ga";
+                    primaryUserId?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            id: string;
+                            publicName: string;
+                            /** Format: email */
+                            email: string;
+                            primaryUserId: string;
+                            safeLevel?: number;
+                            /**
+                             * @default en
+                             * @enum {string}
+                             */
+                            preferredLanguage: "en" | "ga";
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            consentStatuses?: {
+                                [key: string]: {
+                                    subject: string;
+                                    status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                                    /** Format: date-time */
+                                    submittedAt?: string;
+                                    /** Format: uuid */
+                                    statementId?: string;
+                                    statementVersion?: number;
+                                    isLatestStatement?: boolean;
+                                };
+                            } | {
+                                [key: string]: {
+                                    status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
+                                    /** Format: uuid */
+                                    consent_statement_id: string;
+                                };
+                            } | null;
+                            details?: {
+                                email: string;
+                                firstName: string;
+                                lastName: string;
+                                city?: string;
+                                address?: string;
+                                phone?: string;
+                                /** Format: date */
+                                dateOfBirth?: string;
+                                ppsn?: string;
+                                /**
+                                 * @default en
+                                 * @enum {string}
+                                 */
+                                preferredLanguage: "en" | "ga";
+                                externalId?: string;
+                            };
+                        };
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+        };
+    };
+    importProfilesOld: {
+        parameters: {
+            query?: {
+                privateDetails?: "true" | "false" | "0" | "1";
+                onlyPrivateDetails?: "true" | "false" | "0" | "1";
+                importType?: "ppsn-only" | "full";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": {
+                    profiles?: {
+                        email: string;
+                        firstName: string;
+                        lastName: string;
+                        city?: string;
+                        address?: string;
+                        phone?: string;
+                        /** Format: date */
+                        dateOfBirth?: string;
+                        ppsn?: string;
+                        /**
+                         * @default en
+                         * @enum {string}
+                         */
+                        preferredLanguage?: "en" | "ga";
+                        externalId?: string;
+                    }[];
+                    ppsnOnlyProfiles?: {
+                        ppsn: string;
+                        externalId?: string;
+                        /** Format: date */
+                        dateOfBirth?: string;
+                    }[];
+                    file?: unknown;
+                };
+                "multipart/form-data": {
+                    profiles?: {
+                        email: string;
+                        firstName: string;
+                        lastName: string;
+                        city?: string;
+                        address?: string;
+                        phone?: string;
+                        /** Format: date */
+                        dateOfBirth?: string;
+                        ppsn?: string;
+                        /**
+                         * @default en
+                         * @enum {string}
+                         */
+                        preferredLanguage?: "en" | "ga";
+                        externalId?: string;
+                    }[];
+                    ppsnOnlyProfiles?: {
+                        ppsn: string;
+                        externalId?: string;
+                        /** Format: date */
+                        dateOfBirth?: string;
+                    }[];
+                    file?: unknown;
+                };
+                "text/csv": {
+                    profiles?: {
+                        email: string;
+                        firstName: string;
+                        lastName: string;
+                        city?: string;
+                        address?: string;
+                        phone?: string;
+                        /** Format: date */
+                        dateOfBirth?: string;
+                        ppsn?: string;
+                        /**
+                         * @default en
+                         * @enum {string}
+                         */
+                        preferredLanguage?: "en" | "ga";
+                        externalId?: string;
+                    }[];
+                    ppsnOnlyProfiles?: {
+                        ppsn: string;
+                        externalId?: string;
+                        /** Format: date */
+                        dateOfBirth?: string;
+                    }[];
+                    file?: unknown;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        status: string;
+                        profileImportId: string;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+        };
+    };
+    listProfileImports: {
+        parameters: {
+            query?: {
+                organizationId?: string;
+                source?: "csv" | "json";
+                /** @description If set, the endpoint searches for profile imports with this value in the metadata.filename */
+                search?: string;
+                /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
+                offset?: string;
+                /** @description Indicates the maximum number (100) of items that will be returned in a single request */
+                limit?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                            organisationId?: string;
+                            status: string;
+                            source: "csv" | "json";
+                            metadata?: {
+                                filename: string;
+                                mimetype: string;
+                            };
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: date-time */
+                            updatedAt: string;
                         }[];
                         metadata?: {
                             /** @description Object containing the links to the related endpoints */
@@ -1864,436 +3967,6 @@ export interface operations {
             };
         };
     };
-    selectProfiles: {
-        parameters: {
-            query: {
-                /** @description Comma-separated list of profile IDs */
-                ids: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Default Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        data: {
-                            id: string;
-                            publicName: string;
-                            /** Format: email */
-                            email: string;
-                            primaryUserId: string;
-                            safeLevel?: number;
-                            /**
-                             * @default en
-                             * @enum {string}
-                             */
-                            preferredLanguage: "en" | "ga";
-                            /** Format: date-time */
-                            createdAt?: string;
-                            /** Format: date-time */
-                            updatedAt?: string;
-                            consentStatuses?: {
-                                messaging: {
-                                    status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
-                                    /** Format: uuid */
-                                    consent_statement_id: string;
-                                };
-                            } | null;
-                            details?: {
-                                email: string;
-                                firstName: string;
-                                lastName: string;
-                                city?: string;
-                                address?: string;
-                                phone?: string;
-                                /** Format: date */
-                                dateOfBirth?: string;
-                                ppsn?: string;
-                                /**
-                                 * @default en
-                                 * @enum {string}
-                                 */
-                                preferredLanguage: "en" | "ga";
-                                externalId?: string;
-                            };
-                        }[];
-                        metadata?: {
-                            /** @description Object containing the links to the related endpoints */
-                            links?: {
-                                self: {
-                                    /** @description URL pointing to the request itself */
-                                    href?: string;
-                                };
-                                next?: {
-                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                    href?: string;
-                                };
-                                prev?: {
-                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                    href?: string;
-                                };
-                                first: {
-                                    /** @description URL pointing to the first page of results in a paginated response */
-                                    href?: string;
-                                };
-                                last: {
-                                    /** @description URL pointing to the first page of results in a paginated response */
-                                    href?: string;
-                                };
-                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                pages: {
-                                    [key: string]: {
-                                        href?: string;
-                                    };
-                                };
-                            };
-                            /** @description Number representing the total number of available items */
-                            totalCount?: number;
-                        };
-                    };
-                };
-            };
-            /** @description Default Response */
-            "4XX": {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /** @description Code used to categorize the error */
-                        code: string;
-                        /** @description Description of the error */
-                        detail: string;
-                        /** @description Unique request id. This one will be used to troubleshoot the problems */
-                        requestId: string;
-                        /** @description Name of the error type */
-                        name: string;
-                        /** @description List of the validation errors */
-                        validation?: {
-                            fieldName: string;
-                            message: string;
-                        }[];
-                        validationContext?: string;
-                        statusCode: number;
-                    };
-                };
-            };
-            /** @description Default Response */
-            "5XX": {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /** @description Code used to categorize the error */
-                        code: string;
-                        /** @description Description of the error */
-                        detail: string;
-                        /** @description Unique request id. This one will be used to troubleshoot the problems */
-                        requestId: string;
-                        /** @description Name of the error type */
-                        name: string;
-                        /** @description List of the validation errors */
-                        validation?: {
-                            fieldName: string;
-                            message: string;
-                        }[];
-                        validationContext?: string;
-                        statusCode: number;
-                    };
-                };
-            };
-        };
-    };
-    findProfile: {
-        parameters: {
-            query?: {
-                /** @description Email address to search for */
-                email?: string;
-                /** @description First name to search for */
-                firstName?: string;
-                /** @description Last name to search for */
-                lastName?: string;
-                /** @description Phone number to search for */
-                phone?: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Default Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        data: {
-                            id: string;
-                            publicName: string;
-                            /** Format: email */
-                            email: string;
-                            primaryUserId: string;
-                            safeLevel?: number;
-                            /**
-                             * @default en
-                             * @enum {string}
-                             */
-                            preferredLanguage: "en" | "ga";
-                            /** Format: date-time */
-                            createdAt?: string;
-                            /** Format: date-time */
-                            updatedAt?: string;
-                            consentStatuses?: {
-                                messaging: {
-                                    status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
-                                    /** Format: uuid */
-                                    consent_statement_id: string;
-                                };
-                            } | null;
-                            details?: {
-                                email: string;
-                                firstName: string;
-                                lastName: string;
-                                city?: string;
-                                address?: string;
-                                phone?: string;
-                                /** Format: date */
-                                dateOfBirth?: string;
-                                ppsn?: string;
-                                /**
-                                 * @default en
-                                 * @enum {string}
-                                 */
-                                preferredLanguage: "en" | "ga";
-                                externalId?: string;
-                            };
-                        };
-                        metadata?: {
-                            /** @description Object containing the links to the related endpoints */
-                            links?: {
-                                self: {
-                                    /** @description URL pointing to the request itself */
-                                    href?: string;
-                                };
-                                next?: {
-                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                    href?: string;
-                                };
-                                prev?: {
-                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                    href?: string;
-                                };
-                                first: {
-                                    /** @description URL pointing to the first page of results in a paginated response */
-                                    href?: string;
-                                };
-                                last: {
-                                    /** @description URL pointing to the first page of results in a paginated response */
-                                    href?: string;
-                                };
-                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                pages: {
-                                    [key: string]: {
-                                        href?: string;
-                                    };
-                                };
-                            };
-                            /** @description Number representing the total number of available items */
-                            totalCount?: number;
-                        };
-                    };
-                };
-            };
-            /** @description Default Response */
-            "4XX": {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /** @description Code used to categorize the error */
-                        code: string;
-                        /** @description Description of the error */
-                        detail: string;
-                        /** @description Unique request id. This one will be used to troubleshoot the problems */
-                        requestId: string;
-                        /** @description Name of the error type */
-                        name: string;
-                        /** @description List of the validation errors */
-                        validation?: {
-                            fieldName: string;
-                            message: string;
-                        }[];
-                        validationContext?: string;
-                        statusCode: number;
-                    };
-                };
-            };
-            /** @description Default Response */
-            "5XX": {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /** @description Code used to categorize the error */
-                        code: string;
-                        /** @description Description of the error */
-                        detail: string;
-                        /** @description Unique request id. This one will be used to troubleshoot the problems */
-                        requestId: string;
-                        /** @description Name of the error type */
-                        name: string;
-                        /** @description List of the validation errors */
-                        validation?: {
-                            fieldName: string;
-                            message: string;
-                        }[];
-                        validationContext?: string;
-                        statusCode: number;
-                    };
-                };
-            };
-        };
-    };
-    listProfileImports: {
-        parameters: {
-            query?: {
-                organizationId?: string;
-                source?: "csv" | "json";
-                /** @description If set, the endpoint searches for profile imports with this value in the metadata.filename */
-                search?: string;
-                /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
-                offset?: string;
-                /** @description Indicates the maximum number (100) of items that will be returned in a single request */
-                limit?: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Default Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        data: {
-                            /** Format: uuid */
-                            id: string;
-                            organisationId?: string;
-                            status: string;
-                            source: "csv" | "json";
-                            metadata?: {
-                                filename: string;
-                                mimetype: string;
-                            };
-                            /** Format: date-time */
-                            createdAt: string;
-                            /** Format: date-time */
-                            updatedAt: string;
-                        }[];
-                        metadata?: {
-                            /** @description Object containing the links to the related endpoints */
-                            links?: {
-                                self: {
-                                    /** @description URL pointing to the request itself */
-                                    href?: string;
-                                };
-                                next?: {
-                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                    href?: string;
-                                };
-                                prev?: {
-                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                    href?: string;
-                                };
-                                first: {
-                                    /** @description URL pointing to the first page of results in a paginated response */
-                                    href?: string;
-                                };
-                                last: {
-                                    /** @description URL pointing to the first page of results in a paginated response */
-                                    href?: string;
-                                };
-                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                pages: {
-                                    [key: string]: {
-                                        href?: string;
-                                    };
-                                };
-                            };
-                            /** @description Number representing the total number of available items */
-                            totalCount?: number;
-                        };
-                    };
-                };
-            };
-            /** @description Default Response */
-            "4XX": {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /** @description Code used to categorize the error */
-                        code: string;
-                        /** @description Description of the error */
-                        detail: string;
-                        /** @description Unique request id. This one will be used to troubleshoot the problems */
-                        requestId: string;
-                        /** @description Name of the error type */
-                        name: string;
-                        /** @description List of the validation errors */
-                        validation?: {
-                            fieldName: string;
-                            message: string;
-                        }[];
-                        validationContext?: string;
-                        statusCode: number;
-                    };
-                };
-            };
-            /** @description Default Response */
-            "5XX": {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /** @description Code used to categorize the error */
-                        code: string;
-                        /** @description Description of the error */
-                        detail: string;
-                        /** @description Unique request id. This one will be used to troubleshoot the problems */
-                        requestId: string;
-                        /** @description Name of the error type */
-                        name: string;
-                        /** @description List of the validation errors */
-                        validation?: {
-                            fieldName: string;
-                            message: string;
-                        }[];
-                        validationContext?: string;
-                        statusCode: number;
-                    };
-                };
-            };
-        };
-    };
     getProfileImportDetails: {
         parameters: {
             query?: never;
@@ -2339,501 +4012,6 @@ export interface operations {
                                 externalId?: string;
                                 status: string;
                             }[];
-                        };
-                        metadata?: {
-                            /** @description Object containing the links to the related endpoints */
-                            links?: {
-                                self: {
-                                    /** @description URL pointing to the request itself */
-                                    href?: string;
-                                };
-                                next?: {
-                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                    href?: string;
-                                };
-                                prev?: {
-                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                    href?: string;
-                                };
-                                first: {
-                                    /** @description URL pointing to the first page of results in a paginated response */
-                                    href?: string;
-                                };
-                                last: {
-                                    /** @description URL pointing to the first page of results in a paginated response */
-                                    href?: string;
-                                };
-                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                pages: {
-                                    [key: string]: {
-                                        href?: string;
-                                    };
-                                };
-                            };
-                            /** @description Number representing the total number of available items */
-                            totalCount?: number;
-                        };
-                    };
-                };
-            };
-            /** @description Default Response */
-            "4XX": {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /** @description Code used to categorize the error */
-                        code: string;
-                        /** @description Description of the error */
-                        detail: string;
-                        /** @description Unique request id. This one will be used to troubleshoot the problems */
-                        requestId: string;
-                        /** @description Name of the error type */
-                        name: string;
-                        /** @description List of the validation errors */
-                        validation?: {
-                            fieldName: string;
-                            message: string;
-                        }[];
-                        validationContext?: string;
-                        statusCode: number;
-                    };
-                };
-            };
-            /** @description Default Response */
-            "5XX": {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /** @description Code used to categorize the error */
-                        code: string;
-                        /** @description Description of the error */
-                        detail: string;
-                        /** @description Unique request id. This one will be used to troubleshoot the problems */
-                        requestId: string;
-                        /** @description Name of the error type */
-                        name: string;
-                        /** @description List of the validation errors */
-                        validation?: {
-                            fieldName: string;
-                            message: string;
-                        }[];
-                        validationContext?: string;
-                        statusCode: number;
-                    };
-                };
-            };
-        };
-    };
-    getProfile: {
-        parameters: {
-            query?: {
-                privateDetails?: "true" | "false" | "0" | "1";
-                organizationId?: string;
-            };
-            header?: never;
-            path: {
-                /** @description ID of the profile to retrieve */
-                profileId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Default Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        data: {
-                            id: string;
-                            publicName: string;
-                            /** Format: email */
-                            email: string;
-                            primaryUserId: string;
-                            safeLevel?: number;
-                            /**
-                             * @default en
-                             * @enum {string}
-                             */
-                            preferredLanguage: "en" | "ga";
-                            /** Format: date-time */
-                            createdAt?: string;
-                            /** Format: date-time */
-                            updatedAt?: string;
-                            consentStatuses?: {
-                                messaging: {
-                                    status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
-                                    /** Format: uuid */
-                                    consent_statement_id: string;
-                                };
-                            } | null;
-                            details?: {
-                                email: string;
-                                firstName: string;
-                                lastName: string;
-                                city?: string;
-                                address?: string;
-                                phone?: string;
-                                /** Format: date */
-                                dateOfBirth?: string;
-                                ppsn?: string;
-                                /**
-                                 * @default en
-                                 * @enum {string}
-                                 */
-                                preferredLanguage: "en" | "ga";
-                                externalId?: string;
-                            };
-                            /** @description Linked profiles that have the current profile as primary profile */
-                            linkedProfiles?: {
-                                id: string;
-                                /** Format: email */
-                                email: string;
-                                publicName: string;
-                            }[];
-                        };
-                        metadata?: {
-                            /** @description Object containing the links to the related endpoints */
-                            links?: {
-                                self: {
-                                    /** @description URL pointing to the request itself */
-                                    href?: string;
-                                };
-                                next?: {
-                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                    href?: string;
-                                };
-                                prev?: {
-                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                    href?: string;
-                                };
-                                first: {
-                                    /** @description URL pointing to the first page of results in a paginated response */
-                                    href?: string;
-                                };
-                                last: {
-                                    /** @description URL pointing to the first page of results in a paginated response */
-                                    href?: string;
-                                };
-                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                pages: {
-                                    [key: string]: {
-                                        href?: string;
-                                    };
-                                };
-                            };
-                            /** @description Number representing the total number of available items */
-                            totalCount?: number;
-                        };
-                    };
-                };
-            };
-            /** @description Default Response */
-            "4XX": {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /** @description Code used to categorize the error */
-                        code: string;
-                        /** @description Description of the error */
-                        detail: string;
-                        /** @description Unique request id. This one will be used to troubleshoot the problems */
-                        requestId: string;
-                        /** @description Name of the error type */
-                        name: string;
-                        /** @description List of the validation errors */
-                        validation?: {
-                            fieldName: string;
-                            message: string;
-                        }[];
-                        validationContext?: string;
-                        statusCode: number;
-                    };
-                };
-            };
-            /** @description Default Response */
-            "5XX": {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /** @description Code used to categorize the error */
-                        code: string;
-                        /** @description Description of the error */
-                        detail: string;
-                        /** @description Unique request id. This one will be used to troubleshoot the problems */
-                        requestId: string;
-                        /** @description Name of the error type */
-                        name: string;
-                        /** @description List of the validation errors */
-                        validation?: {
-                            fieldName: string;
-                            message: string;
-                        }[];
-                        validationContext?: string;
-                        statusCode: number;
-                    };
-                };
-            };
-        };
-    };
-    putProfile: {
-        parameters: {
-            query?: {
-                /** @description Organization ID owning the profile */
-                organizationId?: string;
-            };
-            header?: never;
-            path: {
-                /** @description ID of the profile to update */
-                profileId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": {
-                    publicName: string;
-                    /** Format: email */
-                    email?: string;
-                    phone?: string;
-                    address?: string;
-                    city?: string;
-                    firstName?: string;
-                    lastName?: string;
-                    /** Format: date */
-                    dateOfBirth?: string;
-                    /** @enum {string} */
-                    preferredLanguage: "en" | "ga";
-                };
-            };
-        };
-        responses: {
-            /** @description Default Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        data: {
-                            id: string;
-                            publicName: string;
-                            /** Format: email */
-                            email: string;
-                            primaryUserId: string;
-                            safeLevel?: number;
-                            /**
-                             * @default en
-                             * @enum {string}
-                             */
-                            preferredLanguage: "en" | "ga";
-                            /** Format: date-time */
-                            createdAt?: string;
-                            /** Format: date-time */
-                            updatedAt?: string;
-                            consentStatuses?: {
-                                messaging: {
-                                    status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
-                                    /** Format: uuid */
-                                    consent_statement_id: string;
-                                };
-                            } | null;
-                            details?: {
-                                email: string;
-                                firstName: string;
-                                lastName: string;
-                                city?: string;
-                                address?: string;
-                                phone?: string;
-                                /** Format: date */
-                                dateOfBirth?: string;
-                                ppsn?: string;
-                                /**
-                                 * @default en
-                                 * @enum {string}
-                                 */
-                                preferredLanguage: "en" | "ga";
-                                externalId?: string;
-                            };
-                        };
-                        metadata?: {
-                            /** @description Object containing the links to the related endpoints */
-                            links?: {
-                                self: {
-                                    /** @description URL pointing to the request itself */
-                                    href?: string;
-                                };
-                                next?: {
-                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                    href?: string;
-                                };
-                                prev?: {
-                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                    href?: string;
-                                };
-                                first: {
-                                    /** @description URL pointing to the first page of results in a paginated response */
-                                    href?: string;
-                                };
-                                last: {
-                                    /** @description URL pointing to the first page of results in a paginated response */
-                                    href?: string;
-                                };
-                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                pages: {
-                                    [key: string]: {
-                                        href?: string;
-                                    };
-                                };
-                            };
-                            /** @description Number representing the total number of available items */
-                            totalCount?: number;
-                        };
-                    };
-                };
-            };
-            /** @description Default Response */
-            "4XX": {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /** @description Code used to categorize the error */
-                        code: string;
-                        /** @description Description of the error */
-                        detail: string;
-                        /** @description Unique request id. This one will be used to troubleshoot the problems */
-                        requestId: string;
-                        /** @description Name of the error type */
-                        name: string;
-                        /** @description List of the validation errors */
-                        validation?: {
-                            fieldName: string;
-                            message: string;
-                        }[];
-                        validationContext?: string;
-                        statusCode: number;
-                    };
-                };
-            };
-            /** @description Default Response */
-            "5XX": {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /** @description Code used to categorize the error */
-                        code: string;
-                        /** @description Description of the error */
-                        detail: string;
-                        /** @description Unique request id. This one will be used to troubleshoot the problems */
-                        requestId: string;
-                        /** @description Name of the error type */
-                        name: string;
-                        /** @description List of the validation errors */
-                        validation?: {
-                            fieldName: string;
-                            message: string;
-                        }[];
-                        validationContext?: string;
-                        statusCode: number;
-                    };
-                };
-            };
-        };
-    };
-    patchProfile: {
-        parameters: {
-            query?: {
-                /** @description Organization ID owning the profile */
-                organizationId?: string;
-            };
-            header?: never;
-            path: {
-                /** @description ID of the profile to update */
-                profileId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": {
-                    publicName?: string;
-                    /** Format: email */
-                    email?: string;
-                    phone?: string;
-                    address?: string;
-                    city?: string;
-                    firstName?: string;
-                    lastName?: string;
-                    /** Format: date */
-                    dateOfBirth?: string;
-                    /** @enum {string} */
-                    preferredLanguage?: "en" | "ga";
-                    primaryUserId?: string;
-                };
-            };
-        };
-        responses: {
-            /** @description Default Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        data: {
-                            id: string;
-                            publicName: string;
-                            /** Format: email */
-                            email: string;
-                            primaryUserId: string;
-                            safeLevel?: number;
-                            /**
-                             * @default en
-                             * @enum {string}
-                             */
-                            preferredLanguage: "en" | "ga";
-                            /** Format: date-time */
-                            createdAt?: string;
-                            /** Format: date-time */
-                            updatedAt?: string;
-                            consentStatuses?: {
-                                messaging: {
-                                    status: "pending" | "undefined" | "pre-approved" | "opted-out" | "opted-in";
-                                    /** Format: uuid */
-                                    consent_statement_id: string;
-                                };
-                            } | null;
-                            details?: {
-                                email: string;
-                                firstName: string;
-                                lastName: string;
-                                city?: string;
-                                address?: string;
-                                phone?: string;
-                                /** Format: date */
-                                dateOfBirth?: string;
-                                ppsn?: string;
-                                /**
-                                 * @default en
-                                 * @enum {string}
-                                 */
-                                preferredLanguage: "en" | "ga";
-                                externalId?: string;
-                            };
                         };
                         metadata?: {
                             /** @description Object containing the links to the related endpoints */
