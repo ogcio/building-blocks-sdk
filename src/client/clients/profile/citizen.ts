@@ -1,4 +1,5 @@
 import type createClient from "openapi-fetch";
+import { throwIfEmpty } from "../../utils/client-utils.js";
 import type { paths } from "./schema.js";
 
 export class ProfileCitizen {
@@ -37,6 +38,13 @@ export class ProfileCitizen {
   ) {
     return this.client.GET("/api/v1/citizens/consent-statements/current", {
       params: { query },
+    });
+  }
+
+  async getConsentStatement(id: string) {
+    throwIfEmpty(id);
+    return this.client.GET("/api/v1/citizens/consent-statements/{id}", {
+      params: { path: { id } },
     });
   }
 }
