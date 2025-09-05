@@ -32,10 +32,10 @@ export class ProfileCitizen {
     });
   }
 
-  async getLatestConsentStatement(
-    query: paths["/api/v1/citizens/consent-statements/latest"]["get"]["parameters"]["query"],
+  async getCurrentConsentStatement(
+    query: paths["/api/v1/citizens/consent-statements/current"]["get"]["parameters"]["query"],
   ) {
-    return this.client.GET("/api/v1/citizens/consent-statements/latest", {
+    return this.client.GET("/api/v1/citizens/consent-statements/current", {
       params: { query },
     });
   }

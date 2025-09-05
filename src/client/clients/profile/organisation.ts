@@ -6,10 +6,10 @@ export class ProfileOrganisation {
     private readonly client: ReturnType<typeof createClient<paths>>,
   ) {}
 
-  async getLatestConsentStatement(
-    query: paths["/api/v1/organisations/consent-statements/latest"]["get"]["parameters"]["query"],
+  async getCurrentConsentStatement(
+    query: paths["/api/v1/organisations/consent-statements/current"]["get"]["parameters"]["query"],
   ) {
-    return this.client.GET("/api/v1/organisations/consent-statements/latest", {
+    return this.client.GET("/api/v1/organisations/consent-statements/current", {
       params: { query },
     });
   }
