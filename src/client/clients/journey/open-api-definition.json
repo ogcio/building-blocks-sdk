@@ -4169,9 +4169,6 @@
                                       "amount": {
                                         "type": "number"
                                       },
-                                      "description": {
-                                        "type": "string"
-                                      },
                                       "date": {
                                         "type": "string"
                                       },
@@ -4182,7 +4179,6 @@
                                     "required": [
                                       "transactionId",
                                       "amount",
-                                      "description",
                                       "date",
                                       "provider"
                                     ]
@@ -4772,9 +4768,6 @@
                                       "amount": {
                                         "type": "number"
                                       },
-                                      "description": {
-                                        "type": "string"
-                                      },
                                       "date": {
                                         "type": "string"
                                       },
@@ -4785,7 +4778,6 @@
                                     "required": [
                                       "transactionId",
                                       "amount",
-                                      "description",
                                       "date",
                                       "provider"
                                     ]
@@ -4815,6 +4807,9 @@
                           }
                         },
                         "choosenAuthMethod": {
+                          "type": "string"
+                        },
+                        "userEmail": {
                           "type": "string"
                         },
                         "organizationId": {
