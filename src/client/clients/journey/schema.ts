@@ -1593,7 +1593,6 @@ export interface paths {
                                     } | {
                                         transactionId: string;
                                         amount: number;
-                                        description: string;
                                         date: string;
                                         provider: string;
                                     } | Record<string, never>;
@@ -1806,7 +1805,6 @@ export interface paths {
                                     } | {
                                         transactionId: string;
                                         amount: number;
-                                        description: string;
                                         date: string;
                                         provider: string;
                                     } | Record<string, never>;
@@ -1814,6 +1812,7 @@ export interface paths {
                                     updatedAt: string;
                                 }[];
                                 choosenAuthMethod: string;
+                                userEmail?: string;
                                 organizationId: string;
                             };
                             metadata?: {
