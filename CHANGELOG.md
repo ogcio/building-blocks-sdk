@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.53](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.52...@ogcio/building-blocks-sdk@v0.2.53) (2025-09-08)
+
+
+### Features
+
+* add email to submission details ([#255](https://github.com/ogcio/building-blocks-sdk/issues/255)) ([538dcb1](https://github.com/ogcio/building-blocks-sdk/commit/538dcb168dd0efed7ee5113c27a28ba2bd79abd8))
+
 ## [0.2.52](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.51...@ogcio/building-blocks-sdk@v0.2.52) (2025-09-05)
 
 
