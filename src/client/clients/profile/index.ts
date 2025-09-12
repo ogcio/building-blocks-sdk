@@ -38,10 +38,17 @@ export class Profile extends BaseClient<paths> {
     );
   }
 
-  async getProfile(profileId: string, privateDetails = false) {
+  async getProfile(
+    profileId: string,
+    privateDetails = false,
+    organizationId?: string,
+    consentSubjects?: string[],
+  ) {
     throwIfEmpty(profileId);
     const query = {
       privateDetails: (privateDetails ? "true" : "false") as "true" | "false",
+      organizationId,
+      consentSubjects: consentSubjects?.join(","),
     };
     return this.client
       .GET("/api/v1/profiles/{profileId}", {
@@ -119,12 +126,20 @@ export class Profile extends BaseClient<paths> {
   }
 
   async findProfile(
-    query: paths["/api/v1/profiles/find-profile"]["get"]["parameters"]["query"],
+    query: Omit<
+      paths["/api/v1/profiles/find-profile"]["get"]["parameters"]["query"],
+      "consentSubjects"
+    > & {
+      consentSubjects?: string[];
+    },
   ) {
     return this.client
       .GET("/api/v1/profiles/find-profile", {
         params: {
-          query,
+          query: {
+            ...query,
+            consentSubjects: query.consentSubjects?.join(","),
+          },
         },
       })
       .then(
@@ -135,6 +150,7 @@ export class Profile extends BaseClient<paths> {
 
   async selectProfiles(
     ids: paths["/api/v1/profiles/select-profiles"]["get"]["parameters"]["query"]["ids"],
+    consentSubjects?: string[],
   ) {
     for (const id of ids) {
       throwIfEmpty(id);
@@ -144,6 +160,7 @@ export class Profile extends BaseClient<paths> {
         params: {
           query: {
             ids,
+            consentSubjects: consentSubjects?.join(","),
           },
         },
       })
