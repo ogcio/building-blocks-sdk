@@ -42,13 +42,13 @@ export class Profile extends BaseClient<paths> {
     profileId: string,
     privateDetails = false,
     organizationId?: string,
-    consentSubjects?: string,
+    consentSubjects?: string[],
   ) {
     throwIfEmpty(profileId);
     const query = {
       privateDetails: (privateDetails ? "true" : "false") as "true" | "false",
       organizationId,
-      consentSubjects,
+      consentSubjects: consentSubjects?.join(","),
     };
     return this.client
       .GET("/api/v1/profiles/{profileId}", {
