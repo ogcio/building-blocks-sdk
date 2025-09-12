@@ -38,10 +38,17 @@ export class Profile extends BaseClient<paths> {
     );
   }
 
-  async getProfile(profileId: string, privateDetails = false) {
+  async getProfile(
+    profileId: string,
+    privateDetails = false,
+    organizationId?: string,
+    consentSubjects?: string,
+  ) {
     throwIfEmpty(profileId);
     const query = {
       privateDetails: (privateDetails ? "true" : "false") as "true" | "false",
+      organizationId,
+      consentSubjects,
     };
     return this.client
       .GET("/api/v1/profiles/{profileId}", {
