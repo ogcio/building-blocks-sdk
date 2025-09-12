@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.54](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.53...@ogcio/building-blocks-sdk@v0.2.54) (2025-09-12)
+
+
+### Features
+
+* **AD#29710:** add consent subjects (and organisation id) to get profile ([#259](https://github.com/ogcio/building-blocks-sdk/issues/259)) ([c27cf55](https://github.com/ogcio/building-blocks-sdk/commit/c27cf55a3928d4105729c3c4c7cb822e4b2aa8e2))
+* depedency upgrade ([#258](https://github.com/ogcio/building-blocks-sdk/issues/258)) ([b29fbcf](https://github.com/ogcio/building-blocks-sdk/commit/b29fbcf766c457e3abae13ca353604ce649cbe6c))
+
 ## [0.2.53](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.52...@ogcio/building-blocks-sdk@v0.2.53) (2025-09-08)
 
 
