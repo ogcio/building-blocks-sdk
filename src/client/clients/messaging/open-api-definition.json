@@ -1823,6 +1823,31 @@
                   "ssl": {
                     "description": "Is connection to the SMTP server secure?",
                     "type": "boolean"
+                  },
+                  "headers": {
+                    "default": null,
+                    "anyOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "description": "Optional field to add custom headers to all emails sent with this provider",
+                        "type": "object",
+                        "additionalProperties": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
                   }
                 },
                 "required": [
@@ -1834,7 +1859,8 @@
                   "username",
                   "password",
                   "fromAddress",
-                  "ssl"
+                  "ssl",
+                  "headers"
                 ]
               }
             }
@@ -2143,11 +2169,6 @@
                           "minLength": 1,
                           "type": "string"
                         },
-                        "password": {
-                          "description": "Password to use to log into the SMTP server",
-                          "minLength": 1,
-                          "type": "string"
-                        },
                         "throttle": {
                           "description": "Optional field to adjust how long time between each mail, in miliseconds",
                           "type": "number"
@@ -2160,6 +2181,31 @@
                         "ssl": {
                           "description": "Is connection to the SMTP server secure?",
                           "type": "boolean"
+                        },
+                        "headers": {
+                          "default": null,
+                          "anyOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "description": "Optional field to add custom headers to all emails sent with this provider",
+                              "type": "object",
+                              "additionalProperties": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
                         }
                       },
                       "required": [
@@ -2170,9 +2216,9 @@
                         "smtpHost",
                         "smtpPort",
                         "username",
-                        "password",
                         "fromAddress",
-                        "ssl"
+                        "ssl",
+                        "headers"
                       ]
                     },
                     "metadata": {
@@ -2428,11 +2474,6 @@
                     "minLength": 1,
                     "type": "string"
                   },
-                  "password": {
-                    "description": "Password to use to log into the SMTP server",
-                    "minLength": 1,
-                    "type": "string"
-                  },
                   "throttle": {
                     "description": "Optional field to adjust how long time between each mail, in miliseconds",
                     "type": "number"
@@ -2445,6 +2486,43 @@
                   "ssl": {
                     "description": "Is connection to the SMTP server secure?",
                     "type": "boolean"
+                  },
+                  "headers": {
+                    "default": null,
+                    "anyOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "description": "Optional field to add custom headers to all emails sent with this provider",
+                        "type": "object",
+                        "additionalProperties": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "password": {
+                    "anyOf": [
+                      {
+                        "description": "Password to use to log into the SMTP server",
+                        "minLength": 0,
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
                   }
                 },
                 "required": [
@@ -2455,9 +2533,9 @@
                   "smtpHost",
                   "smtpPort",
                   "username",
-                  "password",
                   "fromAddress",
-                  "ssl"
+                  "ssl",
+                  "headers"
                 ]
               }
             }
