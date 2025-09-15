@@ -254,9 +254,10 @@ export class Messaging extends BaseClient<paths> {
   }
 
   async getEmailProviders(
-    params?: {
-      primary?: boolean;
-    } & PaginationParams,
+    params?: Omit<
+      paths["/api/v1/providers/"]["get"]["parameters"]["query"],
+      "type"
+    >,
   ) {
     const { primary } = params || {};
     const { error, data } = await this.client.GET("/api/v1/providers/", {
@@ -300,17 +301,14 @@ export class Messaging extends BaseClient<paths> {
     return { error };
   }
 
-  async createEmailProvider(provider: {
-    providerName: string;
-    isPrimary: boolean;
-    smtpHost: string;
-    smtpPort: number;
-    username: string;
-    password: string;
-    throttle?: number;
-    fromAddress: string;
-    ssl: boolean;
-  }) {
+  async createEmailProvider(
+    provider: Omit<
+      NonNullable<
+        paths["/api/v1/providers/"]["post"]["requestBody"]["content"]["application/json"]
+      >,
+      "type"
+    >,
+  ) {
     return this.client
       .POST("/api/v1/providers/", {
         body: {
@@ -324,18 +322,14 @@ export class Messaging extends BaseClient<paths> {
       );
   }
 
-  async updateEmailProvider(provider: {
-    id: string;
-    providerName: string;
-    isPrimary: boolean;
-    smtpHost: string;
-    smtpPort: number;
-    username: string;
-    password: string;
-    throttle?: number;
-    fromAddress: string;
-    ssl: boolean;
-  }) {
+  async updateEmailProvider(
+    provider: Omit<
+      NonNullable<
+        paths["/api/v1/providers/{providerId}"]["put"]["requestBody"]["content"]["application/json"]
+      >,
+      "type"
+    >,
+  ) {
     throwIfEmpty(provider.id);
     return this.client
       .PUT("/api/v1/providers/{providerId}", {

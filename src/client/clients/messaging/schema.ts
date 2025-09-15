@@ -113,14 +113,16 @@ export interface paths {
                                 smtpPort: number;
                                 /** @description Username to use to log into the SMTP server */
                                 username: string;
-                                /** @description Password to use to log into the SMTP server */
-                                password: string;
                                 /** @description Optional field to adjust how long time between each mail, in miliseconds */
                                 throttle?: number;
                                 /** @description Email address to use as sender */
                                 fromAddress: string;
                                 /** @description Is connection to the SMTP server secure? */
                                 ssl: boolean;
+                                /** @default null */
+                                headers: null | {
+                                    [key: string]: string | string[];
+                                };
                             };
                             metadata?: {
                                 /** @description Object containing the links to the related endpoints */
@@ -1521,6 +1523,10 @@ export interface operations {
                     fromAddress: string;
                     /** @description Is connection to the SMTP server secure? */
                     ssl: boolean;
+                    /** @default null */
+                    headers: null | {
+                        [key: string]: string | string[];
+                    };
                 };
             };
         };
@@ -1650,14 +1656,17 @@ export interface operations {
                     smtpPort: number;
                     /** @description Username to use to log into the SMTP server */
                     username: string;
-                    /** @description Password to use to log into the SMTP server */
-                    password: string;
                     /** @description Optional field to adjust how long time between each mail, in miliseconds */
                     throttle?: number;
                     /** @description Email address to use as sender */
                     fromAddress: string;
                     /** @description Is connection to the SMTP server secure? */
                     ssl: boolean;
+                    /** @default null */
+                    headers: null | {
+                        [key: string]: string | string[];
+                    };
+                    password?: string | null;
                 };
             };
         };
