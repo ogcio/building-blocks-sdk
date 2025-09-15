@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.55](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.54...@ogcio/building-blocks-sdk@v0.2.55) (2025-09-15)
+
+
+### Features
+
+* **messaging:** updated providers methods ([#262](https://github.com/ogcio/building-blocks-sdk/issues/262)) ([9adf488](https://github.com/ogcio/building-blocks-sdk/commit/9adf488561aafd38a6fca75dfcc3307c60f72b8b))
+
 ## [0.2.54](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.53...@ogcio/building-blocks-sdk@v0.2.54) (2025-09-12)
 
 
