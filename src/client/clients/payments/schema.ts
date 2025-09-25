@@ -3182,7 +3182,11 @@ export interface paths {
         put?: never;
         post: {
             parameters: {
-                query?: never;
+                query?: {
+                    customAmount?: string;
+                    token?: string;
+                    embed?: string;
+                };
                 header?: never;
                 path?: never;
                 cookie?: never;
@@ -3308,6 +3312,7 @@ export interface paths {
                     offset?: number;
                     limit?: number;
                     resource?: string;
+                    resourceId?: string;
                     action?: string;
                     userId?: string;
                     from?: string;
