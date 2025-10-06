@@ -6,23 +6,87 @@
     "version": "0.1.0"
   },
   "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "JWT token obtained from authentication service"
+      }
+    },
     "schemas": {}
   },
   "paths": {
     "/health": {
       "get": {
+        "summary": "Health check endpoint",
+        "tags": [
+          [
+            "Health"
+          ]
+        ],
+        "description": "Returns the health status of the API. This endpoint does not require authentication.",
+        "security": [],
         "responses": {
           "200": {
-            "description": "Default Response"
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "ok"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/version": {
+      "get": {
+        "summary": "Application version endpoint",
+        "tags": [
+          [
+            "Version"
+          ]
+        ],
+        "description": "Returns the current version of the API.",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "version": {
+                      "type": "string",
+                      "example": "1.0.0"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
     },
     "/api/v1/journeys/": {
       "get": {
+        "operationId": "getJourneys",
+        "summary": "Get journeys",
         "tags": [
-          "Journeys"
+          [
+            "Journeys"
+          ]
         ],
+        "description": "Retrieve a paginated list of journeys with optional filtering by IDs, search terms, date range, and status",
         "parameters": [
           {
             "schema": {
@@ -283,6 +347,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -290,9 +401,14 @@
         }
       },
       "post": {
+        "operationId": "createJourney",
+        "summary": "Create journey",
         "tags": [
-          "Journeys"
+          [
+            "Journeys"
+          ]
         ],
+        "description": "Create a new journey with the specified configuration and steps",
         "requestBody": {
           "content": {
             "application/json": {
@@ -465,6 +581,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -499,6 +662,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -508,9 +718,14 @@
     },
     "/api/v1/journeys/{journeyId}": {
       "get": {
+        "operationId": "getJourneyById",
+        "summary": "Get journey by ID",
         "tags": [
-          "Journeys"
+          [
+            "Journeys"
+          ]
         ],
+        "description": "Retrieve detailed information about a specific journey including all steps and connections",
         "parameters": [
           {
             "schema": {
@@ -913,6 +1128,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -947,6 +1209,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -954,9 +1263,14 @@
         }
       },
       "put": {
+        "operationId": "updateJourney",
+        "summary": "Update journey",
         "tags": [
-          "Journeys"
+          [
+            "Journeys"
+          ]
         ],
+        "description": "Update an existing journey with new configuration and steps",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1145,6 +1459,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -1179,6 +1540,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -1188,9 +1596,14 @@
     },
     "/api/v1/journeys/{journeyId}/public-info": {
       "get": {
+        "operationId": "getJourneyPublicInfo",
+        "summary": "Get journey public info",
         "tags": [
-          "Journeys"
+          [
+            "Journeys"
+          ]
         ],
+        "description": "Retrieve public information about a journey that can be accessed without full authentication",
         "parameters": [
           {
             "schema": {
@@ -1388,6 +1801,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -1397,9 +1857,14 @@
     },
     "/api/v1/journeys/{journeyId}/schema": {
       "get": {
+        "operationId": "getJourneySchema",
+        "summary": "Get journey schema",
         "tags": [
-          "Journeys"
+          [
+            "Journeys"
+          ]
         ],
+        "description": "Retrieve the complete schema for a journey including all step schemas and connections",
         "parameters": [
           {
             "schema": {
@@ -1630,6 +2095,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -1664,6 +2176,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -1673,9 +2232,14 @@
     },
     "/api/v1/journey_step_connections/{connectionId}": {
       "get": {
+        "operationId": "getStepConnectionById",
+        "summary": "Get step connection by ID",
         "tags": [
-          "StepConnections"
+          [
+            "Step Connections"
+          ]
         ],
+        "description": "Retrieve detailed information about a specific step connection",
         "parameters": [
           {
             "schema": {
@@ -1821,6 +2385,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -1855,6 +2466,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -1862,9 +2520,14 @@
         }
       },
       "delete": {
+        "operationId": "deleteStepConnection",
+        "summary": "Delete step connection",
         "tags": [
-          "StepConnections"
+          [
+            "Step Connections"
+          ]
         ],
+        "description": "Delete a specific step connection by ID",
         "parameters": [
           {
             "schema": {
@@ -1992,6 +2655,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -2026,6 +2736,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -2035,9 +2792,14 @@
     },
     "/api/v1/journey_step_connections/": {
       "post": {
+        "operationId": "createStepConnection",
+        "summary": "Create step connection",
         "tags": [
-          "StepConnections"
+          [
+            "Step Connections"
+          ]
         ],
+        "description": "Create a new connection between two journey steps",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2199,6 +2961,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -2233,6 +3042,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -2242,9 +3098,14 @@
     },
     "/api/v1/journey_steps/{stepId}": {
       "get": {
+        "operationId": "getJourneyStepById",
+        "summary": "Get journey step by ID",
         "tags": [
-          "Steps"
+          [
+            "Journey Steps"
+          ]
         ],
+        "description": "Retrieve detailed information about a specific journey step",
         "parameters": [
           {
             "schema": {
@@ -2545,6 +3406,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -2579,6 +3487,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -2586,9 +3541,14 @@
         }
       },
       "delete": {
+        "operationId": "deleteJourneyStep",
+        "summary": "Delete journey step",
         "tags": [
-          "Steps"
+          [
+            "Journey Steps"
+          ]
         ],
+        "description": "Delete a specific journey step by ID",
         "parameters": [
           {
             "schema": {
@@ -2716,6 +3676,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -2750,6 +3757,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -2757,9 +3811,14 @@
         }
       },
       "put": {
+        "operationId": "updateJourneyStep",
+        "summary": "Update journey step",
         "tags": [
-          "Steps"
+          [
+            "Journey Steps"
+          ]
         ],
+        "description": "Update an existing journey step with new configuration",
         "requestBody": {
           "content": {
             "application/json": {
@@ -3231,6 +4290,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -3265,6 +4371,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -3274,9 +4427,14 @@
     },
     "/api/v1/journey_steps/": {
       "post": {
+        "operationId": "createJourneyStep",
+        "summary": "Create journey step",
         "tags": [
-          "Steps"
+          [
+            "Journey Steps"
+          ]
         ],
+        "description": "Create a new journey step with the specified configuration",
         "requestBody": {
           "content": {
             "application/json": {
@@ -3742,6 +4900,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -3776,6 +4981,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -3785,9 +5037,14 @@
     },
     "/api/v1/executor/runs/self": {
       "get": {
+        "operationId": "getUserRuns",
+        "summary": "Get user runs",
         "tags": [
-          "Executor"
+          [
+            "Runs"
+          ]
         ],
+        "description": "Retrieve all runs created by the authenticated user",
         "responses": {
           "200": {
             "description": "Default Response",
@@ -3980,6 +5237,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -3989,9 +5293,14 @@
     },
     "/api/v1/executor/runs/self/{runId}": {
       "get": {
+        "operationId": "getUserRunById",
+        "summary": "Get user run by ID",
         "tags": [
-          "Executor"
+          [
+            "Runs"
+          ]
         ],
+        "description": "Retrieve detailed information about a specific run created by the authenticated user",
         "parameters": [
           {
             "schema": {
@@ -4331,6 +5640,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -4365,6 +5721,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -4374,9 +5777,14 @@
     },
     "/api/v1/executor/runs/journeys/{journeyId}": {
       "get": {
+        "operationId": "getRunsByJourneyId",
+        "summary": "Get runs by journey ID",
         "tags": [
-          "Executor"
+          [
+            "Runs"
+          ]
         ],
+        "description": "Retrieve all runs for a specific journey (public servant access)",
         "parameters": [
           {
             "schema": {
@@ -4579,6 +5987,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -4588,9 +6043,14 @@
     },
     "/api/v1/executor/runs/{runId}": {
       "get": {
+        "operationId": "getRunById",
+        "summary": "Get run by ID",
         "tags": [
-          "Executor"
+          [
+            "Runs"
+          ]
         ],
+        "description": "Retrieve detailed information about a specific run (public servant access)",
         "parameters": [
           {
             "schema": {
@@ -4937,6 +6397,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -4971,6 +6478,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -4978,9 +6532,14 @@
         }
       },
       "delete": {
+        "operationId": "deleteRun",
+        "summary": "Delete run",
         "tags": [
-          "Executor"
+          [
+            "Runs"
+          ]
         ],
+        "description": "Delete a specific run by ID",
         "parameters": [
           {
             "schema": {
@@ -5118,6 +6677,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -5152,6 +6758,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -5159,9 +6812,14 @@
         }
       },
       "patch": {
+        "operationId": "updateRunStatus",
+        "summary": "Update run status",
         "tags": [
-          "Executor"
+          [
+            "Runs"
+          ]
         ],
+        "description": "Update the status of a specific run",
         "requestBody": {
           "content": {
             "application/json": {
@@ -5379,6 +7037,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -5413,6 +7118,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -5422,9 +7174,14 @@
     },
     "/api/v1/executor/runs": {
       "get": {
+        "operationId": "getAllRuns",
+        "summary": "Get all runs",
         "tags": [
-          "Executor"
+          [
+            "Runs"
+          ]
         ],
+        "description": "Retrieve all runs with pagination and filtering (public servant access)",
         "parameters": [
           {
             "schema": {
@@ -5749,6 +7506,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -5783,6 +7587,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -5792,9 +7643,14 @@
     },
     "/api/v1/executor/runs/tags": {
       "get": {
+        "operationId": "getRunTags",
+        "summary": "Get run tags",
         "tags": [
-          "Executor"
+          [
+            "Runs"
+          ]
         ],
+        "description": "Retrieve available tags for runs based on filtering criteria",
         "parameters": [
           {
             "schema": {
@@ -6016,6 +7872,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -6050,6 +7953,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -6059,9 +8009,14 @@
     },
     "/api/v1/executor/run": {
       "post": {
+        "operationId": "createJourneyRun",
+        "summary": "Create journey run",
         "tags": [
-          "Executor"
+          [
+            "Executor"
+          ]
         ],
+        "description": "Create a new run for a specific journey",
         "requestBody": {
           "content": {
             "application/json": {
@@ -6207,6 +8162,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -6241,6 +8243,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -6275,6 +8324,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -6284,9 +8380,14 @@
     },
     "/api/v1/executor/execute": {
       "post": {
+        "operationId": "executeJourneyStep",
+        "summary": "Execute journey step",
         "tags": [
-          "Executor"
+          [
+            "Executor"
+          ]
         ],
+        "description": "Execute a specific step in a journey run",
         "requestBody": {
           "content": {
             "application/json": {
@@ -6492,6 +8593,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -6526,6 +8674,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -6560,6 +8755,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -6569,9 +8811,14 @@
     },
     "/api/v1/executor/transition": {
       "post": {
+        "operationId": "transitionJourneyStep",
+        "summary": "Transition journey step",
         "tags": [
-          "Executor"
+          [
+            "Executor"
+          ]
         ],
+        "description": "Transition from one step to another in a journey run",
         "requestBody": {
           "content": {
             "application/json": {
@@ -6784,6 +9031,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -6818,6 +9112,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -6852,6 +9193,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -6861,9 +9249,14 @@
     },
     "/api/v1/executor/get-summary": {
       "post": {
+        "operationId": "getJourneySummary",
+        "summary": "Get journey summary",
         "tags": [
-          "Executor"
+          [
+            "Executor"
+          ]
         ],
+        "description": "Retrieve a summary of a journey run including completion status and details",
         "requestBody": {
           "content": {
             "application/json": {
@@ -7051,6 +9444,53 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -7084,6 +9524,166 @@
                     "detail",
                     "requestId",
                     "name"
+                  ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tester/resource-cleanup": {
+      "delete": {
+        "operationId": "cleanupTestResources",
+        "summary": "Cleanup test resources",
+        "tags": [
+          [
+            "Tester"
+          ]
+        ],
+        "description": "Clean up test resources for the organization (testing utility)",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "ok"
                   ]
                 }
               }
@@ -7119,6 +9719,987 @@
                     "requestId",
                     "name"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auditLogs/": {
+      "get": {
+        "operationId": "listAuditLogEvents",
+        "summary": "List Audit Log Events",
+        "tags": [
+          "Audit Logs"
+        ],
+        "description": "Retrieve a filtered list of audit log events for the organization. Supports filtering by event type, date range, and other criteria.",
+        "parameters": [
+          {
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "type": "number"
+            },
+            "in": "query",
+            "name": "offset",
+            "required": false
+          },
+          {
+            "schema": {
+              "default": 10,
+              "minimum": 5,
+              "maximum": 50,
+              "multipleOf": 5,
+              "type": "number"
+            },
+            "in": "query",
+            "name": "limit",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "resource",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "resourceId",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "action",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "userId",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "from",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "to",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "auditLogId": {
+                            "type": "string"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          },
+                          "eventType": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "userId": {
+                            "type": "string"
+                          },
+                          "organizationId": {
+                            "type": "string"
+                          },
+                          "resourceId": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "auditLogId",
+                          "createdAt",
+                          "eventType",
+                          "title"
+                        ]
+                      }
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auditLogs/event-types": {
+      "get": {
+        "operationId": "getAuditLogEventTypes",
+        "summary": "Get Audit Log Event Types",
+        "tags": [
+          "Audit Logs"
+        ],
+        "description": "Retrieve a list of available audit log event types for filtering and categorization.",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      }
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auditLogs/{auditLogId}": {
+      "get": {
+        "operationId": "getAuditLogEventById",
+        "summary": "Get Audit Log Event by ID",
+        "tags": [
+          "Audit Logs"
+        ],
+        "description": "Retrieve detailed information about a specific audit log event by its unique identifier.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "auditLogId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "auditLogId": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "eventType": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "userId": {
+                          "type": "string"
+                        },
+                        "organizationId": {
+                          "type": "string"
+                        },
+                        "metadata": {
+                          "type": "object",
+                          "additionalProperties": {}
+                        }
+                      },
+                      "required": [
+                        "auditLogId",
+                        "createdAt",
+                        "eventType",
+                        "title",
+                        "metadata"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
                 }
               }
             }
@@ -7127,9 +10708,65 @@
       }
     }
   },
+  "servers": [
+    {
+      "url": "http://localhost:8009",
+      "description": "Local development environment"
+    },
+    {
+      "url": "https://journey-api.dev.services.gov.ie",
+      "description": "Development environment"
+    },
+    {
+      "url": "https://journey-api.uat.services.gov.ie",
+      "description": "UAT environment"
+    },
+    {
+      "url": "https://journey-api.services.gov.ie",
+      "description": "Production environment"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
   "tags": [
     {
-      "name": "Journey"
+      "name": "Health",
+      "description": "Health check and system status endpoints"
+    },
+    {
+      "name": "Version",
+      "description": "Application version information"
+    },
+    {
+      "name": "Journeys",
+      "description": "Manage journeys and their configuration"
+    },
+    {
+      "name": "Journey Steps",
+      "description": "Manage individual journey steps and their properties"
+    },
+    {
+      "name": "Step Connections",
+      "description": "Manage connections between journey steps"
+    },
+    {
+      "name": "Executor",
+      "description": "Execute journeys and manage journey runs"
+    },
+    {
+      "name": "Runs",
+      "description": "Manage and track journey execution runs"
+    },
+    {
+      "name": "Audit Logs",
+      "description": "Access and manage audit logs for compliance and monitoring"
+    },
+    {
+      "name": "Tester",
+      "description": "Testing and development utilities"
     }
   ]
 }
