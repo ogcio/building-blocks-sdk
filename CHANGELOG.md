@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.57](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.56...@ogcio/building-blocks-sdk@v0.2.57) (2025-10-07)
+
+
+### Features
+
+* **31279:** add audit logs api calls ([#270](https://github.com/ogcio/building-blocks-sdk/issues/270)) ([a63a4bd](https://github.com/ogcio/building-blocks-sdk/commit/a63a4bdf698e1d06a5ce2747c22fb440a127e1aa))
+
 ## [0.2.56](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.55...@ogcio/building-blocks-sdk@v0.2.56) (2025-10-07)
 
 
