@@ -405,4 +405,48 @@ export class Journey extends BaseClient<paths> {
         (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
+
+  /**
+   * AUDIT LOGS
+   */
+
+  async getAuditLogEvents(
+    query: paths["/api/v1/auditLogs/"]["get"]["parameters"]["query"],
+  ) {
+    return this.client
+      .GET("/api/v1/auditLogs/", {
+        params: {
+          query,
+        },
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
+
+  async getAuditLogDetails(
+    auditLogId: paths["/api/v1/auditLogs/{auditLogId}"]["get"]["parameters"]["path"]["auditLogId"],
+  ) {
+    throwIfEmpty(auditLogId);
+    return this.client
+      .GET("/api/v1/auditLogs/{auditLogId}", {
+        params: {
+          path: {
+            auditLogId,
+          },
+        },
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
+
+  async getAuditLogEventTypes() {
+    return this.client.GET("/api/v1/auditLogs/event-types").then(
+      (response) => formatResponse(response, this.serviceName, this.logger),
+      (reason) => formatError(reason, this.serviceName, this.logger),
+    );
+  }
 }
