@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.56](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.55...@ogcio/building-blocks-sdk@v0.2.56) (2025-10-07)
+
+
+### Features
+
+* jb audit logs ([#268](https://github.com/ogcio/building-blocks-sdk/issues/268)) ([9844f6b](https://github.com/ogcio/building-blocks-sdk/commit/9844f6b3191b7cd39f817cb9a2424cd886531c37))
+* update payments schema ([#265](https://github.com/ogcio/building-blocks-sdk/issues/265)) ([4b8edc9](https://github.com/ogcio/building-blocks-sdk/commit/4b8edc96a372479101bb724d3b26f2f02f1fe0ff))
+
 ## [0.2.55](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.54...@ogcio/building-blocks-sdk@v0.2.55) (2025-09-15)
 
 
