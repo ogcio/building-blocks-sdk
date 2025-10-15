@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.58](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.57...@ogcio/building-blocks-sdk@v0.2.58) (2025-10-15)
+
+
+### Features
+
+* add delete journey call ([#272](https://github.com/ogcio/building-blocks-sdk/issues/272)) ([ff6f802](https://github.com/ogcio/building-blocks-sdk/commit/ff6f802c159d541d083df86ed676527a83252e51))
+
 ## [0.2.57](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.56...@ogcio/building-blocks-sdk@v0.2.57) (2025-10-07)
 
 
