@@ -221,6 +221,24 @@ export class Journey extends BaseClient<paths> {
       );
   }
 
+  async deleteJourney(
+    journeyId: paths["/api/v1/journeys/{journeyId}"]["delete"]["parameters"]["path"]["journeyId"],
+  ) {
+    throwIfEmpty(journeyId);
+    return this.client
+      .DELETE("/api/v1/journeys/{journeyId}", {
+        params: {
+          path: {
+            journeyId,
+          },
+        },
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
+
   /**
    * RUNS
    */

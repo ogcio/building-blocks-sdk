@@ -125,7 +125,11 @@ export interface paths {
          */
         put: operations["updateJourney"];
         post?: never;
-        delete?: never;
+        /**
+         * Delete journey
+         * @description Delete a journey with no existing runs
+         */
+        delete: operations["deleteJourney"];
         options?: never;
         head?: never;
         patch?: never;
@@ -903,6 +907,89 @@ export interface operations {
                     "application/json": {
                         data: {
                             id: string;
+                        };
+                        metadata?: {
+                            links?: {
+                                self: {
+                                    href?: string;
+                                };
+                                next?: {
+                                    href?: string;
+                                };
+                                prev?: {
+                                    href?: string;
+                                };
+                                first: {
+                                    href?: string;
+                                };
+                                last: {
+                                    href?: string;
+                                };
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        detail: string;
+                        requestId: string;
+                        name: string;
+                        validation?: unknown;
+                        validationContext?: string;
+                    };
+                };
+            };
+            /** @description Default Response */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        detail: string;
+                        requestId: string;
+                        name: string;
+                        validation?: unknown;
+                        validationContext?: string;
+                    };
+                };
+            };
+        };
+    };
+    deleteJourney: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                journeyId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            ok: boolean;
                         };
                         metadata?: {
                             links?: {
