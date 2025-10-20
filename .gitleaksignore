@@ -9,3 +9,23 @@
 /src/src/client/clients/featureFlags/open-api-definition.json:generic-api-key:9577
 /src/src/client/clients/featureFlags/open-api-definition.json:generic-api-key:9404
 /src/src/client/clients/featureFlags/schema.ts:generic-api-key:9595
+
+# Ignore findings locally
+src/client/clients/payments/open-api-definition.json:generic-api-key:196
+src/client/clients/payments/open-api-definition.json:generic-api-key:198
+src/client/clients/payments/schema.ts:generic-api-key:1807
+src/client/clients/payments/schema.ts:jwt:1912
+src/client/clients/payments/open-api-definition.json:generic-api-key:4086
+src/client/clients/payments/open-api-definition.json:jwt:4290
+src/client/clients/payments/open-api-definition.json:generic-api-key:6976
+src/client/clients/payments/open-api-definition.json:generic-api-key:12093
+
+# Ignore findings in the CI
+/src/src/client/clients/payments/open-api-definition.json:generic-api-key:196
+/src/src/client/clients/payments/open-api-definition.json:generic-api-key:198
+/src/src/client/clients/payments/schema.ts:generic-api-key:1807
+/src/src/client/clients/payments/schema.ts:jwt:1912
+/src/src/client/clients/payments/open-api-definition.json:generic-api-key:4086
+/src/src/client/clients/payments/open-api-definition.json:jwt:4290
+/src/src/client/clients/payments/open-api-definition.json:generic-api-key:6976
+/src/src/client/clients/payments/open-api-definition.json:generic-api-key:12093
