@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.59](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.58...@ogcio/building-blocks-sdk@v0.2.59) (2025-10-20)
+
+
+### Features
+
+* **31282:** Search and filter transactions on payments page ([#274](https://github.com/ogcio/building-blocks-sdk/issues/274)) ([adb6228](https://github.com/ogcio/building-blocks-sdk/commit/adb6228f2a5f4bffe7ee8b21590d352643ebf93c))
+
 ## [0.2.58](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.57...@ogcio/building-blocks-sdk@v0.2.58) (2025-10-15)
 
 
