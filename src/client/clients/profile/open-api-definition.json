@@ -6090,6 +6090,10 @@
                   },
                   "organizationId": {
                     "type": "string"
+                  },
+                  "consentSubjects": {
+                    "description": "Write subjects split by comma, if set will return consent statuses for those subjects, otherwise consent statuses will be null",
+                    "type": "string"
                   }
                 },
                 "required": [
