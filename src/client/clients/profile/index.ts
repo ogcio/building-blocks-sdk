@@ -14,6 +14,7 @@ import {
 import { ProfileCitizen } from "./citizen.js";
 import { ProfileOrganisation } from "./organisation.js";
 import type { paths } from "./schema.js";
+
 export class Profile extends BaseClient<paths> {
   protected declare client: ReturnType<typeof createClient<paths>>;
   protected serviceName = PROFILE;
