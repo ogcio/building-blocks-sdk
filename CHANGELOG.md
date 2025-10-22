@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.60](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.59...@ogcio/building-blocks-sdk@v0.2.60) (2025-10-22)
+
+
+### Bug Fixes
+
+* **profile:** new line ([#278](https://github.com/ogcio/building-blocks-sdk/issues/278)) ([c5d3467](https://github.com/ogcio/building-blocks-sdk/commit/c5d34672bb9fc7665fa9799f3f85b57d3864baa4))
+
 ## [0.2.59](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.58...@ogcio/building-blocks-sdk@v0.2.59) (2025-10-20)
 
 
