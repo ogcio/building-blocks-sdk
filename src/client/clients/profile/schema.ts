@@ -2514,6 +2514,8 @@ export interface operations {
                 "application/json": {
                     ppsns: string[];
                     organizationId?: string;
+                    /** @description Write subjects split by comma, if set will return consent statuses for those subjects, otherwise consent statuses will be null */
+                    consentSubjects?: string;
                 };
             };
         };
