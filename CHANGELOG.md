@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.61](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.60...@ogcio/building-blocks-sdk@v0.2.61) (2025-10-24)
+
+
+### Features
+
+* journey builder inactive status ([#280](https://github.com/ogcio/building-blocks-sdk/issues/280)) ([7e7c7fb](https://github.com/ogcio/building-blocks-sdk/commit/7e7c7fb430c7fb7b97c4be4e2e9b5ae9b4b423dd))
+
 ## [0.2.60](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.59...@ogcio/building-blocks-sdk@v0.2.60) (2025-10-22)
 
 
