@@ -195,6 +195,12 @@
                               {
                                 "type": "string",
                                 "enum": [
+                                  "inactive"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
                                   "draft"
                                 ]
                               }
@@ -772,6 +778,12 @@
                             {
                               "type": "string",
                               "enum": [
+                                "inactive"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
                                 "draft"
                               ]
                             }
@@ -1286,6 +1298,12 @@
                         "type": "string",
                         "enum": [
                           "active"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "inactive"
                         ]
                       },
                       {
@@ -1860,6 +1878,305 @@
         }
       }
     },
+    "/api/v1/journeys/{journeyId}/status": {
+      "get": {
+        "operationId": "getJourneyStatus",
+        "summary": "Get journey's status",
+        "tags": [
+          "Journeys"
+        ],
+        "description": "Retrieve the status of a journey",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "journeyId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "active"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "inactive"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "draft"
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/journeys/{journeyId}/public-info": {
       "get": {
         "operationId": "getJourneyPublicInfo",
@@ -1919,6 +2236,12 @@
                               "type": "string",
                               "enum": [
                                 "active"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "inactive"
                               ]
                             },
                             {

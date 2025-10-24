@@ -135,6 +135,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/journeys/{journeyId}/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get journey's status
+         * @description Retrieve the status of a journey
+         */
+        get: operations["getJourneyStatus"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/journeys/{journeyId}/public-info": {
         parameters: {
             query?: never;
@@ -598,7 +618,7 @@ export interface operations {
                             };
                             userId: string;
                             organizationId: string;
-                            status: "active" | "draft";
+                            status: "active" | "inactive" | "draft";
                             initialStepId: string;
                             createdAt: string;
                             updatedAt: string;
@@ -770,7 +790,7 @@ export interface operations {
                             };
                             userId: string;
                             organizationId: string;
-                            status: "active" | "draft";
+                            status: "active" | "inactive" | "draft";
                             createdAt: string;
                             updatedAt: string;
                             initialStepId: string;
@@ -892,7 +912,7 @@ export interface operations {
                         en: string;
                         ga?: string;
                     };
-                    status: "active" | "draft";
+                    status: "active" | "inactive" | "draft";
                     initialStepId: string;
                 };
             };
@@ -1053,6 +1073,89 @@ export interface operations {
             };
         };
     };
+    getJourneyStatus: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                journeyId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            status: "active" | "inactive" | "draft";
+                        };
+                        metadata?: {
+                            links?: {
+                                self: {
+                                    href?: string;
+                                };
+                                next?: {
+                                    href?: string;
+                                };
+                                prev?: {
+                                    href?: string;
+                                };
+                                first: {
+                                    href?: string;
+                                };
+                                last: {
+                                    href?: string;
+                                };
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        detail: string;
+                        requestId: string;
+                        name: string;
+                        validation?: unknown;
+                        validationContext?: string;
+                    };
+                };
+            };
+            /** @description Default Response */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        detail: string;
+                        requestId: string;
+                        name: string;
+                        validation?: unknown;
+                        validationContext?: string;
+                    };
+                };
+            };
+        };
+    };
     getJourneyPublicInfo: {
         parameters: {
             query?: never;
@@ -1079,7 +1182,7 @@ export interface operations {
                             };
                             userId: string;
                             organizationId: string;
-                            status: "active" | "draft";
+                            status: "active" | "inactive" | "draft";
                             initialStepId: string;
                             createdAt: string;
                             updatedAt: string;

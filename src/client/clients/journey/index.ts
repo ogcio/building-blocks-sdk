@@ -239,6 +239,24 @@ export class Journey extends BaseClient<paths> {
       );
   }
 
+  async getJourneyStatus(
+    journeyId: paths["/api/v1/journeys/{journeyId}/status"]["get"]["parameters"]["path"]["journeyId"],
+  ) {
+    throwIfEmpty(journeyId);
+    return this.client
+      .GET("/api/v1/journeys/{journeyId}/status", {
+        params: {
+          path: {
+            journeyId,
+          },
+        },
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
+
   /**
    * RUNS
    */
