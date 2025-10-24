@@ -23,6 +23,7 @@ export abstract class BaseClient<T extends {}> {
   protected logger?: Logger;
 
   protected client: ReturnType<typeof createClient<T>>;
+  protected anonymousClient: ReturnType<typeof createClient<T>>;
 
   constructor({
     baseUrl,
@@ -81,6 +82,30 @@ export abstract class BaseClient<T extends {}> {
     };
 
     this.client.use(authMiddleware);
+
+    this.anonymousClient = createClient<T>({ baseUrl: this.baseUrl });
+    const anonymousMiddleware: Middleware = {
+      onRequest: async ({ request }) => {
+        if (this.logger) {
+          const clonedRequest = request.clone();
+          let requestBody = null;
+          try {
+            requestBody = await clonedRequest.json();
+          } catch (_e) {
+            requestBody = clonedRequest.body;
+          }
+          this.logger.trace(
+            {
+              body: requestBody ? "Is set" : "Not set",
+              url: clonedRequest.url,
+            },
+            `${this.serviceName} - executing request`,
+          );
+        }
+        return request;
+      },
+    };
+    this.anonymousClient.use(anonymousMiddleware);
   }
 
   public deleteToken() {
