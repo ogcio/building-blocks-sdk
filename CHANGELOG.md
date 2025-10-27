@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.62](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.61...@ogcio/building-blocks-sdk@v0.2.62) (2025-10-27)
+
+
+### Features
+
+* support anonymous calls ([#282](https://github.com/ogcio/building-blocks-sdk/issues/282)) ([8c5be3b](https://github.com/ogcio/building-blocks-sdk/commit/8c5be3bf4949432a986c13eda1ecdd40097d55dd))
+
 ## [0.2.61](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.60...@ogcio/building-blocks-sdk@v0.2.61) (2025-10-24)
 
 
