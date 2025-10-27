@@ -143,7 +143,7 @@ export class Journey extends BaseClient<paths> {
     journeyId: paths["/api/v1/journeys/{journeyId}/public-info"]["get"]["parameters"]["path"]["journeyId"],
   ) {
     throwIfEmpty(journeyId);
-    return this.client
+    return this.anonymousClient
       .GET("/api/v1/journeys/{journeyId}/public-info", {
         params: {
           path: {
@@ -227,24 +227,6 @@ export class Journey extends BaseClient<paths> {
     throwIfEmpty(journeyId);
     return this.client
       .DELETE("/api/v1/journeys/{journeyId}", {
-        params: {
-          path: {
-            journeyId,
-          },
-        },
-      })
-      .then(
-        (response) => formatResponse(response, this.serviceName, this.logger),
-        (reason) => formatError(reason, this.serviceName, this.logger),
-      );
-  }
-
-  async getJourneyStatus(
-    journeyId: paths["/api/v1/journeys/{journeyId}/status"]["get"]["parameters"]["path"]["journeyId"],
-  ) {
-    throwIfEmpty(journeyId);
-    return this.client
-      .GET("/api/v1/journeys/{journeyId}/status", {
         params: {
           path: {
             journeyId,
