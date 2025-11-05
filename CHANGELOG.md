@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.63](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.62...@ogcio/building-blocks-sdk@v0.2.63) (2025-11-05)
+
+
+### Features
+
+* revert anonymous client ([#285](https://github.com/ogcio/building-blocks-sdk/issues/285)) ([d0e977f](https://github.com/ogcio/building-blocks-sdk/commit/d0e977fc7b30f88a678e3133474234af1936aac4))
+
 ## [0.2.62](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.61...@ogcio/building-blocks-sdk@v0.2.62) (2025-10-27)
 
 
