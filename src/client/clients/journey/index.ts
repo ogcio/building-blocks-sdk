@@ -143,7 +143,7 @@ export class Journey extends BaseClient<paths> {
     journeyId: paths["/api/v1/journeys/{journeyId}/public-info"]["get"]["parameters"]["path"]["journeyId"],
   ) {
     throwIfEmpty(journeyId);
-    return this.anonymousClient
+    return this.client
       .GET("/api/v1/journeys/{journeyId}/public-info", {
         params: {
           path: {
