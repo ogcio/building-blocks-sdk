@@ -277,7 +277,9 @@ export interface paths {
     };
     "/api/v1/organisations/{organisationId}": {
         parameters: {
-            query?: never;
+            query?: {
+                includeCustomData?: boolean;
+            };
             header?: never;
             path?: never;
             cookie?: never;
@@ -290,6 +292,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        
     };
     "/api/v1/profiles/": {
         parameters: {
@@ -2206,7 +2209,9 @@ export interface operations {
     };
     getOrganisation: {
         parameters: {
-            query?: never;
+            query?: {
+                includeCustomData?: boolean;
+            };
             header?: never;
             path: {
                 /** @description The organisation ID to get the translation for */
@@ -2234,7 +2239,10 @@ export interface operations {
                                     name: string;
                                     shortName: string;
                                 };
-                            };
+                            },
+                            customData?: {
+                                allowMyGovId?: boolean,
+                            }
                         };
                         metadata?: {
                             /** @description Object containing the links to the related endpoints */

@@ -320,10 +320,14 @@ export class Profile extends BaseClient<paths> {
 
   async getOrganisation(
     organisationId: paths["/api/v1/organisations/{organisationId}"]["get"]["parameters"]["path"]["organisationId"],
+    includeCustomData = false,
   ) {
     throwIfEmpty(organisationId);
     return this.client.GET("/api/v1/organisations/{organisationId}", {
-      params: { path: { organisationId } },
+      params: {
+        query: includeCustomData ? { includeCustomData } : undefined,
+        path: { organisationId },
+      },
     });
   }
 }
