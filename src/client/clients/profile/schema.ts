@@ -2239,7 +2239,10 @@ export interface operations {
                                     name: string;
                                     shortName: string;
                                 };
-                            };
+                            },
+                            customData?: {
+                                allowMyGovId?: boolean,
+                            }
                         };
                         metadata?: {
                             /** @description Object containing the links to the related endpoints */
