@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.64](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.63...@ogcio/building-blocks-sdk@v0.2.64) (2025-11-07)
+
+
+### Features
+
+* **31762:** get organisation custom data ([#287](https://github.com/ogcio/building-blocks-sdk/issues/287)) ([1db399f](https://github.com/ogcio/building-blocks-sdk/commit/1db399f6f9694072f5c7fa38eef8438966065bd3))
+
 ## [0.2.63](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.62...@ogcio/building-blocks-sdk@v0.2.63) (2025-11-05)
 
 
