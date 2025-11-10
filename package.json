@@ -25,23 +25,23 @@
     "@sinclair/typebox": "^0.34.41",
     "commander": "^14.0.0",
     "http-errors": "^2.0.0",
-    "openapi-fetch": "^0.14.0",
+    "openapi-fetch": "^0.15.0",
     "openapi-typescript": "^7.9.1",
     "openapi-typescript-helpers": "^0.0.15",
     "safe-stable-stringify": "^2.5.0",
     "yaml": "^2.8.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
-    "@commitlint/config-conventional": "^19.8.1",
+    "@biomejs/biome": "2.3.4",
+    "@commitlint/config-conventional": "^20.0.0",
     "@types/http-errors": "^2.0.5",
     "@types/node": "^24.3.1",
-    "@vitest/coverage-istanbul": "^3.2.4",
-    "commitlint": "^19.8.1",
+    "@vitest/coverage-istanbul": "^4.0.8",
+    "commitlint": "^20.1.0",
     "husky": "^9.1.7",
     "tsx": "^4.20.5",
     "typescript": "^5.9.2",
-    "vitest": "^3.2.4"
+    "vitest": "^4.0.8"
   },
   "peerDependencies": {
     "@logto/node": "2.5.5",
