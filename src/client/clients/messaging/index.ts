@@ -3,9 +3,9 @@ import type createClient from "openapi-fetch";
 import { MESSAGING } from "../../../types/index.js";
 import { BaseClient } from "../../base-client.js";
 import {
-  type PaginationParams,
   formatError,
   formatResponse,
+  type PaginationParams,
   preparePaginationParams,
   throwIfEmpty,
 } from "../../utils/client-utils.js";
@@ -349,8 +349,7 @@ export class Messaging extends BaseClient<paths> {
     throwIfEmpty(providerId);
     return this.client
       .DELETE("/api/v1/providers/{providerId}", {
-        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-        params: { path: { providerId }, query: { type: "email" } as any },
+        params: { path: { providerId }, query: { type: "email" } },
       })
       .then(
         (response) => formatResponse(response, this.serviceName, this.logger),

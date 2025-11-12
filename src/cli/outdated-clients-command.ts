@@ -10,8 +10,8 @@ import {
 import { getAbsolutePath } from "../utils/get-absolute-path.js";
 import {
   CLIENTS_ROOT_FOLDER_PATH,
-  OPEN_API_DEFINITION_FILE_NAME,
   getOpenApiDefinitionFileContent,
+  OPEN_API_DEFINITION_FILE_NAME,
 } from "./cli-utils.js";
 
 /**
@@ -107,7 +107,9 @@ function log(message: string, ...params: unknown[]): void {
 }
 async function checkClients({
   configurationFilePath,
-}: { configurationFilePath: string }): Promise<void> {
+}: {
+  configurationFilePath: string;
+}): Promise<void> {
   const configurationFile = await readConfigurationFile(configurationFilePath);
   log("Configuration file read");
 

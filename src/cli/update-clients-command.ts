@@ -10,11 +10,11 @@ import {
 import { getAbsolutePath } from "../utils/get-absolute-path.js";
 import {
   CLIENTS_ROOT_FOLDER_PATH,
+  getOpenApiDefinitionFileContent,
   OLD_OPEN_API_DEFINITION_FILE_NAME,
   OLD_SCHEMA_FILE_NAME,
   OPEN_API_DEFINITION_FILE_NAME,
   SCHEMA_FILE_NAME,
-  getOpenApiDefinitionFileContent,
 } from "./cli-utils.js";
 
 /**
@@ -256,7 +256,10 @@ async function processBuildingBlock({
 async function updateClients({
   configurationFilePath,
   dryRun,
-}: { configurationFilePath: string; dryRun?: boolean }): Promise<void> {
+}: {
+  configurationFilePath: string;
+  dryRun?: boolean;
+}): Promise<void> {
   dryRun = dryRun ?? false;
   const configurationFile = await readConfigurationFile(configurationFilePath);
   log("Configuration file read");
