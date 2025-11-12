@@ -12,23 +12,23 @@ importers:
         specifier: 2.5.5
         version: 2.5.5
       '@ogcio/analytics-sdk':
-        specifier: ^0.2.2
-        version: 0.2.2
+        specifier: ^0.2.5
+        version: 0.2.5
       '@sinclair/typebox':
         specifier: ^0.34.41
         version: 0.34.41
       commander:
-        specifier: ^14.0.0
-        version: 14.0.0
+        specifier: ^14.0.2
+        version: 14.0.2
       http-errors:
         specifier: ^2.0.0
         version: 2.0.0
       openapi-fetch:
-        specifier: ^0.14.0
-        version: 0.14.0
+        specifier: ^0.15.0
+        version: 0.15.0
       openapi-typescript:
-        specifier: ^7.9.1
-        version: 7.9.1(typescript@5.9.2)
+        specifier: ^7.10.1
+        version: 7.10.1(typescript@5.9.2)
       openapi-typescript-helpers:
         specifier: ^0.0.15
         version: 0.0.15
@@ -36,8 +36,8 @@ importers:
         specifier: ^2.5.0
         version: 2.5.0
       unleash-client:
-        specifier: ^6.6.0
-        version: 6.7.0
+        specifier: ^6.8.0
+        version: 6.8.0
       yaml:
         specifier: ^2.8.1
         version: 2.8.1
@@ -461,8 +461,8 @@ packages:
     resolution: {integrity: sha512-q9CRWjpHCMIh5sVyefoD1cA7PkvILqCZsnSOEUUivORLjxCO/Irmue2DprETiNgEqktDBZaM1Bi+jrarx1XdCg==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
 
-  '@ogcio/analytics-sdk@0.2.2':
-    resolution: {integrity: sha512-wLP9hQ+JPKhUFFOji1fHDguJuokY8nUVLPC67NK1rlpNS88LTCTBpUDocD5jXFjJfjbuaOQ3IRtAoxgA+UKCzw==}
+  '@ogcio/analytics-sdk@0.2.5':
+    resolution: {integrity: sha512-2SJnw6sJB68+s5Us/wukgYNGRl3+fuQNo/l4anQrwiYfg6BsHJDuMuQoqm9evtKHhRmp9c6O/nXhVUSwzlmqfw==}
     engines: {node: '>=17.0.0'}
 
   '@pkgjs/parseargs@0.11.0':
@@ -759,8 +759,8 @@ packages:
   colorette@1.4.0:
     resolution: {integrity: sha512-Y2oEozpomLn7Q3HFP7dpww7AtMJplbM9lGZP6RDfHqmbeRjiwRg4n6VM6j4KLmRke85uWEI7JqF17f3pqdRA0g==}
 
-  commander@14.0.0:
-    resolution: {integrity: sha512-2uM9rYjPvyq39NwLRqaiLtWHyDC1FvryJDa2ATTVims5YAS4PupsEQsDvP14FqhFr0P49CYDugi59xaxJlTXRA==}
+  commander@14.0.2:
+    resolution: {integrity: sha512-TywoWNNRbhoD0BXs1P3ZEScW8W5iKrnbithIl0YH+uCmBd0QpPOA8yc82DS3BIE5Ma6FnBVUsJ7wVUDz4dvOWQ==}
     engines: {node: '>=20'}
 
   commitlint@19.8.1:
@@ -1233,14 +1233,14 @@ packages:
   node-releases@2.0.20:
     resolution: {integrity: sha512-7gK6zSXEH6neM212JgfYFXe+GmZQM+fia5SsusuBIUgnPheLFBmIPhtFoAQRj8/7wASYQnbDlHPVwY0BefoFgA==}
 
-  openapi-fetch@0.14.0:
-    resolution: {integrity: sha512-PshIdm1NgdLvb05zp8LqRQMNSKzIlPkyMxYFxwyHR+UlKD4t2nUjkDhNxeRbhRSEd3x5EUNh2w5sJYwkhOH4fg==}
+  openapi-fetch@0.15.0:
+    resolution: {integrity: sha512-OjQUdi61WO4HYhr9+byCPMj0+bgste/LtSBEcV6FzDdONTs7x0fWn8/ndoYwzqCsKWIxEZwo4FN/TG1c1rI8IQ==}
 
   openapi-typescript-helpers@0.0.15:
     resolution: {integrity: sha512-opyTPaunsklCBpTK8JGef6mfPhLSnyy5a0IN9vKtx3+4aExf+KxEqYwIy3hqkedXIB97u357uLMJsOnm3GVjsw==}
 
-  openapi-typescript@7.9.1:
-    resolution: {integrity: sha512-9gJtoY04mk6iPMbToPjPxEAtfXZ0dTsMZtsgUI8YZta0btPPig9DJFP4jlerQD/7QOwYgb0tl+zLUpDf7vb7VA==}
+  openapi-typescript@7.10.1:
+    resolution: {integrity: sha512-rBcU8bjKGGZQT4K2ekSTY2Q5veOQbVG/lTKZ49DeCyT9z62hM2Vj/LLHjDHC9W7LJG8YMHcdXpRZDqC1ojB/lw==}
     hasBin: true
     peerDependencies:
       typescript: ^5.x
@@ -1524,8 +1524,8 @@ packages:
     resolution: {integrity: sha512-WrcA6AyEfqDX5bWige/4NQfPZMtASNVxdmWR76WESYQVAACSgWcR6e9i0mofqqBxYFtL4oAxPIptY73/0YE1DQ==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
 
-  unleash-client@6.7.0:
-    resolution: {integrity: sha512-lvZXOZIZEQsnsGMQaITzv2JEpuzPPW4e7TRNY58VEqzNFW+UDSOmygFrBlkEbCS2hG6vqduC8Luss5N4jjoXPw==}
+  unleash-client@6.8.0:
+    resolution: {integrity: sha512-f0azC/3hxCsqqyE8a1+cKSnN+sUlakMymhXGJePAfurdRq1ZFX099Qu1U4y248Hw7r4+aMFD5L592zbPWU9TqQ==}
     engines: {node: '>=16'}
 
   update-browserslist-db@1.1.3:
@@ -2045,9 +2045,9 @@ snapshots:
     dependencies:
       semver: 7.7.2
 
-  '@ogcio/analytics-sdk@0.2.2':
+  '@ogcio/analytics-sdk@0.2.5':
     dependencies:
-      openapi-fetch: 0.14.0
+      openapi-fetch: 0.15.0
       openapi-typescript-helpers: 0.0.15
 
   '@pkgjs/parseargs@0.11.0':
@@ -2331,7 +2331,7 @@ snapshots:
 
   colorette@1.4.0: {}
 
-  commander@14.0.0: {}
+  commander@14.0.2: {}
 
   commitlint@19.8.1(@types/node@24.3.1)(typescript@5.9.2):
     dependencies:
@@ -2784,13 +2784,13 @@ snapshots:
 
   node-releases@2.0.20: {}
 
-  openapi-fetch@0.14.0:
+  openapi-fetch@0.15.0:
     dependencies:
       openapi-typescript-helpers: 0.0.15
 
   openapi-typescript-helpers@0.0.15: {}
 
-  openapi-typescript@7.9.1(typescript@5.9.2):
+  openapi-typescript@7.10.1(typescript@5.9.2):
     dependencies:
       '@redocly/openapi-core': 1.34.5(supports-color@10.2.2)
       ansi-colors: 4.1.3
@@ -3051,7 +3051,7 @@ snapshots:
     dependencies:
       imurmurhash: 0.1.4
 
-  unleash-client@6.7.0:
+  unleash-client@6.8.0:
     dependencies:
       http-proxy-agent: 7.0.2
       https-proxy-agent: 7.0.6(supports-color@10.2.2)

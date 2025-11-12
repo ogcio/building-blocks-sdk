@@ -21,12 +21,12 @@
     "prepare": "husky || true"
   },
   "dependencies": {
-    "@ogcio/analytics-sdk": "^0.2.2",
+    "@ogcio/analytics-sdk": "^0.2.5",
     "@sinclair/typebox": "^0.34.41",
-    "commander": "^14.0.0",
+    "commander": "^14.0.2",
     "http-errors": "^2.0.0",
-    "openapi-fetch": "^0.14.0",
-    "openapi-typescript": "^7.9.1",
+    "openapi-fetch": "^0.15.0",
+    "openapi-typescript": "^7.10.1",
     "openapi-typescript-helpers": "^0.0.15",
     "safe-stable-stringify": "^2.5.0",
     "yaml": "^2.8.1"
@@ -45,7 +45,7 @@
   },
   "peerDependencies": {
     "@logto/node": "2.5.5",
-    "unleash-client": "^6.6.0"
+    "unleash-client": "^6.8.0"
   },
   "peerDependenciesMeta": {
     "@logto/node": {
