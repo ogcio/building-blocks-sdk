@@ -107,7 +107,9 @@ function log(message: string, ...params: unknown[]): void {
 }
 async function checkClients({
   configurationFilePath,
-}: { configurationFilePath: string }): Promise<void> {
+}: {
+  configurationFilePath: string;
+}): Promise<void> {
   const configurationFile = await readConfigurationFile(configurationFilePath);
   log("Configuration file read");
 

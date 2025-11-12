@@ -256,7 +256,10 @@ async function processBuildingBlock({
 async function updateClients({
   configurationFilePath,
   dryRun,
-}: { configurationFilePath: string; dryRun?: boolean }): Promise<void> {
+}: {
+  configurationFilePath: string;
+  dryRun?: boolean;
+}): Promise<void> {
   dryRun = dryRun ?? false;
   const configurationFile = await readConfigurationFile(configurationFilePath);
   log("Configuration file read");
