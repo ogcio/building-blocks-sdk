@@ -50,14 +50,14 @@ export function preparePaginationParams(paginationParams?: PaginationParams): {
   return output;
 }
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: Needed for unknown types from responses
 export function formatResponse<G extends Record<string | number, any>, O>(
   response: FetchResponse<G, O, "application/json">,
   serviceName: string,
   logger?: Logger,
 ): DataResponseValue<G, O> {
-  let outputData = undefined;
-  let outputMetadata = undefined;
+  let outputData: unknown;
+  let outputMetadata: unknown;
 
   if (!response) {
     logger?.trace(`${serviceName} - Undefined response`);

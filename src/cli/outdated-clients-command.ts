@@ -10,8 +10,8 @@ import {
 import { getAbsolutePath } from "../utils/get-absolute-path.js";
 import {
   CLIENTS_ROOT_FOLDER_PATH,
-  OPEN_API_DEFINITION_FILE_NAME,
   getOpenApiDefinitionFileContent,
+  OPEN_API_DEFINITION_FILE_NAME,
 } from "./cli-utils.js";
 
 /**
