@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.65](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.64...@ogcio/building-blocks-sdk@v0.2.65) (2025-11-12)
+
+
+### Features
+
+* update dependencies ([#289](https://github.com/ogcio/building-blocks-sdk/issues/289)) ([8950f73](https://github.com/ogcio/building-blocks-sdk/commit/8950f73bc88e4be2fba1599f7480fc42ae62343d))
+
 ## [0.2.64](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.63...@ogcio/building-blocks-sdk@v0.2.64) (2025-11-07)
 
 
