@@ -778,7 +778,7 @@ export interface operations {
                             steps: {
                                 id: string;
                                 journeyId: string;
-                                stepType: "title" | "form" | "payment" | "messaging" | "complete";
+                                stepType: "title" | "auth-method" | "form" | "payment" | "messaging" | "complete";
                                 stepData: {
                                     formId: string;
                                 } | {
@@ -894,6 +894,7 @@ export interface operations {
                     };
                     status: "active" | "inactive" | "draft";
                     initialStepId: string;
+                    allowedAuthMethods: string[];
                 };
             };
         };
@@ -1155,7 +1156,7 @@ export interface operations {
                             };
                             steps: {
                                 stepId: string;
-                                type: "title" | "form" | "payment" | "messaging" | "complete";
+                                type: "title" | "auth-method" | "form" | "payment" | "messaging" | "complete";
                                 resourceId: string;
                                 stepSchema?: unknown;
                             }[];
@@ -1505,7 +1506,7 @@ export interface operations {
                         data: {
                             id: string;
                             journeyId: string;
-                            stepType: "title" | "form" | "payment" | "messaging" | "complete";
+                            stepType: "title" | "auth-method" | "form" | "payment" | "messaging" | "complete";
                             stepData: {
                                 formId: string;
                             } | {
@@ -1633,7 +1634,7 @@ export interface operations {
                         };
                     };
                     configured: boolean;
-                    stepType: "title" | "form" | "payment" | "messaging" | "complete";
+                    stepType: "title" | "auth-method" | "form" | "payment" | "messaging" | "complete";
                 };
             };
         };
@@ -1648,7 +1649,7 @@ export interface operations {
                         data: {
                             id: string;
                             journeyId: string;
-                            stepType: "title" | "form" | "payment" | "messaging" | "complete";
+                            stepType: "title" | "auth-method" | "form" | "payment" | "messaging" | "complete";
                             stepData: {
                                 formId: string;
                             } | {
@@ -1831,7 +1832,7 @@ export interface operations {
             content: {
                 "application/json": {
                     journeyId: string;
-                    stepType: "title" | "form" | "payment" | "messaging" | "complete";
+                    stepType: "title" | "auth-method" | "form" | "payment" | "messaging" | "complete";
                     configured: boolean;
                     stepData: {
                         formId: string;
@@ -1871,7 +1872,7 @@ export interface operations {
                         data: {
                             id: string;
                             journeyId: string;
-                            stepType: "title" | "form" | "payment" | "messaging" | "complete";
+                            stepType: "title" | "auth-method" | "form" | "payment" | "messaging" | "complete";
                             stepData: {
                                 formId: string;
                             } | {
@@ -2064,7 +2065,7 @@ export interface operations {
                                 id: string;
                                 runId: string;
                                 stepId: string;
-                                stepType: "title" | "form" | "payment" | "messaging" | "complete";
+                                stepType: "title" | "auth-method" | "form" | "payment" | "messaging" | "complete";
                                 status: "pending" | "in_progress" | "failed" | "completed";
                                 data?: {
                                     formSubmissionId: string;
@@ -2246,7 +2247,7 @@ export interface operations {
                                 id: string;
                                 runId: string;
                                 stepId: string;
-                                stepType: "title" | "form" | "payment" | "messaging" | "complete";
+                                stepType: "title" | "auth-method" | "form" | "payment" | "messaging" | "complete";
                                 status: "pending" | "in_progress" | "failed" | "completed";
                                 data?: {
                                     formSubmissionId: string;
@@ -2818,7 +2819,7 @@ export interface operations {
                         data: {
                             url: string;
                             stepId: string;
-                            stepType: "title" | "form" | "payment" | "messaging" | "complete";
+                            stepType: "title" | "auth-method" | "form" | "payment" | "messaging" | "complete";
                         };
                         metadata?: {
                             links?: {
@@ -2927,7 +2928,7 @@ export interface operations {
                         data: {
                             url: string;
                             stepId: string;
-                            stepType: "title" | "form" | "payment" | "messaging" | "complete";
+                            stepType: "title" | "auth-method" | "form" | "payment" | "messaging" | "complete";
                         };
                         metadata?: {
                             links?: {
