@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.66](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.65...@ogcio/building-blocks-sdk@v0.2.66) (2025-11-13)
+
+
+### Features
+
+* **31762:** update Journey Builder SDK with the Authentication Method choice support ([#291](https://github.com/ogcio/building-blocks-sdk/issues/291)) ([72fa25c](https://github.com/ogcio/building-blocks-sdk/commit/72fa25cbd774c1d62282f4504e4401898d41ca80))
+
 ## [0.2.65](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.64...@ogcio/building-blocks-sdk@v0.2.65) (2025-11-12)
 
 
