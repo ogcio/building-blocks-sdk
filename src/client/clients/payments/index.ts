@@ -508,4 +508,20 @@ export class Payments extends BaseClient<paths> {
         (reason) => formatError(reason, this.serviceName, this.logger),
       );
   }
+
+  /**
+   * JWT
+   */
+  async verifyJWTToken(
+    data: paths["/api/v1/jwt/verify"]["post"]["requestBody"]["content"]["application/json"],
+  ) {
+    return this.client
+      .POST("/api/v1/jwt/verify", {
+        body: data,
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
 }
