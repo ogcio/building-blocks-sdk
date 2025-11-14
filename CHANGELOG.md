@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.67](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.66...@ogcio/building-blocks-sdk@v0.2.67) (2025-11-14)
+
+
+### Features
+
+* **32634:** jwt validation ([#293](https://github.com/ogcio/building-blocks-sdk/issues/293)) ([da2547a](https://github.com/ogcio/building-blocks-sdk/commit/da2547a73c283873d32785d37b1baaaca3f95334))
+
 ## [0.2.66](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.65...@ogcio/building-blocks-sdk@v0.2.66) (2025-11-13)
 
 
