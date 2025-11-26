@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.68](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.67...@ogcio/building-blocks-sdk@v0.2.68) (2025-11-26)
+
+
+### Features
+
+* **messaging:** added getEventsForMessage method ([#297](https://github.com/ogcio/building-blocks-sdk/issues/297)) ([9b9554d](https://github.com/ogcio/building-blocks-sdk/commit/9b9554d4b8484851c6702f888e7a8f9a8f7e7abe))
+
 ## [0.2.67](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.66...@ogcio/building-blocks-sdk@v0.2.67) (2025-11-14)
 
 
