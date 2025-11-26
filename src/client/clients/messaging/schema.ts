@@ -51,6 +51,163 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/messages/{messageId}/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Returns the list of events for the given message id */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    messageId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /**
+                                 * Format: uuid
+                                 * @description Message id
+                                 */
+                                messageId: string;
+                                /** @description Event type description */
+                                eventType: string;
+                                /** @description Status for event type */
+                                eventStatus: string;
+                                data: {
+                                    /** @description Unique id of the related message */
+                                    messageId: string;
+                                    /** @description Full name of the recipient */
+                                    receiverFullName: string;
+                                    /** @description PPSN of the recipient */
+                                    receiverPPSN: string;
+                                    /** @description User id of recipient */
+                                    receiverUserId: string;
+                                    /** @description Subject of the related message */
+                                    subject: string;
+                                    /** @description Language of the related message */
+                                    language: string;
+                                    /** @description Excerpt of the related message */
+                                    excerpt?: string;
+                                    /** @description Rich text content of the related message */
+                                    richText?: string;
+                                    /** @description Plain text context of the related message */
+                                    plainText: string;
+                                    /** @description Thread name of the related message */
+                                    threadName?: string;
+                                    /** @description Selected transports to send the message */
+                                    transports: string[];
+                                    /**
+                                     * Format: date-time
+                                     * @description Date and time which describes when the message has to be sent
+                                     */
+                                    scheduledAt: string;
+                                    /** @description Unique user id of the sender */
+                                    senderUserId?: string;
+                                    /** @description Full name of the sender */
+                                    senderFullName?: string;
+                                    /** @description PPSN of the sender */
+                                    senderPPSN?: string;
+                                    /** @description Unique id of the M2M application that sent the message */
+                                    senderApplicationId?: string;
+                                    /** @description Organisation related to the sender */
+                                    organisationName: string;
+                                    /**
+                                     * @description Confidentiality level of the message
+                                     * @enum {string}
+                                     */
+                                    security: "confidential" | "public";
+                                } | {
+                                    /** @description Unique id of the related message */
+                                    messageId: string;
+                                    /** @description Unique id of the job */
+                                    jobId: string;
+                                } | {
+                                    /** @description Unique id of the related message */
+                                    messageId: string;
+                                };
+                                /**
+                                 * Format: date-time
+                                 * @description Date and time which describes when the event has been recorded
+                                 */
+                                createdAt: string;
+                            }[];
+                        };
+                    };
+                };
+                /** @description Default Response */
+                "5XX": {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @description Code used to categorize the error */
+                            code: string;
+                            /** @description Description of the error */
+                            detail: string;
+                            /** @description Unique request id. This one will be used to troubleshoot the problems */
+                            requestId: string;
+                            /** @description Name of the error type */
+                            name: string;
+                            /** @description List of the validation errors */
+                            validation?: {
+                                fieldName: string;
+                                message: string;
+                            }[];
+                            validationContext?: string;
+                            statusCode: number;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                "4XX": {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @description Code used to categorize the error */
+                            code: string;
+                            /** @description Description of the error */
+                            detail: string;
+                            /** @description Unique request id. This one will be used to troubleshoot the problems */
+                            requestId: string;
+                            /** @description Name of the error type */
+                            name: string;
+                            /** @description List of the validation errors */
+                            validation?: {
+                                fieldName: string;
+                                message: string;
+                            }[];
+                            validationContext?: string;
+                            statusCode: number;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/providers/": {
         parameters: {
             query?: never;
@@ -280,6 +437,8 @@ export interface paths {
                     status?: "delivered" | "scheduled" | "opened" | "failed";
                     /** @description If set, search for events related to the message id */
                     messageId?: string;
+                    /** @description If set, search for events related to the recipient user id */
+                    recipientId?: string;
                     /** @description Indicates where to start fetching data or how many records to skip, defining the initial position within the list */
                     offset?: string;
                     /** @description Indicates the maximum number (100) of items that will be returned in a single request */

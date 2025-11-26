@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "OGCIO Messaging API",
-    "description": "API for OGCIO Messaging Service",
+    "title": "OGCIO MessagingIE API",
+    "description": "API for OGCIO MessagingIE Service",
     "version": "1.0.0"
   },
   "components": {
@@ -1395,6 +1395,326 @@
             }
           },
           "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "description": "Code used to categorize the error",
+                      "type": "string"
+                    },
+                    "detail": {
+                      "description": "Description of the error",
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique request id. This one will be used to troubleshoot the problems",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of the error type",
+                      "type": "string"
+                    },
+                    "validation": {
+                      "description": "List of the validation errors",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "fieldName": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "fieldName",
+                          "message"
+                        ]
+                      }
+                    },
+                    "validationContext": {
+                      "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name",
+                    "statusCode"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/messages/{messageId}/events": {
+      "get": {
+        "tags": [
+          "Messages"
+        ],
+        "description": "Returns the list of events for the given message id",
+        "parameters": [
+          {
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "in": "path",
+            "name": "messageId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "messageId": {
+                            "format": "uuid",
+                            "description": "Message id",
+                            "type": "string"
+                          },
+                          "eventType": {
+                            "description": "Event type description",
+                            "type": "string"
+                          },
+                          "eventStatus": {
+                            "description": "Status for event type",
+                            "type": "string"
+                          },
+                          "data": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "messageId": {
+                                    "description": "Unique id of the related message",
+                                    "type": "string"
+                                  },
+                                  "receiverFullName": {
+                                    "description": "Full name of the recipient",
+                                    "type": "string"
+                                  },
+                                  "receiverPPSN": {
+                                    "description": "PPSN of the recipient",
+                                    "type": "string"
+                                  },
+                                  "receiverUserId": {
+                                    "description": "User id of recipient",
+                                    "type": "string"
+                                  },
+                                  "subject": {
+                                    "description": "Subject of the related message",
+                                    "type": "string"
+                                  },
+                                  "language": {
+                                    "description": "Language of the related message",
+                                    "type": "string"
+                                  },
+                                  "excerpt": {
+                                    "description": "Excerpt of the related message",
+                                    "type": "string"
+                                  },
+                                  "richText": {
+                                    "description": "Rich text content of the related message",
+                                    "type": "string"
+                                  },
+                                  "plainText": {
+                                    "description": "Plain text context of the related message",
+                                    "type": "string"
+                                  },
+                                  "threadName": {
+                                    "description": "Thread name of the related message",
+                                    "type": "string"
+                                  },
+                                  "transports": {
+                                    "description": "Selected transports to send the message",
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "scheduledAt": {
+                                    "format": "date-time",
+                                    "description": "Date and time which describes when the message has to be sent",
+                                    "type": "string"
+                                  },
+                                  "senderUserId": {
+                                    "description": "Unique user id of the sender",
+                                    "type": "string"
+                                  },
+                                  "senderFullName": {
+                                    "description": "Full name of the sender",
+                                    "type": "string"
+                                  },
+                                  "senderPPSN": {
+                                    "description": "PPSN of the sender",
+                                    "type": "string"
+                                  },
+                                  "senderApplicationId": {
+                                    "description": "Unique id of the M2M application that sent the message",
+                                    "type": "string"
+                                  },
+                                  "organisationName": {
+                                    "description": "Organisation related to the sender",
+                                    "type": "string"
+                                  },
+                                  "security": {
+                                    "type": "string",
+                                    "enum": [
+                                      "confidential",
+                                      "public"
+                                    ],
+                                    "description": "Confidentiality level of the message"
+                                  }
+                                },
+                                "required": [
+                                  "messageId",
+                                  "receiverFullName",
+                                  "receiverPPSN",
+                                  "receiverUserId",
+                                  "subject",
+                                  "language",
+                                  "plainText",
+                                  "transports",
+                                  "scheduledAt",
+                                  "organisationName",
+                                  "security"
+                                ]
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "messageId": {
+                                    "description": "Unique id of the related message",
+                                    "type": "string"
+                                  },
+                                  "jobId": {
+                                    "description": "Unique id of the job",
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "messageId",
+                                  "jobId"
+                                ]
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "messageId": {
+                                    "description": "Unique id of the related message",
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "messageId"
+                                ]
+                              }
+                            ]
+                          },
+                          "createdAt": {
+                            "format": "date-time",
+                            "description": "Date and time which describes when the event has been recorded",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "messageId",
+                          "eventType",
+                          "eventStatus",
+                          "data",
+                          "createdAt"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "description": "Code used to categorize the error",
+                      "type": "string"
+                    },
+                    "detail": {
+                      "description": "Description of the error",
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique request id. This one will be used to troubleshoot the problems",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of the error type",
+                      "type": "string"
+                    },
+                    "validation": {
+                      "description": "List of the validation errors",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "fieldName": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "fieldName",
+                          "message"
+                        ]
+                      }
+                    },
+                    "validationContext": {
+                      "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name",
+                    "statusCode"
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
             "description": "Default Response",
             "content": {
               "application/json": {
@@ -4586,6 +4906,15 @@
             "name": "messageId",
             "required": false,
             "description": "If set, search for events related to the message id"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "recipientId",
+            "required": false,
+            "description": "If set, search for events related to the recipient user id"
           },
           {
             "schema": {

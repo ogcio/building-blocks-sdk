@@ -389,6 +389,25 @@ export class Messaging extends BaseClient<paths> {
       );
   }
 
+  async getEventsForMessage(
+    messageId: paths["/api/v1/messages/{messageId}/events"]["get"]["parameters"]["path"]["messageId"],
+  ) {
+    throwIfEmpty(messageId);
+
+    return this.client
+      .GET("/api/v1/messages/{messageId}/events", {
+        params: {
+          path: {
+            messageId,
+          },
+        },
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
+
   async seeMessage(messageId: string) {
     throwIfEmpty(messageId);
     return this.client
