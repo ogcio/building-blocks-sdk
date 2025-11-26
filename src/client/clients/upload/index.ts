@@ -143,6 +143,7 @@ export class Upload extends BaseClient<paths> {
   async uploadFile(
     file: File,
     expirationDate?: string,
+    options?: { timeoutMs?: number },
   ): Promise<{
     error?: {
       code: string;
@@ -154,23 +155,42 @@ export class Upload extends BaseClient<paths> {
     };
     data?: { uploadId?: string };
   }> {
-    const { error, data } = await this.client.POST("/api/v1/files/", {
-      body: {
-        file,
-        expirationDate,
-      },
+    const timeoutMs = options?.timeoutMs ?? 120000; // default 120s
+    try {
+      const { error, data } = await this.client.POST("/api/v1/files/", {
+        body: {
+          file,
+          expirationDate,
+        },
+        signal: AbortSignal.timeout(timeoutMs),
+        bodySerializer: (body: unknown) => {
+          const parsed = body as { file: File; expirationDate?: string };
+          const formData = new FormData();
+          if (parsed.expirationDate) {
+            formData.set("expirationDate", parsed.expirationDate);
+          }
+          formData.set("file", parsed.file);
+          return formData;
+        },
+      });
 
-      bodySerializer: (body: unknown) => {
-        const pasrsed = body as { file: File; expirationDate: string };
-        const formData = new FormData();
-        if (pasrsed.expirationDate) {
-          formData.set("expirationDate", pasrsed.expirationDate);
-        }
-        formData.set("file", pasrsed.file);
-        return formData;
-      },
-    });
-
-    return { error, data: { uploadId: data?.data.id } };
+      return { error, data: { uploadId: data?.data.id } };
+    } catch (e: unknown) {
+      const err = e as Error & { name?: string };
+      if (
+        err?.name === "AbortError" ||
+        err?.constructor?.name === "DOMException"
+      ) {
+        return {
+          error: {
+            name: "TimeoutError",
+            detail: "Upload aborted after reaching timeout",
+            requestId: "",
+            code: "TIMEOUT_ERROR",
+          },
+        };
+      }
+      throw err;
+    }
   }
 }
