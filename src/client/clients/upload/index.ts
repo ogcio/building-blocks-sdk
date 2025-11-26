@@ -177,7 +177,10 @@ export class Upload extends BaseClient<paths> {
       return { error, data: { uploadId: data?.data.id } };
     } catch (e: unknown) {
       const err = e as Error & { name?: string };
-      if (err?.name === "AbortError") {
+      if (
+        err?.name === "AbortError" ||
+        err?.constructor?.name === "DOMException"
+      ) {
         return {
           error: {
             name: "TimeoutError",
