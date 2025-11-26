@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.69](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.68...@ogcio/building-blocks-sdk@v0.2.69) (2025-11-26)
+
+
+### Features
+
+* **upload:** AB[#32931](https://github.com/ogcio/building-blocks-sdk/issues/32931) add timeout to upload file request ([#299](https://github.com/ogcio/building-blocks-sdk/issues/299)) ([8c95e77](https://github.com/ogcio/building-blocks-sdk/commit/8c95e775a16f0191e919806961f7dffd36db0012))
+
 ## [0.2.68](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.67...@ogcio/building-blocks-sdk@v0.2.68) (2025-11-26)
 
 
