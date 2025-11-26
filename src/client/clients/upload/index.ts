@@ -155,7 +155,7 @@ export class Upload extends BaseClient<paths> {
     };
     data?: { uploadId?: string };
   }> {
-    const timeoutMs = options?.timeoutMs ?? 60000; // default 60s
+    const timeoutMs = options?.timeoutMs ?? 120000; // default 120s
     try {
       const { error, data } = await this.client.POST("/api/v1/files/", {
         body: {
