@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.70](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.69...@ogcio/building-blocks-sdk@v0.2.70) (2025-12-17)
+
+
+### Features
+
+* **payments:** add support for the Worldpay payment gateway AB[#23678](https://github.com/ogcio/building-blocks-sdk/issues/23678) ([#303](https://github.com/ogcio/building-blocks-sdk/issues/303)) ([38dd4d3](https://github.com/ogcio/building-blocks-sdk/commit/38dd4d3d21667f96eb1488f9b69bfe31548e2dd4))
+
 ## [0.2.69](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.68...@ogcio/building-blocks-sdk@v0.2.69) (2025-11-26)
 
 
