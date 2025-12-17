@@ -326,6 +326,23 @@ export class Payments extends BaseClient<paths> {
       );
   }
 
+  async createWorldpayPaymentRequest(
+    data: paths["/api/v1/worldpay/paymentRequest"]["post"]["requestBody"]["content"]["application/json"],
+  ) {
+    return this.client
+      .POST("/api/v1/worldpay/paymentRequest", {
+        body: data,
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      )
+      .catch((reason) => {
+        console.error(">>> Error creating Worldpay payment request", reason);
+        return formatError(reason, this.serviceName, this.logger);
+      });
+  }
+
   async createRefund(
     transactionId: paths["/api/v1/transactions/{transactionId}/refund"]["post"]["parameters"]["path"]["transactionId"],
     data: paths["/api/v1/transactions/{transactionId}/refund"]["post"]["requestBody"]["content"]["application/json"],

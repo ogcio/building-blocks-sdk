@@ -188,7 +188,7 @@ export interface paths {
         };
         /**
          * Get Public Payment Request Info
-         * @description Retrieve public information about a specific payment request. This endpoint provides citizen-facing information without sensitive details.
+         * @description Retrieve public information about a specific payment request. This endpoint provides citizen-facing information without sensitive details accessible without authentication.
          */
         get: operations["getPublicPaymentRequestInfo"];
         put?: never;
@@ -694,6 +694,46 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/worldpay/paymentRequest": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Get Worldpay Payment Object
+         * @description Generate a Worldpay payment object for processing payments through the Worldpay payment provider.
+         */
+        post: operations["createWorldpayPaymentRequest"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/worldpay/webhook": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Worldpay Webhook Handler
+         * @description Handle webhook events from Worldpay payment provider. This endpoint processes payment status updates, failed payments, and other Worldpay events to keep transaction status in sync.
+         */
+        post: operations["handleWorldpayWebhook"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/jwt/verify": {
         parameters: {
             query?: never;
@@ -900,9 +940,11 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        /** @example {
+                        /**
+                         * @example {
                          *       "id": "pr_1234567890abcdef"
-                         *     } */
+                         *     }
+                         */
                         data: {
                             id: string;
                         };
@@ -1341,9 +1383,11 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        /** @example {
+                        /**
+                         * @example {
                          *       "id": "pr_1234567890abcdef"
-                         *     } */
+                         *     }
+                         */
                         data: {
                             id: string;
                         };
@@ -1453,9 +1497,11 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        /** @example {
+                        /**
+                         * @example {
                          *       "id": "pr_1234567890abcdef"
-                         *     } */
+                         *     }
+                         */
                         data: {
                             id: string;
                         };
@@ -1618,7 +1664,8 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        /** @example {
+                        /**
+                         * @example {
                          *       "paymentRequestId": "pr_1234567890abcdef",
                          *       "title": {
                          *         "en": "Driver License Renewal Fee",
@@ -1652,7 +1699,8 @@ export interface operations {
                          *       "redirectUrl": "https://example.com/payment-success",
                          *       "allowAmountOverride": false,
                          *       "allowCustomAmount": false
-                         *     } */
+                         *     }
+                         */
                         data: {
                             paymentRequestId: string;
                             title: {
@@ -1804,7 +1852,8 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        /** @example {
+                        /**
+                         * @example {
                          *       "paymentRequestId": "pr_1234567890abcdef",
                          *       "title": {
                          *         "en": "Driver License Renewal Fee",
@@ -1833,7 +1882,8 @@ export interface operations {
                          *       "redirectUrl": "https://example.com/payment-success",
                          *       "allowAmountOverride": false,
                          *       "allowCustomAmount": false
-                         *     } */
+                         *     }
+                         */
                         data: {
                             paymentRequestId: string;
                             title: {
@@ -1928,9 +1978,11 @@ export interface operations {
         };
         requestBody: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbW91bnQiOiIyNS4wMCIsInJ1bklkIjoicnVuX2V4YW1wbGUxMjM0NTY3ODkwIiwiam91cm5leUlkIjoiam91cm5leV9leGFtcGxlMTIzNDU2Nzg5MCIsInJlZGlyZWN0VXJscyI6eyJlbiI6Imh0dHBzOi8vZXhhbXBsZS5jb20vc3VjY2VzcyIsImdhIjoiaHR0cHM6Ly9leGFtcGxlLmNvbS9zdWNjZXNzLWdhIn19.example_signature"
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     token: string;
                 };
@@ -1944,7 +1996,8 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        /** @example {
+                        /**
+                         * @example {
                          *       "amount": "25.00",
                          *       "runId": "run_1234567890",
                          *       "journeyId": "journey_1234567890",
@@ -1952,7 +2005,8 @@ export interface operations {
                          *         "en": "https://example.com/success",
                          *         "ga": "https://example.com/success-ga"
                          *       }
-                         *     } */
+                         *     }
+                         */
                         data: {
                             amount?: string;
                             runId: string;
@@ -2153,7 +2207,8 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        /** @example {
+                        /**
+                         * @example {
                          *       "transactionId": "tx_1234567890abcdef",
                          *       "status": "succeeded",
                          *       "amount": 25,
@@ -2188,7 +2243,8 @@ export interface operations {
                          *           "chargeId": "ch_stripe_1234567890"
                          *         }
                          *       }
-                         *     } */
+                         *     }
+                         */
                         data: {
                             transactionId: string;
                             status: "initiated" | "pending" | "succeeded" | "cancelled" | "cancellation_requested" | "failed" | "refunded" | "refund_failed";
@@ -2297,9 +2353,11 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        /** @example {
+                        /**
+                         * @example {
                          *       "success": true
-                         *     } */
+                         *     }
+                         */
                         data: {
                             success: boolean;
                         };
@@ -2391,9 +2449,11 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        /** @example {
+                        /**
+                         * @example {
                          *       "id": "pr_1234567890abcdef"
-                         *     } */
+                         *     }
+                         */
                         data: {
                             id: string;
                         };
@@ -2638,9 +2698,11 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        /** @example {
+                        /**
+                         * @example {
                          *       "id": "pr_1234567890abcdef"
-                         *     } */
+                         *     }
+                         */
                         data: {
                             id: string;
                         };
@@ -2820,9 +2882,11 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        /** @example {
+                        /**
+                         * @example {
                          *       "intentId": "pi_1234567890abcdef"
-                         *     } */
+                         *     }
+                         */
                         data: {
                             intentId: string;
                         };
@@ -2898,7 +2962,8 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        /** @example {
+                        /**
+                         * @example {
                          *       "userId": "user_1234567890",
                          *       "transactionId": "tx_1234567890abcdef",
                          *       "paymentRequestId": "pr_1234567890abcdef",
@@ -2913,7 +2978,8 @@ export interface operations {
                          *       "status": "succeeded",
                          *       "createdAt": "2024-01-15T14:30:00Z",
                          *       "updatedAt": "2024-01-15T14:30:00Z"
-                         *     } */
+                         *     }
+                         */
                         data: {
                             userId: string;
                             transactionId: string;
@@ -3002,9 +3068,11 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        /** @example {
+                        /**
+                         * @example {
                          *       "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyX2V4YW1wbGUxMjM0NTY3ODkwIiwidHJhbnNhY3Rpb25JZCI6InR4X2V4YW1wbGUxMjM0NTY3ODkwYWJjZGVmIiwiam1vdW50IjoyNS4wMCwiZGF0ZSI6IjIwMjQtMDEtMTVUMTQ6MzA6MDBaIiwicHJvdmlkZXIiOiJTdHJpcGUifS5leGFtcGxlX3NpZ25hdHVyZSIs"
-                         *     } */
+                         *     }
+                         */
                         data: {
                             token: string;
                         };
@@ -3096,7 +3164,8 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        /** @example {
+                        /**
+                         * @example {
                          *       "id": "ref_1234567890abcdef",
                          *       "transactionId": "tx_1234567890abcdef",
                          *       "amount": 25,
@@ -3108,7 +3177,8 @@ export interface operations {
                          *       "updatedAt": "2024-01-15T15:05:00Z",
                          *       "username": "John Doe",
                          *       "organizationId": "org_1234567890"
-                         *     } */
+                         *     }
+                         */
                         data: {
                             id: string;
                             transactionId: string;
@@ -3234,9 +3304,11 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        /** @example {
+                        /**
+                         * @example {
                          *       "status": "succeeded"
-                         *     } */
+                         *     }
+                         */
                         data: {
                             status: string;
                         };
@@ -3328,9 +3400,11 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        /** @example {
+                        /**
+                         * @example {
                          *       "success": true
-                         *     } */
+                         *     }
+                         */
                         data: {
                             success: boolean;
                         };
@@ -3538,7 +3612,8 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        /** @example {
+                        /**
+                         * @example {
                          *       "transactionId": "tx_1234567890abcdef",
                          *       "status": "succeeded",
                          *       "amount": 25,
@@ -3573,7 +3648,8 @@ export interface operations {
                          *           "chargeId": "ch_stripe_1234567890"
                          *         }
                          *       }
-                         *     } */
+                         *     }
+                         */
                         data: {
                             transactionId: string;
                             status: "initiated" | "pending" | "succeeded" | "cancelled" | "cancellation_requested" | "failed" | "refunded" | "refund_failed";
@@ -3686,7 +3762,8 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        /** @example {
+                        /**
+                         * @example {
                          *       "ACCOUNT": "internet",
                          *       "AMOUNT": "2500",
                          *       "CURRENCY": "EUR",
@@ -3695,7 +3772,8 @@ export interface operations {
                          *       "TIMESTAMP": "20240115143000",
                          *       "URL": "https://hpp.realexpayments.com/pay",
                          *       "SHA256HASH": "a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456"
-                         *     } */
+                         *     }
+                         */
                         data: {
                             ACCOUNT: string;
                             AMOUNT: string;
@@ -4189,10 +4267,12 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        /** @example {
+                        /**
+                         * @example {
                          *       "id": "pi_example1234567890",
                          *       "clientSecret": "pi_example1234567890_secret_example1234567890"
-                         *     } */
+                         *     }
+                         */
                         data: {
                             id: string;
                             clientSecret: string | null;
@@ -4348,6 +4428,137 @@ export interface operations {
             };
         };
     };
+    createWorldpayPaymentRequest: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    intentId: string;
+                    amount: string;
+                    providerId: string;
+                    paymentRequestId: string;
+                    token?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @example {
+                         *       "reference": "https://hpp.worldpay.com/pay"
+                         *     }
+                         */
+                        data: {
+                            reference: string;
+                        };
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        detail: string;
+                        requestId: string;
+                        name: string;
+                        validation?: unknown;
+                        validationContext?: string;
+                    };
+                };
+            };
+            /** @description Default Response */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        detail: string;
+                        requestId: string;
+                        name: string;
+                        validation?: unknown;
+                        validationContext?: string;
+                    };
+                };
+            };
+        };
+    };
+    handleWorldpayWebhook: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        detail: string;
+                        requestId: string;
+                        name: string;
+                        validation?: unknown;
+                        validationContext?: string;
+                    };
+                };
+            };
+        };
+    };
     verifyJWTToken: {
         parameters: {
             query?: never;
@@ -4357,9 +4568,11 @@ export interface operations {
         };
         requestBody: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleGFtcGxlIjoiZXhhbXBsZV90b2tlbl9kYXRhIn0uZXhhbXBsZV9zaWduYXR1cmU"
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     token: string;
                 };
@@ -4373,9 +4586,11 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        /** @example {
+                        /**
+                         * @example {
                          *       "isValid": true
-                         *     } */
+                         *     }
+                         */
                         data: {
                             isValid: boolean;
                         };
