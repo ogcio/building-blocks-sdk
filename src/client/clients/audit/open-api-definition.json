@@ -1,0 +1,433 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "OGCIO Fastify Scaffolding API",
+    "description": "API for OGCIO Fastify Scaffolding",
+    "version": "0.1.0"
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {}
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "description": "It checks the current health status of the APIs, pinging all the related items",
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/v1/audit-logs/": {
+      "post": {
+        "operationId": "createAuditLog",
+        "tags": [
+          "Audit Logs"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "application_id",
+                    "action_type",
+                    "resource_type",
+                    "client_timestamp",
+                    "metadata"
+                  ],
+                  "properties": {
+                    "application_id": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 255,
+                      "description": "Identifies the client application/service",
+                      "example": "my-app"
+                    },
+                    "application_version": {
+                      "type": "string",
+                      "maxLength": 50,
+                      "description": "Optional application version for schema tracking",
+                      "example": "1.4.3"
+                    },
+                    "user_id": {
+                      "type": "string",
+                      "maxLength": 255,
+                      "description": "JWT subject; null indicates M2M action",
+                      "example": "user-123"
+                    },
+                    "user_email_address": {
+                      "type": "string",
+                      "maxLength": 255,
+                      "format": "email",
+                      "description": "User email for human-readable context",
+                      "example": "user@example.com"
+                    },
+                    "action_type": {
+                      "enum": [
+                        "read",
+                        "create",
+                        "update",
+                        "delete",
+                        "list"
+                      ],
+                      "description": "Operation: Read, Create, Update, Delete, etc.",
+                      "example": "create"
+                    },
+                    "resource_type": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "description": "Entity type affected: user, message, etc.",
+                      "example": "user"
+                    },
+                    "resource_id": {
+                      "type": "string",
+                      "maxLength": 255,
+                      "description": "Specific resource identifier; null for list operations",
+                      "example": "user-123"
+                    },
+                    "client_timestamp": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "ISO 8601 client-reported timestamp",
+                      "example": "2025-12-19T10:30:00Z"
+                    },
+                    "successful": {
+                      "anyOf": [
+                        {
+                          "type": "boolean",
+                          "description": "Operation outcome: true=success, false=failure, null=not applicable",
+                          "examples": [
+                            true,
+                            false
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "failure_reason": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "description": "Human-readable failure reason (optional)",
+                          "examples": [
+                            "Invalid email address"
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "server_id": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "maxLength": 255,
+                          "description": "Pod/instance ID of receiving server (optional)",
+                          "examples": [
+                            "pod-01"
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": true,
+                      "description": "Extensible JSON context for event",
+                      "example": {
+                        "request_id": "req-123",
+                        "source": "web"
+                      }
+                    },
+                    "parent_log_entry_id": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "format": "uuid",
+                          "description": "Related audit event UUID",
+                          "examples": [
+                            "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "minItems": 1,
+                "maxItems": 20
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid"
+                          }
+                        }
+                      },
+                      "description": "Multiple audit log entries created",
+                      "example": [
+                        {
+                          "id": "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+                        },
+                        {
+                          "id": "9c858901-8a57-4791-81fe-4c455b099bc9"
+                        }
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ],
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string",
+                                  "description": "URL pointing to the request itself"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string",
+                                  "description": "URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string",
+                                  "description": "URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string",
+                                  "description": "URL pointing to the first page of results in a paginated response"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string",
+                                  "description": "URL pointing to the first page of results in a paginated response"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "description": "It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2'",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": "Object containing the links to the related endpoints"
+                        },
+                        "totalCount": {
+                          "type": "number",
+                          "description": "Number representing the total number of available items"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name",
+                    "statusCode"
+                  ],
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "description": "Code used to categorize the error"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Description of the error"
+                    },
+                    "requestId": {
+                      "type": "string",
+                      "description": "Unique request id. This one will be used to troubleshoot the problems"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the error type"
+                    },
+                    "validation": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "fieldName",
+                          "message"
+                        ],
+                        "properties": {
+                          "fieldName": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "description": "List of the validation errors"
+                    },
+                    "validationContext": {
+                      "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name",
+                    "statusCode"
+                  ],
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "description": "Code used to categorize the error"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Description of the error"
+                    },
+                    "requestId": {
+                      "type": "string",
+                      "description": "Unique request id. This one will be used to troubleshoot the problems"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the error type"
+                    },
+                    "validation": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "fieldName",
+                          "message"
+                        ],
+                        "properties": {
+                          "fieldName": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "description": "List of the validation errors"
+                    },
+                    "validationContext": {
+                      "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ]
+}

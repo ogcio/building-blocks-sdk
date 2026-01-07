@@ -48,7 +48,7 @@
         "payments:payment_request.public:read",
         "payments:transaction:*"
       ],
-      "updateDefinitions": true
+      "updateDefinitions": false
     },
     {
       "name": "scheduler",
@@ -91,6 +91,14 @@
         "integrator:step:*",
         "integrator:run:read"
       ],
+      "updateDefinitions": true
+    },
+    {
+      "name": "audit",
+      "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/govie-services-audit-collector/refs/heads/dev/openapi-definition.yml",
+      "openApiDefinitionFormat": "yaml",
+      "citizenPermissions": [],
+      "publicServantPermissions": [],
       "updateDefinitions": true
     }
   ]
