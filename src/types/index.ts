@@ -1,5 +1,5 @@
 import type { Analytics, AnalyticsOptions } from "@ogcio/analytics-sdk";
-
+import type { AuditCollector } from "../client/clients/audit/index.js";
 import type { FeatureFlags } from "../client/clients/featureFlags/index.js";
 import type { Journey } from "../client/clients/journey/index.js";
 import type { Messaging } from "../client/clients/messaging/index.js";
@@ -16,6 +16,7 @@ const SCHEDULER = "scheduler" as const;
 const UPLOAD = "upload" as const;
 const FEATURE_FLAGS = "featureFlags" as const;
 const JOURNEY = "journey" as const;
+const AUDIT_COLLECTOR = "auditCollector" as const;
 
 type SERVICE_NAME =
   | typeof ANALYTICS
@@ -25,7 +26,8 @@ type SERVICE_NAME =
   | typeof SCHEDULER
   | typeof UPLOAD
   | typeof FEATURE_FLAGS
-  | typeof JOURNEY;
+  | typeof JOURNEY
+  | typeof AUDIT_COLLECTOR;
 
 interface AnalyticsConfig extends AnalyticsOptions {}
 
@@ -40,6 +42,7 @@ interface SchedulerConfig extends ServiceBaseConfig {}
 interface UploadConfig extends ServiceBaseConfig {}
 interface FeatureFlagsConfig extends ServiceBaseConfig {}
 interface JourneyConfig extends ServiceBaseConfig {}
+interface AuditCollectorConfig extends ServiceBaseConfig {}
 
 interface Services {
   analytics?: AnalyticsConfig;
@@ -50,6 +53,7 @@ interface Services {
   upload?: UploadConfig;
   featureFlags?: FeatureFlagsConfig;
   journey?: JourneyConfig;
+  auditCollector?: AuditCollectorConfig;
 }
 
 type TokenFunction = (serviceName: SERVICE_NAME) => Promise<string>;
@@ -118,6 +122,7 @@ interface BuildingBlocksSDK {
   upload: Upload;
   featureFlags: FeatureFlags;
   journey: Journey;
+  auditCollector: AuditCollector;
 }
 
 export {
@@ -129,6 +134,7 @@ export {
   UPLOAD,
   FEATURE_FLAGS,
   JOURNEY,
+  AUDIT_COLLECTOR,
 };
 
 export type {
@@ -159,6 +165,8 @@ export type {
   GetOrganizationTokenParams,
   M2MParams,
   M2MTokenFnConfig,
+  AuditCollectorConfig,
+  AuditCollector,
 };
 
 export type GenericError = {
