@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.71](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.70...@ogcio/building-blocks-sdk@v0.2.71) (2026-01-08)
+
+
+### Features
+
+* **audit-collector:** AB[#33619](https://github.com/ogcio/building-blocks-sdk/issues/33619) add audit collector ([#305](https://github.com/ogcio/building-blocks-sdk/issues/305)) ([19fad02](https://github.com/ogcio/building-blocks-sdk/commit/19fad02e725fdba50dd187a9bd9569cf60d3c42a))
+
 ## [0.2.70](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.69...@ogcio/building-blocks-sdk@v0.2.70) (2025-12-17)
 
 
