@@ -34,7 +34,7 @@
     },
     {
       "name": "payments",
-      "openApiDefinitionUrl": "http://localhost:8001/docs/json",
+      "openApiDefinitionUrl": "https://raw.githubusercontent.com/ogcio/payments-building-block/refs/heads/dev/apps/payments-api/openapi-definition.yml",
       "openApiDefinitionFormat": "yaml",
       "citizenPermissions": [
         "payments:transaction.self:read",
