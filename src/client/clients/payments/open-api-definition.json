@@ -228,6 +228,18 @@
                       "accountHolderName": "Government Services"
                     }
                   }
+                },
+                "example5": {
+                  "value": {
+                    "name": "Worldpay Production",
+                    "type": "worldpay",
+                    "data": {
+                      "merchantCode": "merchant_1234567890",
+                      "installationId": "installation_1234567890",
+                      "username": "worldpay_api_username",
+                      "password": "worldpay_xml_secret"
+                    }
+                  }
                 }
               }
             }
@@ -991,11 +1003,19 @@
                                 },
                                 "installationId": {
                                   "type": "string"
+                                },
+                                "username": {
+                                  "type": "string"
+                                },
+                                "password": {
+                                  "type": "string"
                                 }
                               },
                               "required": [
                                 "merchantCode",
-                                "installationId"
+                                "installationId",
+                                "username",
+                                "password"
                               ]
                             },
                             {
@@ -7275,6 +7295,604 @@
         }
       }
     },
+    "/api/v1/transactions/search": {
+      "post": {
+        "operationId": "searchTransactions",
+        "summary": "Search Transactions",
+        "tags": [
+          "Transactions"
+        ],
+        "description": "Retrieve a list of transactions based on a given list of transaction ids.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "transactionIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "transactionIds"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "transactionId": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "initiated"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "pending"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "succeeded"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "cancelled"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "cancellation_requested"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "failed"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "refunded"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "refund_failed"
+                                ]
+                              }
+                            ]
+                          },
+                          "amount": {
+                            "minimum": 1,
+                            "maximum": 1000000,
+                            "type": "number"
+                          },
+                          "extPaymentId": {
+                            "allOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ]
+                          },
+                          "paymentProviderId": {
+                            "type": "string"
+                          },
+                          "updatedAt": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "object",
+                            "properties": {
+                              "en": {
+                                "type": "string"
+                              },
+                              "ga": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "en"
+                            ]
+                          },
+                          "userId": {
+                            "type": "string"
+                          },
+                          "metadata": {
+                            "type": "object",
+                            "properties": {
+                              "runId": {
+                                "type": "string"
+                              },
+                              "journeyId": {
+                                "type": "string"
+                              },
+                              "journeyTitle": {
+                                "type": "object",
+                                "properties": {
+                                  "en": {
+                                    "type": "string"
+                                  },
+                                  "ga": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "en"
+                                ]
+                              },
+                              "redirectUrls": {
+                                "type": "object",
+                                "properties": {
+                                  "en": {
+                                    "type": "string"
+                                  },
+                                  "ga": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "en",
+                                  "ga"
+                                ]
+                              },
+                              "amount": {
+                                "type": "string"
+                              },
+                              "providerData": {
+                                "type": "object",
+                                "properties": {
+                                  "chargeId": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "chargeId"
+                                ]
+                              }
+                            }
+                          },
+                          "description": {
+                            "type": "object",
+                            "properties": {
+                              "en": {
+                                "type": "string"
+                              },
+                              "ga": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "en"
+                            ]
+                          },
+                          "providerName": {
+                            "type": "string"
+                          },
+                          "providerType": {
+                            "type": "string"
+                          },
+                          "paymentRequestId": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "transactionId",
+                          "status",
+                          "amount",
+                          "extPaymentId",
+                          "paymentProviderId",
+                          "updatedAt",
+                          "title",
+                          "userId",
+                          "metadata",
+                          "description",
+                          "providerName",
+                          "providerType",
+                          "paymentRequestId"
+                        ],
+                        "example": {
+                          "transactionId": "tx_1234567890abcdef",
+                          "status": "succeeded",
+                          "amount": 25,
+                          "extPaymentId": "pi_stripe_1234567890",
+                          "paymentProviderId": "prov_stripe_001",
+                          "updatedAt": "2024-01-15T14:30:00Z",
+                          "title": {
+                            "en": "Driver License Renewal Fee",
+                            "ga": "Táille Athnuachana Ceadúnais Tiomána"
+                          },
+                          "description": {
+                            "en": "Payment for renewing your driver license",
+                            "ga": "Íocaíocht le haghaidh do cheadúnais tiomána a athnuachan"
+                          },
+                          "providerName": "Stripe Production",
+                          "providerType": "stripe",
+                          "paymentRequestId": "pr_1234567890abcdef",
+                          "userId": "user_1234567890",
+                          "metadata": {
+                            "runId": "run_1234567890",
+                            "journeyId": "journey_1234567890",
+                            "journeyTitle": {
+                              "en": "Driver License Application",
+                              "ga": "Iarratas ar Cheadúnas Tiomána"
+                            },
+                            "redirectUrls": {
+                              "en": "https://example.com/success",
+                              "ga": "https://example.com/success-ga"
+                            },
+                            "amount": "25.00",
+                            "providerData": {
+                              "chargeId": "ch_stripe_1234567890"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "description": "Object containing the links to the related endpoints",
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the request itself",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "description": "It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2'",
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "description": "Number representing the total number of available items",
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/transactions/schema": {
       "get": {
         "operationId": "getTransactionSchema",
@@ -12670,11 +13288,11 @@
     "/api/v1/worldpay/paymentRequest": {
       "post": {
         "operationId": "createWorldpayPaymentRequest",
-        "summary": "Get Worldpay Payment Object",
+        "summary": "Initiate a Worldpay payment",
         "tags": [
           "Worldpay"
         ],
-        "description": "Generate a Worldpay payment object for processing payments through the Worldpay payment provider.",
+        "description": "Generate a Worldpay payment request to initiate a payment and obtain the payment page URL.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -12687,9 +13305,6 @@
                   "amount": {
                     "type": "string"
                   },
-                  "providerId": {
-                    "type": "string"
-                  },
                   "paymentRequestId": {
                     "type": "string"
                   },
@@ -12700,7 +13315,6 @@
                 "required": [
                   "intentId",
                   "amount",
-                  "providerId",
                   "paymentRequestId"
                 ]
               },
@@ -12709,7 +13323,6 @@
                   "value": {
                     "intentId": "pi_worldpay_1234567890",
                     "amount": "25.00",
-                    "providerId": "prov_realex_001",
                     "paymentRequestId": "pr_1234567890abcdef",
                     "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleGFtcGxlIjoiZXhhbXBsZV90b2tlbl9kYXRhIn0uZXhhbXBsZV9zaWduYXR1cmU"
                   }
@@ -12718,7 +13331,6 @@
                   "value": {
                     "intentId": "pi_worldpay_0987654321",
                     "amount": "80.00",
-                    "providerId": "prov_realex_001",
                     "paymentRequestId": "pr_0987654321fedcba"
                   }
                 }
@@ -13008,8 +13620,324 @@
           "Worldpay"
         ],
         "description": "Handle webhook events from Worldpay payment provider. This endpoint processes payment status updates, failed payments, and other Worldpay events to keep transaction status in sync.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "eventId": {
+                    "type": "string"
+                  },
+                  "eventTimestamp": {
+                    "type": "string"
+                  },
+                  "eventDetails": {
+                    "type": "object",
+                    "properties": {
+                      "classification": {
+                        "type": "string"
+                      },
+                      "downstreamReference": {
+                        "type": "string"
+                      },
+                      "transactionReference": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "date": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "classification",
+                      "type",
+                      "date"
+                    ]
+                  },
+                  "reference": {
+                    "type": "string"
+                  },
+                  "refund": {
+                    "type": "object",
+                    "properties": {
+                      "onlineRefundAuthorization": {
+                        "type": "string"
+                      },
+                      "refusal": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "code",
+                          "description"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "onlineRefundAuthorization"
+                    ]
+                  },
+                  "amount": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "number"
+                      },
+                      "currencyCode": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "value",
+                      "currencyCode"
+                    ]
+                  },
+                  "value": {
+                    "type": "number"
+                  },
+                  "_links": {
+                    "type": "object",
+                    "properties": {}
+                  }
+                },
+                "required": [
+                  "eventId",
+                  "eventTimestamp",
+                  "eventDetails"
+                ]
+              },
+              "examples": {
+                "example1": {
+                  "value": {
+                    "eventId": "bb55ca5a-e05c-47e1-8e94-e88bac1a0a17",
+                    "eventTimestamp": "2018-06-13T14:18:13.407",
+                    "eventDetails": {
+                      "classification": "payment",
+                      "downstreamReference": "3378792436",
+                      "transactionReference": "AuthOrder001",
+                      "type": "sentForAuthorization",
+                      "date": "2017-11-03",
+                      "amount": {
+                        "value": 100,
+                        "currencyCode": "EUR"
+                      },
+                      "_links": {
+                        "payment": {
+                          "href": ""
+                        }
+                      }
+                    }
+                  }
+                },
+                "example2": {
+                  "value": {
+                    "eventId": "bb55ca5a-e05c-47e1-8e94-e88bac1a0a17",
+                    "eventTimestamp": "2018-06-13T14:18:13.407",
+                    "eventDetails": {
+                      "classification": "payment",
+                      "downstreamReference": "3378792436",
+                      "transactionReference": "AuthOrder001",
+                      "type": "authorized",
+                      "date": "2017-11-03",
+                      "amount": {
+                        "value": 100,
+                        "currencyCode": "EUR"
+                      },
+                      "_links": {
+                        "payment": {
+                          "href": ""
+                        }
+                      }
+                    }
+                  }
+                },
+                "example3": {
+                  "value": {
+                    "eventId": "bb55ca5a-e05c-47e1-8e94-e88bac1a0a17",
+                    "eventTimestamp": "2018-06-13T14:18:13.407",
+                    "eventDetails": {
+                      "classification": "payment",
+                      "downstreamReference": "3378792436",
+                      "transactionReference": "AuthOrder001",
+                      "type": "sentForSettlement",
+                      "date": "2017-11-03",
+                      "reference": null,
+                      "amount": {
+                        "value": 100,
+                        "currencyCode": "EUR"
+                      },
+                      "_links": {
+                        "payment": {
+                          "href": ""
+                        }
+                      }
+                    }
+                  }
+                },
+                "example4": {
+                  "value": {
+                    "eventId": "bb55ca5a-e05c-47e1-8e94-e88bac1a0a17",
+                    "eventTimestamp": "2018-06-13T14:18:13.407",
+                    "eventDetails": {
+                      "classification": "payment",
+                      "downstreamReference": "3378792436",
+                      "transactionReference": "AuthOrder001",
+                      "type": "cancelled",
+                      "date": "2017-11-03",
+                      "amount": {
+                        "value": 100,
+                        "currencyCode": "EUR"
+                      },
+                      "_links": {
+                        "payment": {
+                          "href": ""
+                        }
+                      }
+                    }
+                  }
+                },
+                "example5": {
+                  "value": {
+                    "eventId": "bb55ca5a-e05c-47e1-8e94-e88bac1a0a17",
+                    "eventTimestamp": "2018-06-13T14:18:13.407",
+                    "eventDetails": {
+                      "classification": "payment",
+                      "downstreamReference": "3378792436",
+                      "transactionReference": "AuthOrder001",
+                      "type": "error",
+                      "date": "2017-11-03",
+                      "_links": {
+                        "payment": {
+                          "href": ""
+                        }
+                      }
+                    }
+                  }
+                },
+                "example6": {
+                  "value": {
+                    "eventId": "bb55ca5a-e05c-47e1-8e94-e88bac1a0a17",
+                    "eventTimestamp": "2018-06-13T14:18:13.407",
+                    "eventDetails": {
+                      "classification": "payment",
+                      "downstreamReference": "3378792436",
+                      "transactionReference": "AuthOrder001",
+                      "type": "expired",
+                      "date": "2017-11-03",
+                      "amount": {
+                        "value": 100,
+                        "currencyCode": "EUR"
+                      },
+                      "_links": {
+                        "payment": {
+                          "href": ""
+                        }
+                      }
+                    }
+                  }
+                },
+                "example7": {
+                  "value": {
+                    "eventId": "bb55ca5a-e05c-47e1-8e94-e88bac1a0a17",
+                    "eventTimestamp": "2018-01-01T10:30:06.123",
+                    "eventDetails": {
+                      "classification": "payment",
+                      "downstreamReference": "3378792436",
+                      "transactionReference": "AuthOrder001",
+                      "type": "refused",
+                      "date": "2017-11-13",
+                      "octReference": "123456",
+                      "_links": {
+                        "payment": {
+                          "href": ""
+                        }
+                      }
+                    }
+                  }
+                },
+                "example8": {
+                  "value": {
+                    "eventId": "bb55ca5a-e05c-47e1-8e94-e88bac1a0a17",
+                    "eventTimestamp": "2020-10-29T14:40:05.171",
+                    "eventDetails": {
+                      "classification": "payment",
+                      "downstreamReference": "3378792436",
+                      "transactionReference": "AuthOrder001",
+                      "type": "sentForRefund",
+                      "date": "2020-10-29",
+                      "reference": null,
+                      "refund": {
+                        "onlineRefundAuthorization": "987654"
+                      },
+                      "octReference": "123456",
+                      "amount": {
+                        "value": 100,
+                        "currencyCode": "EUR"
+                      },
+                      "_links": {
+                        "payment": {
+                          "href": ""
+                        }
+                      }
+                    }
+                  }
+                },
+                "example9": {
+                  "value": {
+                    "eventId": "bb55ca5a-e05c-47e1-8e94-e88bac1a0a17",
+                    "eventTimestamp": "2020-10-29T11:06:07.636",
+                    "eventDetails": {
+                      "classification": "payment",
+                      "downstreamReference": "3378792436",
+                      "transactionReference": "AuthOrder001",
+                      "type": "refundFailed",
+                      "date": "2020-10-29",
+                      "reference": null,
+                      "refund": {
+                        "refusal": {
+                          "code": 5,
+                          "description": "Do not honor"
+                        }
+                      },
+                      "amount": {
+                        "value": 100,
+                        "currencyCode": "EUR"
+                      },
+                      "_links": {
+                        "payment": {
+                          "href": ""
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
         "security": [],
         "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
           "404": {
             "description": "Default Response",
             "content": {

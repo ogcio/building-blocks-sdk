@@ -416,6 +416,21 @@ export class Payments extends BaseClient<paths> {
       );
   }
 
+  async searchTransactions(
+    transactionIds: paths["/api/v1/transactions/search"]["post"]["requestBody"]["content"]["application/json"]["transactionIds"],
+  ) {
+    return this.client
+      .POST("/api/v1/transactions/search", {
+        body: {
+          transactionIds,
+        },
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
+
   /**
    * Citizen
    */
