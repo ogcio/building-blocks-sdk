@@ -221,6 +221,24 @@ export class Journey extends BaseClient<paths> {
       );
   }
 
+  async updateJourneyStatus(
+    journeyId: paths["/api/v1/journeys/{journeyId}"]["patch"]["parameters"]["path"]["journeyId"],
+    data: paths["/api/v1/journeys/{journeyId}"]["patch"]["requestBody"]["content"]["application/json"],
+  ) {
+    throwIfEmpty(journeyId);
+    return this.client
+      .PATCH("/api/v1/journeys/{journeyId}", {
+        params: {
+          path: { journeyId },
+        },
+        body: data,
+      })
+      .then(
+        (response) => formatResponse(response, this.serviceName, this.logger),
+        (reason) => formatError(reason, this.serviceName, this.logger),
+      );
+  }
+
   async deleteJourney(
     journeyId: paths["/api/v1/journeys/{journeyId}"]["delete"]["parameters"]["path"]["journeyId"],
   ) {
