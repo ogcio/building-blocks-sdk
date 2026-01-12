@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.73](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.72...@ogcio/building-blocks-sdk@v0.2.73) (2026-01-12)
+
+
+### Features
+
+* **32629:** new Journey status APIs ([#309](https://github.com/ogcio/building-blocks-sdk/issues/309)) ([8beb72f](https://github.com/ogcio/building-blocks-sdk/commit/8beb72fa5b7d78a263b75b68750d67bb5a16ffdd))
+
 ## [0.2.72](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.71...@ogcio/building-blocks-sdk@v0.2.72) (2026-01-12)
 
 
