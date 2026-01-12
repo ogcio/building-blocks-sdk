@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.72](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.71...@ogcio/building-blocks-sdk@v0.2.72) (2026-01-12)
+
+
+### Features
+
+* **32963:** payments search transactions call ([#307](https://github.com/ogcio/building-blocks-sdk/issues/307)) ([b630b0b](https://github.com/ogcio/building-blocks-sdk/commit/b630b0b762a0337de442757c3583ab7e943d90b5))
+
 ## [0.2.71](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.70...@ogcio/building-blocks-sdk@v0.2.71) (2026-01-08)
 
 
