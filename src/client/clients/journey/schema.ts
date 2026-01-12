@@ -132,7 +132,11 @@ export interface paths {
         delete: operations["deleteJourney"];
         options?: never;
         head?: never;
-        patch?: never;
+        /**
+         * Update journey status
+         * @description Update an existing journey status
+         */
+        patch: operations["updateJourneyStatus"];
         trace?: never;
     };
     "/api/v1/journeys/{journeyId}/public-info": {
@@ -574,6 +578,7 @@ export interface operations {
                 limit?: number;
                 ids?: string | string[];
                 search?: string;
+                status?: "active" | "inactive";
                 from?: string;
                 to?: string;
             };
@@ -602,7 +607,7 @@ export interface operations {
                             initialStepId: string;
                             createdAt: string;
                             updatedAt: string;
-                            allowedAuthMethods: string[];
+                            allowedAuthMethods: ("email_otp" | "social:mygovid")[];
                             userName: string;
                         }[];
                         metadata?: {
@@ -665,7 +670,7 @@ export interface operations {
                         en: string;
                         ga?: string;
                     };
-                    allowedAuthMethods: string[];
+                    allowedAuthMethods: ("email_otp" | "social:mygovid")[];
                     organizationId: string;
                     userId: string;
                 };
@@ -679,6 +684,11 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
+                        /**
+                         * @example {
+                         *       "id": "db28c9c2-984c-4295-9a89-ee93f4b9f059"
+                         *     }
+                         */
                         data: {
                             id: string;
                         };
@@ -774,7 +784,7 @@ export interface operations {
                             createdAt: string;
                             updatedAt: string;
                             initialStepId: string;
-                            allowedAuthMethods: string[];
+                            allowedAuthMethods: ("email_otp" | "social:mygovid")[];
                             steps: {
                                 id: string;
                                 journeyId: string;
@@ -892,9 +902,9 @@ export interface operations {
                         en: string;
                         ga?: string;
                     };
+                    allowedAuthMethods: ("email_otp" | "social:mygovid")[];
                     status: "active" | "inactive" | "draft";
                     initialStepId: string;
-                    allowedAuthMethods: string[];
                 };
             };
         };
@@ -906,6 +916,11 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
+                        /**
+                         * @example {
+                         *       "id": "db28c9c2-984c-4295-9a89-ee93f4b9f059"
+                         *     }
+                         */
                         data: {
                             id: string;
                         };
@@ -989,8 +1004,102 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
+                        /**
+                         * @example {
+                         *       "ok": true
+                         *     }
+                         */
                         data: {
                             ok: boolean;
+                        };
+                        metadata?: {
+                            links?: {
+                                self: {
+                                    href?: string;
+                                };
+                                next?: {
+                                    href?: string;
+                                };
+                                prev?: {
+                                    href?: string;
+                                };
+                                first: {
+                                    href?: string;
+                                };
+                                last: {
+                                    href?: string;
+                                };
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        detail: string;
+                        requestId: string;
+                        name: string;
+                        validation?: unknown;
+                        validationContext?: string;
+                    };
+                };
+            };
+            /** @description Default Response */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        detail: string;
+                        requestId: string;
+                        name: string;
+                        validation?: unknown;
+                        validationContext?: string;
+                    };
+                };
+            };
+        };
+    };
+    updateJourneyStatus: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                journeyId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    status: "active" | "inactive";
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            status: "active" | "inactive";
                         };
                         metadata?: {
                             links?: {
@@ -1072,6 +1181,25 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
+                        /**
+                         * @example {
+                         *       "id": "journey_1234567890abcdef",
+                         *       "title": {
+                         *         "en": "Test messaging",
+                         *         "ga": "Teistphostú"
+                         *       },
+                         *       "userId": "user_1234567890abcdef",
+                         *       "organizationId": "org_1234567890abcdef",
+                         *       "status": "active",
+                         *       "createdAt": "2025-10-09T15:02:00.000Z",
+                         *       "updatedAt": "2025-10-09T15:02:00.000Z",
+                         *       "initialStepId": "step_title_001",
+                         *       "allowedAuthMethods": [
+                         *         "email_otp",
+                         *         "social:mygovid"
+                         *       ]
+                         *     }
+                         */
                         data: {
                             id: string;
                             title: {
@@ -1082,7 +1210,7 @@ export interface operations {
                             initialStepId: string;
                             createdAt: string;
                             updatedAt: string;
-                            allowedAuthMethods: string[];
+                            allowedAuthMethods: ("email_otp" | "social:mygovid")[];
                         };
                         metadata?: {
                             links?: {
@@ -1246,6 +1374,13 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
+                        /**
+                         * @example {
+                         *       "id": "conn_1234567890abcdef",
+                         *       "sourceStepId": "step_title_001",
+                         *       "destinationStepId": "step_form_002"
+                         *     }
+                         */
                         data: {
                             id: string;
                             sourceStepId: string;
@@ -1418,6 +1553,13 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
+                        /**
+                         * @example {
+                         *       "id": "conn_1234567890abcdef",
+                         *       "sourceStepId": "step_title_001",
+                         *       "destinationStepId": "step_form_002"
+                         *     }
+                         */
                         data: {
                             id: string;
                             sourceStepId: string;
@@ -1503,6 +1645,21 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
+                        /**
+                         * @example {
+                         *       "id": "step_title_001",
+                         *       "journeyId": "journey_1234567890abcdef",
+                         *       "stepType": "title",
+                         *       "stepData": {
+                         *         "uiConfig": {
+                         *           "setupPageVersion": "citizen-notification"
+                         *         }
+                         *       },
+                         *       "configured": true,
+                         *       "createdAt": "2025-10-09T15:02:00.000Z",
+                         *       "updatedAt": "2025-10-09T15:02:00.000Z"
+                         *     }
+                         */
                         data: {
                             id: string;
                             journeyId: string;
@@ -1646,6 +1803,21 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
+                        /**
+                         * @example {
+                         *       "id": "step_title_001",
+                         *       "journeyId": "journey_1234567890abcdef",
+                         *       "stepType": "title",
+                         *       "stepData": {
+                         *         "uiConfig": {
+                         *           "setupPageVersion": "citizen-notification"
+                         *         }
+                         *       },
+                         *       "configured": true,
+                         *       "createdAt": "2025-10-09T15:02:00.000Z",
+                         *       "updatedAt": "2025-10-09T15:02:00.000Z"
+                         *     }
+                         */
                         data: {
                             id: string;
                             journeyId: string;
@@ -1869,6 +2041,21 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
+                        /**
+                         * @example {
+                         *       "id": "step_title_001",
+                         *       "journeyId": "journey_1234567890abcdef",
+                         *       "stepType": "title",
+                         *       "stepData": {
+                         *         "uiConfig": {
+                         *           "setupPageVersion": "citizen-notification"
+                         *         }
+                         *       },
+                         *       "configured": true,
+                         *       "createdAt": "2025-10-09T15:02:00.000Z",
+                         *       "updatedAt": "2025-10-09T15:02:00.000Z"
+                         *     }
+                         */
                         data: {
                             id: string;
                             journeyId: string;
@@ -2053,6 +2240,51 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
+                        /**
+                         * @example {
+                         *       "id": "970B0547",
+                         *       "userId": "user_1234567890abcdef",
+                         *       "journeyId": "journey_1234567890abcdef",
+                         *       "status": "submitted",
+                         *       "tags": [
+                         *         "urgent",
+                         *         "priority"
+                         *       ],
+                         *       "createdAt": "2025-10-09T15:02:00.000Z",
+                         *       "updatedAt": "2025-10-09T15:03:00.000Z",
+                         *       "steps": [
+                         *         {
+                         *           "id": "run_step_001",
+                         *           "runId": "970B0547",
+                         *           "stepId": "step_form_002",
+                         *           "stepType": "form",
+                         *           "status": "completed",
+                         *           "data": {
+                         *             "formSubmissionId": "68e7ce9c41ee8b6cfd77a68e",
+                         *             "amount": 25
+                         *           },
+                         *           "createdAt": "2025-10-09T15:02:00.000Z",
+                         *           "updatedAt": "2025-10-09T15:02:30.000Z"
+                         *         },
+                         *         {
+                         *           "id": "run_step_002",
+                         *           "runId": "970B0547",
+                         *           "stepId": "step_payment_003",
+                         *           "stepType": "payment",
+                         *           "status": "completed",
+                         *           "data": {
+                         *             "transactionId": "txn_1234567890abcdef",
+                         *             "amount": 25,
+                         *             "date": "2025-10-09T15:03:00.000Z",
+                         *             "provider": "stripe"
+                         *           },
+                         *           "createdAt": "2025-10-09T15:02:30.000Z",
+                         *           "updatedAt": "2025-10-09T15:03:00.000Z"
+                         *         }
+                         *       ],
+                         *       "choosenAuthMethod": "email_otp"
+                         *     }
+                         */
                         data: {
                             id: string;
                             userId: string;
@@ -2421,6 +2653,51 @@ export interface operations {
         };
         requestBody: {
             content: {
+                /**
+                 * @example {
+                 *       "id": "970B0547",
+                 *       "userId": "user_1234567890abcdef",
+                 *       "journeyId": "journey_1234567890abcdef",
+                 *       "status": "submitted",
+                 *       "tags": [
+                 *         "urgent",
+                 *         "priority"
+                 *       ],
+                 *       "createdAt": "2025-10-09T15:02:00.000Z",
+                 *       "updatedAt": "2025-10-09T15:03:00.000Z",
+                 *       "steps": [
+                 *         {
+                 *           "id": "run_step_001",
+                 *           "runId": "970B0547",
+                 *           "stepId": "step_form_002",
+                 *           "stepType": "form",
+                 *           "status": "completed",
+                 *           "data": {
+                 *             "formSubmissionId": "68e7ce9c41ee8b6cfd77a68e",
+                 *             "amount": 25
+                 *           },
+                 *           "createdAt": "2025-10-09T15:02:00.000Z",
+                 *           "updatedAt": "2025-10-09T15:02:30.000Z"
+                 *         },
+                 *         {
+                 *           "id": "run_step_002",
+                 *           "runId": "970B0547",
+                 *           "stepId": "step_payment_003",
+                 *           "stepType": "payment",
+                 *           "status": "completed",
+                 *           "data": {
+                 *             "transactionId": "txn_1234567890abcdef",
+                 *             "amount": 25,
+                 *             "date": "2025-10-09T15:03:00.000Z",
+                 *             "provider": "stripe"
+                 *           },
+                 *           "createdAt": "2025-10-09T15:02:30.000Z",
+                 *           "updatedAt": "2025-10-09T15:03:00.000Z"
+                 *         }
+                 *       ],
+                 *       "choosenAuthMethod": "email_otp"
+                 *     }
+                 */
                 "application/json": {
                     status: "initiated" | "submitted" | "processing" | "completed" | "cancelled";
                 };
@@ -2434,6 +2711,51 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
+                        /**
+                         * @example {
+                         *       "id": "970B0547",
+                         *       "userId": "user_1234567890abcdef",
+                         *       "journeyId": "journey_1234567890abcdef",
+                         *       "status": "submitted",
+                         *       "tags": [
+                         *         "urgent",
+                         *         "priority"
+                         *       ],
+                         *       "createdAt": "2025-10-09T15:02:00.000Z",
+                         *       "updatedAt": "2025-10-09T15:03:00.000Z",
+                         *       "steps": [
+                         *         {
+                         *           "id": "run_step_001",
+                         *           "runId": "970B0547",
+                         *           "stepId": "step_form_002",
+                         *           "stepType": "form",
+                         *           "status": "completed",
+                         *           "data": {
+                         *             "formSubmissionId": "68e7ce9c41ee8b6cfd77a68e",
+                         *             "amount": 25
+                         *           },
+                         *           "createdAt": "2025-10-09T15:02:00.000Z",
+                         *           "updatedAt": "2025-10-09T15:02:30.000Z"
+                         *         },
+                         *         {
+                         *           "id": "run_step_002",
+                         *           "runId": "970B0547",
+                         *           "stepId": "step_payment_003",
+                         *           "stepType": "payment",
+                         *           "status": "completed",
+                         *           "data": {
+                         *             "transactionId": "txn_1234567890abcdef",
+                         *             "amount": 25,
+                         *             "date": "2025-10-09T15:03:00.000Z",
+                         *             "provider": "stripe"
+                         *           },
+                         *           "createdAt": "2025-10-09T15:02:30.000Z",
+                         *           "updatedAt": "2025-10-09T15:03:00.000Z"
+                         *         }
+                         *       ],
+                         *       "choosenAuthMethod": "email_otp"
+                         *     }
+                         */
                         data: {
                             status: "initiated" | "submitted" | "processing" | "completed" | "cancelled";
                         };
@@ -2711,6 +3033,11 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
+                        /**
+                         * @example {
+                         *       "id": "db28c9c2-984c-4295-9a89-ee93f4b9f059"
+                         *     }
+                         */
                         data: {
                             id: string;
                         };
@@ -2816,6 +3143,13 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
+                        /**
+                         * @example {
+                         *       "url": "https://forms.uat.services.gov.ie/admin/form/68ca7425d5fe2c00124268f6/results/68e7ce9c41ee8b6cfd77a68e",
+                         *       "stepId": "step_form_002",
+                         *       "stepType": "form"
+                         *     }
+                         */
                         data: {
                             url: string;
                             stepId: string;
@@ -2925,6 +3259,13 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
+                        /**
+                         * @example {
+                         *       "url": "https://forms.uat.services.gov.ie/admin/form/68ca7425d5fe2c00124268f6/results/68e7ce9c41ee8b6cfd77a68e",
+                         *       "stepId": "step_form_002",
+                         *       "stepType": "form"
+                         *     }
+                         */
                         data: {
                             url: string;
                             stepId: string;
@@ -3031,6 +3372,21 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
+                        /**
+                         * @example {
+                         *       "runId": "970B0547",
+                         *       "title": {
+                         *         "en": "Test messaging",
+                         *         "ga": "Teistphostú"
+                         *       },
+                         *       "createdAt": "2025-10-09T15:02:00.000Z",
+                         *       "actionLabel": {
+                         *         "en": "View Submission",
+                         *         "ga": "Féach ar an gCur isteach"
+                         *       },
+                         *       "returnUrl": "https://services.gov.ie/dashboard/submissions/970B0547"
+                         *     }
+                         */
                         data: {
                             runId: string;
                             title: {
@@ -3168,6 +3524,7 @@ export interface operations {
                 resource?: string;
                 resourceId?: string;
                 action?: string;
+                userId?: string;
                 from?: string;
                 to?: string;
             };

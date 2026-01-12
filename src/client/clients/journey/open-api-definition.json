@@ -132,6 +132,27 @@
           },
           {
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "active"
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "inactive"
+                  ]
+                }
+              ]
+            },
+            "in": "query",
+            "name": "status",
+            "required": false
+          },
+          {
+            "schema": {
               "type": "string"
             },
             "in": "query",
@@ -223,7 +244,20 @@
                           "allowedAuthMethods": {
                             "type": "array",
                             "items": {
-                              "type": "string"
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "email_otp"
+                                  ]
+                                },
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "social:mygovid"
+                                  ]
+                                }
+                              ]
                             }
                           },
                           "userName": {
@@ -441,7 +475,20 @@
                   "allowedAuthMethods": {
                     "type": "array",
                     "items": {
-                      "type": "string"
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "enum": [
+                            "email_otp"
+                          ]
+                        },
+                        {
+                          "type": "string",
+                          "enum": [
+                            "social:mygovid"
+                          ]
+                        }
+                      ]
                     }
                   },
                   "organizationId": {
@@ -457,6 +504,34 @@
                   "organizationId",
                   "userId"
                 ]
+              },
+              "examples": {
+                "example1": {
+                  "value": {
+                    "title": {
+                      "en": "Test messaging",
+                      "ga": "Teistphostú"
+                    },
+                    "allowedAuthMethods": [
+                      "email_otp"
+                    ],
+                    "organizationId": "org_1234567890abcdef",
+                    "userId": "user_1234567890abcdef"
+                  }
+                },
+                "example2": {
+                  "value": {
+                    "title": {
+                      "en": "License Application",
+                      "ga": "Iarratas ar Cheadúnas"
+                    },
+                    "allowedAuthMethods": [
+                      "social:mygovid"
+                    ],
+                    "organizationId": "org_9876543210fedcba",
+                    "userId": "user_9876543210fedcba"
+                  }
+                }
               }
             }
           },
@@ -479,7 +554,10 @@
                       },
                       "required": [
                         "id"
-                      ]
+                      ],
+                      "example": {
+                        "id": "db28c9c2-984c-4295-9a89-ee93f4b9f059"
+                      }
                     },
                     "metadata": {
                       "type": "object",
@@ -816,7 +894,20 @@
                         "allowedAuthMethods": {
                           "type": "array",
                           "items": {
-                            "type": "string"
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "email_otp"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "social:mygovid"
+                                ]
+                              }
+                            ]
                           }
                         },
                         "steps": {
@@ -874,6 +965,17 @@
                                 "anyOf": [
                                   {
                                     "additionalProperties": false,
+                                    "examples": [
+                                      {
+                                        "formId": "68ca7425d5fe2c00124268f6"
+                                      },
+                                      {
+                                        "formId": "form_1234567890abcdef"
+                                      },
+                                      {
+                                        "formId": "form_9876543210fedcba"
+                                      }
+                                    ],
                                     "type": "object",
                                     "properties": {
                                       "formId": {
@@ -886,6 +988,20 @@
                                   },
                                   {
                                     "additionalProperties": false,
+                                    "examples": [
+                                      {
+                                        "paymentRequestId": "1183",
+                                        "title": "Payment for Application Fee"
+                                      },
+                                      {
+                                        "paymentRequestId": "payment_1234567890abcdef",
+                                        "title": "Service Registration Fee"
+                                      },
+                                      {
+                                        "paymentRequestId": "payment_9876543210fedcba",
+                                        "title": "License Renewal Payment"
+                                      }
+                                    ],
                                     "type": "object",
                                     "properties": {
                                       "paymentRequestId": {
@@ -902,6 +1018,19 @@
                                   },
                                   {
                                     "additionalProperties": false,
+                                    "examples": [
+                                      {
+                                        "templateId": "template_abcdef1234567890",
+                                        "title": "Payment Receipt",
+                                        "recipients": [
+                                          "customer@example.com"
+                                        ],
+                                        "generatePDF": true,
+                                        "uiConfig": {
+                                          "setupPageVersion": "citizen-notification"
+                                        }
+                                      }
+                                    ],
                                     "type": "object",
                                     "properties": {
                                       "templateId": {
@@ -941,6 +1070,28 @@
                                   },
                                   {
                                     "additionalProperties": false,
+                                    "examples": [
+                                      {
+                                        "buttonLabel": {
+                                          "en": "Return to Dashboard",
+                                          "ga": "Filleadh ar an mPainéal Riaracháin"
+                                        },
+                                        "returnUrl": "https://services.gov.ie/dashboard"
+                                      },
+                                      {
+                                        "buttonLabel": {
+                                          "en": "Continue to Next Step",
+                                          "ga": "Lean ar aghaidh chuig an gcéad chéim eile"
+                                        },
+                                        "returnUrl": "https://services.gov.ie/next-step"
+                                      },
+                                      {
+                                        "buttonLabel": {
+                                          "en": "View Results"
+                                        },
+                                        "returnUrl": "https://services.gov.ie/results"
+                                      }
+                                    ],
                                     "type": "object",
                                     "properties": {
                                       "buttonLabel": {
@@ -1000,7 +1151,20 @@
                               "configured",
                               "createdAt",
                               "updatedAt"
-                            ]
+                            ],
+                            "example": {
+                              "id": "step_title_001",
+                              "journeyId": "journey_1234567890abcdef",
+                              "stepType": "title",
+                              "stepData": {
+                                "uiConfig": {
+                                  "setupPageVersion": "citizen-notification"
+                                }
+                              },
+                              "configured": true,
+                              "createdAt": "2025-10-09T15:02:00.000Z",
+                              "updatedAt": "2025-10-09T15:02:00.000Z"
+                            }
                           }
                         },
                         "connections": {
@@ -1022,7 +1186,12 @@
                               "id",
                               "sourceStepId",
                               "destinationStepId"
-                            ]
+                            ],
+                            "example": {
+                              "id": "conn_1234567890abcdef",
+                              "sourceStepId": "step_title_001",
+                              "destinationStepId": "step_form_002"
+                            }
                           }
                         },
                         "userName": {
@@ -1319,6 +1488,25 @@
                       "en"
                     ]
                   },
+                  "allowedAuthMethods": {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "enum": [
+                            "email_otp"
+                          ]
+                        },
+                        {
+                          "type": "string",
+                          "enum": [
+                            "social:mygovid"
+                          ]
+                        }
+                      ]
+                    }
+                  },
                   "status": {
                     "anyOf": [
                       {
@@ -1343,20 +1531,36 @@
                   },
                   "initialStepId": {
                     "type": "string"
-                  },
-                  "allowedAuthMethods": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
                   }
                 },
                 "required": [
                   "title",
+                  "allowedAuthMethods",
                   "status",
-                  "initialStepId",
-                  "allowedAuthMethods"
+                  "initialStepId"
                 ]
+              },
+              "examples": {
+                "example1": {
+                  "value": {
+                    "title": {
+                      "en": "Test messaging - Updated",
+                      "ga": "Teistphostú - Nuashonraithe"
+                    },
+                    "status": "active",
+                    "initialStepId": "step_title_001"
+                  }
+                },
+                "example2": {
+                  "value": {
+                    "title": {
+                      "en": "License Application",
+                      "ga": "Iarratas ar Cheadúnas"
+                    },
+                    "status": "draft",
+                    "initialStepId": "step_form_001"
+                  }
+                }
               }
             }
           },
@@ -1389,6 +1593,331 @@
                       },
                       "required": [
                         "id"
+                      ],
+                      "example": {
+                        "id": "db28c9c2-984c-4295-9a89-ee93f4b9f059"
+                      }
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateJourneyStatus",
+        "summary": "Update journey status",
+        "tags": [
+          "Journeys"
+        ],
+        "description": "Update an existing journey status",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "active"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "inactive"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "journeyId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "active"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "inactive"
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "status"
                       ]
                     },
                     "metadata": {
@@ -1667,7 +2196,10 @@
                       },
                       "required": [
                         "ok"
-                      ]
+                      ],
+                      "example": {
+                        "ok": true
+                      }
                     },
                     "metadata": {
                       "type": "object",
@@ -1998,7 +2530,20 @@
                         "allowedAuthMethods": {
                           "type": "array",
                           "items": {
-                            "type": "string"
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "email_otp"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "social:mygovid"
+                                ]
+                              }
+                            ]
                           }
                         }
                       },
@@ -2010,7 +2555,24 @@
                         "createdAt",
                         "updatedAt",
                         "allowedAuthMethods"
-                      ]
+                      ],
+                      "example": {
+                        "id": "journey_1234567890abcdef",
+                        "title": {
+                          "en": "Test messaging",
+                          "ga": "Teistphostú"
+                        },
+                        "userId": "user_1234567890abcdef",
+                        "organizationId": "org_1234567890abcdef",
+                        "status": "active",
+                        "createdAt": "2025-10-09T15:02:00.000Z",
+                        "updatedAt": "2025-10-09T15:02:00.000Z",
+                        "initialStepId": "step_title_001",
+                        "allowedAuthMethods": [
+                          "email_otp",
+                          "social:mygovid"
+                        ]
+                      }
                     },
                     "metadata": {
                       "type": "object",
@@ -2299,7 +2861,12 @@
                               "id",
                               "sourceStepId",
                               "destinationStepId"
-                            ]
+                            ],
+                            "example": {
+                              "id": "conn_1234567890abcdef",
+                              "sourceStepId": "step_title_001",
+                              "destinationStepId": "step_form_002"
+                            }
                           }
                         }
                       },
@@ -2596,7 +3163,12 @@
                         "id",
                         "sourceStepId",
                         "destinationStepId"
-                      ]
+                      ],
+                      "example": {
+                        "id": "conn_1234567890abcdef",
+                        "sourceStepId": "step_title_001",
+                        "destinationStepId": "step_form_002"
+                      }
                     },
                     "metadata": {
                       "type": "object",
@@ -3168,7 +3740,12 @@
                         "id",
                         "sourceStepId",
                         "destinationStepId"
-                      ]
+                      ],
+                      "example": {
+                        "id": "conn_1234567890abcdef",
+                        "sourceStepId": "step_title_001",
+                        "destinationStepId": "step_form_002"
+                      }
                     },
                     "metadata": {
                       "type": "object",
@@ -3492,6 +4069,17 @@
                           "anyOf": [
                             {
                               "additionalProperties": false,
+                              "examples": [
+                                {
+                                  "formId": "68ca7425d5fe2c00124268f6"
+                                },
+                                {
+                                  "formId": "form_1234567890abcdef"
+                                },
+                                {
+                                  "formId": "form_9876543210fedcba"
+                                }
+                              ],
                               "type": "object",
                               "properties": {
                                 "formId": {
@@ -3504,6 +4092,20 @@
                             },
                             {
                               "additionalProperties": false,
+                              "examples": [
+                                {
+                                  "paymentRequestId": "1183",
+                                  "title": "Payment for Application Fee"
+                                },
+                                {
+                                  "paymentRequestId": "payment_1234567890abcdef",
+                                  "title": "Service Registration Fee"
+                                },
+                                {
+                                  "paymentRequestId": "payment_9876543210fedcba",
+                                  "title": "License Renewal Payment"
+                                }
+                              ],
                               "type": "object",
                               "properties": {
                                 "paymentRequestId": {
@@ -3520,6 +4122,19 @@
                             },
                             {
                               "additionalProperties": false,
+                              "examples": [
+                                {
+                                  "templateId": "template_abcdef1234567890",
+                                  "title": "Payment Receipt",
+                                  "recipients": [
+                                    "customer@example.com"
+                                  ],
+                                  "generatePDF": true,
+                                  "uiConfig": {
+                                    "setupPageVersion": "citizen-notification"
+                                  }
+                                }
+                              ],
                               "type": "object",
                               "properties": {
                                 "templateId": {
@@ -3559,6 +4174,28 @@
                             },
                             {
                               "additionalProperties": false,
+                              "examples": [
+                                {
+                                  "buttonLabel": {
+                                    "en": "Return to Dashboard",
+                                    "ga": "Filleadh ar an mPainéal Riaracháin"
+                                  },
+                                  "returnUrl": "https://services.gov.ie/dashboard"
+                                },
+                                {
+                                  "buttonLabel": {
+                                    "en": "Continue to Next Step",
+                                    "ga": "Lean ar aghaidh chuig an gcéad chéim eile"
+                                  },
+                                  "returnUrl": "https://services.gov.ie/next-step"
+                                },
+                                {
+                                  "buttonLabel": {
+                                    "en": "View Results"
+                                  },
+                                  "returnUrl": "https://services.gov.ie/results"
+                                }
+                              ],
                               "type": "object",
                               "properties": {
                                 "buttonLabel": {
@@ -3618,7 +4255,20 @@
                         "configured",
                         "createdAt",
                         "updatedAt"
-                      ]
+                      ],
+                      "example": {
+                        "id": "step_title_001",
+                        "journeyId": "journey_1234567890abcdef",
+                        "stepType": "title",
+                        "stepData": {
+                          "uiConfig": {
+                            "setupPageVersion": "citizen-notification"
+                          }
+                        },
+                        "configured": true,
+                        "createdAt": "2025-10-09T15:02:00.000Z",
+                        "updatedAt": "2025-10-09T15:02:00.000Z"
+                      }
                     },
                     "metadata": {
                       "type": "object",
@@ -4153,6 +4803,17 @@
                     "anyOf": [
                       {
                         "additionalProperties": false,
+                        "examples": [
+                          {
+                            "formId": "68ca7425d5fe2c00124268f6"
+                          },
+                          {
+                            "formId": "form_1234567890abcdef"
+                          },
+                          {
+                            "formId": "form_9876543210fedcba"
+                          }
+                        ],
                         "type": "object",
                         "properties": {
                           "formId": {
@@ -4165,6 +4826,20 @@
                       },
                       {
                         "additionalProperties": false,
+                        "examples": [
+                          {
+                            "paymentRequestId": "1183",
+                            "title": "Payment for Application Fee"
+                          },
+                          {
+                            "paymentRequestId": "payment_1234567890abcdef",
+                            "title": "Service Registration Fee"
+                          },
+                          {
+                            "paymentRequestId": "payment_9876543210fedcba",
+                            "title": "License Renewal Payment"
+                          }
+                        ],
                         "type": "object",
                         "properties": {
                           "paymentRequestId": {
@@ -4181,6 +4856,19 @@
                       },
                       {
                         "additionalProperties": false,
+                        "examples": [
+                          {
+                            "templateId": "template_abcdef1234567890",
+                            "title": "Payment Receipt",
+                            "recipients": [
+                              "customer@example.com"
+                            ],
+                            "generatePDF": true,
+                            "uiConfig": {
+                              "setupPageVersion": "citizen-notification"
+                            }
+                          }
+                        ],
                         "type": "object",
                         "properties": {
                           "templateId": {
@@ -4220,6 +4908,28 @@
                       },
                       {
                         "additionalProperties": false,
+                        "examples": [
+                          {
+                            "buttonLabel": {
+                              "en": "Return to Dashboard",
+                              "ga": "Filleadh ar an mPainéal Riaracháin"
+                            },
+                            "returnUrl": "https://services.gov.ie/dashboard"
+                          },
+                          {
+                            "buttonLabel": {
+                              "en": "Continue to Next Step",
+                              "ga": "Lean ar aghaidh chuig an gcéad chéim eile"
+                            },
+                            "returnUrl": "https://services.gov.ie/next-step"
+                          },
+                          {
+                            "buttonLabel": {
+                              "en": "View Results"
+                            },
+                            "returnUrl": "https://services.gov.ie/results"
+                          }
+                        ],
                         "type": "object",
                         "properties": {
                           "buttonLabel": {
@@ -4386,6 +5096,17 @@
                           "anyOf": [
                             {
                               "additionalProperties": false,
+                              "examples": [
+                                {
+                                  "formId": "68ca7425d5fe2c00124268f6"
+                                },
+                                {
+                                  "formId": "form_1234567890abcdef"
+                                },
+                                {
+                                  "formId": "form_9876543210fedcba"
+                                }
+                              ],
                               "type": "object",
                               "properties": {
                                 "formId": {
@@ -4398,6 +5119,20 @@
                             },
                             {
                               "additionalProperties": false,
+                              "examples": [
+                                {
+                                  "paymentRequestId": "1183",
+                                  "title": "Payment for Application Fee"
+                                },
+                                {
+                                  "paymentRequestId": "payment_1234567890abcdef",
+                                  "title": "Service Registration Fee"
+                                },
+                                {
+                                  "paymentRequestId": "payment_9876543210fedcba",
+                                  "title": "License Renewal Payment"
+                                }
+                              ],
                               "type": "object",
                               "properties": {
                                 "paymentRequestId": {
@@ -4414,6 +5149,19 @@
                             },
                             {
                               "additionalProperties": false,
+                              "examples": [
+                                {
+                                  "templateId": "template_abcdef1234567890",
+                                  "title": "Payment Receipt",
+                                  "recipients": [
+                                    "customer@example.com"
+                                  ],
+                                  "generatePDF": true,
+                                  "uiConfig": {
+                                    "setupPageVersion": "citizen-notification"
+                                  }
+                                }
+                              ],
                               "type": "object",
                               "properties": {
                                 "templateId": {
@@ -4453,6 +5201,28 @@
                             },
                             {
                               "additionalProperties": false,
+                              "examples": [
+                                {
+                                  "buttonLabel": {
+                                    "en": "Return to Dashboard",
+                                    "ga": "Filleadh ar an mPainéal Riaracháin"
+                                  },
+                                  "returnUrl": "https://services.gov.ie/dashboard"
+                                },
+                                {
+                                  "buttonLabel": {
+                                    "en": "Continue to Next Step",
+                                    "ga": "Lean ar aghaidh chuig an gcéad chéim eile"
+                                  },
+                                  "returnUrl": "https://services.gov.ie/next-step"
+                                },
+                                {
+                                  "buttonLabel": {
+                                    "en": "View Results"
+                                  },
+                                  "returnUrl": "https://services.gov.ie/results"
+                                }
+                              ],
                               "type": "object",
                               "properties": {
                                 "buttonLabel": {
@@ -4512,7 +5282,20 @@
                         "configured",
                         "createdAt",
                         "updatedAt"
-                      ]
+                      ],
+                      "example": {
+                        "id": "step_title_001",
+                        "journeyId": "journey_1234567890abcdef",
+                        "stepType": "title",
+                        "stepData": {
+                          "uiConfig": {
+                            "setupPageVersion": "citizen-notification"
+                          }
+                        },
+                        "configured": true,
+                        "createdAt": "2025-10-09T15:02:00.000Z",
+                        "updatedAt": "2025-10-09T15:02:00.000Z"
+                      }
                     },
                     "metadata": {
                       "type": "object",
@@ -4827,6 +5610,17 @@
                     "anyOf": [
                       {
                         "additionalProperties": false,
+                        "examples": [
+                          {
+                            "formId": "68ca7425d5fe2c00124268f6"
+                          },
+                          {
+                            "formId": "form_1234567890abcdef"
+                          },
+                          {
+                            "formId": "form_9876543210fedcba"
+                          }
+                        ],
                         "type": "object",
                         "properties": {
                           "formId": {
@@ -4839,6 +5633,20 @@
                       },
                       {
                         "additionalProperties": false,
+                        "examples": [
+                          {
+                            "paymentRequestId": "1183",
+                            "title": "Payment for Application Fee"
+                          },
+                          {
+                            "paymentRequestId": "payment_1234567890abcdef",
+                            "title": "Service Registration Fee"
+                          },
+                          {
+                            "paymentRequestId": "payment_9876543210fedcba",
+                            "title": "License Renewal Payment"
+                          }
+                        ],
                         "type": "object",
                         "properties": {
                           "paymentRequestId": {
@@ -4855,6 +5663,19 @@
                       },
                       {
                         "additionalProperties": false,
+                        "examples": [
+                          {
+                            "templateId": "template_abcdef1234567890",
+                            "title": "Payment Receipt",
+                            "recipients": [
+                              "customer@example.com"
+                            ],
+                            "generatePDF": true,
+                            "uiConfig": {
+                              "setupPageVersion": "citizen-notification"
+                            }
+                          }
+                        ],
                         "type": "object",
                         "properties": {
                           "templateId": {
@@ -4894,6 +5715,28 @@
                       },
                       {
                         "additionalProperties": false,
+                        "examples": [
+                          {
+                            "buttonLabel": {
+                              "en": "Return to Dashboard",
+                              "ga": "Filleadh ar an mPainéal Riaracháin"
+                            },
+                            "returnUrl": "https://services.gov.ie/dashboard"
+                          },
+                          {
+                            "buttonLabel": {
+                              "en": "Continue to Next Step",
+                              "ga": "Lean ar aghaidh chuig an gcéad chéim eile"
+                            },
+                            "returnUrl": "https://services.gov.ie/next-step"
+                          },
+                          {
+                            "buttonLabel": {
+                              "en": "View Results"
+                            },
+                            "returnUrl": "https://services.gov.ie/results"
+                          }
+                        ],
                         "type": "object",
                         "properties": {
                           "buttonLabel": {
@@ -5008,6 +5851,17 @@
                           "anyOf": [
                             {
                               "additionalProperties": false,
+                              "examples": [
+                                {
+                                  "formId": "68ca7425d5fe2c00124268f6"
+                                },
+                                {
+                                  "formId": "form_1234567890abcdef"
+                                },
+                                {
+                                  "formId": "form_9876543210fedcba"
+                                }
+                              ],
                               "type": "object",
                               "properties": {
                                 "formId": {
@@ -5020,6 +5874,20 @@
                             },
                             {
                               "additionalProperties": false,
+                              "examples": [
+                                {
+                                  "paymentRequestId": "1183",
+                                  "title": "Payment for Application Fee"
+                                },
+                                {
+                                  "paymentRequestId": "payment_1234567890abcdef",
+                                  "title": "Service Registration Fee"
+                                },
+                                {
+                                  "paymentRequestId": "payment_9876543210fedcba",
+                                  "title": "License Renewal Payment"
+                                }
+                              ],
                               "type": "object",
                               "properties": {
                                 "paymentRequestId": {
@@ -5036,6 +5904,19 @@
                             },
                             {
                               "additionalProperties": false,
+                              "examples": [
+                                {
+                                  "templateId": "template_abcdef1234567890",
+                                  "title": "Payment Receipt",
+                                  "recipients": [
+                                    "customer@example.com"
+                                  ],
+                                  "generatePDF": true,
+                                  "uiConfig": {
+                                    "setupPageVersion": "citizen-notification"
+                                  }
+                                }
+                              ],
                               "type": "object",
                               "properties": {
                                 "templateId": {
@@ -5075,6 +5956,28 @@
                             },
                             {
                               "additionalProperties": false,
+                              "examples": [
+                                {
+                                  "buttonLabel": {
+                                    "en": "Return to Dashboard",
+                                    "ga": "Filleadh ar an mPainéal Riaracháin"
+                                  },
+                                  "returnUrl": "https://services.gov.ie/dashboard"
+                                },
+                                {
+                                  "buttonLabel": {
+                                    "en": "Continue to Next Step",
+                                    "ga": "Lean ar aghaidh chuig an gcéad chéim eile"
+                                  },
+                                  "returnUrl": "https://services.gov.ie/next-step"
+                                },
+                                {
+                                  "buttonLabel": {
+                                    "en": "View Results"
+                                  },
+                                  "returnUrl": "https://services.gov.ie/results"
+                                }
+                              ],
                               "type": "object",
                               "properties": {
                                 "buttonLabel": {
@@ -5134,7 +6037,20 @@
                         "configured",
                         "createdAt",
                         "updatedAt"
-                      ]
+                      ],
+                      "example": {
+                        "id": "step_title_001",
+                        "journeyId": "journey_1234567890abcdef",
+                        "stepType": "title",
+                        "stepData": {
+                          "uiConfig": {
+                            "setupPageVersion": "citizen-notification"
+                          }
+                        },
+                        "configured": true,
+                        "createdAt": "2025-10-09T15:02:00.000Z",
+                        "updatedAt": "2025-10-09T15:02:00.000Z"
+                      }
                     },
                     "metadata": {
                       "type": "object",
@@ -5468,7 +6384,50 @@
                           "createdAt",
                           "updatedAt",
                           "choosenAuthMethod"
-                        ]
+                        ],
+                        "example": {
+                          "id": "970B0547",
+                          "userId": "user_1234567890abcdef",
+                          "journeyId": "journey_1234567890abcdef",
+                          "status": "submitted",
+                          "tags": [
+                            "urgent",
+                            "priority"
+                          ],
+                          "createdAt": "2025-10-09T15:02:00.000Z",
+                          "updatedAt": "2025-10-09T15:03:00.000Z",
+                          "steps": [
+                            {
+                              "id": "run_step_001",
+                              "runId": "970B0547",
+                              "stepId": "step_form_002",
+                              "stepType": "form",
+                              "status": "completed",
+                              "data": {
+                                "formSubmissionId": "68e7ce9c41ee8b6cfd77a68e",
+                                "amount": 25
+                              },
+                              "createdAt": "2025-10-09T15:02:00.000Z",
+                              "updatedAt": "2025-10-09T15:02:30.000Z"
+                            },
+                            {
+                              "id": "run_step_002",
+                              "runId": "970B0547",
+                              "stepId": "step_payment_003",
+                              "stepType": "payment",
+                              "status": "completed",
+                              "data": {
+                                "transactionId": "txn_1234567890abcdef",
+                                "amount": 25,
+                                "date": "2025-10-09T15:03:00.000Z",
+                                "provider": "stripe"
+                              },
+                              "createdAt": "2025-10-09T15:02:30.000Z",
+                              "updatedAt": "2025-10-09T15:03:00.000Z"
+                            }
+                          ],
+                          "choosenAuthMethod": "email_otp"
+                        }
                       }
                     },
                     "metadata": {
@@ -5802,6 +6761,19 @@
                               "data": {
                                 "anyOf": [
                                   {
+                                    "examples": [
+                                      {
+                                        "formSubmissionId": "68e7ce9c41ee8b6cfd77a68e",
+                                        "amount": 25
+                                      },
+                                      {
+                                        "formSubmissionId": "form_submission_1234567890abcdef",
+                                        "amount": 50
+                                      },
+                                      {
+                                        "formSubmissionId": "form_submission_9876543210fedcba"
+                                      }
+                                    ],
                                     "type": "object",
                                     "properties": {
                                       "formSubmissionId": {
@@ -5816,6 +6788,26 @@
                                     ]
                                   },
                                   {
+                                    "examples": [
+                                      {
+                                        "transactionId": "txn_1234567890abcdef",
+                                        "amount": 25,
+                                        "date": "2025-10-09T15:03:00.000Z",
+                                        "provider": "stripe"
+                                      },
+                                      {
+                                        "transactionId": "txn_9876543210fedcba",
+                                        "amount": 50,
+                                        "date": "2025-10-09T15:05:00.000Z",
+                                        "provider": "realex"
+                                      },
+                                      {
+                                        "transactionId": "txn_abcdef1234567890",
+                                        "amount": 100,
+                                        "date": "2025-10-09T15:10:00.000Z",
+                                        "provider": "realex"
+                                      }
+                                    ],
                                     "type": "object",
                                     "properties": {
                                       "transactionId": {
@@ -5876,7 +6868,50 @@
                         "updatedAt",
                         "steps",
                         "choosenAuthMethod"
-                      ]
+                      ],
+                      "example": {
+                        "id": "970B0547",
+                        "userId": "user_1234567890abcdef",
+                        "journeyId": "journey_1234567890abcdef",
+                        "status": "submitted",
+                        "tags": [
+                          "urgent",
+                          "priority"
+                        ],
+                        "createdAt": "2025-10-09T15:02:00.000Z",
+                        "updatedAt": "2025-10-09T15:03:00.000Z",
+                        "steps": [
+                          {
+                            "id": "run_step_001",
+                            "runId": "970B0547",
+                            "stepId": "step_form_002",
+                            "stepType": "form",
+                            "status": "completed",
+                            "data": {
+                              "formSubmissionId": "68e7ce9c41ee8b6cfd77a68e",
+                              "amount": 25
+                            },
+                            "createdAt": "2025-10-09T15:02:00.000Z",
+                            "updatedAt": "2025-10-09T15:02:30.000Z"
+                          },
+                          {
+                            "id": "run_step_002",
+                            "runId": "970B0547",
+                            "stepId": "step_payment_003",
+                            "stepType": "payment",
+                            "status": "completed",
+                            "data": {
+                              "transactionId": "txn_1234567890abcdef",
+                              "amount": 25,
+                              "date": "2025-10-09T15:03:00.000Z",
+                              "provider": "stripe"
+                            },
+                            "createdAt": "2025-10-09T15:02:30.000Z",
+                            "updatedAt": "2025-10-09T15:03:00.000Z"
+                          }
+                        ],
+                        "choosenAuthMethod": "email_otp"
+                      }
                     },
                     "metadata": {
                       "type": "object",
@@ -6220,7 +7255,50 @@
                           "createdAt",
                           "updatedAt",
                           "choosenAuthMethod"
-                        ]
+                        ],
+                        "example": {
+                          "id": "970B0547",
+                          "userId": "user_1234567890abcdef",
+                          "journeyId": "journey_1234567890abcdef",
+                          "status": "submitted",
+                          "tags": [
+                            "urgent",
+                            "priority"
+                          ],
+                          "createdAt": "2025-10-09T15:02:00.000Z",
+                          "updatedAt": "2025-10-09T15:03:00.000Z",
+                          "steps": [
+                            {
+                              "id": "run_step_001",
+                              "runId": "970B0547",
+                              "stepId": "step_form_002",
+                              "stepType": "form",
+                              "status": "completed",
+                              "data": {
+                                "formSubmissionId": "68e7ce9c41ee8b6cfd77a68e",
+                                "amount": 25
+                              },
+                              "createdAt": "2025-10-09T15:02:00.000Z",
+                              "updatedAt": "2025-10-09T15:02:30.000Z"
+                            },
+                            {
+                              "id": "run_step_002",
+                              "runId": "970B0547",
+                              "stepId": "step_payment_003",
+                              "stepType": "payment",
+                              "status": "completed",
+                              "data": {
+                                "transactionId": "txn_1234567890abcdef",
+                                "amount": 25,
+                                "date": "2025-10-09T15:03:00.000Z",
+                                "provider": "stripe"
+                              },
+                              "createdAt": "2025-10-09T15:02:30.000Z",
+                              "updatedAt": "2025-10-09T15:03:00.000Z"
+                            }
+                          ],
+                          "choosenAuthMethod": "email_otp"
+                        }
                       }
                     },
                     "metadata": {
@@ -6554,6 +7632,19 @@
                               "data": {
                                 "anyOf": [
                                   {
+                                    "examples": [
+                                      {
+                                        "formSubmissionId": "68e7ce9c41ee8b6cfd77a68e",
+                                        "amount": 25
+                                      },
+                                      {
+                                        "formSubmissionId": "form_submission_1234567890abcdef",
+                                        "amount": 50
+                                      },
+                                      {
+                                        "formSubmissionId": "form_submission_9876543210fedcba"
+                                      }
+                                    ],
                                     "type": "object",
                                     "properties": {
                                       "formSubmissionId": {
@@ -6568,6 +7659,26 @@
                                     ]
                                   },
                                   {
+                                    "examples": [
+                                      {
+                                        "transactionId": "txn_1234567890abcdef",
+                                        "amount": 25,
+                                        "date": "2025-10-09T15:03:00.000Z",
+                                        "provider": "stripe"
+                                      },
+                                      {
+                                        "transactionId": "txn_9876543210fedcba",
+                                        "amount": 50,
+                                        "date": "2025-10-09T15:05:00.000Z",
+                                        "provider": "realex"
+                                      },
+                                      {
+                                        "transactionId": "txn_abcdef1234567890",
+                                        "amount": 100,
+                                        "date": "2025-10-09T15:10:00.000Z",
+                                        "provider": "realex"
+                                      }
+                                    ],
                                     "type": "object",
                                     "properties": {
                                       "transactionId": {
@@ -7208,6 +8319,49 @@
                 "required": [
                   "status"
                 ]
+              },
+              "example": {
+                "id": "970B0547",
+                "userId": "user_1234567890abcdef",
+                "journeyId": "journey_1234567890abcdef",
+                "status": "submitted",
+                "tags": [
+                  "urgent",
+                  "priority"
+                ],
+                "createdAt": "2025-10-09T15:02:00.000Z",
+                "updatedAt": "2025-10-09T15:03:00.000Z",
+                "steps": [
+                  {
+                    "id": "run_step_001",
+                    "runId": "970B0547",
+                    "stepId": "step_form_002",
+                    "stepType": "form",
+                    "status": "completed",
+                    "data": {
+                      "formSubmissionId": "68e7ce9c41ee8b6cfd77a68e",
+                      "amount": 25
+                    },
+                    "createdAt": "2025-10-09T15:02:00.000Z",
+                    "updatedAt": "2025-10-09T15:02:30.000Z"
+                  },
+                  {
+                    "id": "run_step_002",
+                    "runId": "970B0547",
+                    "stepId": "step_payment_003",
+                    "stepType": "payment",
+                    "status": "completed",
+                    "data": {
+                      "transactionId": "txn_1234567890abcdef",
+                      "amount": 25,
+                      "date": "2025-10-09T15:03:00.000Z",
+                      "provider": "stripe"
+                    },
+                    "createdAt": "2025-10-09T15:02:30.000Z",
+                    "updatedAt": "2025-10-09T15:03:00.000Z"
+                  }
+                ],
+                "choosenAuthMethod": "email_otp"
               }
             }
           },
@@ -7271,7 +8425,50 @@
                       },
                       "required": [
                         "status"
-                      ]
+                      ],
+                      "example": {
+                        "id": "970B0547",
+                        "userId": "user_1234567890abcdef",
+                        "journeyId": "journey_1234567890abcdef",
+                        "status": "submitted",
+                        "tags": [
+                          "urgent",
+                          "priority"
+                        ],
+                        "createdAt": "2025-10-09T15:02:00.000Z",
+                        "updatedAt": "2025-10-09T15:03:00.000Z",
+                        "steps": [
+                          {
+                            "id": "run_step_001",
+                            "runId": "970B0547",
+                            "stepId": "step_form_002",
+                            "stepType": "form",
+                            "status": "completed",
+                            "data": {
+                              "formSubmissionId": "68e7ce9c41ee8b6cfd77a68e",
+                              "amount": 25
+                            },
+                            "createdAt": "2025-10-09T15:02:00.000Z",
+                            "updatedAt": "2025-10-09T15:02:30.000Z"
+                          },
+                          {
+                            "id": "run_step_002",
+                            "runId": "970B0547",
+                            "stepId": "step_payment_003",
+                            "stepType": "payment",
+                            "status": "completed",
+                            "data": {
+                              "transactionId": "txn_1234567890abcdef",
+                              "amount": 25,
+                              "date": "2025-10-09T15:03:00.000Z",
+                              "provider": "stripe"
+                            },
+                            "createdAt": "2025-10-09T15:02:30.000Z",
+                            "updatedAt": "2025-10-09T15:03:00.000Z"
+                          }
+                        ],
+                        "choosenAuthMethod": "email_otp"
+                      }
                     },
                     "metadata": {
                       "type": "object",
@@ -8368,6 +9565,23 @@
                 "required": [
                   "journeyId"
                 ]
+              },
+              "examples": {
+                "example1": {
+                  "value": {
+                    "journeyId": "journey_1234567890abcdef"
+                  }
+                },
+                "example2": {
+                  "value": {
+                    "journeyId": "journey_9876543210fedcba"
+                  }
+                },
+                "example3": {
+                  "value": {
+                    "journeyId": "journey_abcdef1234567890"
+                  }
+                }
               }
             }
           },
@@ -8390,7 +9604,10 @@
                       },
                       "required": [
                         "id"
-                      ]
+                      ],
+                      "example": {
+                        "id": "db28c9c2-984c-4295-9a89-ee93f4b9f059"
+                      }
                     },
                     "metadata": {
                       "type": "object",
@@ -8758,6 +9975,29 @@
                   "runId",
                   "language"
                 ]
+              },
+              "examples": {
+                "example1": {
+                  "value": {
+                    "journeyId": "journey_1234567890abcdef",
+                    "runId": "970B0547",
+                    "language": "en"
+                  }
+                },
+                "example2": {
+                  "value": {
+                    "journeyId": "journey_9876543210fedcba",
+                    "runId": "run_9876543210fedcba",
+                    "language": "ga"
+                  }
+                },
+                "example3": {
+                  "value": {
+                    "journeyId": "journey_abcdef1234567890",
+                    "runId": "run_abcdef1234567890",
+                    "language": "en"
+                  }
+                }
               }
             }
           },
@@ -8825,7 +10065,12 @@
                         "url",
                         "stepId",
                         "stepType"
-                      ]
+                      ],
+                      "example": {
+                        "url": "https://forms.uat.services.gov.ie/admin/form/68ca7425d5fe2c00124268f6/results/68e7ce9c41ee8b6cfd77a68e",
+                        "stepId": "step_form_002",
+                        "stepType": "form"
+                      }
                     },
                     "metadata": {
                       "type": "object",
@@ -9267,7 +10512,12 @@
                         "url",
                         "stepId",
                         "stepType"
-                      ]
+                      ],
+                      "example": {
+                        "url": "https://forms.uat.services.gov.ie/admin/form/68ca7425d5fe2c00124268f6/results/68e7ce9c41ee8b6cfd77a68e",
+                        "stepId": "step_form_002",
+                        "stepType": "form"
+                      }
                     },
                     "metadata": {
                       "type": "object",
@@ -9669,6 +10919,7 @@
                           ]
                         },
                         "returnUrl": {
+                          "validator": "URLValidator",
                           "type": "string"
                         }
                       },
@@ -9678,7 +10929,20 @@
                         "createdAt",
                         "actionLabel",
                         "returnUrl"
-                      ]
+                      ],
+                      "example": {
+                        "runId": "970B0547",
+                        "title": {
+                          "en": "Test messaging",
+                          "ga": "Teistphostú"
+                        },
+                        "createdAt": "2025-10-09T15:02:00.000Z",
+                        "actionLabel": {
+                          "en": "View Submission",
+                          "ga": "Féach ar an gCur isteach"
+                        },
+                        "returnUrl": "https://services.gov.ie/dashboard/submissions/970B0547"
+                      }
                     },
                     "metadata": {
                       "type": "object",
@@ -10027,6 +11291,18 @@
                   "required": [
                     "ok"
                   ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "ok": true
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "ok": false
+                    }
+                  }
                 }
               }
             }
@@ -10168,6 +11444,14 @@
             },
             "in": "query",
             "name": "action",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "userId",
             "required": false
           },
           {
