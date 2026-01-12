@@ -350,6 +350,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/transactions/search": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Search Transactions
+         * @description Retrieve a list of transactions based on a given list of transaction ids.
+         */
+        post: operations["searchTransactions"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/transactions/schema": {
         parameters: {
             query?: never;
@@ -704,8 +724,8 @@ export interface paths {
         get?: never;
         put?: never;
         /**
-         * Get Worldpay Payment Object
-         * @description Generate a Worldpay payment object for processing payments through the Worldpay payment provider.
+         * Initiate a Worldpay payment
+         * @description Generate a Worldpay payment request to initiate a payment and obtain the payment page URL.
          */
         post: operations["createWorldpayPaymentRequest"];
         delete?: never;
@@ -1070,6 +1090,8 @@ export interface operations {
                             } | {
                                 merchantCode: string;
                                 installationId: string;
+                                username: string;
+                                password: string;
                             } | {
                                 merchantId: string;
                                 sharedSecret: string;
@@ -2776,6 +2798,150 @@ export interface operations {
             };
         };
     };
+    searchTransactions: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    transactionIds: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            transactionId: string;
+                            status: "initiated" | "pending" | "succeeded" | "cancelled" | "cancellation_requested" | "failed" | "refunded" | "refund_failed";
+                            amount: number;
+                            extPaymentId: string;
+                            paymentProviderId: string;
+                            updatedAt: string;
+                            title: {
+                                en: string;
+                                ga?: string;
+                            };
+                            userId: string;
+                            metadata: {
+                                runId?: string;
+                                journeyId?: string;
+                                journeyTitle?: {
+                                    en: string;
+                                    ga?: string;
+                                };
+                                redirectUrls?: {
+                                    en: string;
+                                    ga: string;
+                                };
+                                amount?: string;
+                                providerData?: {
+                                    chargeId: string;
+                                };
+                            };
+                            description: {
+                                en: string;
+                                ga?: string;
+                            };
+                            providerName: string;
+                            providerType: string;
+                            paymentRequestId: string;
+                        }[];
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        detail: string;
+                        requestId: string;
+                        name: string;
+                        validation?: unknown;
+                        validationContext?: string;
+                    };
+                };
+            };
+            /** @description Default Response */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        detail: string;
+                        requestId: string;
+                        name: string;
+                        validation?: unknown;
+                        validationContext?: string;
+                    };
+                };
+            };
+            /** @description Default Response */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        detail: string;
+                        requestId: string;
+                        name: string;
+                        validation?: unknown;
+                        validationContext?: string;
+                    };
+                };
+            };
+        };
+    };
     getTransactionSchema: {
         parameters: {
             query?: never;
@@ -4440,7 +4606,6 @@ export interface operations {
                 "application/json": {
                     intentId: string;
                     amount: string;
-                    providerId: string;
                     paymentRequestId: string;
                     token?: string;
                 };
@@ -4539,8 +4704,45 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": {
+                    eventId: string;
+                    eventTimestamp: string;
+                    eventDetails: {
+                        classification: string;
+                        downstreamReference?: string;
+                        transactionReference?: string;
+                        type: string;
+                        date: string;
+                    };
+                    reference?: string;
+                    refund?: {
+                        onlineRefundAuthorization: string;
+                        refusal?: {
+                            code: string;
+                            description: string;
+                        };
+                    };
+                    amount?: {
+                        value: number;
+                        currencyCode: string;
+                    };
+                    value?: number;
+                    _links?: Record<string, never>;
+                };
+            };
+        };
         responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
             /** @description Default Response */
             404: {
                 headers: {
