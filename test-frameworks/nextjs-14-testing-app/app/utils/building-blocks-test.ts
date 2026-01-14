@@ -13,6 +13,7 @@ export async function loadSdk() {
       profile: { baseUrl },
       scheduler: { baseUrl },
       featureFlags: { baseUrl },
+      auditCollector: { baseUrl },
     },
     getTokenFn: async (serviceName: string) => serviceName,
   });
