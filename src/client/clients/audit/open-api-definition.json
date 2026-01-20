@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "OGCIO Fastify Scaffolding API",
-    "description": "API for OGCIO Fastify Scaffolding",
+    "title": "OGCIO Audit Collector API",
+    "description": "API for OGCIO Audit Collector",
     "version": "0.1.0"
   },
   "components": {

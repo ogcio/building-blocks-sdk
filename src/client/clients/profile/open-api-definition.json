@@ -5256,6 +5256,277 @@
         }
       }
     },
+    "/api/v1/organisations/profiles/{profileId}": {
+      "patch": {
+        "operationId": "adminProfilesPatch",
+        "tags": [
+          "AdminProfiles"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": false,
+                "type": "object",
+                "properties": {
+                  "primaryUserId": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "primaryUserId"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "profileId",
+            "required": true,
+            "description": "ID of the profile to update"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "primaryUserId": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "primaryUserId"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "description": "Object containing the links to the related endpoints",
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the request itself",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "description": "It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2'",
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "description": "Number representing the total number of available items",
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "description": "Code used to categorize the error",
+                      "type": "string"
+                    },
+                    "detail": {
+                      "description": "Description of the error",
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique request id. This one will be used to troubleshoot the problems",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of the error type",
+                      "type": "string"
+                    },
+                    "validation": {
+                      "description": "List of the validation errors",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "fieldName": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "fieldName",
+                          "message"
+                        ]
+                      }
+                    },
+                    "validationContext": {
+                      "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name",
+                    "statusCode"
+                  ]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "description": "Code used to categorize the error",
+                      "type": "string"
+                    },
+                    "detail": {
+                      "description": "Description of the error",
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique request id. This one will be used to troubleshoot the problems",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of the error type",
+                      "type": "string"
+                    },
+                    "validation": {
+                      "description": "List of the validation errors",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "fieldName": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "fieldName",
+                          "message"
+                        ]
+                      }
+                    },
+                    "validationContext": {
+                      "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name",
+                    "statusCode"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/organisations/{organisationId}": {
       "get": {
         "operationId": "getOrganisation",
@@ -5263,6 +5534,22 @@
           "Organisations"
         ],
         "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "true",
+                "false",
+                "0",
+                "1"
+              ],
+              "default": "false"
+            },
+            "in": "query",
+            "name": "includeCustomData",
+            "required": false,
+            "description": "If true, includes organization customData from Logto in the response."
+          },
           {
             "schema": {
               "type": "string"
@@ -5325,6 +5612,14 @@
                             "en",
                             "ga"
                           ]
+                        },
+                        "customData": {
+                          "type": "object",
+                          "properties": {
+                            "allowMyGovId": {
+                              "type": "boolean"
+                            }
+                          }
                         }
                       },
                       "required": [
@@ -5797,6 +6092,29 @@
                               }
                             ]
                           },
+                          "status": {
+                            "default": "active",
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "active"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "disabled"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "deleted"
+                                ]
+                              }
+                            ]
+                          },
                           "details": {
                             "type": "object",
                             "properties": {
@@ -5859,7 +6177,8 @@
                           "id",
                           "publicName",
                           "email",
-                          "primaryUserId"
+                          "primaryUserId",
+                          "status"
                         ]
                       }
                     },
@@ -6293,6 +6612,29 @@
                               }
                             ]
                           },
+                          "status": {
+                            "default": "active",
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "active"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "disabled"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "deleted"
+                                ]
+                              }
+                            ]
+                          },
                           "details": {
                             "type": "object",
                             "properties": {
@@ -6355,7 +6697,8 @@
                           "id",
                           "publicName",
                           "email",
-                          "primaryUserId"
+                          "primaryUserId",
+                          "status"
                         ]
                       }
                     },
@@ -6760,6 +7103,29 @@
                               }
                             ]
                           },
+                          "status": {
+                            "default": "active",
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "active"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "disabled"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "deleted"
+                                ]
+                              }
+                            ]
+                          },
                           "details": {
                             "type": "object",
                             "properties": {
@@ -6822,7 +7188,8 @@
                           "id",
                           "publicName",
                           "email",
-                          "primaryUserId"
+                          "primaryUserId",
+                          "status"
                         ]
                       }
                     },
@@ -7252,6 +7619,29 @@
                             }
                           ]
                         },
+                        "status": {
+                          "default": "active",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "active"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "disabled"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "deleted"
+                              ]
+                            }
+                          ]
+                        },
                         "details": {
                           "type": "object",
                           "properties": {
@@ -7314,7 +7704,8 @@
                         "id",
                         "publicName",
                         "email",
-                        "primaryUserId"
+                        "primaryUserId",
+                        "status"
                       ]
                     },
                     "metadata": {
@@ -7738,6 +8129,29 @@
                             }
                           ]
                         },
+                        "status": {
+                          "default": "active",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "active"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "disabled"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "deleted"
+                              ]
+                            }
+                          ]
+                        },
                         "details": {
                           "type": "object",
                           "properties": {
@@ -7824,7 +8238,8 @@
                         "id",
                         "publicName",
                         "email",
-                        "primaryUserId"
+                        "primaryUserId",
+                        "status"
                       ]
                     },
                     "metadata": {
@@ -8273,6 +8688,29 @@
                             }
                           ]
                         },
+                        "status": {
+                          "default": "active",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "active"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "disabled"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "deleted"
+                              ]
+                            }
+                          ]
+                        },
                         "details": {
                           "type": "object",
                           "properties": {
@@ -8335,7 +8773,8 @@
                         "id",
                         "publicName",
                         "email",
-                        "primaryUserId"
+                        "primaryUserId",
+                        "status"
                       ]
                     },
                     "metadata": {
@@ -8782,6 +9221,29 @@
                             }
                           ]
                         },
+                        "status": {
+                          "default": "active",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "active"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "disabled"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": [
+                                "deleted"
+                              ]
+                            }
+                          ]
+                        },
                         "details": {
                           "type": "object",
                           "properties": {
@@ -8844,7 +9306,252 @@
                         "id",
                         "publicName",
                         "email",
-                        "primaryUserId"
+                        "primaryUserId",
+                        "status"
+                      ]
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "description": "Object containing the links to the related endpoints",
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the request itself",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "description": "URL pointing to the first page of results in a paginated response",
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "description": "It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2'",
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "description": "Number representing the total number of available items",
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "description": "Code used to categorize the error",
+                      "type": "string"
+                    },
+                    "detail": {
+                      "description": "Description of the error",
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique request id. This one will be used to troubleshoot the problems",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of the error type",
+                      "type": "string"
+                    },
+                    "validation": {
+                      "description": "List of the validation errors",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "fieldName": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "fieldName",
+                          "message"
+                        ]
+                      }
+                    },
+                    "validationContext": {
+                      "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name",
+                    "statusCode"
+                  ]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "description": "Code used to categorize the error",
+                      "type": "string"
+                    },
+                    "detail": {
+                      "description": "Description of the error",
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique request id. This one will be used to troubleshoot the problems",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of the error type",
+                      "type": "string"
+                    },
+                    "validation": {
+                      "description": "List of the validation errors",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "fieldName": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "fieldName",
+                          "message"
+                        ]
+                      }
+                    },
+                    "validationContext": {
+                      "type": "string"
+                    },
+                    "statusCode": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name",
+                    "statusCode"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteProfile",
+        "tags": [
+          "Profiles"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "profileId",
+            "required": true,
+            "description": "ID of the profile to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "taskId": {
+                          "description": "ID of the created task",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "taskId"
                       ]
                     },
                     "metadata": {
@@ -10379,16 +11086,6 @@
                     "data": {
                       "type": "object",
                       "properties": {
-                        "organisationId": {
-                          "type": "string"
-                        },
-                        "status": {
-                          "type": "string"
-                        },
-                        "createdAt": {
-                          "format": "date-time",
-                          "type": "string"
-                        },
                         "metadata": {
                           "type": "object",
                           "properties": {
@@ -10398,11 +11095,17 @@
                             "mimetype": {
                               "type": "string"
                             }
-                          },
-                          "required": [
-                            "filename",
-                            "mimetype"
-                          ]
+                          }
+                        },
+                        "organisationId": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "format": "date-time",
+                          "type": "string"
                         },
                         "details": {
                           "type": "array",
@@ -10472,7 +11175,6 @@
                       "required": [
                         "organisationId",
                         "status",
-                        "metadata",
                         "details"
                       ]
                     },
@@ -10980,16 +11682,6 @@
                         "type": "object",
                         "additionalProperties": {}
                       },
-                      "applicationId": {
-                        "anyOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "null"
-                          }
-                        ]
-                      },
                       "isSuspended": {
                         "type": "boolean"
                       },
@@ -11003,6 +11695,31 @@
                       "primaryEmail",
                       "customData",
                       "identities"
+                    ]
+                  },
+                  "application": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "applicationId": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
                     ]
                   }
                 },
