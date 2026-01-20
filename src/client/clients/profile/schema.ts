@@ -275,11 +275,25 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/organisations/profiles/{profileId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["adminProfilesPatch"];
+        trace?: never;
+    };
     "/api/v1/organisations/{organisationId}": {
         parameters: {
-            query?: {
-                includeCustomData?: boolean;
-            };
+            query?: never;
             header?: never;
             path?: never;
             cookie?: never;
@@ -292,7 +306,6 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
-        
     };
     "/api/v1/profiles/": {
         parameters: {
@@ -352,7 +365,7 @@ export interface paths {
         get: operations["getProfile"];
         put: operations["putProfile"];
         post?: never;
-        delete?: never;
+        delete: operations["deleteProfile"];
         options?: never;
         head?: never;
         patch: operations["patchProfile"];
@@ -2207,10 +2220,127 @@ export interface operations {
             };
         };
     };
+    adminProfilesPatch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the profile to update */
+                profileId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    primaryUserId: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            primaryUserId: string;
+                        };
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+        };
+    };
     getOrganisation: {
         parameters: {
             query?: {
-                includeCustomData?: boolean;
+                /** @description If true, includes organization customData from Logto in the response. */
+                includeCustomData?: "true" | "false" | "0" | "1";
             };
             header?: never;
             path: {
@@ -2239,10 +2369,10 @@ export interface operations {
                                     name: string;
                                     shortName: string;
                                 };
-                            },
+                            };
                             customData?: {
-                                allowMyGovId?: boolean,
-                            }
+                                allowMyGovId?: boolean;
+                            };
                         };
                         metadata?: {
                             /** @description Object containing the links to the related endpoints */
@@ -2399,6 +2529,8 @@ export interface operations {
                                     consent_statement_id: string;
                                 };
                             } | null;
+                            /** @default active */
+                            status: "active" | "disabled" | "deleted";
                             details?: {
                                 email: string;
                                 firstName: string;
@@ -2569,6 +2701,8 @@ export interface operations {
                                     consent_statement_id: string;
                                 };
                             } | null;
+                            /** @default active */
+                            status: "active" | "disabled" | "deleted";
                             details?: {
                                 email: string;
                                 firstName: string;
@@ -2730,6 +2864,8 @@ export interface operations {
                                     consent_statement_id: string;
                                 };
                             } | null;
+                            /** @default active */
+                            status: "active" | "disabled" | "deleted";
                             details?: {
                                 email: string;
                                 firstName: string;
@@ -2897,6 +3033,8 @@ export interface operations {
                                     consent_statement_id: string;
                                 };
                             } | null;
+                            /** @default active */
+                            status: "active" | "disabled" | "deleted";
                             details?: {
                                 email: string;
                                 firstName: string;
@@ -3061,6 +3199,8 @@ export interface operations {
                                     consent_statement_id: string;
                                 };
                             } | null;
+                            /** @default active */
+                            status: "active" | "disabled" | "deleted";
                             details?: {
                                 email: string;
                                 firstName: string;
@@ -3247,6 +3387,8 @@ export interface operations {
                                     consent_statement_id: string;
                                 };
                             } | null;
+                            /** @default active */
+                            status: "active" | "disabled" | "deleted";
                             details?: {
                                 email: string;
                                 firstName: string;
@@ -3264,6 +3406,117 @@ export interface operations {
                                 preferredLanguage: "en" | "ga";
                                 externalId?: string;
                             };
+                        };
+                        metadata?: {
+                            /** @description Object containing the links to the related endpoints */
+                            links?: {
+                                self: {
+                                    /** @description URL pointing to the request itself */
+                                    href?: string;
+                                };
+                                next?: {
+                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                prev?: {
+                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
+                                    href?: string;
+                                };
+                                first: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                last: {
+                                    /** @description URL pointing to the first page of results in a paginated response */
+                                    href?: string;
+                                };
+                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            /** @description Number representing the total number of available items */
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+        };
+    };
+    deleteProfile: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the profile to delete */
+                profileId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** @description ID of the created task */
+                            taskId: string;
                         };
                         metadata?: {
                             /** @description Object containing the links to the related endpoints */
@@ -3427,6 +3680,8 @@ export interface operations {
                                     consent_statement_id: string;
                                 };
                             } | null;
+                            /** @default active */
+                            status: "active" | "disabled" | "deleted";
                             details?: {
                                 email: string;
                                 firstName: string;
@@ -3996,14 +4251,14 @@ export interface operations {
                 content: {
                     "application/json": {
                         data: {
+                            metadata?: {
+                                filename?: string;
+                                mimetype?: string;
+                            };
                             organisationId: string;
                             status: string;
                             /** Format: date-time */
                             createdAt?: string;
-                            metadata: {
-                                filename: string;
-                                mimetype: string;
-                            };
                             details: {
                                 email: string;
                                 firstName: string;
@@ -4185,10 +4440,13 @@ export interface operations {
                         profile?: {
                             [key: string]: unknown;
                         };
-                        applicationId?: string | null;
                         isSuspended?: boolean;
                         hasPassword?: boolean;
                     };
+                    application?: {
+                        id?: string | null;
+                    };
+                    applicationId?: string | null;
                 };
             };
         };

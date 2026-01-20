@@ -126,6 +126,15 @@ export class Profile extends BaseClient<paths> {
       );
   }
 
+  async deleteProfile(
+    params: paths["/api/v1/profiles/{profileId}"]["delete"]["parameters"]["path"],
+  ) {
+    throwIfEmpty(params.profileId);
+    return this.client.DELETE("/api/v1/profiles/{profileId}", {
+      params: { path: params },
+    });
+  }
+
   async findProfile(
     query: Omit<
       paths["/api/v1/profiles/find-profile"]["get"]["parameters"]["query"],
@@ -325,7 +334,7 @@ export class Profile extends BaseClient<paths> {
     throwIfEmpty(organisationId);
     return this.client.GET("/api/v1/organisations/{organisationId}", {
       params: {
-        query: includeCustomData ? { includeCustomData } : undefined,
+        query: includeCustomData ? { includeCustomData: "true" } : undefined,
         path: { organisationId },
       },
     });
