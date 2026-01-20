@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.74](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.73...@ogcio/building-blocks-sdk@v0.2.74) (2026-01-20)
+
+
+### Features
+
+* **profile:** added delete profile ([#312](https://github.com/ogcio/building-blocks-sdk/issues/312)) ([3073ec0](https://github.com/ogcio/building-blocks-sdk/commit/3073ec0b2351d900cfc3aab14b7149d26f18d587))
+
 ## [0.2.73](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.72...@ogcio/building-blocks-sdk@v0.2.73) (2026-01-12)
 
 
