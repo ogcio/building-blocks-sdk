@@ -1926,6 +1926,25 @@
                               ]
                             }
                           },
+                          "allowedAuthMethods": {
+                            "type": "array",
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "email_otp"
+                                  ]
+                                },
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "social:mygovid"
+                                  ]
+                                }
+                              ]
+                            }
+                          },
                           "status": {
                             "anyOf": [
                               {
@@ -1953,6 +1972,7 @@
                           "paymentRequestId",
                           "title",
                           "providers",
+                          "allowedAuthMethods",
                           "status"
                         ],
                         "example": {
@@ -1985,6 +2005,7 @@
                               "createdAt": "2024-01-15T10:30:00Z"
                             }
                           ],
+                          "allowedAuthMethods": [],
                           "status": "active"
                         }
                       }
@@ -2202,6 +2223,25 @@
                   "allowCustomAmount": {
                     "type": "boolean"
                   },
+                  "allowedAuthMethods": {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "enum": [
+                            "email_otp"
+                          ]
+                        },
+                        {
+                          "type": "string",
+                          "enum": [
+                            "social:mygovid"
+                          ]
+                        }
+                      ]
+                    }
+                  },
                   "providers": {
                     "type": "array",
                     "items": {
@@ -2240,6 +2280,7 @@
                   "redirectUrl",
                   "allowAmountOverride",
                   "allowCustomAmount",
+                  "allowedAuthMethods",
                   "providers",
                   "status"
                 ]
@@ -2260,6 +2301,9 @@
                     "redirectUrl": "https://example.com/success",
                     "allowAmountOverride": false,
                     "allowCustomAmount": false,
+                    "allowedAuthMethods": [
+                      "email_otp"
+                    ],
                     "providers": [
                       "prov_stripe_001",
                       "prov_realex_001"
@@ -2282,6 +2326,9 @@
                     "redirectUrl": null,
                     "allowAmountOverride": true,
                     "allowCustomAmount": true,
+                    "allowedAuthMethods": [
+                      "email_otp"
+                    ],
                     "providers": [
                       "prov_stripe_001"
                     ],
@@ -2303,6 +2350,9 @@
                     "redirectUrl": "https://example.com/donation-success",
                     "allowAmountOverride": true,
                     "allowCustomAmount": true,
+                    "allowedAuthMethods": [
+                      "social:mygovid"
+                    ],
                     "providers": [
                       "prov_stripe_001"
                     ],
@@ -2711,6 +2761,25 @@
                   "allowCustomAmount": {
                     "type": "boolean"
                   },
+                  "allowedAuthMethods": {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "enum": [
+                            "email_otp"
+                          ]
+                        },
+                        {
+                          "type": "string",
+                          "enum": [
+                            "social:mygovid"
+                          ]
+                        }
+                      ]
+                    }
+                  },
                   "providers": {
                     "type": "array",
                     "items": {
@@ -2773,6 +2842,7 @@
                   "redirectUrl",
                   "allowAmountOverride",
                   "allowCustomAmount",
+                  "allowedAuthMethods",
                   "providers",
                   "status",
                   "paymentRequestId",
@@ -3160,6 +3230,25 @@
                           "amount": {
                             "type": "number"
                           },
+                          "allowedAuthMethods": {
+                            "type": "array",
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "email_otp"
+                                  ]
+                                },
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "social:mygovid"
+                                  ]
+                                }
+                              ]
+                            }
+                          },
                           "allowAmountOverride": {
                             "type": "boolean"
                           },
@@ -3170,6 +3259,7 @@
                         "required": [
                           "paymentRequestId",
                           "title",
+                          "allowedAuthMethods",
                           "allowAmountOverride",
                           "createdAt"
                         ],
@@ -3184,6 +3274,9 @@
                             "ga": "Íocaíocht le haghaidh do cheadúnais tiomána a athnuachan"
                           },
                           "amount": 55,
+                          "allowedAuthMethods": [
+                            "email_otp"
+                          ],
                           "allowAmountOverride": false,
                           "createdAt": "2024-01-15T10:30:00Z"
                         }
@@ -3422,6 +3515,25 @@
                             ]
                           }
                         },
+                        "allowedAuthMethods": {
+                          "type": "array",
+                          "items": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "email_otp"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "social:mygovid"
+                                ]
+                              }
+                            ]
+                          }
+                        },
                         "status": {
                           "anyOf": [
                             {
@@ -3458,6 +3570,7 @@
                         "paymentRequestId",
                         "title",
                         "providers",
+                        "allowedAuthMethods",
                         "status",
                         "allowAmountOverride",
                         "allowCustomAmount"
@@ -3495,7 +3608,10 @@
                         "status": "active",
                         "redirectUrl": "https://example.com/payment-success",
                         "allowAmountOverride": false,
-                        "allowCustomAmount": false
+                        "allowCustomAmount": false,
+                        "allowedAuthMethods": [
+                          "email_otp"
+                        ]
                       }
                     },
                     "metadata": {
@@ -4070,6 +4186,25 @@
                         },
                         "allowCustomAmount": {
                           "type": "boolean"
+                        },
+                        "allowedAuthMethods": {
+                          "type": "array",
+                          "items": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "email_otp"
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "social:mygovid"
+                                ]
+                              }
+                            ]
+                          }
                         }
                       },
                       "required": [
@@ -4081,7 +4216,8 @@
                         "status",
                         "redirectUrl",
                         "allowAmountOverride",
-                        "allowCustomAmount"
+                        "allowCustomAmount",
+                        "allowedAuthMethods"
                       ],
                       "example": {
                         "paymentRequestId": "pr_1234567890abcdef",
@@ -4756,6 +4892,9 @@
                           "extPaymentId": {
                             "type": "string"
                           },
+                          "choosenAuthMethod": {
+                            "type": "string"
+                          },
                           "paymentProviderId": {
                             "type": "string"
                           },
@@ -4782,12 +4921,14 @@
                           "status",
                           "amount",
                           "extPaymentId",
+                          "choosenAuthMethod",
                           "paymentProviderId",
                           "updatedAt",
                           "title"
                         ],
                         "example": {
                           "transactionId": "tx_1234567890abcdef",
+                          "choosenAuthMethod": "email_otp",
                           "status": "succeeded",
                           "amount": 25,
                           "extPaymentId": "pi_stripe_1234567890",
@@ -5150,6 +5291,9 @@
                             }
                           ]
                         },
+                        "choosenAuthMethod": {
+                          "type": "string"
+                        },
                         "paymentProviderId": {
                           "type": "string"
                         },
@@ -5256,6 +5400,7 @@
                         "status",
                         "amount",
                         "extPaymentId",
+                        "choosenAuthMethod",
                         "paymentProviderId",
                         "updatedAt",
                         "title",
@@ -5277,6 +5422,7 @@
                           "en": "Driver License Renewal Fee",
                           "ga": "Táille Athnuachana Ceadúnais Tiomána"
                         },
+                        "choosenAuthMethod": "email_otp",
                         "description": {
                           "en": "Payment for renewing your driver license",
                           "ga": "Íocaíocht le haghaidh do cheadúnais tiomána a athnuachan"
@@ -6392,6 +6538,9 @@
                               }
                             ]
                           },
+                          "choosenAuthMethod": {
+                            "type": "string"
+                          },
                           "paymentProviderId": {
                             "type": "string"
                           },
@@ -6498,6 +6647,7 @@
                           "status",
                           "amount",
                           "extPaymentId",
+                          "choosenAuthMethod",
                           "paymentProviderId",
                           "updatedAt",
                           "title",
@@ -6519,6 +6669,7 @@
                             "en": "Driver License Renewal Fee",
                             "ga": "Táille Athnuachana Ceadúnais Tiomána"
                           },
+                          "choosenAuthMethod": "email_otp",
                           "description": {
                             "en": "Payment for renewing your driver license",
                             "ga": "Íocaíocht le haghaidh do cheadúnais tiomána a athnuachan"
@@ -6977,6 +7128,7 @@
                     "extPaymentId": "pi_stripe_1234567890",
                     "amount": 25,
                     "paymentProviderId": "prov_stripe_001",
+                    "choosenAuthMethod": "email_otp",
                     "metadata": {
                       "runId": "run_1234567890",
                       "journeyId": "journey_1234567890",
@@ -7002,6 +7154,7 @@
                     "extPaymentId": "pi_realex_0987654321",
                     "amount": 80,
                     "paymentProviderId": "prov_realex_001",
+                    "choosenAuthMethod": "social:mygovid",
                     "metadata": {
                       "runId": "run_0987654321",
                       "journeyId": "journey_0987654321",
@@ -7407,6 +7560,9 @@
                               }
                             ]
                           },
+                          "choosenAuthMethod": {
+                            "type": "string"
+                          },
                           "paymentProviderId": {
                             "type": "string"
                           },
@@ -7513,6 +7669,7 @@
                           "status",
                           "amount",
                           "extPaymentId",
+                          "choosenAuthMethod",
                           "paymentProviderId",
                           "updatedAt",
                           "title",
@@ -7534,6 +7691,7 @@
                             "en": "Driver License Renewal Fee",
                             "ga": "Táille Athnuachana Ceadúnais Tiomána"
                           },
+                          "choosenAuthMethod": "email_otp",
                           "description": {
                             "en": "Payment for renewing your driver license",
                             "ga": "Íocaíocht le haghaidh do cheadúnais tiomána a athnuachan"
@@ -7912,52 +8070,7 @@
                     "examples": {
                       "type": "array",
                       "items": {
-                        "type": "object",
-                        "properties": {
-                          "userId": {
-                            "type": "string"
-                          },
-                          "transactionId": {
-                            "type": "string"
-                          },
-                          "paymentRequestId": {
-                            "type": "string"
-                          },
-                          "paymentRequestTitle": {
-                            "type": "object",
-                            "properties": {
-                              "en": {
-                                "type": "string"
-                              },
-                              "ga": {
-                                "type": "string"
-                              }
-                            }
-                          },
-                          "amount": {
-                            "type": "integer"
-                          },
-                          "extReferenceCode": {
-                            "type": "string"
-                          },
-                          "paymentMethod": {
-                            "type": "string"
-                          },
-                          "paymentProviderName": {
-                            "type": "string"
-                          },
-                          "status": {
-                            "type": "string"
-                          },
-                          "createdAt": {
-                            "type": "string",
-                            "format": "date-time"
-                          },
-                          "updatedAt": {
-                            "type": "string",
-                            "format": "date-time"
-                          }
-                        }
+                        "type": "object"
                       }
                     },
                     "type": {
@@ -8056,6 +8169,14 @@
                           }
                         },
                         "paymentProviderName": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "choosenAuthMethod": {
                           "type": "object",
                           "properties": {
                             "type": {
@@ -8380,6 +8501,9 @@
                         "paymentProviderName": {
                           "type": "string"
                         },
+                        "choosenAuthMethod": {
+                          "type": "string"
+                        },
                         "status": {
                           "anyOf": [
                             {
@@ -8448,6 +8572,7 @@
                         "extReferenceCode",
                         "paymentMethod",
                         "paymentProviderName",
+                        "choosenAuthMethod",
                         "status",
                         "createdAt",
                         "updatedAt"
@@ -8464,6 +8589,7 @@
                         "extReferenceCode": "pi_stripe_1234567890",
                         "paymentMethod": "card",
                         "paymentProviderName": "Stripe Production",
+                        "choosenAuthMethod": "email_otp",
                         "status": "succeeded",
                         "createdAt": "2024-01-15T14:30:00Z",
                         "updatedAt": "2024-01-15T14:30:00Z"
@@ -10619,6 +10745,9 @@
                             }
                           ]
                         },
+                        "choosenAuthMethod": {
+                          "type": "string"
+                        },
                         "paymentProviderId": {
                           "type": "string"
                         },
@@ -10725,6 +10854,7 @@
                         "status",
                         "amount",
                         "extPaymentId",
+                        "choosenAuthMethod",
                         "paymentProviderId",
                         "updatedAt",
                         "title",
@@ -10746,6 +10876,7 @@
                           "en": "Driver License Renewal Fee",
                           "ga": "Táille Athnuachana Ceadúnais Tiomána"
                         },
+                        "choosenAuthMethod": "email_otp",
                         "description": {
                           "en": "Payment for renewing your driver license",
                           "ga": "Íocaíocht le haghaidh do cheadúnais tiomána a athnuachan"
