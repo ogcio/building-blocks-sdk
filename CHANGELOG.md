@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.76](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.75...@ogcio/building-blocks-sdk@v0.2.76) (2026-01-22)
+
+
+### Bug Fixes
+
+* **32625:** update Building Blocks SDK for Payments ([#316](https://github.com/ogcio/building-blocks-sdk/issues/316)) ([66ef966](https://github.com/ogcio/building-blocks-sdk/commit/66ef9668206595e9b256560fdf04016d51002e8b))
+
 ## [0.2.75](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.74...@ogcio/building-blocks-sdk@v0.2.75) (2026-01-22)
 
 
