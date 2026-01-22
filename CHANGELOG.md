@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.75](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.74...@ogcio/building-blocks-sdk@v0.2.75) (2026-01-22)
+
+
+### Features
+
+* **payments:** support Authentication methods settings in Payments AB[#32625](https://github.com/ogcio/building-blocks-sdk/issues/32625) ([#314](https://github.com/ogcio/building-blocks-sdk/issues/314)) ([43d1ef8](https://github.com/ogcio/building-blocks-sdk/commit/43d1ef8d831ab02f1a7cf2cfe2932929e9624c19))
+
 ## [0.2.74](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.73...@ogcio/building-blocks-sdk@v0.2.74) (2026-01-20)
 
 
