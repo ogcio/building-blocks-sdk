@@ -2761,25 +2761,6 @@
                   "allowCustomAmount": {
                     "type": "boolean"
                   },
-                  "allowedAuthMethods": {
-                    "type": "array",
-                    "items": {
-                      "anyOf": [
-                        {
-                          "type": "string",
-                          "enum": [
-                            "email_otp"
-                          ]
-                        },
-                        {
-                          "type": "string",
-                          "enum": [
-                            "social:mygovid"
-                          ]
-                        }
-                      ]
-                    }
-                  },
                   "providers": {
                     "type": "array",
                     "items": {
@@ -2842,7 +2823,6 @@
                   "redirectUrl",
                   "allowAmountOverride",
                   "allowCustomAmount",
-                  "allowedAuthMethods",
                   "providers",
                   "status",
                   "paymentRequestId",

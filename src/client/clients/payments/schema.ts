@@ -1388,7 +1388,6 @@ export interface operations {
                     redirectUrl: string | null;
                     allowAmountOverride: boolean;
                     allowCustomAmount: boolean;
-                    allowedAuthMethods: ("email_otp" | "social:mygovid")[];
                     providers: string[];
                     status: "active" | "inactive" | "draft";
                     paymentRequestId: string;
