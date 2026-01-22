@@ -1324,6 +1324,7 @@ export interface operations {
                                 status: "connected" | "disconnected";
                                 createdAt: string;
                             }[];
+                            allowedAuthMethods: ("email_otp" | "social:mygovid")[];
                             status: "active" | "inactive" | "draft";
                         }[];
                         metadata?: {
@@ -1387,6 +1388,7 @@ export interface operations {
                     redirectUrl: string | null;
                     allowAmountOverride: boolean;
                     allowCustomAmount: boolean;
+                    allowedAuthMethods: ("email_otp" | "social:mygovid")[];
                     providers: string[];
                     status: "active" | "inactive" | "draft";
                     paymentRequestId: string;
@@ -1506,6 +1508,7 @@ export interface operations {
                     redirectUrl: string | null;
                     allowAmountOverride: boolean;
                     allowCustomAmount: boolean;
+                    allowedAuthMethods: ("email_otp" | "social:mygovid")[];
                     providers: string[];
                     status: "active" | "inactive" | "draft";
                 };
@@ -1627,6 +1630,7 @@ export interface operations {
                                 ga?: string;
                             };
                             amount?: number;
+                            allowedAuthMethods: ("email_otp" | "social:mygovid")[];
                             allowAmountOverride: boolean;
                             createdAt: string;
                         }[];
@@ -1720,7 +1724,10 @@ export interface operations {
                          *       "status": "active",
                          *       "redirectUrl": "https://example.com/payment-success",
                          *       "allowAmountOverride": false,
-                         *       "allowCustomAmount": false
+                         *       "allowCustomAmount": false,
+                         *       "allowedAuthMethods": [
+                         *         "email_otp"
+                         *       ]
                          *     }
                          */
                         data: {
@@ -1743,6 +1750,7 @@ export interface operations {
                                 status: "connected" | "disconnected";
                                 createdAt: string;
                             }[];
+                            allowedAuthMethods: ("email_otp" | "social:mygovid")[];
                             status: "active" | "inactive" | "draft";
                             redirectUrl?: string;
                             allowAmountOverride: boolean;
@@ -1936,6 +1944,7 @@ export interface operations {
                             redirectUrl: string;
                             allowAmountOverride: boolean;
                             allowCustomAmount: boolean;
+                            allowedAuthMethods: ("email_otp" | "social:mygovid")[];
                         };
                         metadata?: {
                             /** @description Object containing the links to the related endpoints */
@@ -2134,6 +2143,7 @@ export interface operations {
                             status: "initiated" | "pending" | "succeeded" | "cancelled" | "cancellation_requested" | "failed" | "refunded" | "refund_failed";
                             amount: number;
                             extPaymentId: string;
+                            choosenAuthMethod: string;
                             paymentProviderId: string;
                             updatedAt: string;
                             title: {
@@ -2241,6 +2251,7 @@ export interface operations {
                          *         "en": "Driver License Renewal Fee",
                          *         "ga": "Táille Athnuachana Ceadúnais Tiomána"
                          *       },
+                         *       "choosenAuthMethod": "email_otp",
                          *       "description": {
                          *         "en": "Payment for renewing your driver license",
                          *         "ga": "Íocaíocht le haghaidh do cheadúnais tiomána a athnuachan"
@@ -2272,6 +2283,7 @@ export interface operations {
                             status: "initiated" | "pending" | "succeeded" | "cancelled" | "cancellation_requested" | "failed" | "refunded" | "refund_failed";
                             amount: number;
                             extPaymentId: string;
+                            choosenAuthMethod: string;
                             paymentProviderId: string;
                             updatedAt: string;
                             title: {
@@ -2561,6 +2573,7 @@ export interface operations {
                             status: "initiated" | "pending" | "succeeded" | "cancelled" | "cancellation_requested" | "failed" | "refunded" | "refund_failed";
                             amount: number;
                             extPaymentId: string;
+                            choosenAuthMethod: string;
                             paymentProviderId: string;
                             updatedAt: string;
                             title: {
@@ -2825,6 +2838,7 @@ export interface operations {
                             status: "initiated" | "pending" | "succeeded" | "cancelled" | "cancellation_requested" | "failed" | "refunded" | "refund_failed";
                             amount: number;
                             extPaymentId: string;
+                            choosenAuthMethod: string;
                             paymentProviderId: string;
                             updatedAt: string;
                             title: {
@@ -2958,24 +2972,7 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        examples?: {
-                            userId?: string;
-                            transactionId?: string;
-                            paymentRequestId?: string;
-                            paymentRequestTitle?: {
-                                en?: string;
-                                ga?: string;
-                            };
-                            amount?: number;
-                            extReferenceCode?: string;
-                            paymentMethod?: string;
-                            paymentProviderName?: string;
-                            status?: string;
-                            /** Format: date-time */
-                            createdAt?: string;
-                            /** Format: date-time */
-                            updatedAt?: string;
-                        }[];
+                        examples?: Record<string, never>[];
                         type?: string;
                         properties?: {
                             userId?: {
@@ -3011,6 +3008,9 @@ export interface operations {
                                 type?: string;
                             };
                             paymentProviderName?: {
+                                type?: string;
+                            };
+                            choosenAuthMethod?: {
                                 type?: string;
                             };
                             status?: {
@@ -3141,6 +3141,7 @@ export interface operations {
                          *       "extReferenceCode": "pi_stripe_1234567890",
                          *       "paymentMethod": "card",
                          *       "paymentProviderName": "Stripe Production",
+                         *       "choosenAuthMethod": "email_otp",
                          *       "status": "succeeded",
                          *       "createdAt": "2024-01-15T14:30:00Z",
                          *       "updatedAt": "2024-01-15T14:30:00Z"
@@ -3158,6 +3159,7 @@ export interface operations {
                             extReferenceCode: string;
                             paymentMethod: string;
                             paymentProviderName: string;
+                            choosenAuthMethod: string;
                             status: "initiated" | "pending" | "succeeded" | "cancelled" | "cancellation_requested" | "failed" | "refunded" | "refund_failed";
                             createdAt: string;
                             updatedAt: string;
@@ -3790,6 +3792,7 @@ export interface operations {
                          *         "en": "Driver License Renewal Fee",
                          *         "ga": "Táille Athnuachana Ceadúnais Tiomána"
                          *       },
+                         *       "choosenAuthMethod": "email_otp",
                          *       "description": {
                          *         "en": "Payment for renewing your driver license",
                          *         "ga": "Íocaíocht le haghaidh do cheadúnais tiomána a athnuachan"
@@ -3821,6 +3824,7 @@ export interface operations {
                             status: "initiated" | "pending" | "succeeded" | "cancelled" | "cancellation_requested" | "failed" | "refunded" | "refund_failed";
                             amount: number;
                             extPaymentId: string;
+                            choosenAuthMethod: string;
                             paymentProviderId: string;
                             updatedAt: string;
                             title: {
