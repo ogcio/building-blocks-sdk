@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.77](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.76...@ogcio/building-blocks-sdk@v0.2.77) (2026-01-28)
+
+
+### Bug Fixes
+
+* fetch token error handling ([#318](https://github.com/ogcio/building-blocks-sdk/issues/318)) ([44a2cc0](https://github.com/ogcio/building-blocks-sdk/commit/44a2cc08b58d2fc5604a23e26ae6d0e7e784ab50))
+
 ## [0.2.76](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.75...@ogcio/building-blocks-sdk@v0.2.76) (2026-01-22)
 
 

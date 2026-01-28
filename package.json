@@ -1,6 +1,6 @@
 {
   "name": "@ogcio/building-blocks-sdk",
-  "version": "0.2.76",
+  "version": "0.2.77",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
