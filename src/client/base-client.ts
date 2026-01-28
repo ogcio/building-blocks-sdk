@@ -53,6 +53,9 @@ export abstract class BaseClient<T extends {}> {
           if ((err as unknown as GenericError).name === "SyntaxError") {
             throw new AccessTokenError();
           }
+
+          // Bypass the original error
+          throw err;
         }
 
         if (this.logger) {
