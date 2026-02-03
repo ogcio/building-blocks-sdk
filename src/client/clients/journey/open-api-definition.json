@@ -2079,6 +2079,87 @@
               }
             }
           },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "500": {
             "description": "Default Response",
             "content": {
@@ -10904,6 +10985,9 @@
                         "createdAt": {
                           "type": "string"
                         },
+                        "updatedAt": {
+                          "type": "string"
+                        },
                         "actionLabel": {
                           "type": "object",
                           "properties": {
@@ -10927,6 +11011,7 @@
                         "runId",
                         "title",
                         "createdAt",
+                        "updatedAt",
                         "actionLabel",
                         "returnUrl"
                       ],
@@ -10937,6 +11022,7 @@
                           "ga": "Teistphostú"
                         },
                         "createdAt": "2025-10-09T15:02:00.000Z",
+                        "updatedAt": "2025-10-09T15:03:00.000Z",
                         "actionLabel": {
                           "en": "View Submission",
                           "ga": "Féach ar an gCur isteach"
@@ -12324,6 +12410,340 @@
           }
         }
       }
+    },
+    "/api/v1/exporter/submissions/{journeyId}": {
+      "get": {
+        "operationId": "exportSubmissions",
+        "summary": "Export submissions for a journey",
+        "tags": [
+          "Exporter"
+        ],
+        "description": "Export submissions for a journey",
+        "parameters": [
+          {
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "type": "number"
+            },
+            "in": "query",
+            "name": "offset",
+            "required": false
+          },
+          {
+            "schema": {
+              "default": 10,
+              "minimum": 1,
+              "maximum": 10,
+              "type": "number"
+            },
+            "in": "query",
+            "name": "limit",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "journeyId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "journeySubmissionId": {
+                            "type": "string"
+                          },
+                          "journeyName": {
+                            "type": "string"
+                          },
+                          "journeySubmissionStatus": {
+                            "type": "string"
+                          },
+                          "journeySubmissionCreatedAt": {
+                            "type": "string"
+                          },
+                          "journeySubmissionUpdatedAt": {
+                            "type": "string"
+                          },
+                          "payment": {
+                            "type": "object",
+                            "properties": {
+                              "referenceId": {
+                                "type": "string"
+                              },
+                              "requestTitle": {
+                                "type": "string"
+                              },
+                              "amount": {
+                                "type": "number"
+                              },
+                              "updatedAt": {
+                                "type": "string"
+                              },
+                              "status": {
+                                "type": "string"
+                              },
+                              "providerName": {
+                                "type": "string"
+                              },
+                              "providerType": {
+                                "type": "string"
+                              },
+                              "metadata": {
+                                "type": "object",
+                                "additionalProperties": {
+                                  "type": "string"
+                                },
+                                "example": {
+                                  "stripeChargeId": "ch_3SnhgxB1C43EN5FC1A1GL06b"
+                                }
+                              }
+                            },
+                            "required": [
+                              "referenceId",
+                              "requestTitle",
+                              "amount",
+                              "updatedAt",
+                              "status",
+                              "providerName",
+                              "providerType",
+                              "metadata"
+                            ]
+                          },
+                          "formSubmission": {
+                            "type": "object",
+                            "properties": {
+                              "_id": {
+                                "type": "string"
+                              },
+                              "encryptedContent": {
+                                "type": "string"
+                              },
+                              "locale": {
+                                "type": "string"
+                              },
+                              "paymentAmountRequired": {
+                                "type": "number"
+                              },
+                              "processed": {
+                                "type": "boolean"
+                              },
+                              "submissionTags": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "version": {
+                                "type": "number"
+                              },
+                              "created": {
+                                "type": "string"
+                              },
+                              "attachmentMetadata": {
+                                "type": "object",
+                                "additionalProperties": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "required": [
+                              "_id",
+                              "encryptedContent",
+                              "locale",
+                              "paymentAmountRequired",
+                              "processed",
+                              "submissionTags",
+                              "version",
+                              "created",
+                              "attachmentMetadata"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "journeySubmissionId",
+                          "journeyName",
+                          "journeySubmissionStatus",
+                          "journeySubmissionCreatedAt",
+                          "journeySubmissionUpdatedAt",
+                          "formSubmission"
+                        ]
+                      }
+                    },
+                    "metadata": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "object",
+                          "properties": {
+                            "self": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "next": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "prev": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "first": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "last": {
+                              "type": "object",
+                              "properties": {
+                                "href": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "pages": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "self",
+                            "first",
+                            "last",
+                            "pages"
+                          ]
+                        },
+                        "totalCount": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "validation": {},
+                    "validationContext": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ]
+                },
+                "examples": {
+                  "example1": {
+                    "value": {
+                      "code": "400",
+                      "detail": "Bad Request - Invalid input data",
+                      "requestId": "req_1234567890abcdef",
+                      "name": "BadRequestError"
+                    }
+                  },
+                  "example2": {
+                    "value": {
+                      "code": "401",
+                      "detail": "Unauthorized - Missing or invalid JWT token",
+                      "requestId": "req_0987654321fedcba",
+                      "name": "UnauthorizedError"
+                    }
+                  },
+                  "example3": {
+                    "value": {
+                      "code": "404",
+                      "detail": "Not Found - Resource not found",
+                      "requestId": "req_fedcba0987654321",
+                      "name": "NotFoundError"
+                    }
+                  },
+                  "example4": {
+                    "value": {
+                      "code": "422",
+                      "detail": "Unprocessable Entity - Validation failed",
+                      "requestId": "req_abcdef1234567890",
+                      "name": "ValidationError",
+                      "validation": {
+                        "field": "title.en",
+                        "message": "Title in English is required"
+                      },
+                      "validationContext": "body"
+                    }
+                  },
+                  "example5": {
+                    "value": {
+                      "code": "500",
+                      "detail": "Internal Server Error - An unexpected error occurred",
+                      "requestId": "req_1234567890fedcba",
+                      "name": "InternalServerError"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "servers": [
@@ -12385,6 +12805,10 @@
     {
       "name": "Tester",
       "description": "Testing and development utilities"
+    },
+    {
+      "name": "Exporter",
+      "description": "Export submissions from journeys"
     }
   ]
 }
