@@ -7,6 +7,7 @@ import { Payments } from "./client/clients/payments/index.js";
 import { Profile } from "./client/clients/profile/index.js";
 import { Scheduler } from "./client/clients/scheduler/index.js";
 import { Upload } from "./client/clients/upload/index.js";
+
 export { getM2MTokenFn } from "./client/auth/index.js";
 
 import type {
@@ -17,7 +18,7 @@ import type {
   TokenFunction,
 } from "./types/index.js";
 
-export type { TokenFunction, BuildingBlocksSDK } from "./types/index.js";
+export type { BuildingBlocksSDK, TokenFunction } from "./types/index.js";
 
 // Create type that only includes services that are defined in params
 export type DefinedServices<T extends BuildingBlockSDKParams> = {
