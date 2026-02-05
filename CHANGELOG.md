@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.78](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.77...@ogcio/building-blocks-sdk@v0.2.78) (2026-02-05)
+
+
+### Features
+
+* updated dependencies ([#321](https://github.com/ogcio/building-blocks-sdk/issues/321)) ([ac6b7aa](https://github.com/ogcio/building-blocks-sdk/commit/ac6b7aab1b55492538580f8e31ceb17c75197be5))
+* updated deps ([#323](https://github.com/ogcio/building-blocks-sdk/issues/323)) ([1939e0d](https://github.com/ogcio/building-blocks-sdk/commit/1939e0d96355febe0f3aa6c50b1a5192f95253e2))
+
 ## [0.2.77](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.76...@ogcio/building-blocks-sdk@v0.2.77) (2026-01-28)
 
 
