@@ -158,8 +158,8 @@ export function getNumberValueFromObject(
   return Number(value);
 }
 
-export function throwIfEmpty(input: string): void {
+export function throwIfEmpty(input: string | string[]): void {
   if (!input || input.length === 0) {
-    throw Error("Parameter cannot be an empty string!");
+    throw Error("Parameter cannot be an empty string or array!");
   }
 }
