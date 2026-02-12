@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.79](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.78...@ogcio/building-blocks-sdk@v0.2.79) (2026-02-12)
+
+
+### Features
+
+* **upload-api:** enable multiple-sharing-permissions [#34887](https://github.com/ogcio/building-blocks-sdk/issues/34887) ([#324](https://github.com/ogcio/building-blocks-sdk/issues/324)) ([6b48f3a](https://github.com/ogcio/building-blocks-sdk/commit/6b48f3af3d4cb4b872c4e7ed2da3d7f7a6f33a3e))
+
 ## [0.2.78](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.77...@ogcio/building-blocks-sdk@v0.2.78) (2026-02-05)
 
 
