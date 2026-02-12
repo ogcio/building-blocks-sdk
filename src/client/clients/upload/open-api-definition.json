@@ -33,22 +33,22 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "data"
+                  ],
                   "properties": {
                     "data": {
                       "type": "object",
+                      "required": [
+                        "id"
+                      ],
                       "properties": {
                         "id": {
                           "type": "string"
                         }
-                      },
-                      "required": [
-                        "id"
-                      ]
+                      }
                     }
-                  },
-                  "required": [
-                    "data"
-                  ]
+                  }
                 }
               }
             }
@@ -59,6 +59,12 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ],
                   "properties": {
                     "code": {
                       "type": "string"
@@ -76,13 +82,7 @@
                     "validationContext": {
                       "type": "string"
                     }
-                  },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  }
                 }
               }
             }
@@ -93,6 +93,12 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ],
                   "properties": {
                     "code": {
                       "type": "string"
@@ -110,13 +116,7 @@
                     "validationContext": {
                       "type": "string"
                     }
-                  },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  }
                 }
               }
             }
@@ -156,6 +156,12 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ],
                   "properties": {
                     "code": {
                       "type": "string"
@@ -173,13 +179,7 @@
                     "validationContext": {
                       "type": "string"
                     }
-                  },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  }
                 }
               }
             }
@@ -190,6 +190,12 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ],
                   "properties": {
                     "code": {
                       "type": "string"
@@ -207,13 +213,7 @@
                     "validationContext": {
                       "type": "string"
                     }
-                  },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  }
                 }
               }
             }
@@ -251,11 +251,24 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "data"
+                  ],
                   "properties": {
                     "data": {
                       "type": "array",
                       "items": {
                         "type": "object",
+                        "required": [
+                          "fileName",
+                          "key",
+                          "ownerId",
+                          "fileSize",
+                          "mimeType",
+                          "createdAt",
+                          "lastScan",
+                          "infected"
+                        ],
                         "properties": {
                           "fileName": {
                             "type": "string"
@@ -282,8 +295,8 @@
                             "type": "string"
                           },
                           "deleted": {
-                            "default": false,
-                            "type": "boolean"
+                            "type": "boolean",
+                            "default": false
                           },
                           "infected": {
                             "type": "boolean"
@@ -297,23 +310,10 @@
                           "expiresAt": {
                             "type": "string"
                           }
-                        },
-                        "required": [
-                          "fileName",
-                          "key",
-                          "ownerId",
-                          "fileSize",
-                          "mimeType",
-                          "createdAt",
-                          "lastScan",
-                          "infected"
-                        ]
+                        }
                       }
                     }
-                  },
-                  "required": [
-                    "data"
-                  ]
+                  }
                 }
               }
             }
@@ -324,6 +324,12 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ],
                   "properties": {
                     "code": {
                       "type": "string"
@@ -341,13 +347,7 @@
                     "validationContext": {
                       "type": "string"
                     }
-                  },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  }
                 }
               }
             }
@@ -358,6 +358,12 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ],
                   "properties": {
                     "code": {
                       "type": "string"
@@ -375,13 +381,7 @@
                     "validationContext": {
                       "type": "string"
                     }
-                  },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  }
                 }
               }
             }
@@ -397,14 +397,14 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "required": [
+                  "fileId"
+                ],
                 "properties": {
                   "fileId": {
                     "type": "string"
                   }
-                },
-                "required": [
-                  "fileId"
-                ]
+                }
               }
             }
           },
@@ -417,22 +417,22 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "data"
+                  ],
                   "properties": {
                     "data": {
                       "type": "object",
+                      "required": [
+                        "id"
+                      ],
                       "properties": {
                         "id": {
                           "type": "string"
                         }
-                      },
-                      "required": [
-                        "id"
-                      ]
+                      }
                     }
-                  },
-                  "required": [
-                    "data"
-                  ]
+                  }
                 }
               }
             }
@@ -443,6 +443,12 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ],
                   "properties": {
                     "code": {
                       "type": "string"
@@ -460,13 +466,7 @@
                     "validationContext": {
                       "type": "string"
                     }
-                  },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  }
                 }
               }
             }
@@ -477,6 +477,12 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ],
                   "properties": {
                     "code": {
                       "type": "string"
@@ -494,13 +500,7 @@
                     "validationContext": {
                       "type": "string"
                     }
-                  },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  }
                 }
               }
             }
@@ -530,9 +530,22 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "data"
+                  ],
                   "properties": {
                     "data": {
                       "type": "object",
+                      "required": [
+                        "fileName",
+                        "key",
+                        "ownerId",
+                        "fileSize",
+                        "mimeType",
+                        "createdAt",
+                        "lastScan",
+                        "infected"
+                      ],
                       "properties": {
                         "fileName": {
                           "type": "string"
@@ -559,8 +572,8 @@
                           "type": "string"
                         },
                         "deleted": {
-                          "default": false,
-                          "type": "boolean"
+                          "type": "boolean",
+                          "default": false
                         },
                         "infected": {
                           "type": "boolean"
@@ -574,22 +587,9 @@
                         "expiresAt": {
                           "type": "string"
                         }
-                      },
-                      "required": [
-                        "fileName",
-                        "key",
-                        "ownerId",
-                        "fileSize",
-                        "mimeType",
-                        "createdAt",
-                        "lastScan",
-                        "infected"
-                      ]
+                      }
                     }
-                  },
-                  "required": [
-                    "data"
-                  ]
+                  }
                 }
               }
             }
@@ -600,6 +600,12 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ],
                   "properties": {
                     "code": {
                       "type": "string"
@@ -617,13 +623,7 @@
                     "validationContext": {
                       "type": "string"
                     }
-                  },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  }
                 }
               }
             }
@@ -634,6 +634,12 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ],
                   "properties": {
                     "code": {
                       "type": "string"
@@ -651,13 +657,7 @@
                     "validationContext": {
                       "type": "string"
                     }
-                  },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  }
                 }
               }
             }
@@ -674,23 +674,45 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "fileId": {
-                    "type": "string"
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "required": [
+                      "fileId",
+                      "userId"
+                    ],
+                    "properties": {
+                      "fileId": {
+                        "type": "string"
+                      },
+                      "userId": {
+                        "type": "string"
+                      }
+                    }
                   },
-                  "userId": {
-                    "type": "string"
+                  {
+                    "type": "object",
+                    "required": [
+                      "fileId",
+                      "userIds"
+                    ],
+                    "properties": {
+                      "fileId": {
+                        "type": "string"
+                      },
+                      "userIds": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "minItems": 1
+                      }
+                    }
                   }
-                },
-                "required": [
-                  "fileId",
-                  "userId"
                 ]
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "201": {
@@ -699,26 +721,49 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "properties": {
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "fileId": {
-                          "type": "string"
-                        },
-                        "userId": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "fileId",
-                        "userId"
-                      ]
-                    }
-                  },
                   "required": [
                     "data"
-                  ]
+                  ],
+                  "properties": {
+                    "data": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "required": [
+                            "fileId",
+                            "userId"
+                          ],
+                          "properties": {
+                            "fileId": {
+                              "type": "string"
+                            },
+                            "userId": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "required": [
+                            "fileId",
+                            "userIds"
+                          ],
+                          "properties": {
+                            "fileId": {
+                              "type": "string"
+                            },
+                            "userIds": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "minItems": 1
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
                 }
               }
             }
@@ -729,6 +774,12 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ],
                   "properties": {
                     "code": {
                       "type": "string"
@@ -746,13 +797,7 @@
                     "validationContext": {
                       "type": "string"
                     }
-                  },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  }
                 }
               }
             }
@@ -763,6 +808,12 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ],
                   "properties": {
                     "code": {
                       "type": "string"
@@ -780,13 +831,7 @@
                     "validationContext": {
                       "type": "string"
                     }
-                  },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  }
                 }
               }
             }
@@ -802,6 +847,10 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "required": [
+                  "fileId",
+                  "userId"
+                ],
                 "properties": {
                   "fileId": {
                     "type": "string"
@@ -809,11 +858,7 @@
                   "userId": {
                     "type": "string"
                   }
-                },
-                "required": [
-                  "fileId",
-                  "userId"
-                ]
+                }
               }
             }
           },
@@ -826,6 +871,12 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ],
                   "properties": {
                     "code": {
                       "type": "string"
@@ -843,13 +894,7 @@
                     "validationContext": {
                       "type": "string"
                     }
-                  },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  }
                 }
               }
             }
@@ -860,6 +905,12 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ],
                   "properties": {
                     "code": {
                       "type": "string"
@@ -877,13 +928,7 @@
                     "validationContext": {
                       "type": "string"
                     }
-                  },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  }
                 }
               }
             }
@@ -911,11 +956,18 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "data"
+                  ],
                   "properties": {
                     "data": {
                       "type": "array",
                       "items": {
                         "type": "object",
+                        "required": [
+                          "fileId",
+                          "userId"
+                        ],
                         "properties": {
                           "fileId": {
                             "type": "string"
@@ -923,17 +975,10 @@
                           "userId": {
                             "type": "string"
                           }
-                        },
-                        "required": [
-                          "fileId",
-                          "userId"
-                        ]
+                        }
                       }
                     }
-                  },
-                  "required": [
-                    "data"
-                  ]
+                  }
                 }
               }
             }
@@ -944,6 +989,12 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ],
                   "properties": {
                     "code": {
                       "type": "string"
@@ -961,13 +1012,7 @@
                     "validationContext": {
                       "type": "string"
                     }
-                  },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  }
                 }
               }
             }
@@ -978,6 +1023,12 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "code",
+                    "detail",
+                    "requestId",
+                    "name"
+                  ],
                   "properties": {
                     "code": {
                       "type": "string"
@@ -995,13 +1046,7 @@
                     "validationContext": {
                       "type": "string"
                     }
-                  },
-                  "required": [
-                    "code",
-                    "detail",
-                    "requestId",
-                    "name"
-                  ]
+                  }
                 }
               }
             }

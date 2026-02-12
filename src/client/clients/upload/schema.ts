@@ -451,11 +451,14 @@ export interface paths {
                 path?: never;
                 cookie?: never;
             };
-            requestBody: {
+            requestBody?: {
                 content: {
                     "application/json": {
                         fileId: string;
                         userId: string;
+                    } | {
+                        fileId: string;
+                        userIds: string[];
                     };
                 };
             };
@@ -470,6 +473,9 @@ export interface paths {
                             data: {
                                 fileId: string;
                                 userId: string;
+                            } | {
+                                fileId: string;
+                                userIds: string[];
                             };
                         };
                     };
