@@ -114,12 +114,12 @@ export class Upload extends BaseClient<paths> {
       );
   }
 
-  shareFile(fileId: string, userId: string) {
+  shareFile(fileId: string, ...userIds: string[]) {
     throwIfEmpty(fileId);
-    throwIfEmpty(userId);
+    throwIfEmpty(userIds);
     return this.client
       .POST("/api/v1/permissions/", {
-        body: { fileId, userId },
+        body: { fileId, userIds },
       })
       .then(
         (response) => formatResponse(response, this.serviceName, this.logger),
