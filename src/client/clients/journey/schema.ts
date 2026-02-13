@@ -559,6 +559,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/exporter/submissions/{journeyId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Export submissions for a journey
+         * @description Export submissions for a journey
+         */
+        get: operations["exportSubmissions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -1131,6 +1151,22 @@ export interface operations {
             };
             /** @description Default Response */
             401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        detail: string;
+                        requestId: string;
+                        name: string;
+                        validation?: unknown;
+                        validationContext?: string;
+                    };
+                };
+            };
+            /** @description Default Response */
+            404: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -3380,6 +3416,7 @@ export interface operations {
                          *         "ga": "Teistphostú"
                          *       },
                          *       "createdAt": "2025-10-09T15:02:00.000Z",
+                         *       "updatedAt": "2025-10-09T15:03:00.000Z",
                          *       "actionLabel": {
                          *         "en": "View Submission",
                          *         "ga": "Féach ar an gCur isteach"
@@ -3394,6 +3431,7 @@ export interface operations {
                                 ga?: string;
                             };
                             createdAt: string;
+                            updatedAt: string;
                             actionLabel: {
                                 en: string;
                                 ga?: string;
@@ -3768,6 +3806,110 @@ export interface operations {
             };
             /** @description Default Response */
             500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        code: string;
+                        detail: string;
+                        requestId: string;
+                        name: string;
+                        validation?: unknown;
+                        validationContext?: string;
+                    };
+                };
+            };
+        };
+    };
+    exportSubmissions: {
+        parameters: {
+            query?: {
+                offset?: number;
+                limit?: number;
+            };
+            header?: never;
+            path: {
+                journeyId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            journeySubmissionId: string;
+                            journeyName: string;
+                            journeySubmissionStatus: string;
+                            journeySubmissionCreatedAt: string;
+                            journeySubmissionUpdatedAt: string;
+                            payment?: {
+                                referenceId: string;
+                                requestTitle: string;
+                                amount: number;
+                                updatedAt: string;
+                                status: string;
+                                providerName: string;
+                                providerType: string;
+                                /**
+                                 * @example {
+                                 *       "stripeChargeId": "ch_3SnhgxB1C43EN5FC1A1GL06b"
+                                 *     }
+                                 */
+                                metadata: {
+                                    [key: string]: string;
+                                };
+                            };
+                            formSubmission: {
+                                _id: string;
+                                encryptedContent: string;
+                                locale: string;
+                                paymentAmountRequired: number;
+                                processed: boolean;
+                                submissionTags: string[];
+                                version: number;
+                                created: string;
+                                attachmentMetadata: {
+                                    [key: string]: string;
+                                };
+                            };
+                        }[];
+                        metadata?: {
+                            links?: {
+                                self: {
+                                    href?: string;
+                                };
+                                next?: {
+                                    href?: string;
+                                };
+                                prev?: {
+                                    href?: string;
+                                };
+                                first: {
+                                    href?: string;
+                                };
+                                last: {
+                                    href?: string;
+                                };
+                                pages: {
+                                    [key: string]: {
+                                        href?: string;
+                                    };
+                                };
+                            };
+                            totalCount?: number;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            401: {
                 headers: {
                     [name: string]: unknown;
                 };
