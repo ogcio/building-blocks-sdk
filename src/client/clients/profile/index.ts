@@ -126,15 +126,6 @@ export class Profile extends BaseClient<paths> {
       );
   }
 
-  async deleteProfile(
-    params: paths["/api/v1/profiles/{profileId}"]["delete"]["parameters"]["path"],
-  ) {
-    throwIfEmpty(params.profileId);
-    return this.client.DELETE("/api/v1/profiles/{profileId}", {
-      params: { path: params },
-    });
-  }
-
   async findProfile(
     query: Omit<
       paths["/api/v1/profiles/find-profile"]["get"]["parameters"]["query"],
@@ -336,6 +327,45 @@ export class Profile extends BaseClient<paths> {
       params: {
         query: includeCustomData ? { includeCustomData: "true" } : undefined,
         path: { organisationId },
+      },
+    });
+  }
+
+  async createExportUserDataLifecycleTask(
+    params: Omit<
+      paths["/api/v1/lifecycle-tasks/"]["post"]["requestBody"]["content"]["application/json"],
+      "type"
+    >,
+  ) {
+    return this.client.POST("/api/v1/lifecycle-tasks/", {
+      body: { ...params, type: "export_user_data" },
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
+  async createDeleteProfileLifecycleTask(
+    params: Omit<
+      paths["/api/v1/lifecycle-tasks/"]["post"]["requestBody"]["content"]["application/json"],
+      "type"
+    >,
+  ) {
+    return this.client.POST("/api/v1/lifecycle-tasks/", {
+      body: { ...params, type: "delete_profile" },
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
+  async getLifecycleTasks(
+    params: paths["/api/v1/lifecycle-tasks/search"]["post"]["requestBody"]["content"]["application/json"] = {},
+  ) {
+    return this.client.POST("/api/v1/lifecycle-tasks/search", {
+      body: params,
+      headers: {
+        "Content-Type": "application/json",
       },
     });
   }

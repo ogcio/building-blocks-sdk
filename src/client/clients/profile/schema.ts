@@ -275,6 +275,38 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/lifecycle-tasks/search": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["getLifecycleTasks"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/lifecycle-tasks/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["createLifecycleTask"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/organisations/profiles/{profileId}": {
         parameters: {
             query?: never;
@@ -365,7 +397,7 @@ export interface paths {
         get: operations["getProfile"];
         put: operations["putProfile"];
         post?: never;
-        delete: operations["deleteProfile"];
+        delete?: never;
         options?: never;
         head?: never;
         patch: operations["patchProfile"];
@@ -2220,6 +2252,177 @@ export interface operations {
             };
         };
     };
+    getLifecycleTasks: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    profileId?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            tasks: {
+                                /** Format: uuid */
+                                id: string;
+                                type: "delete_profile" | "export_user_data";
+                                status: "pending" | "processing" | "completed" | "failed";
+                                metadata: {
+                                    /** Format: date-time */
+                                    expiresAt?: string;
+                                } | null;
+                            }[];
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+        };
+    };
+    createLifecycleTask: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    type: "delete_profile" | "export_user_data";
+                    profileId: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                        };
+                    };
+                };
+            };
+            /** @description Default Response */
+            "4XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+            /** @description Default Response */
+            "5XX": {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Code used to categorize the error */
+                        code: string;
+                        /** @description Description of the error */
+                        detail: string;
+                        /** @description Unique request id. This one will be used to troubleshoot the problems */
+                        requestId: string;
+                        /** @description Name of the error type */
+                        name: string;
+                        /** @description List of the validation errors */
+                        validation?: {
+                            fieldName: string;
+                            message: string;
+                        }[];
+                        validationContext?: string;
+                        statusCode: number;
+                    };
+                };
+            };
+        };
+    };
     adminProfilesPatch: {
         parameters: {
             query?: never;
@@ -3495,117 +3698,6 @@ export interface operations {
             };
         };
     };
-    deleteProfile: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID of the profile to delete */
-                profileId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Default Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        data: {
-                            /** @description ID of the created task */
-                            taskId: string;
-                        };
-                        metadata?: {
-                            /** @description Object containing the links to the related endpoints */
-                            links?: {
-                                self: {
-                                    /** @description URL pointing to the request itself */
-                                    href?: string;
-                                };
-                                next?: {
-                                    /** @description URL pointing to the next page of results in a paginated response. If there are no more results, this field may be omitted */
-                                    href?: string;
-                                };
-                                prev?: {
-                                    /** @description URL pointing to the previous page of results in a paginated response. If there are no more results, this field may be omitted */
-                                    href?: string;
-                                };
-                                first: {
-                                    /** @description URL pointing to the first page of results in a paginated response */
-                                    href?: string;
-                                };
-                                last: {
-                                    /** @description URL pointing to the first page of results in a paginated response */
-                                    href?: string;
-                                };
-                                /** @description It may contain a list of other useful URLs, e.g. one entry for page:'page 1', 'page 2' */
-                                pages: {
-                                    [key: string]: {
-                                        href?: string;
-                                    };
-                                };
-                            };
-                            /** @description Number representing the total number of available items */
-                            totalCount?: number;
-                        };
-                    };
-                };
-            };
-            /** @description Default Response */
-            "4XX": {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /** @description Code used to categorize the error */
-                        code: string;
-                        /** @description Description of the error */
-                        detail: string;
-                        /** @description Unique request id. This one will be used to troubleshoot the problems */
-                        requestId: string;
-                        /** @description Name of the error type */
-                        name: string;
-                        /** @description List of the validation errors */
-                        validation?: {
-                            fieldName: string;
-                            message: string;
-                        }[];
-                        validationContext?: string;
-                        statusCode: number;
-                    };
-                };
-            };
-            /** @description Default Response */
-            "5XX": {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /** @description Code used to categorize the error */
-                        code: string;
-                        /** @description Description of the error */
-                        detail: string;
-                        /** @description Unique request id. This one will be used to troubleshoot the problems */
-                        requestId: string;
-                        /** @description Name of the error type */
-                        name: string;
-                        /** @description List of the validation errors */
-                        validation?: {
-                            fieldName: string;
-                            message: string;
-                        }[];
-                        validationContext?: string;
-                        statusCode: number;
-                    };
-                };
-            };
-        };
-    };
     patchProfile: {
         parameters: {
             query?: {
@@ -3619,7 +3711,7 @@ export interface operations {
             };
             cookie?: never;
         };
-        requestBody?: {
+        requestBody: {
             content: {
                 "application/json": {
                     publicName?: string;
@@ -3799,7 +3891,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: {
+        requestBody: {
             content: {
                 "application/json": {
                     profiles?: {
@@ -4085,7 +4177,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: {
+        requestBody: {
             content: {
                 "application/json": {
                     profiles?: {
