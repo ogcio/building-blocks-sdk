@@ -345,6 +345,20 @@ export class Profile extends BaseClient<paths> {
     });
   }
 
+  async createDeleteProfileLifecycleTask(
+    params: Omit<
+      paths["/api/v1/lifecycle-tasks/"]["post"]["requestBody"]["content"]["application/json"],
+      "type"
+    >,
+  ) {
+    return this.client.POST("/api/v1/lifecycle-tasks/", {
+      body: { ...params, type: "delete_profile" },
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
   async getLifecycleTasks(
     params: paths["/api/v1/lifecycle-tasks/search"]["post"]["requestBody"]["content"]["application/json"] = {},
   ) {
