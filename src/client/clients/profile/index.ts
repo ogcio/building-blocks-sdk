@@ -369,4 +369,21 @@ export class Profile extends BaseClient<paths> {
       },
     });
   }
+
+  async downloadLifecycleTaskContext(params: {
+    profileId: string;
+    lifecycleTaskId: string;
+  }) {
+    return this.client.GET("/api/v1/lifecycle-tasks/{id}/action", {
+      params: {
+        path: {
+          id: params.lifecycleTaskId,
+        },
+        query: {
+          profileId: params.profileId,
+          q: "download",
+        },
+      },
+    });
+  }
 }
