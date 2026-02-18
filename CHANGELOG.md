@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.80](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.79...@ogcio/building-blocks-sdk@v0.2.80) (2026-02-18)
+
+
+### Features
+
+* download file endpoint ([#327](https://github.com/ogcio/building-blocks-sdk/issues/327)) ([02e4ad7](https://github.com/ogcio/building-blocks-sdk/commit/02e4ad756db05fa1a5d47c4b69691ec76928f1e8))
+
 ## [0.2.79](https://github.com/ogcio/building-blocks-sdk/compare/@ogcio/building-blocks-sdk@v0.2.78...@ogcio/building-blocks-sdk@v0.2.79) (2026-02-12)
 
 
